@@ -1,7 +1,7 @@
 version: 2
 
 updates:
-  # npm dependencies (Vue/Vite/TypeScript)
+  # Node dependencies (Vue/Vite/TypeScript) — the npm ecosystem covers pnpm lockfiles
   - package-ecosystem: npm
     directory: /
     schedule:
@@ -12,7 +12,7 @@ updates:
       include: scope
     groups:
       # All patch updates in a single PR — CI (validate.yml) checks them together
-      npm-patches:
+      pnpm-patches:
         patterns:
           - '*'
         update-types:
