@@ -1,0 +1,78 @@
+/*
+ * Design-Tokens — abgeleitet vom Designsystem von outlasttrialsstats.com,
+ * damit beide Seiten eine gemeinsame visuelle Identität teilen.
+ * UI-Farben ausschließlich über diese Variablen; Ausnahme: Karten-Renderfarben
+ * in core/render bzw. core/constants.ts (für Kartenlesbarkeit kalibriert).
+ */
+:root {
+  /* Typografie */
+  --font-ui: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-brand: 'Special Elite', 'Courier New', serif;
+  --font-data: 'Courier Prime', 'Courier New', ui-monospace, monospace;
+
+  /* Flächen */
+  --bg-page: #0d0e12;
+  --surface-panel: #14151b;
+  --surface-card: rgba(255, 255, 255, 0.03);
+  --surface-raised: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --surface-active: rgba(255, 255, 255, 0.12);
+  --surface-popup: rgba(20, 20, 25, 0.98);
+  --glass-bg: rgba(13, 14, 18, 0.72);
+  --glass-card-bg: rgba(10, 10, 10, 0.75);
+
+  /* Ränder */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-hover: rgba(255, 255, 255, 0.28);
+
+  /* Text (Weiß-Opazitätsleiter) */
+  --text-primary: #ffffff;
+  --text-strong: rgba(255, 255, 255, 0.9);
+  --text-body: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.55);
+  --text-faint: rgba(255, 255, 255, 0.45);
+  --text-subtitle: #9ca3af;
+
+  /* Akzente */
+  --accent: #ef4444;
+  --accent-hover: #f87171;
+  --accent-soft: rgba(239, 68, 68, 0.15);
+  --danger: #ef4444;
+  --warning: #e0913c;
+  --success: #22c55e;
+  --info: #22d3ee;
+  --color-selection: #4da3ff; /* muss SELECTION_COLOR (core/constants.ts) entsprechen */
+  --color-selection-soft: rgba(77, 163, 255, 0.12);
+
+  /* Radien */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+  --radius-2xl: 16px;
+  --radius-pill: 999px;
+
+  /* Schatten */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-heavy: 0 12px 48px rgba(0, 0, 0, 0.4);
+  --glow-accent: 0 6px 28px rgba(239, 68, 68, 0.22);
+}
+
+.glass-card {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+}
+
+.surface-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

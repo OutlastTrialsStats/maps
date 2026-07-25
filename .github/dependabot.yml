@@ -1,0 +1,48 @@
+version: 2
+
+updates:
+  # npm dependencies (Vue/Vite/TypeScript)
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      # All patch updates in a single PR — CI (validate.yml) checks them together
+      npm-patches:
+        patterns:
+          - '*'
+        update-types:
+          - patch
+
+  # GitHub Actions in .github/workflows/
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: ci
+    groups:
+      actions-minor-patch:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
+
+  # Base images in the Dockerfile (node, nginx)
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: chore
+    groups:
+      docker-patches:
+        patterns:
+          - '*'
+        update-types:
+          - patch

@@ -1,0 +1,58 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Build & tooling caches
+*.tsbuildinfo
+.eslintcache
+.vite/
+stats.html
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.iml
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+._*
+
+# Temp & backups
+*.bak
+*.tmp
+*.orig
+*.rej
+*~
+
+# Custom
+docs/
+CLAUDE.md
+.claude/settings.local.json
+

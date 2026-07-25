@@ -1,0 +1,11 @@
+{
+  "$schema": "../schemas/contributors.schema.json",
+  "contributors": [
+    {
+      "name": "SuprexDE",
+      "profileUrl": "https://outlasttrialsstats.com/profile/SuprexDE",
+      "maps": ["police-station"],
+      "avatar": "player_icon_09.webp"
+    }
+  ]
+}

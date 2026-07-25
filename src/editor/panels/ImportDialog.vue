@@ -1,0 +1,98 @@
+<script setup lang="ts">
+import Button from 'primevue/button'
+import Dialog from 'primevue/dialog'
+import Textarea from 'primevue/textarea'
+import { useToast } from 'primevue/usetoast'
+import { ref, watch } from 'vue'
+import type { ValidationIssue } from '../../core/model/validation'
+import { importDocument } from '../store/documentIO'
+import { useEditorStore } from '../store/editorStore'
+import { useLibraryStore } from '../store/libraryStore'
+import { useZonesStore } from '../store/zonesStore'
+import IssueList from './IssueList.vue'
+
+const visible = defineModel<boolean>('visible', { required: true })
+
+const store = useEditorStore()
+const libraryStore = useLibraryStore()
+const zonesStore = useZonesStore()
+const toast = useToast()
+
+const text = ref('')
+const issues = ref<ValidationIssue[]>([])
+const importing = ref(false)
+
+watch(visible, (open) => {
+  if (open) {
+    text.value = ''
+    issues.value = []
+  }
+})
+
+async function onFilePicked(event: Event): Promise<void> {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (file) {
+    text.value = await file.text()
+  }
+}
+
+async function runImport(): Promise<void> {
+  importing.value = true
+  try {
+    const result = await importDocument(text.value, libraryStore.library, zonesStore.zoneLibrary)
+    issues.value = result.issues
+    if (result.document) {
+      store.setDocument(result.document, { markDirty: true })
+      visible.value = false
+      toast.add({
+        severity: 'success',
+        summary: `Imported "${result.document.id}"`,
+        life: 4000,
+      })
+    }
+  } catch (error) {
+    issues.value = [{ path: '', message: `Import failed: ${String(error)}` }]
+  } finally {
+    importing.value = false
+  }
+}
+</script>
+
+<template>
+  <Dialog v-model:visible="visible" modal header="Import map.json">
+    <div class="form">
+      <input type="file" accept="application/json,.json" @change="onFilePicked" />
+      <Textarea
+        v-model="text"
+        rows="10"
+        class="json-input"
+        placeholder="…or paste map.json content here"
+      />
+      <IssueList v-if="issues.length > 0" :issues="issues" />
+      <div class="actions">
+        <Button label="Cancel" severity="secondary" text @click="visible = false" />
+        <Button label="Import" :disabled="!text.trim()" :loading="importing" @click="runImport" />
+      </div>
+    </div>
+  </Dialog>
+</template>
+
+<style scoped>
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 420px;
+}
+
+.json-input {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+</style>

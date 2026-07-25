@@ -1,0 +1,52 @@
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  background: var(--bg-page);
+  color: var(--text-strong);
+}
+
+a {
+  color: inherit;
+}
+
+.page-enter-active {
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+.page-leave-active {
+  transition: opacity 0.14s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Nativer Cursor aus — ersetzt durch das Hand-Overlay in App.vue,
+   solange html die Klasse .custom-cursor-active trägt (useCustomCursor). */
+html.custom-cursor-active *,
+html.custom-cursor-active *::before,
+html.custom-cursor-active *::after {
+  cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition: none;
+  }
+
+  .page-enter-from {
+    transform: none;
+  }
+}

@@ -1,0 +1,202 @@
+<script setup lang="ts">
+import Button from 'primevue/button'
+import ContextMenu from 'primevue/contextmenu'
+import type { MenuItem } from 'primevue/menuitem'
+import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import type { HitTarget } from '../core/interaction/hitTest'
+import type { Floor } from '../core/model/types'
+import ControlsLegend from '../core/ui/ControlsLegend.vue'
+import ViewerCanvas from './ViewerCanvas.vue'
+import ViewerPanel from './panels/ViewerPanel.vue'
+import { useViewerStore } from './store/viewerStore'
+import { useViewerUrlSync } from './useViewerUrlSync'
+
+const route = useRoute()
+const router = useRouter()
+const viewer = useViewerStore()
+useViewerUrlSync()
+
+watch(
+  () => String(route.params.mapId),
+  (mapId) => viewer.loadMap(mapId),
+  { immediate: true },
+)
+
+const menu = ref<InstanceType<typeof ContextMenu> | null>(null)
+const menuItems = ref<MenuItem[]>([])
+
+function openMenu(hit: HitTarget | null, event: MouseEvent): void {
+  const items = buildMenuItems(hit)
+  if (items.length === 0) {
+    return
+  }
+  menuItems.value = items
+  menu.value?.show(event)
+}
+
+function buildMenuItems(hit: HitTarget | null): MenuItem[] {
+  const deselect: MenuItem = {
+    label: 'Deselect room',
+    icon: 'pi pi-times',
+    command: () => (viewer.selectedRoomId = null),
+  }
+  if (hit?.kind === 'room') {
+    return [
+      {
+        label: 'See room info in panel',
+        icon: 'pi pi-info-circle',
+        command: () => {
+          viewer.selectedRoomId = hit.id
+          viewer.panelOpen = true
+        },
+      },
+      ...(viewer.selectedRoomId ? [deselect] : []),
+    ]
+  }
+  if (hit?.kind === 'placement') {
+    const target = stairsTargetFloor(hit.id)
+    if (target) {
+      return [
+        {
+          label: `Go to ${target.name}`,
+          icon: target.index > viewer.activeFloor ? 'pi pi-arrow-up' : 'pi pi-arrow-down',
+          command: () => (viewer.activeFloor = target.index),
+        },
+      ]
+    }
+  }
+  return viewer.selectedRoomId ? [deselect] : []
+}
+
+function stairsTargetFloor(placementId: string): Floor | null {
+  const placement = viewer.map?.placements.find((entry) => entry.id === placementId)
+  const target = placement?.props?.targetFloor
+  if (typeof target !== 'number' || target === viewer.activeFloor) {
+    return null
+  }
+  return viewer.map?.floors.find((floor) => floor.index === target) ?? null
+}
+
+const title = computed(() => viewer.map?.id ?? String(route.params.mapId))
+</script>
+
+<template>
+  <div class="viewer">
+    <div v-if="viewer.backgroundUrl" class="backdrop" aria-hidden="true">
+      <img class="backdrop-img" :src="viewer.backgroundUrl" alt="" loading="eager" />
+      <div class="backdrop-overlay" />
+    </div>
+    <div class="canvas-wrap">
+      <ViewerCanvas @open-menu="openMenu" />
+      <p v-if="viewer.loading" class="status">Loading {{ title }}…</p>
+      <p v-else-if="viewer.loadError" class="status error" role="alert">
+        Failed to load this map: {{ viewer.loadError }}
+      </p>
+      <div class="top-controls">
+        <Button
+          :icon="viewer.panelOpen ? 'pi pi-angle-double-right' : 'pi pi-angle-double-left'"
+          size="small"
+          severity="secondary"
+          aria-label="Toggle panel"
+          @click="viewer.panelOpen = !viewer.panelOpen"
+        />
+        <Button
+          icon="pi pi-times"
+          size="small"
+          severity="secondary"
+          aria-label="Close viewer"
+          @click="router.push('/')"
+        />
+      </div>
+      <ControlsLegend
+        class="legend"
+        :hints="[
+          { icon: 'left', label: 'Drag to pan' },
+          { icon: 'wheel', label: 'Scroll to zoom' },
+          { icon: 'right', label: 'Room info' },
+        ]"
+      />
+    </div>
+    <aside v-if="viewer.panelOpen" class="side-panel">
+      <ViewerPanel />
+    </aside>
+    <ContextMenu ref="menu" :model="menuItems" />
+  </div>
+</template>
+
+<style scoped>
+.viewer {
+  display: flex;
+  height: 100vh;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.backdrop-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg-page) 85%, transparent);
+}
+
+.canvas-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Karte durchsichtig, damit das Map-Hintergrundbild dahinter sichtbar bleibt. */
+.canvas-wrap :deep(.map-canvas) {
+  background: transparent;
+}
+
+.status {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 6px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+}
+
+.error {
+  color: var(--danger);
+}
+
+.top-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.legend {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+}
+
+.side-panel {
+  width: 280px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 16px;
+  background: var(--surface-panel);
+  border-left: 1px solid var(--border-default);
+}
+</style>
