@@ -18,20 +18,20 @@ Vue 3 + Vite + TypeScript (strict), Vue Router, Pinia, PrimeVue 4 with a dark cu
 
 ## Development
 
-Requires Node.js ≥ 24.
+Requires Node.js ≥ 24. The package manager is pnpm; `corepack enable` picks up the version pinned in `package.json`.
 
 ```bash
-npm install
-npm run dev            # dev server
-npm run build          # static build into dist/
-npm run preview        # serve the production build locally
-npm run lint           # ESLint
-npm run typecheck      # vue-tsc
-npm run format         # Prettier
-npm run validate:data  # validate public/data against the JSON schemas
+pnpm install
+pnpm dev            # dev server
+pnpm build          # static build into dist/
+pnpm preview        # serve the production build locally
+pnpm lint           # ESLint
+pnpm typecheck      # vue-tsc
+pnpm format         # Prettier
+pnpm validate:data  # validate public/data against the JSON schemas
 ```
 
-`npm run lint` and `npm run typecheck` have to pass before every pull request. CI also runs `validate:data`.
+`pnpm lint` and `pnpm typecheck` have to pass before every pull request. CI also runs `validate:data`.
 
 ## Project structure
 

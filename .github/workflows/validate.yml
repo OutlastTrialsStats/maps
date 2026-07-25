@@ -11,16 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      # Has to run before setup-node, otherwise `cache: pnpm` finds no pnpm.
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - name: Validate map data against schemas
-        run: npm run validate:data
+        run: pnpm validate:data
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
       - name: Typecheck
-        run: npm run typecheck
+        run: pnpm typecheck
       - name: Build
-        run: npm run build
+        run: pnpm build

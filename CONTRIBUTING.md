@@ -100,11 +100,12 @@ it.
 
 ## For developers
 
-Fork, branch, commit, push, open a pull request against `main`. Node.js ≥ 24 required. Before pushing:
+Fork, branch, commit, push, open a pull request against `main`. Node.js ≥ 24 and pnpm (via `corepack enable`)
+required. Before pushing:
 
 ```bash
-npm ci
-npm run validate:data   # exactly what CI runs on your data
-npm run lint
-npm run typecheck
+pnpm install --frozen-lockfile
+pnpm validate:data   # exactly what CI runs on your data
+pnpm lint
+pnpm typecheck
 ```

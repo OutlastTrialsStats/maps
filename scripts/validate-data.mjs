@@ -3,7 +3,7 @@
  * public/schemas/ plus die Logikregeln aus docs/02-datenmodell.md §5.
  * Die Logikregeln leben genau einmal in src/core/model/validation.ts und
  * werden hier per nativem Node-Type-Stripping importiert (Node >= 23.6).
- * Läuft lokal (npm run validate:data) und in der CI.
+ * Läuft lokal (pnpm validate:data) und in der CI.
  */
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { dirname, extname, join } from 'node:path'
