@@ -1,6 +1,6 @@
 import type { Vec2 } from '../model/types'
 
-/** Zentrale Pan/Zoom-Transformation: Welt → Screen ist `p * k + [x, y]`. */
+/** Central pan/zoom transform: world → screen is `p * k + [x, y]`. */
 export interface ViewTransform {
   x: number
   y: number

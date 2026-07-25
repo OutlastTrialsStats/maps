@@ -3,8 +3,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { useViewerStore } from './store/viewerStore'
 
 /**
- * Spiegelt Trial, Etage und Raum-Auswahl in die URL-Query (Deep-Links, docs/01 V9).
- * Die Query wird einmalig nach dem Laden der Map angewendet, danach nur geschrieben.
+ * Mirrors trial, floor and room selection into the URL query (deep links, docs/01 V9).
+ * The query is applied once after the map has loaded, from then on only written.
  */
 export function useViewerUrlSync(): void {
   const route = useRoute()

@@ -1,8 +1,8 @@
 import type { Visibility } from './types'
 
 /**
- * Zentrale Sichtbarkeitsregel für Räume, Platzierungen und Routen —
- * wird von Viewer und Editor-Vorschau gemeinsam genutzt (docs/06 §5).
+ * Central visibility rule for rooms, placements and routes —
+ * shared by the viewer and the editor preview (docs/06 §5).
  */
 export function isVisibleInTrial(visibility: Visibility | undefined, trialId: string): boolean {
   if (visibility?.trials) {

@@ -44,7 +44,7 @@ export function usePlacementTool(): EditorTool {
       })
     },
 
-    /** Rechtsklick rotiert den Ghost — wie die R-Taste. */
+    /** Right-click rotates the ghost — just like the R key. */
     onContextMenu(): boolean {
       if (!store.activeElementId) {
         return false

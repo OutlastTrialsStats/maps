@@ -16,9 +16,9 @@ const TOOL_HOTKEYS: Record<string, ToolId> = {
 }
 
 /**
- * Übersetzt rohe Pointer-/Tastatur-Events in Werkzeug-Aufrufe: Koordinaten in
- * Welt-Units, Grid-Snapping (Strg = feines Raster), Hit-Testing und die
- * globalen Shortcuts (Undo/Redo, Werkzeugwahl, Escape).
+ * Translates raw pointer/keyboard events into tool calls: coordinates in world
+ * units, grid snapping (Ctrl = fine grid), hit testing and the global shortcuts
+ * (undo/redo, tool selection, escape).
  */
 export function useCanvasEvents(options: {
   svgRef: Readonly<Ref<SVGSVGElement | null>>

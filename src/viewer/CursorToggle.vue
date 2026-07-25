@@ -107,7 +107,7 @@ function onClick(event: MouseEvent) {
 }
 </style>
 
-<!-- Unscoped: der teleportierte Inhalt liegt außerhalb des Komponenten-DOM -->
+<!-- Unscoped: the teleported content lives outside the component DOM -->
 <style>
 .cursor-anim {
   position: fixed;

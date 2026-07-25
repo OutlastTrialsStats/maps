@@ -30,7 +30,7 @@ const zoneOptions = computed(() =>
 )
 const flags = computed(() => new Set(props.room.flags ?? []))
 
-/** Alle Änderungen laufen über das Dokument-Objekt aus dem Store (nie über die Prop). */
+/** All changes go through the document object from the store (never through the prop). */
 function mutateRoom(mutate: (room: Room, doc: MapDefinition) => void): void {
   store.commit((doc) => {
     const room = doc.rooms.find((entry) => entry.id === props.room.id)

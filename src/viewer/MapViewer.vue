@@ -155,7 +155,7 @@ const title = computed(() => viewer.map?.id ?? String(route.params.mapId))
   min-width: 0;
 }
 
-/* Karte durchsichtig, damit das Map-Hintergrundbild dahinter sichtbar bleibt. */
+/* Canvas transparent so the map background image behind it stays visible. */
 .canvas-wrap :deep(.map-canvas) {
   background: transparent;
 }

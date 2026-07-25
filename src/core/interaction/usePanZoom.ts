@@ -12,14 +12,14 @@ export interface WorldBounds {
 }
 
 export interface PanZoomOptions {
-  /** Pan auch per linker Maustaste — im Editor bleibt sie den Werkzeugen vorbehalten. */
+  /** Pan with the left mouse button as well — in the editor it stays reserved for the tools. */
   dragPan?: boolean
 }
 
 /**
- * Kapselt d3-zoom: Mausrad-Zoom auf Cursor-Position und Pinch immer aktiv,
- * Pan per mittlerer Maustaste, gehaltener Leertaste oder (mit `dragPan`)
- * direkt per linker Maustaste.
+ * Wraps d3-zoom: mouse wheel zoom at the cursor position and pinch are always
+ * active, panning via the middle mouse button, a held space bar or (with
+ * `dragPan`) directly via the left mouse button.
  */
 export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?: PanZoomOptions) {
   const transform = ref<ViewTransform>({ x: 0, y: 0, k: 1 })
@@ -82,7 +82,7 @@ export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?
     window.removeEventListener('keyup', onKeyUp)
   })
 
-  /** Passt die Ansicht auf die gegebenen Welt-Bounds ein (ohne Bounds: Identität). */
+  /** Fits the view to the given world bounds (without bounds: identity). */
   function resetView(bounds?: WorldBounds): void {
     const svg = svgRef.value
     if (!svg || !behavior || !selection) {

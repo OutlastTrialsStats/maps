@@ -30,7 +30,7 @@ const roomOptions = computed(() => [
     .map((room) => ({ label: room.info?.title ?? room.id, value: room.id as string | null })),
 ])
 
-/** Alle Änderungen laufen über das Dokument-Objekt aus dem Store (nie über die Prop). */
+/** All changes go through the document object from the store (never through the prop). */
 function mutatePlacement(mutate: (placement: Placement, doc: MapDefinition) => void): void {
   store.commit((doc) => {
     const placement = doc.placements.find((entry) => entry.id === props.placement.id)

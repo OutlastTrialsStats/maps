@@ -2,8 +2,8 @@ import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 
 /**
- * Murkoff-Theme: rote Primärpalette (#ef4444) + blaugetönte Dark-Surfaces
- * um #0d0e12 — gleiche Identität wie outlasttrialsstats.com.
+ * Murkoff theme: red primary palette (#ef4444) + blue-tinted dark surfaces
+ * around #0d0e12 — same identity as outlasttrialsstats.com.
  */
 export const MurkoffPreset = definePreset(Aura, {
   primitive: {
@@ -40,7 +40,7 @@ export const MurkoffPreset = definePreset(Aura, {
           950: '#0d0e12',
         },
         primary: {
-          /* Aura-Dark-Default wäre {primary.400} — zu hell für den Stats-Look */
+          /* The Aura dark default would be {primary.400} — too bright for the stats look */
           color: '{primary.500}',
           contrastColor: '#ffffff',
           hoverColor: '{primary.400}',

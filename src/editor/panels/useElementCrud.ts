@@ -5,9 +5,9 @@ import { useUsageLookup } from '../store/useUsageLookup'
 import { useUsageDelete } from './useUsageDelete'
 
 /**
- * Element-CRUD für Palette und Library-Dialog: Create/Edit über den
- * ElementDialog, Löschen mit Nutzungsprüfung und Kaskade auf die
- * Platzierungen der offenen Map (atomar undo-bar via commitWorkspace).
+ * Element CRUD for the palette and the library dialog: create/edit through the
+ * ElementDialog, delete with a usage check and a cascade onto the placements of
+ * the open map (atomically undoable via commitWorkspace).
  */
 export function useElementCrud() {
   const store = useEditorStore()

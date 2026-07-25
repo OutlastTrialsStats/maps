@@ -1,16 +1,16 @@
 /*
- * Design-Tokens — abgeleitet vom Designsystem von outlasttrialsstats.com,
- * damit beide Seiten eine gemeinsame visuelle Identität teilen.
- * UI-Farben ausschließlich über diese Variablen; Ausnahme: Karten-Renderfarben
- * in core/render bzw. core/constants.ts (für Kartenlesbarkeit kalibriert).
+ * Design tokens — derived from the design system of outlasttrialsstats.com so
+ * that both sites share a common visual identity.
+ * UI colors exclusively through these variables; exception: the map render
+ * colors in core/render and core/constants.ts (calibrated for map legibility).
  */
 :root {
-  /* Typografie */
+  /* Typography */
   --font-ui: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
   --font-brand: 'Special Elite', 'Courier New', serif;
   --font-data: 'Courier Prime', 'Courier New', ui-monospace, monospace;
 
-  /* Flächen */
+  /* Surfaces */
   --bg-page: #0d0e12;
   --surface-panel: #14151b;
   --surface-card: rgba(255, 255, 255, 0.03);
@@ -21,13 +21,13 @@
   --glass-bg: rgba(13, 14, 18, 0.72);
   --glass-card-bg: rgba(10, 10, 10, 0.75);
 
-  /* Ränder */
+  /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-default: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
   --border-hover: rgba(255, 255, 255, 0.28);
 
-  /* Text (Weiß-Opazitätsleiter) */
+  /* Text (white opacity ladder) */
   --text-primary: #ffffff;
   --text-strong: rgba(255, 255, 255, 0.9);
   --text-body: rgba(255, 255, 255, 0.7);
@@ -35,7 +35,7 @@
   --text-faint: rgba(255, 255, 255, 0.45);
   --text-subtitle: #9ca3af;
 
-  /* Akzente */
+  /* Accents */
   --accent: #ef4444;
   --accent-hover: #f87171;
   --accent-soft: rgba(239, 68, 68, 0.15);
@@ -43,10 +43,10 @@
   --warning: #e0913c;
   --success: #22c55e;
   --info: #22d3ee;
-  --color-selection: #4da3ff; /* muss SELECTION_COLOR (core/constants.ts) entsprechen */
+  --color-selection: #4da3ff; /* must match SELECTION_COLOR (core/constants.ts) */
   --color-selection-soft: rgba(77, 163, 255, 0.12);
 
-  /* Radien */
+  /* Radii */
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 12px;
@@ -54,7 +54,7 @@
   --radius-2xl: 16px;
   --radius-pill: 999px;
 
-  /* Schatten */
+  /* Shadows */
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
   --shadow-heavy: 0 12px 48px rgba(0, 0, 0, 0.4);
   --glow-accent: 0 6px 28px rgba(239, 68, 68, 0.22);

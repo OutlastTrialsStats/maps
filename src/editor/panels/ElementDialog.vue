@@ -16,7 +16,7 @@ import { useLibraryStore } from '../store/libraryStore'
 const visible = defineModel<boolean>('visible', { required: true })
 
 const props = defineProps<{
-  /** Gesetzt = Edit-Modus für dieses Element der globalen Bibliothek. */
+  /** Set = edit mode for this element of the global library. */
   elementId?: string
 }>()
 
@@ -27,7 +27,7 @@ const libraryStore = useLibraryStore()
 
 const name = ref('')
 const category = ref<string | null>(null)
-/** Hex ohne "#" (ColorPicker-Format). */
+/** Hex without "#" (ColorPicker format). */
 const color = ref(UNKNOWN_ELEMENT_COLOR.slice(1))
 const description = ref('')
 const iconUrl = ref('')
@@ -40,7 +40,7 @@ const editing = computed<ElementDefinition | undefined>(() =>
     : undefined,
 )
 
-/** Im Edit-Modus bleibt die ID fest — ein Rename bräche Referenzen anderer Maps. */
+/** In edit mode the ID stays fixed — a rename would break references of other maps. */
 const id = computed(() => editing.value?.id ?? slugify(name.value))
 
 const idTaken = computed(
@@ -74,7 +74,7 @@ watch(visible, (open) => {
   anchor.value = element?.anchor ?? null
 })
 
-/** Scalar-Felder mergen; `render`/`propsSchema` bleiben unangetastet (nur Hand-Edit). */
+/** Merge scalar fields; `render`/`propsSchema` stay untouched (hand-edited only). */
 function applyTo(element: ElementDefinition): void {
   element.name = name.value.trim() || element.name
   element.category = category.value ?? element.category

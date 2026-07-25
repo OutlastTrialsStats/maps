@@ -35,7 +35,7 @@ const showLibraryDialog = ref(false)
 const validationIssues = ref<ValidationIssue[]>([])
 let validationTimer: number | undefined
 
-// `revision` statt deep-Watcher: das 100+-KB-Dokument wird nie traversiert.
+// `revision` instead of a deep watcher: the 100+ KB document is never traversed.
 watch(
   [() => editor.document, () => editor.revision, () => libraryStore.library, () => zonesStore.zoneLibrary],
   ([doc]) => {

@@ -19,7 +19,7 @@ const { showDeleteDialog, deleteTarget, usage, usageLoading, openDelete } = useU
   (zone) => collectZoneUsage(zone.id),
 )
 
-/** Zonen müssen von Räumen immer referenzierbar sein → Löschen nur ohne jede Nutzung. */
+/** Rooms must always be able to reference a zone → delete only when unused everywhere. */
 const usedInOpenDocument = computed(() =>
   usage.value.some((entry) => entry.isOpenDocument && entry.count > 0),
 )
@@ -37,7 +37,7 @@ function rename(zoneId: string, raw: string): void {
   })
 }
 
-/** PrimeVue ColorPicker liefert Hex ohne "#" — fürs Schema normalisieren. */
+/** The PrimeVue ColorPicker returns hex without "#" — normalize it for the schema. */
 function setColor(zoneId: string, key: 'fill' | 'walls', value: unknown): void {
   if (typeof value !== 'string' || !value) {
     return

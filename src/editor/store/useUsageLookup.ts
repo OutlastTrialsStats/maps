@@ -2,16 +2,16 @@ import { loadMapDefinition, loadMapsIndex } from '../../core/model/dataSource'
 import type { MapDefinition } from '../../core/model/types'
 import { useEditorStore } from './editorStore'
 
-/** Nutzung eines Bibliothekseintrags (Element/Zone) in einer Map. */
+/** Usage of a library entry (element/zone) in one map. */
 export interface UsageEntry {
   mapId: string
   mapName: string
   count: number
-  /** True für die im Editor geöffnete Map (wird in-memory geprüft, nicht gefetcht). */
+  /** True for the map open in the editor (checked in memory, not fetched). */
   isOpenDocument: boolean
 }
 
-/** Session-Cache: Fremde Maps ändern sich während einer Editor-Sitzung nicht. */
+/** Session cache: foreign maps do not change during an editor session. */
 const mapCache = new Map<string, Promise<MapDefinition | null>>()
 
 function fetchForeignMap(mapId: string): Promise<MapDefinition | null> {
@@ -21,9 +21,9 @@ function fetchForeignMap(mapId: string): Promise<MapDefinition | null> {
 }
 
 /**
- * Zählt Verwendungen über alle enabled Maps der Registry plus das offene
- * Dokument. Löschen ist blockiert, sobald eine fremde Map den Eintrag nutzt
- * (der Editor kann fremde map.json nicht mitschreiben — PR-Workflow).
+ * Counts usages across all enabled maps of the registry plus the open document.
+ * Deleting is blocked as soon as a foreign map uses the entry (the editor
+ * cannot write foreign map.json files — PR workflow).
  */
 export function useUsageLookup() {
   const store = useEditorStore()

@@ -40,7 +40,7 @@ export function mapAssetUrl(mapId: string, relativePath: string): string {
   return `${DATA_BASE_URL}/maps/${mapId}/${relativePath}`
 }
 
-/** Volle URL eines Spiel-Bildes, von dem nur der Dateiname in den Daten steht. */
+/** Full URL of a game image whose file name alone is stored in the data. */
 export function gameAssetUrl(filename: string): string {
   return `${GAME_ASSETS_BASE_URL}/${filename}`
 }

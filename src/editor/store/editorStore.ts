@@ -19,7 +19,7 @@ import { jsonClone } from './jsonClone'
 import { useLibraryStore } from './libraryStore'
 import { useZonesStore } from './zonesStore'
 
-/** Stellenzahl der laufenden Nummer in generierten IDs (z. B. "pl-0042"). */
+/** Number of digits of the running number in generated IDs (e.g. "pl-0042"). */
 const GENERATED_ID_DIGITS = 4
 
 export const useEditorStore = defineStore('editor', () => {
@@ -30,12 +30,11 @@ export const useEditorStore = defineStore('editor', () => {
   const activeTool = ref<ToolId>('select')
   const roomToolMode = ref<RoomToolMode>('polygon')
   const innerLineStyle = ref<InnerLineStyle>('object')
-  /** Kurzer Werkzeug-Hinweis für die Statusleiste (z. B. nicht editierbarer Pfad). */
+  /** Short tool hint for the status bar (e.g. a path that cannot be edited). */
   const toolHint = ref('')
   const activeFloor = ref(0)
-  /** Trial-ID, die Canvas-Filter und neue Objekte bestimmt; null nur ohne Dokument. */
+  /** Trial ID that drives the canvas filter and new objects; null only without a document. */
   const trialContext = ref<string | null>(null)
-  /** In der Palette gewähltes Element fürs Platzierungs-Werkzeug. */
   const activeElementId = ref<string | null>(null)
   const selection = ref<HitTarget[]>([])
   const undoStack = ref<WorkspaceSnapshot[]>([])
@@ -43,7 +42,7 @@ export const useEditorStore = defineStore('editor', () => {
   const dirty = ref(false)
   const autosaveError = ref('')
   const lastAutosaveAt = ref<Date | null>(null)
-  /** Zählt abgeschlossene Mutationen — billiges Watch-Signal statt deep-Watcher. */
+  /** Counts completed mutations — a cheap watch signal instead of a deep watcher. */
   const revision = ref(0)
 
   let autosaveTimer: number | undefined
@@ -73,12 +72,11 @@ export const useEditorStore = defineStore('editor', () => {
       : null,
   )
 
-  /** Sichtbarkeit, die neue Objekte im aktuellen Trial-Kontext erhalten. */
   const visibilityForNewObjects = computed<Visibility | undefined>(() =>
     trialContext.value ? { trials: [trialContext.value] } : undefined,
   )
 
-  /** Undo-Einheit: Dokument + beide globalen Arbeitskopien (Kaskaden bleiben atomar). */
+  /** Undo unit: document + both global working copies (cascades stay atomic). */
   function snapshot(): WorkspaceSnapshot {
     return jsonClone({
       document: document.value as MapDefinition,
@@ -110,7 +108,7 @@ export const useEditorStore = defineStore('editor', () => {
     scheduleAutosave()
   }
 
-  /** Standardweg für alle Dokument-Änderungen: Snapshot → Mutation → Autosave. */
+  /** Default path for all document changes: snapshot → mutation → autosave. */
   function commit(mutate: (doc: MapDefinition) => void): void {
     if (!document.value) {
       return
@@ -120,7 +118,7 @@ export const useEditorStore = defineStore('editor', () => {
     markChanged()
   }
 
-  /** Änderungen an der globalen Element-Bibliothek — gleicher Undo-Pfad wie `commit`. */
+  /** Changes to the global element library — same undo path as `commit`. */
   function commitLibrary(mutate: (library: ElementLibrary) => void): void {
     if (!document.value || !libraryStore.library) {
       return
@@ -139,7 +137,7 @@ export const useEditorStore = defineStore('editor', () => {
     markChanged()
   }
 
-  /** Atomare Änderung über Dokument + Bibliothek hinweg (z. B. Element-Löschkaskade). */
+  /** Atomic change across document + library (e.g. the element delete cascade). */
   function commitWorkspace(
     mutate: (workspace: { doc: MapDefinition; library: ElementLibrary }) => void,
   ): void {
@@ -151,7 +149,7 @@ export const useEditorStore = defineStore('editor', () => {
     markChanged()
   }
 
-  /** Für Drags: ein Snapshot beim Start, direkte Mutationen bis endDrag/cancelDrag. */
+  /** For drags: one snapshot at the start, direct mutations until endDrag/cancelDrag. */
   function beginDrag(): void {
     pushUndo()
   }
@@ -187,7 +185,7 @@ export const useEditorStore = defineStore('editor', () => {
     markChanged()
   }
 
-  /** Auswahl/Etage/Trial-Kontext dürfen nach Undo/Redo nicht auf Gelöschtes zeigen. */
+  /** Selection/floor/trial context must not point at deleted objects after undo/redo. */
   function cleanupAfterHistory(): void {
     const doc = document.value
     if (!doc) {
@@ -226,10 +224,10 @@ export const useEditorStore = defineStore('editor', () => {
     }
   }
 
-  /** "Continue autosave": restauriert vorhandene Arbeitskopien und das Dokument. */
+  /** "Continue autosave": restores existing working copies and the document. */
   function restoreAutosave(payload: AutosavePayload): void {
-    // Null hieße: beim Autosave war die Bibliothek noch nicht geladen —
-    // dann den frisch gefetchten Stand nicht überschreiben.
+    // Null would mean: at autosave time the library was not loaded yet —
+    // then do not overwrite the freshly fetched state.
     if (payload.library) {
       libraryStore.restore(payload.library)
     }
@@ -273,7 +271,7 @@ export const useEditorStore = defineStore('editor', () => {
       if (!document.value) {
         return
       }
-      // Kein Snapshot-Clone nötig: saveAutosave serialisiert die Live-Objekte direkt.
+      // No snapshot clone needed: saveAutosave serializes the live objects directly.
       const error = saveAutosave({
         document: document.value,
         library: libraryStore.library,

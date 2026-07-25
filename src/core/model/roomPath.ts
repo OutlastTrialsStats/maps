@@ -1,10 +1,10 @@
 import type { Room, RoomShape, Vec2 } from './types'
 
 /**
- * Minimaler Pfad-Parser für Raum-Umrisse (docs/03 §7: Pfade werden nur für
- * Editor-Bearbeitung und Validierung geparst). Unterstützt genau die Befehle,
- * die der Editor selbst erzeugt: M/m, L/l, H/h, V/v, Z/z — ein Subpfad.
- * Kurven o. Ä. liefern `null` (Vertex-Editing dann deaktiviert).
+ * Minimal path parser for room outlines (docs/03 §7: paths are only parsed for
+ * editing in the editor and for validation). Supports exactly the commands the
+ * editor emits itself: M/m, L/l, H/h, V/v, Z/z — a single subpath.
+ * Curves etc. return `null` (vertex editing is then disabled).
  */
 
 const COMMAND_RE = /^[A-Za-z]$/
@@ -13,7 +13,7 @@ const CHARSET_RE = /^[MmLlHhVvZz0-9eE+,.\s-]*$/
 
 const fmt = (value: number): string => String(Math.round(value * 1000) / 1000)
 
-/** Punkte in Shape-lokalen Koordinaten (relativ zum origin, implizites "M 0 0"). */
+/** Points in shape-local coordinates (relative to the origin, implicit "M 0 0"). */
 export function parseRoomPath(path: string): Vec2[] | null {
   if (!CHARSET_RE.test(path)) {
     return null
@@ -147,7 +147,6 @@ function appendRelativeSegments(parts: string[], points: Vec2[]): void {
   }
 }
 
-/** Emittiert einen kompakten relativen Pfad (h/v/l + z) aus lokalen Punkten. */
 export function pointsToRelativePath(points: Vec2[]): string {
   const parts: string[] = []
   const start = points[0]
@@ -159,7 +158,7 @@ export function pointsToRelativePath(points: Vec2[]): string {
   return parts.join(' ')
 }
 
-/** Offener Pfad (Innenlinien, Routen): explizites M zum ersten Punkt, dann h/v/l. */
+/** Open path (inner lines, routes): explicit M to the first point, then h/v/l. */
 export function pointsToOpenPath(points: Vec2[]): string {
   if (points.length === 0) {
     return ''
@@ -170,9 +169,9 @@ export function pointsToOpenPath(points: Vec2[]): string {
 }
 
 /**
- * Verschiebt einen absoluten Pfad (z. B. Routen) über sein führendes "M x,y".
- * Liefert `null`, wenn der Rest weitere absolute Befehle enthält und die
- * Verschiebung damit nicht über den Startpunkt allein möglich ist.
+ * Translates an absolute path (e.g. routes) through its leading "M x,y".
+ * Returns `null` when the remainder contains further absolute commands and the
+ * translation is therefore not possible through the start point alone.
  */
 export function translateAbsolutePathStart(path: string, delta: Vec2): string | null {
   const match = /^\s*M\s*(-?(?:\d*\.\d+|\d+))[\s,]+(-?(?:\d*\.\d+|\d+))([\s\S]*)$/.exec(path)
@@ -184,7 +183,7 @@ export function translateAbsolutePathStart(path: string, delta: Vec2): string | 
   return `M${fmt(x)},${fmt(y)}${match[3]}`
 }
 
-/** Eckpunkte einer Raumform in lokalen Koordinaten; `rect` wird zu 4 Punkten. */
+/** Vertices of a room shape in local coordinates; `rect` becomes 4 points. */
 export function shapeToPoints(shape: RoomShape): Vec2[] | null {
   if ('rect' in shape) {
     const [width, height] = shape.rect

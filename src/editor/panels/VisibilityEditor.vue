@@ -24,7 +24,7 @@ const visibleIds = computed<string[]>(() => {
 })
 
 function update(selected: string[]): void {
-  // Leere Auswahl ist unzulässig (Schema: minItems 1) — Eingabe ignorieren.
+  // An empty selection is invalid (schema: minItems 1) — ignore the input.
   if (selected.length === 0) {
     return
   }
@@ -34,7 +34,7 @@ function update(selected: string[]): void {
     return
   }
   const ordered = props.trials.map((trial) => trial.id)
-  // Die vorhandene Form (Positiv-/Negativliste) erhalten — vermeidet Diff-Rauschen.
+  // Keep the existing form (allowlist/denylist) — avoids diff noise.
   if (props.modelValue?.hiddenInTrials) {
     emit('update:modelValue', { hiddenInTrials: ordered.filter((id) => !chosen.has(id)) })
     return

@@ -5,7 +5,7 @@ import type { Vec2 } from '../../core/model/types'
 export type ToolId = 'select' | 'room' | 'placement' | 'route'
 export type RoomToolMode = 'polygon' | 'rect' | 'innerline'
 
-/** Vom Canvas aufbereitetes Pointer-Event in Welt-Koordinaten (dblclick liefert MouseEvent). */
+/** Pointer event prepared by the canvas in world coordinates (dblclick delivers a MouseEvent). */
 export interface CanvasPointerEvent {
   world: Vec2
   snapped: Vec2
@@ -13,7 +13,7 @@ export interface CanvasPointerEvent {
   event: MouseEvent
 }
 
-/** Deklarative Werkzeug-Vorschau, gerendert von ToolOverlayLayer. */
+/** Declarative tool preview, rendered by ToolOverlayLayer. */
 export type ToolOverlay =
   | { kind: 'polyline'; points: Vec2[]; preview: Vec2 | null }
   | { kind: 'rect'; from: Vec2; to: Vec2 }
@@ -25,9 +25,9 @@ export interface EditorTool {
   onPointerMove?(event: CanvasPointerEvent): void
   onPointerUp?(event: CanvasPointerEvent): void
   onDblClick?(event: CanvasPointerEvent): void
-  /** Liefert true, wenn das Event konsumiert wurde (Browser-Kontextmenü unterdrücken). */
+  /** Returns true when the event was consumed (suppress the browser context menu). */
   onContextMenu?(event: CanvasPointerEvent): boolean
-  /** Liefert true, wenn das Event konsumiert wurde (globale Shortcuts überspringen). */
+  /** Returns true when the event was consumed (skip the global shortcuts). */
   onKeydown?(event: KeyboardEvent): boolean
   activate?(): void
   deactivate?(): void

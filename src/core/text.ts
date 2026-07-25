@@ -1,4 +1,3 @@
-/** Initialen für Platzhalter-Darstellungen (Element-Icons, Contributor-Avatare). */
 export function initialsOf(name: string | undefined): string {
   if (!name) {
     return '?'

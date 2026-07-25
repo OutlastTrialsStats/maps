@@ -11,7 +11,7 @@ export interface ElementGroup {
   elements: ElementDefinition[]
 }
 
-/** Palette/Manager-Ansicht: Elemente nach Kategorie, leere Gruppen entfallen. */
+/** Palette/manager view: elements by category, empty groups are dropped. */
 export function groupElementsByCategory(
   library: ElementLibrary | null,
   matches: (element: ElementDefinition) => boolean = () => true,
