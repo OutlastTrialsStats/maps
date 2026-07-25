@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://maps.outlasttrialsstats.com/schemas/maps-index.schema.json",
+  "title": "Map-Registry",
+  "type": "object",
+  "required": ["maps"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "maps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "progress", "enabled"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "background": {
+            "oneOf": [
+              { "$ref": "#/definitions/repoImagePath" },
+              { "$ref": "#/definitions/externalImageUrl" }
+            ]
+          },
+          "card": {
+            "oneOf": [
+              { "$ref": "#/definitions/repoImagePath" },
+              { "$ref": "#/definitions/externalImageUrl" }
+            ]
+          },
+          "progress": { "type": "number", "minimum": 0, "maximum": 100 },
+          "enabled": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "repoImagePath": {
+      "type": "string",
+      "pattern": "^/data/.+\\.(jpg|jpeg|png|webp)$"
+    },
+    "externalImageUrl": {
+      "type": "string",
+      "pattern": "^https://[^\\s]+\\.(jpg|jpeg|png|webp)$"
+    }
+  }
+}
