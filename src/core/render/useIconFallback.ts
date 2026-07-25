@@ -1,6 +1,6 @@
 import { computed, ref, watch } from 'vue'
 
-/** Icon-Ladefehler-Zustand eines Markers; setzt sich bei URL-Wechsel zurück. */
+/** Icon load-failure state of a marker; resets when the URL changes. */
 export function useIconFallback(iconUrl: () => string | undefined) {
   const iconFailed = ref(false)
   watch(iconUrl, () => {

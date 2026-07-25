@@ -33,7 +33,7 @@ export function useRoomTool(): EditorTool {
   const zonesStore = useZonesStore()
   const state = ref<RoomToolState>({ kind: 'idle' })
 
-  /** Räume brauchen eine gültige globale Zone; ohne geladene Zonen kein Raum. */
+  /** Rooms need a valid global zone; without loaded zones there is no room. */
   function firstZoneId(): string | null {
     const zoneId = zonesStore.zones[0]?.id ?? null
     if (!zoneId) {
@@ -42,7 +42,7 @@ export function useRoomTool(): EditorTool {
     return zoneId
   }
 
-  /** Ortho-Snapping relativ zum letzten Punkt (Alt = frei), Grid-Snap kommt vom Canvas. */
+  /** Ortho snapping relative to the last point (Alt = free), grid snapping comes from the canvas. */
   function snapPoint(event: CanvasPointerEvent, anchor?: Vec2): Vec2 {
     if (anchor && !event.event.altKey) {
       return snapOrtho(anchor, event.snapped)
@@ -55,7 +55,7 @@ export function useRoomTool(): EditorTool {
     store.toolHint = ''
   }
 
-  /** Gemeinsamer Abschluss von Polygon- und Rechteck-Modus. */
+  /** Shared completion of polygon and rectangle mode. */
   function createRoom(shape: Room['shape']): void {
     const zoneId = firstZoneId()
     if (!zoneId) {
@@ -83,7 +83,7 @@ export function useRoomTool(): EditorTool {
       reset()
       return
     }
-    // Kopie statt Referenz: points[0] ist ein Reactive-Proxy aus dem Tool-State.
+    // Copy instead of reference: points[0] is a reactive proxy from the tool state.
     const origin: Vec2 = [points[0][0], points[0][1]]
     const local = points.map(([x, y]): Vec2 => [x - origin[0], y - origin[1]])
     createRoom({ origin, path: pointsToRelativePath(local) })
@@ -117,7 +117,7 @@ export function useRoomTool(): EditorTool {
     reset()
   }
 
-  /** Vertex-Edit-Abschluss: origin auf ersten Punkt normalisieren, rect wird zu path. */
+  /** End of vertex editing: normalize the origin to the first point, rect becomes path. */
   function commitVertexEdit(current: Extract<RoomToolState, { kind: 'vertex' }>): void {
     const first = current.points[0]
     const origin: Vec2 = [current.origin[0] + first[0], current.origin[1] + first[1]]
@@ -223,7 +223,7 @@ export function useRoomTool(): EditorTool {
         state.value = { kind: 'rect', start: event.snapped, preview: null }
         return
       }
-      // Innenlinien-Modus: erster Klick muss einen Raum treffen.
+      // Inner line mode: the first click has to hit a room.
       if (current.kind === 'innerline') {
         current.points.push(event.snapped)
         return

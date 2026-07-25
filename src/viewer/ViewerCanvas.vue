@@ -57,7 +57,7 @@ function onPointerMove(event: PointerEvent): void {
   cancelLongPressOnMove(event)
   const hit = hitFromEventTarget(event.target)
   const hitId = hit?.kind === 'placement' ? hit.id : undefined
-  // Gleiche Platzierung wie zuvor: nur die Tooltip-Position nachführen.
+  // Same placement as before: only follow up with the tooltip position.
   const placement = hitId
     ? tooltip.value?.placement.id === hitId
       ? tooltip.value.placement

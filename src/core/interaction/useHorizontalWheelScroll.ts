@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-/** Übersetzt Mausrad-Scrollen in horizontales Container-Scrollen; ohne Überlauf scrollt die Seite normal weiter. */
+/** Turns mouse wheel scrolling into horizontal container scrolling; without overflow the page keeps scrolling normally. */
 export function useHorizontalWheelScroll(elRef: Readonly<Ref<HTMLElement | null>>): {
   onWheel: (event: WheelEvent) => void
 } {

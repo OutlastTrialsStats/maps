@@ -22,7 +22,7 @@ const { showIcon, onIconError } = useIconFallback(() => props.element?.icon)
 
 const size = computed(() => props.element?.size ?? ICON_DEFAULT_SIZE)
 
-/** Icon-Mittelpunkt in lokalen Koordinaten, abhängig vom Anker des Elements. */
+/** Icon center in local coordinates, depending on the anchor of the element. */
 const center = computed<Vec2>(() =>
   props.element?.anchor === 'topleft' ? [size.value / 2, size.value / 2] : [0, 0],
 )

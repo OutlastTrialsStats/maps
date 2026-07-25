@@ -133,14 +133,14 @@ onMounted(async () => {
 }
 
 .cards {
-  /* Breiter als die Inhaltsspalte, damit rechts ein angeschnittenes Poster zum Scrollen einlädt. */
+  /* Wider than the content column so a cropped poster on the right invites scrolling. */
   --slider-width: max(100%, min(1280px, 100vw - 48px));
   display: flex;
   gap: 16px;
   width: var(--slider-width);
   margin-inline: calc((100% - var(--slider-width)) / 2);
   overflow-x: auto;
-  /* Luft für den Hover-Lift der Karten, sonst clippt der Scroll-Container den Effekt. */
+  /* Room for the hover lift of the cards, otherwise the scroll container clips the effect. */
   padding-block: 12px;
   scrollbar-width: thin;
   scrollbar-color: var(--surface-active) transparent;

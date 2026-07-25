@@ -32,8 +32,8 @@ a {
   opacity: 0;
 }
 
-/* Nativer Cursor aus — ersetzt durch das Hand-Overlay in App.vue,
-   solange html die Klasse .custom-cursor-active trägt (useCustomCursor). */
+/* Native cursor off — replaced by the hand overlay in App.vue,
+   as long as html carries the .custom-cursor-active class (useCustomCursor). */
 html.custom-cursor-active *,
 html.custom-cursor-active *::before,
 html.custom-cursor-active *::after {

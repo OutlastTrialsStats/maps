@@ -35,7 +35,6 @@ export const useViewerStore = defineStore('viewer', () => {
 
   const trials = computed(() => map.value?.trials ?? [])
   const filters = computed(() => map.value?.filters ?? [])
-  /** Für den Etagen-Wechsler (oberste zuerst). */
   const floorsTopDown = computed(() =>
     [...(map.value?.floors ?? [])].sort((a, b) => b.index - a.index),
   )
@@ -44,7 +43,7 @@ export const useViewerStore = defineStore('viewer', () => {
   )
   const elementIndex = computed(() => buildElementIndex(library.value))
   const zonesById = computed(() => buildZoneIndex(zones.value))
-  /** Autoren der offenen Map, wo möglich mit Profil-Link (contributors.json). */
+  /** Authors of the open map, with a profile link where possible (contributors.json). */
   const credits = computed(() => {
     const byName = buildContributorIndex(contributors.value)
     return (map.value?.meta.authors ?? []).map((name) => ({
@@ -96,7 +95,7 @@ export const useViewerStore = defineStore('viewer', () => {
     }
   }
 
-  /** Hintergrundbild aus der Registry — Fehler dabei blockieren den Viewer nicht. */
+  /** Background image from the registry — failures here do not block the viewer. */
   async function loadBackground(mapId: string): Promise<void> {
     backgroundUrl.value = ''
     try {
@@ -107,7 +106,7 @@ export const useViewerStore = defineStore('viewer', () => {
     }
   }
 
-  /** Profil-Links sind Beiwerk — fehlen sie, bleiben die Autorennamen unverlinkt. */
+  /** Profile links are an extra — if they are missing, author names stay unlinked. */
   async function loadCredits(): Promise<void> {
     if (contributors.value) {
       return
@@ -119,7 +118,7 @@ export const useViewerStore = defineStore('viewer', () => {
     }
   }
 
-  /** Datenprobleme blockieren den Viewer nicht, sollen aber auffindbar sein (docs/03 §5). */
+  /** Data problems do not block the viewer but must stay discoverable (docs/03 §5). */
   function warnAboutLogicIssues(
     definition: MapDefinition,
     loadedLibrary: ElementLibrary,

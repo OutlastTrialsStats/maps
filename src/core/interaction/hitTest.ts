@@ -8,9 +8,9 @@ export interface HitTarget {
 const ENTITY_KINDS: readonly string[] = ['room', 'placement', 'route']
 
 /**
- * Ermittelt das getroffene Karten-Objekt per Event-Delegation: Die
- * Render-Komponenten markieren ihre Wurzel-Gruppe mit `data-entity-kind`
- * und `data-entity-id` und bleiben selbst event-frei.
+ * Determines the hit map object via event delegation: the render components
+ * mark their root group with `data-entity-kind` and `data-entity-id` and stay
+ * free of event handlers themselves.
  */
 export function hitFromEventTarget(target: EventTarget | null): HitTarget | null {
   if (!(target instanceof Element)) {

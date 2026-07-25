@@ -13,7 +13,7 @@ const floorOptions = computed(() =>
   store.floors.map((floor) => ({ label: floor.name, value: floor.index })),
 )
 
-/** Alle Änderungen laufen über das Dokument-Objekt aus dem Store (nie über die Prop). */
+/** All changes go through the document object from the store (never through the prop). */
 function mutateRoute(mutate: (route: RouteLine) => void): void {
   store.commit((doc) => {
     const route = doc.routes.find((entry) => entry.id === props.route.id)

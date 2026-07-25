@@ -8,14 +8,13 @@ const visible = defineModel<boolean>('visible', { required: true })
 
 const props = defineProps<{
   header: string
-  /** Anzeigename des zu löschenden Eintrags. */
   targetLabel: string
   usage: UsageEntry[]
   loading: boolean
-  /** Zusätzliche Sperre des Aufrufers (z. B. Zone in Räumen der offenen Map). */
+  /** Additional block from the caller (e.g. a zone used by rooms of the open map). */
   blocked?: boolean
   blockedHint?: string
-  /** Warnung vor dem Löschen (z. B. Kaskade auf Platzierungen der offenen Map). */
+  /** Warning shown before deleting (e.g. cascade onto placements of the open map). */
   cascadeHint?: string
 }>()
 

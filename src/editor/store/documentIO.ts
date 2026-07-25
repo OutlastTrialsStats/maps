@@ -2,7 +2,7 @@ import { EDITOR_AUTOSAVE_KEY, EDITOR_AUTOSAVE_VERSION } from '../../core/constan
 import type { ElementLibrary, MapDefinition, ZoneLibrary } from '../../core/model/types'
 import { collectMapLogicIssues, type ValidationIssue } from '../../core/model/validation'
 
-/** Undo-/Autosave-Einheit des Editors: Dokument + globale Arbeitskopien. */
+/** Undo/autosave unit of the editor: document + global working copies. */
 export interface WorkspaceSnapshot {
   document: MapDefinition
   library: ElementLibrary | null
@@ -14,7 +14,7 @@ export interface AutosavePayload extends WorkspaceSnapshot {
   savedAt: string
 }
 
-/** "fun-park" → "Fun Park" — Vorbelegung für meta.name aus der Map-ID. */
+/** "fun-park" → "Fun Park" — prefill for meta.name derived from the map ID. */
 function titleCaseFromId(id: string): string {
   return id
     .split('-')
@@ -67,12 +67,12 @@ export function loadAutosave(): AutosavePayload | null {
   }
 }
 
-/** Ajv erst bei Bedarf laden — hält den Editor-Chunk klein. */
+/** Load Ajv only on demand — keeps the editor chunk small. */
 export function loadSchemaValidation() {
   return import('../../core/model/schemaValidation')
 }
 
-/** Schema- + Logik-Validierung vor dem Export; leer = exportierbar. */
+/** Schema + logic validation before the export; empty = exportable. */
 export async function validateForExport(
   document: MapDefinition,
   library: ElementLibrary | null,
@@ -86,7 +86,6 @@ export async function validateForExport(
   return collectMapLogicIssues(document, library, zones)
 }
 
-/** Import aus Datei/Zwischenablage: JSON-Parse → Schema → Logikregeln. */
 export async function importDocument(
   text: string,
   library: ElementLibrary | null,
@@ -111,7 +110,7 @@ export async function importDocument(
   return { document: documentData, issues: [] }
 }
 
-/** Kanonisches Export-Format: 2 Spaces + abschließender Zeilenumbruch. */
+/** Canonical export format: 2 spaces + trailing newline. */
 export function serializeJson(data: unknown): string {
   return `${JSON.stringify(data, null, 2)}\n`
 }

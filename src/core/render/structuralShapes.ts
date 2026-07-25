@@ -1,19 +1,19 @@
 import type { Placement, StructuralKind } from '../model/types'
 
 /**
- * Geometrie-Bausteine der Platzierungs-Marker (`ElementDefinition.render`).
- * Alle Formen liegen zentriert um den Ursprung, Hauptachse = x;
- * die Ausrichtung übernimmt die Rotation der Platzierung.
+ * Geometry building blocks of the placement markers (`ElementDefinition.render`).
+ * All shapes are centered around the origin, main axis = x;
+ * the orientation comes from the rotation of the placement.
  */
 
-/** Abstand der Stufen-Querlinien bei Treppen, in Map-Units. */
+/** Spacing of the step rungs on stairs, in map units. */
 const STAIRS_RUNG_SPACING = 3
-/** Abstand der Zacken auf Überwindungen, in Map-Units. */
+/** Spacing of the teeth on obstacles, in map units. */
 const OBSTACLE_TOOTH_SPACING = 2.5
 
 /**
- * Eigenschaften je Struktur-Kind: `resizable` erlaubt `placement.size`;
- * `anchor: 'edge'` verankert die Form an der Ankerkante (y=0) statt zentriert.
+ * Properties per structural kind: `resizable` allows `placement.size`;
+ * `anchor: 'edge'` anchors the shape at the anchor edge (y=0) instead of centered.
  */
 export const STRUCTURAL_META: Record<StructuralKind, { resizable: boolean; anchor: 'center' | 'edge' }> = {
   door: { resizable: true, anchor: 'center' },
@@ -33,12 +33,12 @@ export function centeredRectPath(length: number, thickness: number): string {
   return `M${-length / 2},${-thickness / 2} h${length} v${thickness} h${-length} z`
 }
 
-/** Mittelfuge einer Doppeltür, quer zur Hauptachse. */
+/** Center seam of a double door, across the main axis. */
 export function doorSeamPath(thickness: number): string {
   return `M0,${-thickness / 2} v${thickness}`
 }
 
-/** Zackenreihe entlang der oberen Langkante (Überwindung). */
+/** Row of teeth along the upper long edge (obstacle). */
 export function obstacleTeethPath(length: number, thickness: number): string {
   const toothDepth = thickness * 0.3
   const toothWidth = OBSTACLE_TOOTH_SPACING * 0.45
@@ -49,7 +49,7 @@ export function obstacleTeethPath(length: number, thickness: number): string {
   return segments.join(' ')
 }
 
-/** Zwei Chevron-Pfeile quer zur Hauptachse (Überwindungsrichtung). */
+/** Two chevron arrows across the main axis (direction to climb over). */
 export function obstacleChevronsPath(length: number, thickness: number): string {
   const spread = length * 0.18
   const halfWidth = Math.min(2, length * 0.08)
@@ -60,7 +60,7 @@ export function obstacleChevronsPath(length: number, thickness: number): string 
   return `${chevron(-spread)} ${chevron(spread)}`
 }
 
-/** Stufen-Querlinien einer Treppe. */
+/** Step rungs of a staircase. */
 export function stairsRungsPath(length: number, thickness: number): string {
   const segments: string[] = []
   for (let x = -length / 2 + STAIRS_RUNG_SPACING; x < length / 2; x += STAIRS_RUNG_SPACING) {
@@ -69,7 +69,7 @@ export function stairsRungsPath(length: number, thickness: number): string {
   return segments.join(' ')
 }
 
-/** Richtungs-Chevron einer Treppe entlang der Hauptachse (`ascending: false` → Gegenrichtung). */
+/** Direction chevron of a staircase along the main axis (`ascending: false` → opposite direction). */
 export function stairsArrowPath(length: number, thickness: number, ascending: boolean): string {
   const sign = ascending ? 1 : -1
   const tip = sign * (length / 2 + thickness * 0.6)
@@ -79,14 +79,14 @@ export function stairsArrowPath(length: number, thickness: number, ascending: bo
 }
 
 /**
- * Boden eines Spawn-Raums: Rechteck oberhalb des Ankerpunkts, offene Seite
- * bei y=0 zeigt zum Raum, an dessen Wand der Stub sitzt.
+ * Floor of a spawn room: rectangle above the anchor, the open side at y=0
+ * faces the room on whose wall the stub sits.
  */
 export function spawnRoomFloorPath(width: number, depth: number): string {
   return `M${-width / 2},0 v${-depth} h${width} v${depth} z`
 }
 
-/** U-förmiger Wandzug des Spawn-Raums (offene Seite bei y=0). */
+/** U-shaped wall run of the spawn room (open side at y=0). */
 export function spawnRoomWallPath(width: number, depth: number): string {
   return `M${-width / 2},0 v${-depth} h${width} v${depth}`
 }

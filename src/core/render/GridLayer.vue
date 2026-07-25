@@ -6,7 +6,7 @@ import type { Vec2 } from '../model/types'
 
 const props = defineProps<{
   transform: ViewTransform
-  /** Sichtbare Canvas-Größe in CSS-Pixeln. */
+  /** Visible canvas size in CSS pixels. */
   viewport: Vec2
 }>()
 

@@ -1,14 +1,14 @@
 /**
- * Zentrale Datenmodell-Typen — Single Source of Truth.
- * Muss inhaltlich synchron bleiben mit den JSON-Schemas unter `public/schemas/`
- * (siehe docs/02-datenmodell.md und docs/06-code-richtlinien.md).
+ * Central data model types — single source of truth.
+ * Must stay in sync with the JSON schemas under `public/schemas/`
+ * (see docs/02-datenmodell.md and docs/06-code-richtlinien.md).
  */
 
-/** Punkt oder Größe in Map-Units, [x, y] bzw. [w, h]. */
+/** Point or size in map units, [x, y] or [w, h]. */
 export type Vec2 = [number, number]
 
 // ---------------------------------------------------------------------------
-// Map-Registry — public/data/maps/index.json
+// Map registry — public/data/maps/index.json
 // ---------------------------------------------------------------------------
 
 export interface MapsIndex {
@@ -21,9 +21,9 @@ export interface MapRegistryEntry {
   name: string
   background?: string
   card?: string
-  /** Fortschritt 0–100 für die Kachel in der Übersicht. */
+  /** Progress 0–100 for the tile in the overview. */
   progress: number
-  /** `false` → "Coming in the future"-Banner, nicht klickbar. */
+  /** `false` → "Coming in the future" banner, not clickable. */
   enabled: boolean
 }
 
@@ -37,18 +37,18 @@ export interface Contributors {
 }
 
 export interface Contributor {
-  /** Verknüpfung zu den Maps: identisch zum Eintrag in deren `meta.authors`. */
+  /** Link to the maps: identical to the entry in their `meta.authors`. */
   name: string
-  /** Profil auf outlasttrialsstats.com (Schema erzwingt die Domain). */
+  /** Profile on outlasttrialsstats.com (the schema enforces the domain). */
   profileUrl: string
-  /** Dateiname unter dem Game-Assets-Host, immer `.webp` (nicht die volle URL). */
+  /** File name under the game assets host, always `.webp` (not the full URL). */
   avatar?: string
-  /** Map-IDs aus der Registry, an denen die Person mitgearbeitet hat. */
+  /** Map IDs from the registry the person contributed to. */
   maps: string[]
 }
 
 // ---------------------------------------------------------------------------
-// Map-Definition — public/data/maps/<mapId>/map.json
+// Map definition — public/data/maps/<mapId>/map.json
 // ---------------------------------------------------------------------------
 
 export interface MapDefinition {
@@ -71,7 +71,7 @@ export interface MapMeta {
 export interface Trial {
   id: string
   name: string
-  /** Genau ein Trial pro Map ist der Default beim Öffnen des Viewers. */
+  /** Exactly one trial per map is the default when the viewer opens. */
   default?: boolean
 }
 
@@ -83,18 +83,17 @@ export interface Floor {
 export interface FilterDefinition {
   id: string
   name: string
-  /** Element-Kategorien, die dieser Filter ein-/ausblendet. */
   categories: string[]
   default?: boolean
 }
 
 // ---------------------------------------------------------------------------
-// Räume
+// Rooms
 // ---------------------------------------------------------------------------
 
 /**
- * Raumform relativ zum Ankerpunkt `origin`: entweder ein relativer SVG-Pfad
- * (implizites "M 0 0" am origin) oder ein einfaches Rechteck [w, h].
+ * Room shape relative to the anchor `origin`: either a relative SVG path
+ * (implicit "M 0 0" at the origin) or a plain rectangle [w, h].
  */
 export type RoomShape = { origin: Vec2 } & ({ path: string } | { rect: Vec2 })
 
@@ -107,7 +106,7 @@ export interface InnerLine {
 
 export interface RoomLabel {
   text: string
-  /** Position relativ zum origin des Raums. */
+  /** Position relative to the origin of the room. */
   pos: Vec2
   fontSize?: number
 }
@@ -115,8 +114,8 @@ export interface RoomLabel {
 export type RoomFlag = 'secret' | 'reel' | 'disabled' | 'noWalls' | 'unreachable'
 
 /**
- * Ohne Angabe: in allen Trials sichtbar. `trials` ist eine Positivliste,
- * `hiddenInTrials` die Alternative dazu — niemals beide gleichzeitig.
+ * Without any entry: visible in all trials. `trials` is an allowlist,
+ * `hiddenInTrials` the alternative to it — never both at once.
  */
 export interface Visibility {
   trials?: string[]
@@ -125,7 +124,7 @@ export interface Visibility {
 
 export interface CameraInfo {
   pos: Vec2
-  /** Blickrichtung in Grad. */
+  /** Facing in degrees. */
   rotation: number
 }
 
@@ -143,7 +142,7 @@ export interface RoomInfo {
 export interface Room {
   id: string
   floor: number
-  /** Referenz auf eine Zone der globalen Zonen-Bibliothek (zones.json). */
+  /** Reference to a zone of the global zone library (zones.json). */
   zone: string
   shape: RoomShape
   innerLines?: InnerLine[]
@@ -154,23 +153,23 @@ export interface Room {
 }
 
 // ---------------------------------------------------------------------------
-// Element-Platzierungen
+// Element placements
 // ---------------------------------------------------------------------------
 
-/** Elementspezifische Zusatzdaten, deklariert durch `propsSchema` des Elements. */
+/** Element-specific extra data, declared by the `propsSchema` of the element. */
 export type PlacementProps = Record<string, unknown>
 
 export interface Placement {
   id: string
-  /** Referenz auf die zentrale Element-Bibliothek. */
+  /** Reference to the central element library. */
   element: string
   floor: number
   pos: Vec2
-  /** Rotation in Grad, nur feste 45°-Schritte (synchron zum Schema-`multipleOf`). */
+  /** Rotation in degrees, only fixed 45° steps (in sync with the schema `multipleOf`). */
   rotation?: number
   /**
-   * Nur bei Struktur-Elementen: [Länge, Dicke] überschreibt die
-   * `render`-Defaults; `spawn-room` hat feste Maße und ignoriert das Feld.
+   * Structural elements only: [length, thickness] overrides the `render`
+   * defaults; `spawn-room` has fixed dimensions and ignores the field.
    */
   size?: Vec2
   roomId?: string
@@ -179,7 +178,7 @@ export interface Placement {
 }
 
 // ---------------------------------------------------------------------------
-// Routen
+// Routes
 // ---------------------------------------------------------------------------
 
 export type RouteLineStyle = 'route'
@@ -194,7 +193,7 @@ export interface RouteLine {
 }
 
 // ---------------------------------------------------------------------------
-// Zonen-Bibliothek — public/data/zones.json (global für alle Maps)
+// Zone library — public/data/zones.json (global across all maps)
 // ---------------------------------------------------------------------------
 
 export interface ZoneLibrary {
@@ -210,7 +209,7 @@ export interface Zone {
 }
 
 // ---------------------------------------------------------------------------
-// Element-Bibliothek — public/data/elements.json
+// Element library — public/data/elements.json
 // ---------------------------------------------------------------------------
 
 export interface ElementLibrary {
@@ -231,18 +230,18 @@ export type PropFieldType = 'string' | 'string[]' | 'number' | 'boolean' | 'enum
 export interface PropFieldSchema {
   type: PropFieldType
   label: string
-  /** Nur bei `type: 'enum'`. */
+  /** Only for `type: 'enum'`. */
   values?: string[]
 }
 
-/** Geschlossenes Set parametrischer Vektor-Bauelemente (docs/02 §4). */
+/** Closed set of parametric vector building blocks (docs/02 §4). */
 export type StructuralKind = 'door' | 'double-door' | 'obstacle' | 'spawn-room' | 'stairs'
 
 export interface StructuralRender {
   kind: StructuralKind
-  /** Standardlänge entlang der Hauptachse in Map-Units. */
+  /** Default length along the main axis, in map units. */
   length: number
-  /** Standarddicke quer zur Hauptachse; bei `spawn-room` die Tiefe. */
+  /** Default thickness across the main axis; for `spawn-room` the depth. */
   thickness: number
 }
 
@@ -251,19 +250,19 @@ export interface ElementDefinition {
   name: string
   category: string
   /**
-   * Volle https-URL eines webp-Icons unter dem Game-Assets-Host
-   * (`ICON_URL_PATTERN`). Optional — ohne Icon greift das
-   * Platzhalter-Rendering (Farbkreis + Initialen); `render`-Elemente
-   * zeichnen das Icon zentriert in der Form (z. B. Spawn-Raum).
+   * Full https URL of a webp icon under the game assets host
+   * (`ICON_URL_PATTERN`). Optional — without an icon the placeholder
+   * rendering applies (color circle + initials); `render` elements
+   * draw the icon centered in the shape (e.g. spawn room).
    */
   icon?: string
-  /** Akzent-/Fallbackfarbe: Tooltip-Rahmen, Legende, Platzhalter-Rendering. */
+  /** Accent/fallback color: tooltip border, legend, placeholder rendering. */
   color: string
-  /** Standardgröße in Map-Units. */
+  /** Default size in map units. */
   size?: number
   anchor?: ElementAnchor
   description?: string
   propsSchema?: Record<string, PropFieldSchema>
-  /** Vektor-Rendering statt Icon (Türen, Treppen, Spawn-Räume …). */
+  /** Vector rendering instead of an icon (doors, stairs, spawn rooms …). */
   render?: StructuralRender
 }

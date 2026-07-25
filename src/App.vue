@@ -7,15 +7,15 @@ const { cursorEnabled } = useCustomCursor()
 const cursorEl = ref<HTMLElement>()
 const isPressed = ref(false)
 
-/** Versatz, damit die Fingerspitze des Hand-Bilds auf der Mausposition liegt. */
+/** Offset so the fingertip of the hand image sits on the mouse position. */
 const CURSOR_HOTSPOT_OFFSET_PX = 2
 
 let rafId: number | null = null
 let cursorX = 0
 let cursorY = 0
 
-// Pointer- statt Maus-Events: d3-zoom unterdrückt während des Pannens
-// mousemove/mouseup per stopImmediatePropagation, Pointer-Events nicht.
+// Pointer instead of mouse events: while panning, d3-zoom suppresses
+// mousemove/mouseup via stopImmediatePropagation, but not pointer events.
 function onPointerMove(event: PointerEvent) {
   cursorX = event.clientX - CURSOR_HOTSPOT_OFFSET_PX
   cursorY = event.clientY - CURSOR_HOTSPOT_OFFSET_PX
@@ -29,8 +29,8 @@ function onPointerMove(event: PointerEvent) {
   }
 }
 
-// Nur die linke Maustaste: beim Rechtsklick verschluckt das native
-// Kontextmenü das pointerup, die Gedrückt-Pose bliebe sonst hängen.
+// Left mouse button only: on a right-click the native context menu swallows
+// the pointerup, which would leave the pressed pose stuck.
 function onPointerDown(event: PointerEvent) {
   if (event.button === 0) {
     isPressed.value = true
@@ -42,7 +42,7 @@ function releasePressed() {
 }
 
 onMounted(() => {
-  // Gedrückt-Variante vorladen, damit der erste Klick nicht flackert
+  // Preload the pressed variant so the first click does not flicker
   new Image().src = '/images/cursor/cursor_pressed.webp'
 
   window.addEventListener('pointermove', onPointerMove, { passive: true })

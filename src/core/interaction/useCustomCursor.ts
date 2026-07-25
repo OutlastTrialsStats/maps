@@ -1,8 +1,8 @@
 import { ref, watch } from 'vue'
 import { CURSOR_STORAGE_KEY } from '../constants'
 
-// Touch-/Coarse-Pointer-Geräte haben keinen echten Zeiger, dem das Overlay
-// folgen könnte — das Feature ist dort komplett deaktiviert.
+// Touch/coarse pointer devices have no real cursor for the overlay to follow —
+// the feature is completely disabled there.
 const isTouchDevice =
   typeof window !== 'undefined' &&
   typeof window.matchMedia === 'function' &&
@@ -32,7 +32,7 @@ watch(cursorEnabled, (enabled) => {
   try {
     localStorage.setItem(CURSOR_STORAGE_KEY, String(enabled))
   } catch {
-    // localStorage voll oder nicht verfügbar — Zustand gilt dann nur für die Sitzung
+    // localStorage full or unavailable — the state then only lasts for the session
   }
 })
 

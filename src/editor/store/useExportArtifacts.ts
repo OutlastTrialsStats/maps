@@ -9,12 +9,12 @@ import { useEditorStore } from './editorStore'
 import { useLibraryStore } from './libraryStore'
 import { useZonesStore } from './zonesStore'
 
-/** Eine exportierbare Datei des PR-Workflows inkl. Zielpfad im Repo. */
+/** One exportable file of the PR workflow including its target path in the repo. */
 export interface ExportArtifact {
   filename: string
   repoPath: string
   data: unknown
-  /** Setzt die jeweilige Dirty-Basis zurück (Download oder Copy zählt als Export). */
+  /** Resets the respective dirty baseline (download or copy counts as an export). */
   onExported: () => void
 }
 
@@ -26,9 +26,9 @@ function prefixIssues(filename: string, issues: ValidationIssue[]): ValidationIs
 }
 
 /**
- * Export-Artefakte: map.json immer; elements.json/zones.json nur, wenn die
- * globalen Arbeitskopien vom Repo-Stand abweichen. Export ist gesperrt,
- * solange irgendein Artefakt Validierungsfehler hat.
+ * Export artifacts: map.json always; elements.json/zones.json only when the
+ * global working copies differ from the repo state. Exporting is blocked as
+ * long as any artifact has validation errors.
  */
 export function useExportArtifacts() {
   const store = useEditorStore()

@@ -33,7 +33,7 @@ defineProps<{ map: MapRegistryEntry }>()
   position: relative;
   display: flex;
   align-items: flex-end;
-  /* Originalmaße der Poster-Assets. */
+  /* Original dimensions of the poster assets. */
   aspect-ratio: 548 / 728;
   overflow: hidden;
   background: var(--surface-card);

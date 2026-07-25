@@ -1,4 +1,4 @@
-/** True, wenn Tastatur-Eingaben dem Element gehören und keine Shortcuts feuern dürfen. */
+/** True when keyboard input belongs to the element and no shortcuts may fire. */
 export function isEditableTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) {
     return false

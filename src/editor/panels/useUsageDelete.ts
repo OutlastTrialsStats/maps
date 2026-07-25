@@ -2,8 +2,8 @@ import { ref, type Ref } from 'vue'
 import type { UsageEntry } from '../store/useUsageLookup'
 
 /**
- * Dialog-Zustand für "Löschen mit Nutzungsprüfung" (Elemente, Zonen):
- * öffnet den UsageDeleteDialog und lädt die Nutzung über alle Maps nach.
+ * Dialog state for "delete with usage check" (elements, zones):
+ * opens the UsageDeleteDialog and loads the usage across all maps.
  */
 export function useUsageDelete<T>(collect: (target: T) => Promise<UsageEntry[]>) {
   const showDeleteDialog = ref(false)

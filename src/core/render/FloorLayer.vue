@@ -10,12 +10,11 @@ import RoutePath from './RoutePath.vue'
 const props = defineProps<{
   map: MapDefinition
   floor: number
-  /** Ohne Angabe wird alles gerendert (Editor ohne geladenes Dokument). */
+  /** Without an entry everything is rendered (editor without a loaded document). */
   trialId?: string
   elementIndex: ElementIndex
   zones: ReadonlyMap<string, Zone>
   selectedIds?: ReadonlySet<string>
-  /** Element-Kategorien, deren Platzierungen ausgeblendet werden (Viewer-Filter). */
   hiddenCategories?: ReadonlySet<string>
 }>()
 

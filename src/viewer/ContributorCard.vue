@@ -13,7 +13,7 @@ const avatarUrl = computed(() =>
 )
 const { showIcon, onIconError } = useIconFallback(() => avatarUrl.value)
 
-/** Unbekannte Map-IDs werden übersprungen — die CI meldet sie bereits. */
+/** Unknown map IDs are skipped — CI already reports them. */
 const creditedMaps = computed(() =>
   props.contributor.maps
     .map((mapId) => props.maps.find((entry) => entry.id === mapId))
@@ -59,7 +59,7 @@ const creditedMaps = computed(() =>
   padding: 16px;
 }
 
-/* Game-Assets sind quadratisch — deshalb ohne Rundung, damit nichts beschnitten wirkt. */
+/* Game assets are square — hence no rounding, so nothing looks cropped. */
 .avatar {
   flex: 0 0 auto;
   width: 56px;

@@ -4,8 +4,8 @@ import { fetchJson } from './dataSource'
 import type { ValidationIssue } from './validation'
 
 /**
- * Ajv-Schema-Validierung im Browser. Bewusst eigenes Modul: Ajv darf nur im
- * lazy geladenen Editor-Chunk landen, nie im Viewer-Bundle.
+ * Ajv schema validation in the browser. Deliberately its own module: Ajv may
+ * only end up in the lazily loaded editor chunk, never in the viewer bundle.
  */
 
 export type SchemaValidator = (data: unknown) => ValidationIssue[]
@@ -24,7 +24,7 @@ export function getZonesSchemaValidator(): Promise<SchemaValidator> {
   return getValidator('zones.schema.json')
 }
 
-/** Lädt und kompiliert ein Schema einmalig; alle Schemas sind self-contained. */
+/** Loads and compiles a schema once; all schemas are self-contained. */
 function getValidator(schemaFile: string): Promise<SchemaValidator> {
   const cached = cache.get(schemaFile) ?? createValidator(schemaFile)
   cache.set(schemaFile, cached)
@@ -46,7 +46,7 @@ async function createValidator(schemaFile: string): Promise<SchemaValidator> {
   }
 }
 
-/** Ajv-Pfad "/rooms/3/shape/path" → lesbares "rooms[3].shape.path". */
+/** Ajv path "/rooms/3/shape/path" → readable "rooms[3].shape.path". */
 function instancePathToDots(instancePath: string): string {
   return instancePath
     .split('/')

@@ -6,7 +6,7 @@ import { useEditorStore } from './store/editorStore'
 const props = defineProps<{
   cursor: Vec2 | null
   zoom: number
-  /** null = kein Dokument geladen (Status ausblenden). */
+  /** null = no document loaded (hide the status). */
   issueCount: number | null
 }>()
 

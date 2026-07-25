@@ -2,9 +2,9 @@ import { computed, ref, type Ref } from 'vue'
 import { jsonClone } from './jsonClone'
 
 /**
- * Editierbare Arbeitskopie eines globalen Datenbestands (Elemente, Zonen):
- * `original` ist der gefetchte Repo-Stand und Vergleichsbasis für `dirty`;
- * `working` wird im Editor mutiert und wandert in Undo-Snapshots und Autosave.
+ * Editable working copy of a global data set (elements, zones):
+ * `original` is the fetched repo state and the comparison baseline for `dirty`;
+ * `working` is mutated in the editor and goes into undo snapshots and autosave.
  */
 export function useWorkingCopy<T>(load: () => Promise<T>, errorLabel: string) {
   const original = ref(null) as Ref<T | null>
@@ -24,7 +24,7 @@ export function useWorkingCopy<T>(load: () => Promise<T>, errorLabel: string) {
     try {
       original.value = await load()
       loadError.value = ''
-      // Eine per Autosave restaurierte Arbeitskopie hat Vorrang vor dem Fetch.
+      // A working copy restored from autosave takes precedence over the fetch.
       working.value = working.value ?? jsonClone(original.value)
     } catch (error) {
       loadError.value = `Failed to load the ${errorLabel}: ${String(error)}`
@@ -35,7 +35,6 @@ export function useWorkingCopy<T>(load: () => Promise<T>, errorLabel: string) {
     working.value = snapshot
   }
 
-  /** Nach dem Export ist der exportierte Stand die neue Vergleichsbasis. */
   function markExported(): void {
     original.value = jsonClone(working.value)
   }

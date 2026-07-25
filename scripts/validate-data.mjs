@@ -1,9 +1,9 @@
 /**
- * Validiert alle JSON-Daten unter public/data/ gegen die Schemas unter
- * public/schemas/ plus die Logikregeln aus docs/02-datenmodell.md §5.
- * Die Logikregeln leben genau einmal in src/core/model/validation.ts und
- * werden hier per nativem Node-Type-Stripping importiert (Node >= 23.6).
- * Läuft lokal (pnpm validate:data) und in der CI.
+ * Validates all JSON data under public/data/ against the schemas under
+ * public/schemas/ plus the logic rules from docs/02-datenmodell.md §5.
+ * The logic rules live exactly once in src/core/model/validation.ts and are
+ * imported here via native Node type stripping (Node >= 23.6).
+ * Runs locally (pnpm validate:data) and in CI.
  */
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { dirname, extname, join } from 'node:path'
@@ -20,7 +20,7 @@ import {
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const readJson = (relPath) => JSON.parse(readFileSync(join(root, relPath), 'utf8'))
 
-// Bild-Limits aus docs/05 §3.3.
+// Image limits from docs/05 §3.3.
 const SCREENSHOT_MAX_BYTES = 500 * 1024
 const SCREENSHOT_WARN_BYTES = 300 * 1024
 const SCREENSHOT_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp'])
@@ -102,7 +102,7 @@ validateSchema('public/data/maps/index.json', SCHEMA_IDS.mapsIndex, mapsIndex)
 }
 
 let validatedMaps = 0
-/** Autoren je Map — Grundlage für den Abgleich mit contributors.json. */
+/** Authors per map — the basis for reconciling with contributors.json. */
 const authorsByMapId = new Map()
 for (const entry of mapsIndex.maps) {
   const relPath = `public/data/maps/${entry.id}/map.json`
@@ -135,7 +135,7 @@ if (validateSchema('public/data/contributors.json', SCHEMA_IDS.contributors, con
     'public/data/contributors.json',
     collectContributorIssues(contributors, authorsByMapId, knownMapIds),
   )
-  // Fehlende Profile blockieren keinen PR — sie zeigen dem Maintainer offene Nachträge.
+  // Missing profiles do not block a PR — they show the maintainer what is still open.
   const credited = new Set(contributors.contributors.map((entry) => entry.name))
   for (const [mapId, authors] of authorsByMapId) {
     for (const author of authors) {

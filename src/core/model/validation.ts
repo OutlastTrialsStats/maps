@@ -1,10 +1,10 @@
 import type { Contributors, ElementLibrary, MapDefinition, Visibility, ZoneLibrary } from './types'
 
 /**
- * Logikregeln aus docs/02-datenmodell.md §5 — die strukturelle Prüfung übernimmt
- * das JSON-Schema (inkl. Pfad-Zeichensatz), hier stehen die Referenz-Regeln.
- * Läuft im Browser (Editor-Export/-Import) und in Node (scripts/validate-data.mjs)
- * — deshalb: keine DOM-/Vue-Imports, nur erasable TypeScript-Syntax.
+ * Logic rules from docs/02-datenmodell.md §5 — the structural check is done by
+ * the JSON schema (including the path character set), the reference rules live here.
+ * Runs in the browser (editor export/import) and in Node (scripts/validate-data.mjs)
+ * — hence: no DOM/Vue imports, only erasable TypeScript syntax.
  */
 
 export interface ValidationIssue {
@@ -27,7 +27,6 @@ export function checkUniqueIds(
   }
 }
 
-/** Prüfungen der zentralen Element-Bibliothek (elements.json). */
 export function collectLibraryIssues(library: ElementLibrary): ValidationIssue[] {
   const issues: ValidationIssue[] = []
   checkUniqueIds(
@@ -54,7 +53,6 @@ export function collectLibraryIssues(library: ElementLibrary): ValidationIssue[]
   return issues
 }
 
-/** Prüfungen der globalen Zonen-Bibliothek (zones.json). */
 export function collectZoneLibraryIssues(zones: ZoneLibrary): ValidationIssue[] {
   const issues: ValidationIssue[] = []
   checkUniqueIds(
@@ -67,9 +65,9 @@ export function collectZoneLibraryIssues(zones: ZoneLibrary): ValidationIssue[] 
 }
 
 /**
- * Prüfungen der Contributor-Liste (contributors.json). Die Verknüpfung läuft über
- * den Namen, deshalb muss jeder Eintrag in `meta.authors` der genannten Map stehen.
- * Läuft nur in der CI — der Browser kennt nie alle Maps gleichzeitig.
+ * Checks of the contributor list (contributors.json). The link runs through the
+ * name, so every entry must appear in `meta.authors` of the map it names.
+ * Runs in CI only — the browser never knows all maps at once.
  */
 export function collectContributorIssues(
   contributors: Contributors,
@@ -91,7 +89,7 @@ export function collectContributorIssues(
         return
       }
       const authors = authorsByMapId.get(mapId)
-      // Fehlt die map.json (Map noch nicht erfasst), kann hier nichts abgeglichen werden.
+      // Without a map.json (map not captured yet) there is nothing to reconcile here.
       if (authors && !authors.includes(entry.name)) {
         issues.push({
           path,
@@ -103,7 +101,6 @@ export function collectContributorIssues(
   return issues
 }
 
-/** Logikregeln einer Map-Definition gegen Element- und Zonen-Bibliothek. */
 export function collectMapLogicIssues(
   map: MapDefinition,
   library: ElementLibrary | null,

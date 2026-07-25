@@ -48,7 +48,7 @@ const ascending = computed(() => props.placement.props?.direction !== 'down')
 
 const groupTransform = computed(() => placementTransform(props.placement))
 
-/** Zentriertes Symbol in der Form; bei `edge`-Anker liegt die Mitte bei -t/2. */
+/** Symbol centered in the shape; with an `edge` anchor the center sits at -t/2. */
 const icon = computed(() => {
   const url = props.element.icon
   if (!showIcon.value || !url) {
