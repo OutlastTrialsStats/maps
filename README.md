@@ -49,8 +49,11 @@ scripts/           data validation used by CI
 ## Deployment
 
 ```bash
-docker compose up -d --build   # nginx serving dist/ on port 8080
+docker compose pull maps
+docker compose up -d maps     # published on http://localhost:8080
 ```
+
+To build the image locally instead: `docker build -t outlasttrials-maps . && docker run --rm -p 8080:80 outlasttrials-maps`.
 
 ## Assets and attribution
 
