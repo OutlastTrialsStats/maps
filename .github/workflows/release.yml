@@ -1,0 +1,127 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump (semver)
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate.yml
+
+  release:
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Ensure release runs from main
+        if: github.ref_name != 'main'
+        run: |
+          echo "::error::Releases must be triggered from main, got '${{ github.ref_name }}'."
+          exit 1
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Resolve lowercase image name
+        id: image
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
+      - name: Bump version
+        id: bump
+        run: |
+          npm version "${{ inputs.bump }}" --no-git-tag-version
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Update CHANGELOG.md
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          RANGE=${PREV_TAG:+$PREV_TAG..HEAD}
+          ENTRIES=$(git log $RANGE --no-merges --pretty=format:'- %s (%h)')
+          [ -n "$ENTRIES" ] || ENTRIES='- Maintenance release (no code changes).'
+          PREVIOUS_SECTIONS=$([ -f CHANGELOG.md ] && sed -n '/^## /,$p' CHANGELOG.md || true)
+          {
+            printf '# Changelog\n\n'
+            printf 'All notable changes to this project are documented in this file.\n'
+            printf 'The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)\n'
+            printf 'and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n'
+            printf '## [%s] - %s\n\n' "$VERSION" "$(date +%F)"
+            printf '%s\n\n' "$ENTRIES"
+            printf '%s' "$PREVIOUS_SECTIONS"
+          } > CHANGELOG.md
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Derive image tags and labels
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.image.outputs.name }}
+          tags: |
+            type=semver,pattern={{version}},value=${{ steps.bump.outputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ steps.bump.outputs.version }}
+            type=raw,value=latest
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Commit, tag and push
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add package.json package-lock.json CHANGELOG.md
+          git commit -m "chore(release): v$VERSION"
+          git tag -a "v$VERSION" -m "v$VERSION"
+          git push origin main --follow-tags
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: gh release create "v$VERSION" --title "v$VERSION" --generate-notes
+
+      - name: Summary
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+          IMAGE: ${{ steps.image.outputs.name }}
+        run: |
+          {
+            echo "### Released v$VERSION"
+            echo
+            echo '```'
+            echo "docker pull $IMAGE:$VERSION"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

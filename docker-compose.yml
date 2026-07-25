@@ -1,0 +1,7 @@
+services:
+  maps:
+    image: ghcr.io/outlasttrialsstats/maps:latest
+    container_name: outlasttrials-maps
+    restart: unless-stopped
+    ports:
+      - '8080:80'
