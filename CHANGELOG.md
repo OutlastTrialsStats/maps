@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2] - 2026-07-25
+
+- docs: translate code comments from German to English (24f1933)
+- chore: replace npm with pnpmn (b7f1a03)
+- docs: update CONTRIBUTING guide for clarity and streamlined instructions (fe23347)
+- chore: remove docker-compose configuration (7203d46)
+- docs: rewrite README for clarity and improved structure (046df0a)
+
 ## [0.1.1] - 2026-07-25
 
 - feature: add release workflow and Docker-based deployment (4fcbdd0)
