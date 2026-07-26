@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.3] - 2026-07-26
+
+- feat: improve polygon drawing with active-end switching, undo/redo, and orthogonal snapping (600f053)
+
 ## [0.1.2] - 2026-07-25
 
 - docs: translate code comments from German to English (24f1933)
