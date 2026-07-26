@@ -4,6 +4,8 @@ import type { Vec2 } from '../../core/model/types'
 
 export type ToolId = 'select' | 'room' | 'placement' | 'route'
 export type RoomToolMode = 'polygon' | 'rect' | 'innerline'
+/** Which end of an open polyline new points attach to. */
+export type DrawEnd = 'head' | 'tail'
 
 /** Pointer event prepared by the canvas in world coordinates (dblclick delivers a MouseEvent). */
 export interface CanvasPointerEvent {
@@ -15,7 +17,7 @@ export interface CanvasPointerEvent {
 
 /** Declarative tool preview, rendered by ToolOverlayLayer. */
 export type ToolOverlay =
-  | { kind: 'polyline'; points: Vec2[]; preview: Vec2 | null }
+  | { kind: 'polyline'; points: Vec2[]; preview: Vec2 | null; activeEnd?: DrawEnd }
   | { kind: 'rect'; from: Vec2; to: Vec2 }
   | { kind: 'vertices'; origin: Vec2; points: Vec2[]; activeIndex: number | null }
   | { kind: 'ghost'; pos: Vec2; rotation: number; elementId: string }

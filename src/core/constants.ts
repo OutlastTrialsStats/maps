@@ -61,7 +61,7 @@ export const ROTATION_VALUES = Array.from(
 /** Offset of duplicated objects (Ctrl+D), in map units. */
 export const DUPLICATE_OFFSET = 5
 
-/** Hit radius for vertex handles and for closing a polygon, in map units. */
+/** Hit radius for vertex handles and for switching the active drawing end, in map units. */
 export const VERTEX_HIT_RADIUS = 4
 
 /** Touch: a long press opens the viewer context menu (docs/99 P7). */

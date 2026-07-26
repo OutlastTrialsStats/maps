@@ -23,8 +23,16 @@ const previewPathD = computed(() => {
   if (!polyline.value?.preview || polyline.value.points.length === 0) {
     return ''
   }
-  const last = polyline.value.points[polyline.value.points.length - 1]
-  return `M${last[0]},${last[1]}L${polyline.value.preview[0]},${polyline.value.preview[1]}`
+  const points = polyline.value.points
+  const anchor = polyline.value.activeEnd === 'head' ? points[0] : points[points.length - 1]
+  return `M${anchor[0]},${anchor[1]}L${polyline.value.preview[0]},${polyline.value.preview[1]}`
+})
+
+const activeEndIndex = computed(() => {
+  if (!polyline.value?.activeEnd) {
+    return null
+  }
+  return polyline.value.activeEnd === 'head' ? 0 : polyline.value.points.length - 1
 })
 
 const rectBounds = computed(() => {
@@ -79,7 +87,7 @@ const ghostElement = computed(() =>
         :cy="point[1]"
         :r="HANDLE_RADIUS"
         class="handle"
-        :class="{ first: index === 0 }"
+        :class="{ first: index === 0, 'active-end': index === activeEndIndex }"
       />
     </template>
     <rect
@@ -157,6 +165,11 @@ const ghostElement = computed(() =>
 
 .handle.first {
   fill: var(--color-selection);
+}
+
+.handle.active-end {
+  fill: #e0913c;
+  stroke: #e0913c;
 }
 
 .handle.active {

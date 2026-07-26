@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import { AUTOSAVE_DEBOUNCE_MS, UNDO_STACK_LIMIT } from '../../core/constants'
 import type { HitTarget } from '../../core/interaction/hitTest'
 import type {
@@ -22,6 +22,17 @@ import { useZonesStore } from './zonesStore'
 /** Number of digits of the running number in generated IDs (e.g. "pl-0042"). */
 const GENERATED_ID_DIGITS = 4
 
+/**
+ * While set, undo/redo route here exclusively — a document undo/redo mid-drawing
+ * could delete the very room an inner line is being drawn into.
+ */
+export interface TransientHistory {
+  canUndo(): boolean
+  canRedo(): boolean
+  undo(): void
+  redo(): void
+}
+
 export const useEditorStore = defineStore('editor', () => {
   const libraryStore = useLibraryStore()
   const zonesStore = useZonesStore()
@@ -29,7 +40,10 @@ export const useEditorStore = defineStore('editor', () => {
   const document = ref<MapDefinition | null>(null)
   const activeTool = ref<ToolId>('select')
   const roomToolMode = ref<RoomToolMode>('polygon')
+  /** 90° snapping while drawing polygons (Alt inverts temporarily). */
+  const roomOrthoSnap = ref(true)
   const innerLineStyle = ref<InnerLineStyle>('object')
+  const drawingHistory = shallowRef<TransientHistory | null>(null)
   /** Short tool hint for the status bar (e.g. a path that cannot be edited). */
   const toolHint = ref('')
   const activeFloor = ref(0)
@@ -47,8 +61,8 @@ export const useEditorStore = defineStore('editor', () => {
 
   let autosaveTimer: number | undefined
 
-  const canUndo = computed(() => undoStack.value.length > 0)
-  const canRedo = computed(() => redoStack.value.length > 0)
+  const canUndo = computed(() => drawingHistory.value?.canUndo() ?? undoStack.value.length > 0)
+  const canRedo = computed(() => drawingHistory.value?.canRedo() ?? redoStack.value.length > 0)
   const floors = computed(() => document.value?.floors ?? [])
   const trials = computed(() => document.value?.trials ?? [])
   const selectedIds = computed(() => new Set(selection.value.map((target) => target.id)))
@@ -164,6 +178,10 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   function undo(): void {
+    if (drawingHistory.value) {
+      drawingHistory.value.undo()
+      return
+    }
     const previous = undoStack.value.pop()
     if (!previous || !document.value) {
       return
@@ -175,6 +193,10 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   function redo(): void {
+    if (drawingHistory.value) {
+      drawingHistory.value.redo()
+      return
+    }
     const next = redoStack.value.pop()
     if (!next || !document.value) {
       return
@@ -213,6 +235,7 @@ export const useEditorStore = defineStore('editor', () => {
     document.value = doc
     undoStack.value = []
     redoStack.value = []
+    drawingHistory.value = null
     selection.value = []
     activeTool.value = 'select'
     activeFloor.value = initialFloorIndex(doc.floors)
@@ -288,7 +311,9 @@ export const useEditorStore = defineStore('editor', () => {
     document,
     activeTool,
     roomToolMode,
+    roomOrthoSnap,
     innerLineStyle,
+    drawingHistory,
     toolHint,
     activeFloor,
     trialContext,

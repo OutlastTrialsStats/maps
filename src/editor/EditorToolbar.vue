@@ -60,6 +60,14 @@ const trialOptions = computed(() =>
         :severity="store.roomToolMode === mode.id ? 'primary' : 'secondary'"
         @click="store.roomToolMode = mode.id"
       />
+      <Button
+        v-if="store.roomToolMode === 'polygon'"
+        v-tooltip.bottom="'Orthogonal drawing — hold Alt to invert temporarily'"
+        label="90°"
+        size="small"
+        :severity="store.roomOrthoSnap ? 'primary' : 'secondary'"
+        @click="store.roomOrthoSnap = !store.roomOrthoSnap"
+      />
       <Select
         v-if="store.roomToolMode === 'innerline'"
         v-model="store.innerLineStyle"

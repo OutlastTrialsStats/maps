@@ -9,15 +9,29 @@ import {
 import type { Room, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { useZonesStore } from '../store/zonesStore'
+import {
+  activeAnchor,
+  addPoint,
+  oppositeEndpoint,
+  redoPoint,
+  switchEnd,
+  undoPoint,
+  type DrawingPoints,
+} from './drawingPoints'
 import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 
 const MIN_POLYGON_POINTS = 3
+/** Below two points both ends coincide — there is nothing to switch to. */
+const MIN_END_SWITCH_POINTS = 2
+
+const DRAWING_HINT =
+  'Enter/double-click closes · Ctrl+Z/Backspace removes the last point · click the far end to draw from there · Alt inverts 90° snapping.'
 
 type RoomToolState =
   | { kind: 'idle' }
-  | { kind: 'drawing'; points: Vec2[]; preview: Vec2 | null }
+  | ({ kind: 'drawing'; preview: Vec2 | null } & DrawingPoints)
   | { kind: 'rect'; start: Vec2; preview: Vec2 | null }
-  | { kind: 'innerline'; roomId: string; origin: Vec2; points: Vec2[]; preview: Vec2 | null }
+  | ({ kind: 'innerline'; roomId: string; origin: Vec2; preview: Vec2 | null } & DrawingPoints)
   | { kind: 'vertex'; roomId: string; origin: Vec2; points: Vec2[]; dragIndex: number | null; dragged: boolean }
 
 function distance(a: Vec2, b: Vec2): number {
@@ -42,9 +56,10 @@ export function useRoomTool(): EditorTool {
     return zoneId
   }
 
-  /** Ortho snapping relative to the last point (Alt = free), grid snapping comes from the canvas. */
+  /** Ortho snapping relative to the anchor (toolbar toggle, Alt inverts), grid snapping comes from the canvas. */
   function snapPoint(event: CanvasPointerEvent, anchor?: Vec2): Vec2 {
-    if (anchor && !event.event.altKey) {
+    const ortho = store.roomOrthoSnap !== event.event.altKey
+    if (anchor && ortho) {
       return snapOrtho(anchor, event.snapped)
     }
     return event.snapped
@@ -52,7 +67,47 @@ export function useRoomTool(): EditorTool {
 
   function reset(): void {
     state.value = { kind: 'idle' }
+    store.drawingHistory = null
     store.toolHint = ''
+  }
+
+  function registerHistory(): void {
+    store.drawingHistory = {
+      canUndo: () => state.value.kind === 'drawing' || state.value.kind === 'innerline',
+      canRedo: () => {
+        const current = state.value
+        return (
+          (current.kind === 'drawing' || current.kind === 'innerline') &&
+          current.redoPoints.length > 0
+        )
+      },
+      undo: () => {
+        const current = state.value
+        if ((current.kind === 'drawing' || current.kind === 'innerline') && !undoPoint(current)) {
+          reset()
+        }
+      },
+      redo: () => {
+        const current = state.value
+        if (current.kind === 'drawing' || current.kind === 'innerline') {
+          redoPoint(current)
+        }
+      },
+    }
+  }
+
+  function handleDrawingClick(current: DrawingPoints, event: CanvasPointerEvent, point: Vec2): void {
+    if (
+      current.points.length >= MIN_END_SWITCH_POINTS &&
+      distance(event.world, oppositeEndpoint(current)) <= VERTEX_HIT_RADIUS
+    ) {
+      switchEnd(current)
+      return
+    }
+    if (distance(point, activeAnchor(current)) === 0) {
+      return
+    }
+    addPoint(current, point)
   }
 
   /** Shared completion of polygon and rectangle mode. */
@@ -201,18 +256,18 @@ export function useRoomTool(): EditorTool {
       }
       if (mode === 'polygon') {
         if (current.kind === 'drawing') {
-          const point = snapPoint(event, current.points[current.points.length - 1])
-          if (
-            current.points.length >= MIN_POLYGON_POINTS &&
-            distance(point, current.points[0]) <= VERTEX_HIT_RADIUS
-          ) {
-            commitPolygon(current.points)
-            return
-          }
-          current.points.push(point)
+          handleDrawingClick(current, event, snapPoint(event, activeAnchor(current)))
           return
         }
-        state.value = { kind: 'drawing', points: [event.snapped], preview: null }
+        state.value = {
+          kind: 'drawing',
+          points: [event.snapped],
+          preview: null,
+          activeEnd: 'tail',
+          redoPoints: [],
+        }
+        registerHistory()
+        store.toolHint = DRAWING_HINT
         return
       }
       if (mode === 'rect') {
@@ -225,7 +280,7 @@ export function useRoomTool(): EditorTool {
       }
       // Inner line mode: the first click has to hit a room.
       if (current.kind === 'innerline') {
-        current.points.push(event.snapped)
+        handleDrawingClick(current, event, event.snapped)
         return
       }
       if (event.hit?.kind === 'room') {
@@ -237,7 +292,10 @@ export function useRoomTool(): EditorTool {
             origin: room.shape.origin,
             points: [event.snapped],
             preview: null,
+            activeEnd: 'tail',
+            redoPoints: [],
           }
+          registerHistory()
         }
         return
       }
@@ -247,7 +305,7 @@ export function useRoomTool(): EditorTool {
     onPointerMove(event: CanvasPointerEvent): void {
       const current = state.value
       if (current.kind === 'drawing') {
-        current.preview = snapPoint(event, current.points[current.points.length - 1])
+        current.preview = snapPoint(event, activeAnchor(current))
       } else if (current.kind === 'rect') {
         current.preview = event.snapped
       } else if (current.kind === 'innerline') {
@@ -301,6 +359,15 @@ export function useRoomTool(): EditorTool {
         }
         return false
       }
+      if (
+        event.key === 'Backspace' &&
+        (current.kind === 'drawing' || current.kind === 'innerline')
+      ) {
+        if (!undoPoint(current)) {
+          reset()
+        }
+        return true
+      }
       if (event.key === 'Escape' && current.kind !== 'idle') {
         reset()
         return true
@@ -318,13 +385,23 @@ export function useRoomTool(): EditorTool {
     overlay: computed<ToolOverlay | null>(() => {
       const current = state.value
       if (current.kind === 'drawing') {
-        return { kind: 'polyline', points: current.points, preview: current.preview }
+        return {
+          kind: 'polyline',
+          points: current.points,
+          preview: current.preview,
+          activeEnd: current.activeEnd,
+        }
       }
       if (current.kind === 'rect') {
         return { kind: 'rect', from: current.start, to: current.preview ?? current.start }
       }
       if (current.kind === 'innerline') {
-        return { kind: 'polyline', points: current.points, preview: current.preview }
+        return {
+          kind: 'polyline',
+          points: current.points,
+          preview: current.preview,
+          activeEnd: current.activeEnd,
+        }
       }
       if (current.kind === 'vertex') {
         return {
