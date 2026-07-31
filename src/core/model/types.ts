@@ -170,15 +170,18 @@ export interface Room {
 export type PlacementProps = Record<string, unknown>
 
 /**
- * Numbering of a placement: dot on the element, leader line, diamond badge with
- * the number. Named `NumberMarker` to keep it apart from `PlacementMarker.vue`.
+ * Callout on a placement: dot on the element, leader line, diamond badge with
+ * either a number or a game-asset icon (bare file name, like `ElementDefinition.icon`).
  */
-export interface NumberMarker {
-  /** Number inside the badge. */
-  label: number
+export type CalloutMarker = {
   /** Badge center relative to the placement position; never rotates with it. */
   offset: Vec2
-}
+  /** Dot, ring and inner diamond; default `MARKER_COLOR`. */
+  color?: string
+  /** Leader line only; defaults to `color`. */
+  lineColor?: string
+  lineDashed?: boolean
+} & ({ label: number } | { icon: string })
 
 export interface Placement {
   id: string
@@ -194,7 +197,7 @@ export interface Placement {
    */
   size?: Vec2
   roomId?: string
-  marker?: NumberMarker
+  marker?: CalloutMarker
   props?: PlacementProps
 }
 

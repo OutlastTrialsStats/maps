@@ -85,15 +85,24 @@
         "length": { "type": "number", "exclusiveMinimum": 0 }
       }
     },
-    "numberMarker": {
-      "description": "Numbering of a placement: dot, leader line and diamond badge.",
+    "calloutMarker": {
+      "description": "Callout on a placement: dot, leader line and diamond badge with either a number or a game-asset icon.",
       "type": "object",
-      "required": ["label", "offset"],
+      "required": ["offset"],
       "additionalProperties": false,
       "properties": {
         "label": { "type": "integer" },
-        "offset": { "$ref": "#/definitions/vec2" }
-      }
+        "icon": {
+          "description": "Bare .webp file name under https://outlasttrialsstats.com/game-assets/ (no path, no extension).",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "offset": { "$ref": "#/definitions/vec2" },
+        "color": { "$ref": "#/definitions/color" },
+        "lineColor": { "$ref": "#/definitions/color" },
+        "lineDashed": { "type": "boolean" }
+      },
+      "oneOf": [{ "required": ["label"] }, { "required": ["icon"] }]
     },
     "room": {
       "type": "object",
@@ -192,7 +201,7 @@
         "rotation": { "type": "number", "multipleOf": 45 },
         "size": { "$ref": "#/definitions/vec2" },
         "roomId": { "$ref": "#/definitions/kebabId" },
-        "marker": { "$ref": "#/definitions/numberMarker" },
+        "marker": { "$ref": "#/definitions/calloutMarker" },
         "props": { "type": "object" }
       }
     },

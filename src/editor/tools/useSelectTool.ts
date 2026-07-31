@@ -23,10 +23,10 @@ export function useSelectTool(): EditorTool {
   const store = useEditorStore()
   let dragState: { last: Vec2; moved: boolean; markerId: string | null } | null = null
 
-  /** Hit-tested geometrically — `NumberMarker.vue` is pointer-transparent. */
+  /** Hit-tested geometrically — `CalloutMarker.vue` is pointer-transparent. */
   function markerUnderPointer(world: Vec2): string | null {
     const placement = (store.document?.placements ?? []).find((entry) => {
-      if (!entry.marker || !store.selectedIds.has(entry.id)) {
+      if (!entry.marker || entry.floor !== store.activeFloor) {
         return false
       }
       const badge = [
@@ -113,6 +113,7 @@ export function useSelectTool(): EditorTool {
     onPointerDown(event: CanvasPointerEvent): void {
       const markerId = markerUnderPointer(event.world)
       if (markerId) {
+        store.setSelection([{ kind: 'placement', id: markerId }])
         dragState = { last: event.snapped, moved: false, markerId }
         return
       }

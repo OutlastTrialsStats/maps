@@ -119,6 +119,9 @@ export const MARKER_LEADER_WIDTH = 0.5
 export const MARKER_BADGE_RADIUS = 5
 export const MARKER_BADGE_INNER_RADIUS = 3
 export const MARKER_FONT_SIZE = 5
+/** Icon badge variant: image edge length, fitted into the diamond plate. */
+export const MARKER_ICON_SIZE = 5
+export const MARKER_LINE_DASH = '3 2'
 /** Text baseline below the badge center, so the digits sit centered. */
 export const MARKER_TEXT_BASELINE_OFFSET = 1.5
 /** Badge position of a freshly created marker, relative to the placement. */

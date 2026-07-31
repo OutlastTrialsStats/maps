@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import type { ElementIndex } from '../model/elementIndex'
 import type { TrialDocument, Zone } from '../model/types'
-import NumberMarker from './NumberMarker.vue'
+import CalloutMarker from './CalloutMarker.vue'
 import PlacementMarker from './PlacementMarker.vue'
 import RoomShape from './RoomShape.vue'
 import RoutePath from './RoutePath.vue'
@@ -54,7 +54,7 @@ const markedPlacements = computed(() => placements.value.filter((placement) => p
       :element="elementIndex.get(placement.element)"
       :selected="selectedIds?.has(placement.id)"
     />
-    <NumberMarker
+    <CalloutMarker
       v-for="placement in markedPlacements"
       :key="`marker-${placement.id}`"
       :marker="placement.marker!"
