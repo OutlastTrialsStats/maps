@@ -40,8 +40,9 @@
         "name": { "type": "string", "minLength": 1 },
         "category": { "$ref": "#/definitions/kebabId" },
         "icon": {
+          "description": "Bare .webp file name under https://outlasttrialsstats.com/game-assets/ (no path, no extension).",
           "type": "string",
-          "pattern": "^https://outlasttrialsstats\\.com/game-assets/[A-Za-z0-9._/-]+\\.webp$"
+          "pattern": "^[A-Za-z0-9_-]+$"
         },
         "color": { "$ref": "#/definitions/color" },
         "size": { "type": "number", "exclusiveMinimum": 0 },

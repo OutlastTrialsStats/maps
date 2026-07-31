@@ -57,4 +57,4 @@ Or build the image yourself: `docker build -t outlasttrials-maps . && docker run
 
 ## Assets and attribution
 
-No game assets are stored in this repository. Element icons are referenced as URLs on `outlasttrialsstats.com/game-assets/`, screenshots are captured and provided by contributors. The Outlast Trials is a trademark of Red Barrels. This is an unofficial, non-commercial fan project.
+No game assets are stored in this repository. Element icons are referenced by file name on `outlasttrialsstats.com/game-assets/`, screenshots are captured and provided by contributors. The Outlast Trials is a trademark of Red Barrels. This is an unofficial, non-commercial fan project.

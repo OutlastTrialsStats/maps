@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
+import { computed } from 'vue'
+import { elementIconUrl } from '../../core/model/dataSource'
 import type { ElementDefinition } from '../../core/model/types'
 import { centeredRectPath } from '../../core/render/structuralShapes'
 import { useIconFallback } from '../../core/render/useIconFallback'
@@ -11,7 +13,9 @@ const props = defineProps<{
 
 const emit = defineEmits<{ pick: []; edit: []; remove: [] }>()
 
-const { showIcon, onIconError } = useIconFallback(() => props.element.icon)
+const iconUrl = computed(() => elementIconUrl(props.element.icon))
+
+const { showIcon, onIconError } = useIconFallback(() => iconUrl.value)
 
 function shapePreviewPath(element: ElementDefinition): string {
   const render = element.render
@@ -24,7 +28,7 @@ function shapePreviewPath(element: ElementDefinition): string {
     <button type="button" class="element" @click="emit('pick')">
       <img
         v-if="showIcon"
-        :src="element.icon"
+        :src="iconUrl"
         alt=""
         class="icon-preview"
         @error="onIconError"

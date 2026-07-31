@@ -253,10 +253,11 @@ export interface ElementDefinition {
   name: string
   category: string
   /**
-   * Full https URL of a webp icon under the game assets host
-   * (`ICON_URL_PATTERN`). Optional — without an icon the placeholder
-   * rendering applies (color circle + initials); `render` elements
-   * draw the icon centered in the shape (e.g. spawn room).
+   * Bare webp file name under `GAME_ASSETS_BASE_URL`, without path and
+   * extension (`ICON_FILE_PATTERN`); resolve via `elementIconUrl()`.
+   * Optional — without an icon the placeholder rendering applies
+   * (color circle + initials); `render` elements draw the icon
+   * centered in the shape (e.g. spawn room).
    */
   icon?: string
   /** Accent/fallback color: tooltip border, legend, placeholder rendering. */

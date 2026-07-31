@@ -28,15 +28,18 @@ export const ICON_DEFAULT_SIZE = 10
 /** ID format of all data IDs (in sync with the `kebabId` pattern of the schemas). */
 export const KEBAB_ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/
 
-/** Host of all game images (element icons are stored as a full URL under it). */
+/** Host of all game images (element icons store only the bare file name below it). */
 export const GAME_ASSETS_BASE_URL = 'https://outlasttrialsstats.com/game-assets'
 
-/** Icon reference: webp URL under GAME_ASSETS_BASE_URL (in sync with the `icon` pattern in elements.schema.json). */
-export const ICON_URL_PATTERN = /^https:\/\/outlasttrialsstats\.com\/game-assets\/[A-Za-z0-9._/-]+\.webp$/
+/** Extension of every element icon; never part of the stored value. */
+export const ICON_FILE_EXTENSION = '.webp'
+
+/** Icon reference: bare file name without extension (in sync with the `icon` pattern in elements.schema.json). */
+export const ICON_FILE_PATTERN = /^[A-Za-z0-9_-]+$/
 
 export const EDITOR_AUTOSAVE_KEY = 'outlasttrials-maps:editor-autosave'
 /** Payload version of the autosave; older states are discarded (not migratable). */
-export const EDITOR_AUTOSAVE_VERSION = 3
+export const EDITOR_AUTOSAVE_VERSION = 4
 
 export const CURSOR_STORAGE_KEY = 'outlasttrials-maps:custom-cursor'
 export const AUTOSAVE_DEBOUNCE_MS = 1000

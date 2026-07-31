@@ -86,7 +86,8 @@ badge on outlasttrialsstats.com. You never edit `contributors.json` yourself.
 ## Rules for images
 
 - Screenshots: jpg, png or webp, at most 500 KB each. Aim for under 300 KB.
-- Element icons are URLs only (`https://outlasttrialsstats.com/game-assets/….webp`). No icon files are
+- Element icons are referenced by file name only (e.g. `objectif_key`); host and `.webp` are added
+  automatically, the file must exist on `outlasttrialsstats.com/game-assets/`. No icon files are
   stored in this repository.
 - Never include extracted game assets such as textures, sounds or models.
 

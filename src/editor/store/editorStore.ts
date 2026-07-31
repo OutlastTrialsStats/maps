@@ -41,8 +41,8 @@ export const useEditorStore = defineStore('editor', () => {
   const document = ref<TrialDocument | null>(null)
   const activeTool = ref<ToolId>('select')
   const roomToolMode = ref<RoomToolMode>('polygon')
-  /** 90° snapping while drawing polygons (Alt inverts temporarily). */
-  const roomOrthoSnap = ref(true)
+  /** 90° snapping while drawing polygons — off by default, Alt inverts temporarily. */
+  const roomOrthoSnap = ref(false)
   const innerLineStyle = ref<InnerLineStyle>('object')
   const drawingHistory = shallowRef<TransientHistory | null>(null)
   /** Short tool hint for the status bar (e.g. a path that cannot be edited). */

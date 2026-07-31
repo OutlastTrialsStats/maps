@@ -3,6 +3,7 @@ import {
   DATA_BASE_URL,
   ELEMENT_LIBRARY_URL,
   GAME_ASSETS_BASE_URL,
+  ICON_FILE_EXTENSION,
   MAPS_INDEX_URL,
   ZONE_LIBRARY_URL,
 } from '../constants'
@@ -55,4 +56,19 @@ export function mapAssetUrl(mapId: string, relativePath: string): string {
 /** Full URL of a game image whose file name alone is stored in the data. */
 export function gameAssetUrl(filename: string): string {
   return `${GAME_ASSETS_BASE_URL}/${filename}`
+}
+
+/** Full icon URL of an element; undefined when the element has no icon. */
+export function elementIconUrl(icon: string | undefined): string | undefined {
+  return icon ? gameAssetUrl(`${icon}${ICON_FILE_EXTENSION}`) : undefined
+}
+
+/** Reduces a pasted full icon URL back to the bare file name; other input is returned unchanged. */
+export function toIconFileName(value: string): string {
+  const withoutHost = value.startsWith(`${GAME_ASSETS_BASE_URL}/`)
+    ? value.slice(GAME_ASSETS_BASE_URL.length + 1)
+    : value
+  return withoutHost.endsWith(ICON_FILE_EXTENSION)
+    ? withoutHost.slice(0, -ICON_FILE_EXTENSION.length)
+    : withoutHost
 }

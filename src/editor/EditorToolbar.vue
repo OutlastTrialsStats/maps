@@ -8,17 +8,27 @@ import type { RoomToolMode, ToolId } from './tools/toolTypes'
 
 const store = useEditorStore()
 
-const tools: Array<{ id: ToolId; label: string; hotkey: string }> = [
-  { id: 'select', label: 'Select', hotkey: '1' },
-  { id: 'room', label: 'Room', hotkey: '2' },
-  { id: 'placement', label: 'Element', hotkey: '3' },
-  { id: 'route', label: 'Route', hotkey: '4' },
+const tools: Array<{ id: ToolId; label: string; icon: string; hotkey: string }> = [
+  { id: 'select', label: 'Select', icon: 'pi pi-arrow-up-left', hotkey: '1' },
+  { id: 'room', label: 'Room', icon: 'pi pi-home', hotkey: '2' },
+  { id: 'placement', label: 'Element', icon: 'pi pi-map-marker', hotkey: '3' },
+  { id: 'route', label: 'Route', icon: 'pi pi-directions', hotkey: '4' },
 ]
 
-const roomModes: Array<{ id: RoomToolMode; label: string }> = [
-  { id: 'polygon', label: 'Polygon' },
-  { id: 'rect', label: 'Rectangle' },
-  { id: 'innerline', label: 'Inner lines' },
+const roomModes: Array<{ id: RoomToolMode; label: string; icon: string; hint: string }> = [
+  {
+    id: 'polygon',
+    label: 'Polygon',
+    icon: 'pi pi-share-alt',
+    hint: 'Polygon — click the far end to close',
+  },
+  { id: 'rect', label: 'Rectangle', icon: 'pi pi-stop', hint: 'Rectangle — two clicks' },
+  {
+    id: 'innerline',
+    label: 'Inner lines',
+    icon: 'pi pi-pen-line',
+    hint: 'Inner lines — decorative lines inside a room',
+  },
 ]
 
 const innerLineStyles: Array<{ label: string; value: InnerLineStyle }> = [
@@ -39,8 +49,9 @@ const floorOptions = computed(() =>
       <Button
         v-for="tool in tools"
         :key="tool.id"
-        v-tooltip.bottom="`Hotkey: ${tool.hotkey}`"
-        :label="tool.label"
+        v-tooltip.bottom="`${tool.label} (${tool.hotkey})`"
+        :icon="tool.icon"
+        :aria-label="tool.label"
         size="small"
         :severity="store.activeTool === tool.id ? 'primary' : 'secondary'"
         @click="store.activeTool = tool.id"
@@ -50,7 +61,9 @@ const floorOptions = computed(() =>
       <Button
         v-for="mode in roomModes"
         :key="mode.id"
-        :label="mode.label"
+        v-tooltip.bottom="mode.hint"
+        :icon="mode.icon"
+        :aria-label="mode.label"
         size="small"
         text
         :severity="store.roomToolMode === mode.id ? 'primary' : 'secondary'"
@@ -58,7 +71,7 @@ const floorOptions = computed(() =>
       />
       <Button
         v-if="store.roomToolMode === 'polygon'"
-        v-tooltip.bottom="'Orthogonal drawing — hold Alt to invert temporarily'"
+        v-tooltip.bottom="'Orthogonal drawing — off by default, hold Alt to invert temporarily'"
         label="90°"
         size="small"
         :severity="store.roomOrthoSnap ? 'primary' : 'secondary'"
@@ -71,6 +84,7 @@ const floorOptions = computed(() =>
         option-label="label"
         option-value="value"
         size="small"
+        aria-label="Inner line style"
       />
     </div>
     <div class="group">
@@ -89,14 +103,18 @@ const floorOptions = computed(() =>
     </div>
     <div class="group push-right">
       <Button
-        label="Undo"
+        v-tooltip.bottom="'Undo (Ctrl+Z)'"
+        icon="pi pi-arrow-u-turn-up-left"
+        aria-label="Undo"
         size="small"
         severity="secondary"
         :disabled="!store.canUndo"
         @click="store.undo()"
       />
       <Button
-        label="Redo"
+        v-tooltip.bottom="'Redo (Ctrl+Y)'"
+        icon="pi pi-arrow-u-turn-up-right"
+        aria-label="Redo"
         size="small"
         severity="secondary"
         :disabled="!store.canRedo"

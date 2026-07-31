@@ -1,11 +1,7 @@
 import { computed, ref } from 'vue'
 import { VERTEX_HIT_RADIUS } from '../../core/constants'
 import { snapOrtho } from '../../core/interaction/snapping'
-import {
-  pointsToOpenPath,
-  pointsToRelativePath,
-  shapeToPoints,
-} from '../../core/model/roomPath'
+import { pointsToOpenPath, pointsToRelativePath, shapeToPoints } from '../../core/model/roomPath'
 import type { Room, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { useZonesStore } from '../store/zonesStore'
@@ -21,18 +17,25 @@ import {
 import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 
 const MIN_POLYGON_POINTS = 3
-/** Below two points both ends coincide — there is nothing to switch to. */
-const MIN_END_SWITCH_POINTS = 2
+/** Below two points both ends coincide — the far end is the anchor itself. */
+const MIN_ENDPOINT_HIT_POINTS = 2
 
 const DRAWING_HINT =
-  'Enter/double-click closes · Ctrl+Z/Backspace removes the last point · click the far end to draw from there · Alt inverts 90° snapping.'
+  'Click the far end / Enter / double-click closes · Ctrl+Z/Backspace removes the last point · Tab switches the drawing end · Alt inverts 90° snapping.'
 
 type RoomToolState =
   | { kind: 'idle' }
   | ({ kind: 'drawing'; preview: Vec2 | null } & DrawingPoints)
   | { kind: 'rect'; start: Vec2; preview: Vec2 | null }
   | ({ kind: 'innerline'; roomId: string; origin: Vec2; preview: Vec2 | null } & DrawingPoints)
-  | { kind: 'vertex'; roomId: string; origin: Vec2; points: Vec2[]; dragIndex: number | null; dragged: boolean }
+  | {
+      kind: 'vertex'
+      roomId: string
+      origin: Vec2
+      points: Vec2[]
+      dragIndex: number | null
+      dragged: boolean
+    }
 
 function distance(a: Vec2, b: Vec2): number {
   return Math.hypot(a[0] - b[0], a[1] - b[1])
@@ -96,18 +99,19 @@ export function useRoomTool(): EditorTool {
     }
   }
 
-  function handleDrawingClick(current: DrawingPoints, event: CanvasPointerEvent, point: Vec2): void {
-    if (
-      current.points.length >= MIN_END_SWITCH_POINTS &&
-      distance(event.world, oppositeEndpoint(current)) <= VERTEX_HIT_RADIUS
-    ) {
-      switchEnd(current)
-      return
-    }
+  function handleDrawingClick(current: DrawingPoints, point: Vec2): void {
     if (distance(point, activeAnchor(current)) === 0) {
       return
     }
     addPoint(current, point)
+  }
+
+  /** Only polygons close: the click that joins the active end to the far end finishes the ring. */
+  function isEndpointClick(current: DrawingPoints, event: CanvasPointerEvent): boolean {
+    return (
+      current.points.length >= MIN_ENDPOINT_HIT_POINTS &&
+      distance(event.world, oppositeEndpoint(current)) <= VERTEX_HIT_RADIUS
+    )
   }
 
   /** Shared completion of polygon and rectangle mode. */
@@ -208,10 +212,7 @@ export function useRoomTool(): EditorTool {
     current: Extract<RoomToolState, { kind: 'vertex' }>,
     event: CanvasPointerEvent,
   ): void {
-    const local: Vec2 = [
-      event.world[0] - current.origin[0],
-      event.world[1] - current.origin[1],
-    ]
+    const local: Vec2 = [event.world[0] - current.origin[0], event.world[1] - current.origin[1]]
     const vertexIndex = current.points.findIndex(
       (point) => distance(point, local) <= VERTEX_HIT_RADIUS,
     )
@@ -253,7 +254,14 @@ export function useRoomTool(): EditorTool {
       }
       if (mode === 'polygon') {
         if (current.kind === 'drawing') {
-          handleDrawingClick(current, event, snapPoint(event, activeAnchor(current)))
+          if (isEndpointClick(current, event)) {
+            // Below three points there is no area yet — ignore instead of stacking a point on the far end.
+            if (current.points.length >= MIN_POLYGON_POINTS) {
+              commitPolygon(current.points)
+            }
+            return
+          }
+          handleDrawingClick(current, snapPoint(event, activeAnchor(current)))
           return
         }
         state.value = {
@@ -277,7 +285,7 @@ export function useRoomTool(): EditorTool {
       }
       // Inner line mode: the first click has to hit a room.
       if (current.kind === 'innerline') {
-        handleDrawingClick(current, event, event.snapped)
+        handleDrawingClick(current, event.snapped)
         return
       }
       if (event.hit?.kind === 'room') {
@@ -345,6 +353,10 @@ export function useRoomTool(): EditorTool {
 
     onKeydown(event: KeyboardEvent): boolean {
       const current = state.value
+      if (event.key === 'Tab' && (current.kind === 'drawing' || current.kind === 'innerline')) {
+        switchEnd(current)
+        return true
+      }
       if (event.key === 'Enter') {
         if (current.kind === 'drawing') {
           commitPolygon(current.points)

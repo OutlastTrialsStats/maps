@@ -7,7 +7,8 @@ import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
 import Textarea from 'primevue/textarea'
 import { computed, ref, watch } from 'vue'
-import { ICON_URL_PATTERN, UNKNOWN_ELEMENT_COLOR } from '../../core/constants'
+import { ICON_FILE_PATTERN, UNKNOWN_ELEMENT_COLOR } from '../../core/constants'
+import { elementIconUrl, toIconFileName } from '../../core/model/dataSource'
 import type { ElementAnchor, ElementDefinition } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { slugify } from '../store/ids'
@@ -30,7 +31,8 @@ const category = ref<string | null>(null)
 /** Hex without "#" (ColorPicker format). */
 const color = ref(UNKNOWN_ELEMENT_COLOR.slice(1))
 const description = ref('')
-const iconUrl = ref('')
+/** Bare file name without extension; the host and `.webp` are added when rendering. */
+const iconFile = ref('')
 const size = ref<number | null>(null)
 const anchor = ref<ElementAnchor | null>(null)
 
@@ -46,7 +48,8 @@ const id = computed(() => editing.value?.id ?? slugify(name.value))
 const idTaken = computed(
   () => !editing.value && libraryStore.elements.some((element) => element.id === id.value),
 )
-const iconValid = computed(() => iconUrl.value === '' || ICON_URL_PATTERN.test(iconUrl.value))
+const iconValid = computed(() => iconFile.value === '' || ICON_FILE_PATTERN.test(iconFile.value))
+const iconPreview = computed(() => (iconValid.value ? elementIconUrl(iconFile.value) : undefined))
 const valid = computed(
   () => id.value !== '' && !idTaken.value && category.value !== null && iconValid.value,
 )
@@ -69,9 +72,14 @@ watch(visible, (open) => {
   category.value = element?.category ?? null
   color.value = (element?.color ?? UNKNOWN_ELEMENT_COLOR).slice(1)
   description.value = element?.description ?? ''
-  iconUrl.value = element?.icon ?? ''
+  iconFile.value = element?.icon ?? ''
   size.value = element?.size ?? null
   anchor.value = element?.anchor ?? null
+})
+
+/** Convenience: a pasted full asset URL is reduced to the file name instead of being rejected. */
+watch(iconFile, (value) => {
+  iconFile.value = toIconFileName(value)
 })
 
 /** Merge scalar fields; `render`/`propsSchema` stay untouched (hand-edited only). */
@@ -85,8 +93,8 @@ function applyTo(element: ElementDefinition): void {
   } else {
     delete element.description
   }
-  if (iconUrl.value) {
-    element.icon = iconUrl.value
+  if (iconFile.value) {
+    element.icon = iconFile.value
   } else {
     delete element.icon
   }
@@ -154,16 +162,12 @@ function save(): void {
         <Textarea v-model="description" auto-resize rows="2" />
       </label>
       <label class="field">
-        <span class="field-label">Icon URL (game-assets, .webp — empty = placeholder)</span>
-        <InputText
-          v-model.trim="iconUrl"
-          size="small"
-          placeholder="https://outlasttrialsstats.com/game-assets/item.webp"
-        />
+        <span class="field-label">Icon file name (game-assets, without .webp — empty = placeholder)</span>
+        <InputText v-model.trim="iconFile" size="small" placeholder="objectif_key" />
         <small v-if="!iconValid" class="field-error">
-          Only https://outlasttrialsstats.com/game-assets/….webp is allowed.
+          Only a bare file name is allowed (no path, no .webp).
         </small>
-        <img v-if="iconValid && iconUrl" :src="iconUrl" alt="" class="icon-preview" />
+        <img v-if="iconPreview" :src="iconPreview" alt="" class="icon-preview" />
       </label>
       <div class="field-row">
         <label class="field">

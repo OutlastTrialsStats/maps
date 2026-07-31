@@ -7,6 +7,7 @@ import {
   SELECTION_RING_OFFSET,
   UNKNOWN_ELEMENT_COLOR,
 } from '../constants'
+import { elementIconUrl } from '../model/dataSource'
 import type { ElementDefinition, Placement, Vec2 } from '../model/types'
 import { initialsOf } from '../text'
 import { placementTransform } from './structuralShapes'
@@ -18,7 +19,9 @@ const props = defineProps<{
   selected?: boolean
 }>()
 
-const { showIcon, onIconError } = useIconFallback(() => props.element?.icon)
+const iconUrl = computed(() => elementIconUrl(props.element?.icon))
+
+const { showIcon, onIconError } = useIconFallback(() => iconUrl.value)
 
 const size = computed(() => props.element?.size ?? ICON_DEFAULT_SIZE)
 
@@ -41,7 +44,7 @@ const groupTransform = computed(() => placementTransform(props.placement))
   >
     <image
       v-if="showIcon"
-      :href="element?.icon"
+      :href="iconUrl"
       :x="center[0] - size / 2"
       :y="center[1] - size / 2"
       :width="size"

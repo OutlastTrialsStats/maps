@@ -6,6 +6,7 @@ import {
   SELECTION_COLOR,
   SELECTION_RING_OFFSET,
 } from '../constants'
+import { elementIconUrl } from '../model/dataSource'
 import type { ElementDefinition, Placement } from '../model/types'
 import {
   STRUCTURAL_META,
@@ -27,7 +28,9 @@ const props = defineProps<{
   selected?: boolean
 }>()
 
-const { showIcon, onIconError } = useIconFallback(() => props.element.icon)
+const iconUrl = computed(() => elementIconUrl(props.element.icon))
+
+const { showIcon, onIconError } = useIconFallback(() => iconUrl.value)
 
 const render = computed(() => props.element.render)
 const kind = computed(() => render.value?.kind)
@@ -50,7 +53,7 @@ const groupTransform = computed(() => placementTransform(props.placement))
 
 /** Symbol centered in the shape; with an `edge` anchor the center sits at -t/2. */
 const icon = computed(() => {
-  const url = props.element.icon
+  const url = iconUrl.value
   if (!showIcon.value || !url) {
     return undefined
   }
