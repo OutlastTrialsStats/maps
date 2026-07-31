@@ -28,7 +28,7 @@ onMounted(async () => {
     <div class="backdrop" aria-hidden="true">
       <img
         class="backdrop-img"
-        src="/images/bgd_home.webp"
+        src="/images/bdg_home.png"
         alt=""
         loading="eager"
         fetchpriority="high"
@@ -36,7 +36,11 @@ onMounted(async () => {
       <div class="backdrop-overlay" />
     </div>
     <RouterLink to="/editor" class="editor-link">
-      <i class="pi pi-pencil" />
+      <img
+        src="https://outlasttrialsstats.com/game-assets/tag_rename.webp"
+        alt=""
+        class="editor-link-icon"
+      />
       Map editor
     </RouterLink>
     <main class="overview">
@@ -94,8 +98,8 @@ onMounted(async () => {
   z-index: 10;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 10px;
+  padding: 8px 18px 8px 12px;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
@@ -116,16 +120,22 @@ onMounted(async () => {
   transform: translateY(-1px);
 }
 
+.editor-link-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
 .overview {
   flex: 1;
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 32px 24px;
 }
 
 .hero {
-  padding: clamp(2rem, 8vw, 5rem) 0 clamp(2rem, 6vw, 3.5rem);
+  padding: clamp(1.25rem, 5vw, 3rem) 0 clamp(1.25rem, 4vw, 2rem);
 }
 
 .error {

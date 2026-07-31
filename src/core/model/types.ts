@@ -39,10 +39,10 @@ export interface Contributors {
 export interface Contributor {
   /** Link to the maps: identical to the entry in their `meta.authors`. */
   name: string
+  /** Profile UUID on outlasttrialsstats.com — the `<totstats-profile>` card renders from it. */
+  profileId: string
   /** Profile on outlasttrialsstats.com (the schema enforces the domain). */
   profileUrl: string
-  /** File name under the game assets host, always `.webp` (not the full URL). */
-  avatar?: string
   /** Map IDs from the registry the person contributed to. */
   maps: string[]
 }

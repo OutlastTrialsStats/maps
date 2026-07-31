@@ -9,6 +9,11 @@ export const SCHEMA_BASE_URL = '/schemas'
 /** Repo behind the join link of the contributors section. */
 export const GITHUB_REPO_URL = 'https://github.com/OutlastTrialsStats/maps'
 
+/** Embed script of outlasttrialsstats.com defining `<totstats-profile>`. */
+export const PROFILE_WIDGET_SRC = 'https://outlasttrialsstats.com/widget/totstats-profile.js'
+/** Avatar edge length of the embedded profile card, in px. */
+export const PROFILE_WIDGET_SIZE = 64
+
 /** Grid snapping in the editor, in map units (1 unit ≈ 10 cm of game world). */
 export const GRID_SNAP_FINE = 2.5
 export const GRID_SNAP_DEFAULT = 5
@@ -23,7 +28,7 @@ export const ICON_DEFAULT_SIZE = 10
 /** ID format of all data IDs (in sync with the `kebabId` pattern of the schemas). */
 export const KEBAB_ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/
 
-/** Host of all game images (element icons as a full URL, contributor avatars as a file name). */
+/** Host of all game images (element icons are stored as a full URL under it). */
 export const GAME_ASSETS_BASE_URL = 'https://outlasttrialsstats.com/game-assets'
 
 /** Icon reference: webp URL under GAME_ASSETS_BASE_URL (in sync with the `icon` pattern in elements.schema.json). */

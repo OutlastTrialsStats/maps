@@ -6,7 +6,7 @@ const appVersion = __APP_VERSION__
 
 <template>
   <footer class="footer">
-    <nav class="footer-links" aria-label="Footer">
+    <nav class="footer-links footer-zone footer-zone--left" aria-label="Footer">
       <a
         href="https://outlasttrialsstats.com/impressum"
         target="_blank"
@@ -15,6 +15,7 @@ const appVersion = __APP_VERSION__
       >
         Impressum
       </a>
+      <span class="footer-sep" aria-hidden="true">·</span>
       <a
         href="https://outlasttrialsstats.com/datenschutz"
         target="_blank"
@@ -24,29 +25,53 @@ const appVersion = __APP_VERSION__
         Datenschutzerklärung
       </a>
     </nav>
-    <a href="https://outlasttrialsstats.com" target="_blank" rel="noopener" class="footer-credit">
+    <a
+      href="https://outlasttrialsstats.com"
+      target="_blank"
+      rel="noopener"
+      class="footer-credit footer-zone footer-zone--center"
+    >
       by outlasttrialsstats.com
     </a>
-    <span class="footer-version">v{{ appVersion }}</span>
-    <CursorToggle />
+    <div class="footer-zone footer-zone--right">
+      <span class="footer-version">v{{ appVersion }}</span>
+      <CursorToggle />
+    </div>
   </footer>
 </template>
 
 <style scoped>
 .footer {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 12px;
-  padding: 24px;
+  gap: 8px 16px;
+  padding: 16px 24px;
   border-top: 1px solid var(--border-subtle);
 }
 
-.footer-links {
+.footer-zone {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.footer-zone--left {
+  justify-content: flex-start;
+}
+
+.footer-zone--center {
   justify-content: center;
-  gap: 8px 24px;
+}
+
+.footer-zone--right {
+  justify-content: flex-end;
+}
+
+.footer-sep {
+  color: var(--text-faint);
+  font-size: 0.75rem;
 }
 
 .footer-link {

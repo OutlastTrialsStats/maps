@@ -55,7 +55,7 @@ defineProps<{
 .banner-title {
   margin: 0;
   font-family: var(--font-brand);
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 700;
   line-height: 1.1;
   color: var(--text-primary);
@@ -63,9 +63,10 @@ defineProps<{
 }
 
 .banner-subtitle {
-  margin: 0.35rem 0 0;
+  margin: 0.5rem 0 0;
   max-width: 60ch;
-  font-size: clamp(0.7rem, 1.8vw, 0.95rem);
+  font-family: var(--font-data);
+  font-size: clamp(0.85rem, 2.1vw, 1.15rem);
   line-height: 1.5;
   color: var(--text-body);
   text-wrap: balance;

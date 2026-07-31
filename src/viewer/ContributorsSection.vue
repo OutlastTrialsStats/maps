@@ -43,11 +43,11 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 56px;
+  margin-top: 32px;
 }
 
 h2 {
-  margin: 0 0 20px;
+  margin: 0 0 16px;
   font-family: var(--font-brand);
   font-size: 1.5rem;
   color: var(--text-primary);
@@ -76,7 +76,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 24px;
+  margin-top: 16px;
   padding: 8px 16px;
   font-size: 0.85rem;
   color: var(--text-muted);

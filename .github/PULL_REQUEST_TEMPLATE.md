@@ -12,12 +12,12 @@
 ## Your credit (optional)
 
 <!--
-Your name in `meta.authors` shows up in the map's "Credits" panel. Add your
-outlasttrialsstats.com profile below and a maintainer will link it on the start
-page and hand out the Map Contributor badge on outlasttrialsstats.com.
+Your name in `meta.authors` shows up in the map's "Credits" panel. Paste the URL
+of your outlasttrialsstats.com profile below — a maintainer will put your profile
+card on the start page and hand out the Map Contributor badge.
 -->
 
-- outlasttrialsstats.com profile:
+- outlasttrialsstats.com profile URL:
 
 ## Checklist
 
