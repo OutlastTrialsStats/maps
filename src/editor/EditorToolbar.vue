@@ -29,6 +29,12 @@ const roomModes: Array<{ id: RoomToolMode; label: string; icon: string; hint: st
     icon: 'pi pi-pen-line',
     hint: 'Inner lines — decorative lines inside a room',
   },
+  {
+    id: 'wallgap',
+    label: 'Wall gap',
+    icon: 'pi pi-minus-circle',
+    hint: 'Wall gaps — cut openings into the outer wall',
+  },
 ]
 
 const innerLineStyles: Array<{ label: string; value: InnerLineStyle }> = [

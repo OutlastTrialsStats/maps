@@ -7,7 +7,7 @@ defineProps<{
   hints: { icon: MouseIcon; label: string }[]
 }>()
 
-// Game assets are never bundled, they are loaded from GAME_ASSETS_BASE_URL (docs/99 P1).
+// Game assets are never bundled, they are loaded from GAME_ASSETS_BASE_URL.
 const ICON_SRC: Record<MouseIcon, string> = {
   left: gameAssetUrl('MouseIconLeftClick.webp'),
   right: gameAssetUrl('MouseIconRightClick.webp'),

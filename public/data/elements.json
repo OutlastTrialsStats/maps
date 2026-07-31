@@ -32,12 +32,11 @@
       "id": "door",
       "name": "Door",
       "category": "door",
-      "color": "#465b92",
+      "color": "#722c27",
       "render": { "kind": "door", "length": 10, "thickness": 4 },
-      "description": "Door or passage between rooms.",
+      "description": "Door or gate between rooms; can be opened from either side.",
       "propsSchema": {
         "locked": { "type": "boolean", "label": "Locked" },
-        "barricaded": { "type": "boolean", "label": "Barricaded" },
         "rngBased": { "type": "boolean", "label": "RNG-based" },
         "linkTo": { "type": "string", "label": "Linked key placement" }
       }
@@ -46,12 +45,44 @@
       "id": "double-door",
       "name": "Double Door",
       "category": "door",
-      "color": "#465b92",
+      "color": "#722c27",
       "render": { "kind": "double-door", "length": 20, "thickness": 4 },
       "description": "Wide double door, e.g. main entrances and coop kick-doors.",
       "propsSchema": {
         "locked": { "type": "boolean", "label": "Locked" },
-        "barricaded": { "type": "boolean", "label": "Barricaded" },
+        "note": { "type": "string", "label": "Note" }
+      }
+    },
+    {
+      "id": "door-barricaded",
+      "name": "Barricaded Door",
+      "category": "door",
+      "color": "#727127",
+      "render": { "kind": "barricaded-door", "length": 10, "thickness": 4 },
+      "description": "Door boarded up on one side; the plank marks the side it cannot be opened from.",
+      "propsSchema": {
+        "note": { "type": "string", "label": "Note" }
+      }
+    },
+    {
+      "id": "window",
+      "name": "Window",
+      "category": "door",
+      "color": "#465b92",
+      "render": { "kind": "window", "length": 10, "thickness": 4 },
+      "description": "Glass window in a wall.",
+      "propsSchema": {
+        "note": { "type": "string", "label": "Note" }
+      }
+    },
+    {
+      "id": "window-double",
+      "name": "Double Window",
+      "category": "door",
+      "color": "#465b92",
+      "render": { "kind": "window", "length": 17.5, "thickness": 4 },
+      "description": "Wide glass front spanning two window bays.",
+      "propsSchema": {
         "note": { "type": "string", "label": "Note" }
       }
     },
@@ -68,11 +99,10 @@
     },
     {
       "id": "vault-window",
-      "name": "Vault / Crawl Passage",
+      "name": "Crawl Passage",
       "category": "door",
-      "color": "#35d0e6",
-      "size": 8,
-      "anchor": "center",
+      "color": "#465b92",
+      "render": { "kind": "crawl-passage", "length": 8, "thickness": 4 },
       "description": "Window or gap that can be vaulted or crawled through.",
       "propsSchema": {
         "note": { "type": "string", "label": "Note" }
@@ -121,7 +151,7 @@
       "id": "stairs",
       "name": "Stairs",
       "category": "stairs",
-      "color": "#95a5a6",
+      "color": "#556065",
       "render": { "kind": "stairs", "length": 12, "thickness": 6 },
       "description": "Stairs or ramp connecting two floors.",
       "propsSchema": {

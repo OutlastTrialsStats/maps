@@ -60,7 +60,18 @@
       "required": ["kind", "length", "thickness"],
       "additionalProperties": false,
       "properties": {
-        "kind": { "enum": ["door", "double-door", "obstacle", "spawn-room", "stairs"] },
+        "kind": {
+          "enum": [
+            "door",
+            "double-door",
+            "barricaded-door",
+            "window",
+            "crawl-passage",
+            "obstacle",
+            "spawn-room",
+            "stairs"
+          ]
+        },
         "length": { "type": "number", "exclusiveMinimum": 0 },
         "thickness": { "type": "number", "exclusiveMinimum": 0 }
       }

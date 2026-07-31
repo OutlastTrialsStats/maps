@@ -66,7 +66,7 @@ export function createEmptyWorkspace(
 
 /**
  * New trial file — empty or as a full copy of an existing trial (the shared
- * base of a map is duplicated per trial, docs/02 §3).
+ * base of a map is duplicated per trial).
  */
 export function createTrialDocument(
   mapId: string,

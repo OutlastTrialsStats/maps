@@ -11,6 +11,7 @@ import type { Room, RoomFlag, RoomInfo, TrialDocument, Vec2 } from '../../core/m
 import { useEditorStore } from '../store/editorStore'
 import { useZonesStore } from '../store/zonesStore'
 import RoomImagesEditor from './RoomImagesEditor.vue'
+import RoomWallGapsEditor from './RoomWallGapsEditor.vue'
 
 const props = defineProps<{ room: Room }>()
 const store = useEditorStore()
@@ -232,6 +233,7 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
         />
       </label>
     </div>
+    <RoomWallGapsEditor :room-id="room.id" />
     <RoomImagesEditor :room-id="room.id" />
   </div>
 </template>

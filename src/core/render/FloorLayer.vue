@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import type { ElementIndex } from '../model/elementIndex'
 import type { TrialDocument, Zone } from '../model/types'
+import NumberMarker from './NumberMarker.vue'
 import PlacementMarker from './PlacementMarker.vue'
 import RoomShape from './RoomShape.vue'
 import RoutePath from './RoutePath.vue'
@@ -27,6 +28,8 @@ const placements = computed(() =>
   }),
 )
 const routes = computed(() => visible(props.trial.routes))
+/** Drawn after all placements so callouts never disappear behind a neighbour. */
+const markedPlacements = computed(() => placements.value.filter((placement) => placement.marker))
 </script>
 
 <template>
@@ -50,6 +53,12 @@ const routes = computed(() => visible(props.trial.routes))
       :placement="placement"
       :element="elementIndex.get(placement.element)"
       :selected="selectedIds?.has(placement.id)"
+    />
+    <NumberMarker
+      v-for="placement in markedPlacements"
+      :key="`marker-${placement.id}`"
+      :marker="placement.marker!"
+      :pos="placement.pos"
     />
   </g>
 </template>

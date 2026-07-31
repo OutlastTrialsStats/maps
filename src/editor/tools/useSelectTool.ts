@@ -1,5 +1,10 @@
 import { computed } from 'vue'
-import { DUPLICATE_OFFSET, NUDGE_STEP, NUDGE_STEP_LARGE } from '../../core/constants'
+import {
+  DUPLICATE_OFFSET,
+  MARKER_BADGE_RADIUS,
+  NUDGE_STEP,
+  NUDGE_STEP_LARGE,
+} from '../../core/constants'
 import type { HitTarget } from '../../core/interaction/hitTest'
 import { translateAbsolutePathStart } from '../../core/model/roomPath'
 import type { TrialDocument, Vec2 } from '../../core/model/types'
@@ -16,7 +21,29 @@ const ARROW_DELTAS: Record<string, Vec2> = {
 
 export function useSelectTool(): EditorTool {
   const store = useEditorStore()
-  let dragState: { last: Vec2; moved: boolean } | null = null
+  let dragState: { last: Vec2; moved: boolean; markerId: string | null } | null = null
+
+  /** Hit-tested geometrically — `NumberMarker.vue` is pointer-transparent. */
+  function markerUnderPointer(world: Vec2): string | null {
+    const placement = (store.document?.placements ?? []).find((entry) => {
+      if (!entry.marker || !store.selectedIds.has(entry.id)) {
+        return false
+      }
+      const badge = [
+        entry.pos[0] + entry.marker.offset[0],
+        entry.pos[1] + entry.marker.offset[1],
+      ]
+      return Math.hypot(world[0] - badge[0], world[1] - badge[1]) <= MARKER_BADGE_RADIUS
+    })
+    return placement?.id ?? null
+  }
+
+  function moveMarker(doc: TrialDocument, placementId: string, delta: Vec2): void {
+    const marker = doc.placements.find((entry) => entry.id === placementId)?.marker
+    if (marker) {
+      marker.offset = [marker.offset[0] + delta[0], marker.offset[1] + delta[1]]
+    }
+  }
 
   function moveSelection(doc: TrialDocument, delta: Vec2): void {
     const ids = store.selectedIds
@@ -84,6 +111,11 @@ export function useSelectTool(): EditorTool {
 
   return {
     onPointerDown(event: CanvasPointerEvent): void {
+      const markerId = markerUnderPointer(event.world)
+      if (markerId) {
+        dragState = { last: event.snapped, moved: false, markerId }
+        return
+      }
       const hit = event.hit
       if (!hit) {
         store.clearSelection()
@@ -101,7 +133,7 @@ export function useSelectTool(): EditorTool {
       if (!alreadySelected) {
         store.setSelection([hit])
       }
-      dragState = { last: event.snapped, moved: false }
+      dragState = { last: event.snapped, moved: false, markerId: null }
     },
 
     onPointerMove(event: CanvasPointerEvent): void {
@@ -120,7 +152,11 @@ export function useSelectTool(): EditorTool {
         dragState.moved = true
       }
       if (store.document) {
-        moveSelection(store.document, delta)
+        if (dragState.markerId) {
+          moveMarker(store.document, dragState.markerId, delta)
+        } else {
+          moveSelection(store.document, delta)
+        }
       }
       dragState.last = event.snapped
     },

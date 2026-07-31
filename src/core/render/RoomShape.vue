@@ -9,7 +9,9 @@ import {
   SECRET_ROOM_FILL,
   SELECTION_COLOR,
 } from '../constants'
+import { shapeToPoints } from '../model/roomPath'
 import type { Room, Zone } from '../model/types'
+import { wallRunsPath } from '../model/wallGaps'
 
 const props = defineProps<{
   room: Room
@@ -32,8 +34,23 @@ const fill = computed(() =>
   flags.value.has('secret') ? SECRET_ROOM_FILL : (props.zone?.fill ?? FALLBACK_ZONE_FILL),
 )
 const wallColor = computed(() => props.zone?.walls ?? FALLBACK_ZONE_WALLS)
-const stroke = computed(() => (flags.value.has('noWalls') ? 'none' : wallColor.value))
 const opacity = computed(() => (flags.value.has('disabled') ? DISABLED_ROOM_OPACITY : 1))
+
+/**
+ * Walls are stroked separately from the fill so that gaps can interrupt them.
+ * An unparsable path keeps the full outline — the validation reports it.
+ */
+const wallPathD = computed(() => {
+  if (flags.value.has('noWalls')) {
+    return null
+  }
+  const gaps = props.room.wallGaps
+  if (!gaps?.length) {
+    return pathD.value
+  }
+  const points = shapeToPoints(props.room.shape)
+  return points ? wallRunsPath(points, gaps) : pathD.value
+})
 </script>
 
 <template>
@@ -44,10 +61,12 @@ const opacity = computed(() => (flags.value.has('disabled') ? DISABLED_ROOM_OPAC
     data-entity-kind="room"
     :data-entity-id="room.id"
   >
+    <path :d="pathD" :fill="fill" stroke="none" />
     <path
-      :d="pathD"
-      :fill="fill"
-      :stroke="stroke"
+      v-if="wallPathD"
+      :d="wallPathD"
+      fill="none"
+      :stroke="wallColor"
       :stroke-width="ROOM_WALL_WIDTH"
       stroke-linejoin="miter"
     />

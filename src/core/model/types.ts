@@ -1,7 +1,6 @@
 /**
  * Central data model types — single source of truth.
- * Must stay in sync with the JSON schemas under `public/schemas/`
- * (see docs/02-datenmodell.md and docs/06-code-richtlinien.md).
+ * Must stay in sync with the JSON schemas under `public/schemas/`.
  */
 
 /** Point or size in map units, [x, y] or [w, h]. */
@@ -37,13 +36,9 @@ export interface Contributors {
 }
 
 export interface Contributor {
-  /** Link to the maps: identical to the entry in their `meta.authors`. */
   name: string
-  /** Profile UUID on outlasttrialsstats.com — the `<totstats-profile>` card renders from it. */
   profileId: string
-  /** Profile on outlasttrialsstats.com (the schema enforces the domain). */
   profileUrl: string
-  /** Map IDs from the registry the person contributed to. */
   maps: string[]
 }
 
@@ -128,9 +123,17 @@ export interface RoomLabel {
 
 export type RoomFlag = 'secret' | 'reel' | 'disabled' | 'noWalls' | 'unreachable'
 
+/** Interruption of the outer wall along one edge of the room outline (entrances, passages). */
+export interface WallGap {
+  /** Edge index (0 = point 0 → point 1); the closing edge is the last one. */
+  edge: number
+  /** Distance from the edge start, in map units. */
+  start: number
+  length: number
+}
+
 export interface CameraInfo {
   pos: Vec2
-  /** Facing in degrees. */
   rotation: number
 }
 
@@ -151,6 +154,8 @@ export interface Room {
   /** Reference to a zone of the global zone library (zones.json). */
   zone: string
   shape: RoomShape
+  /** Sections without a wall; ignored when the flag `noWalls` is set. */
+  wallGaps?: WallGap[]
   innerLines?: InnerLine[]
   label?: RoomLabel
   flags?: RoomFlag[]
@@ -163,6 +168,17 @@ export interface Room {
 
 /** Element-specific extra data, declared by the `propsSchema` of the element. */
 export type PlacementProps = Record<string, unknown>
+
+/**
+ * Numbering of a placement: dot on the element, leader line, diamond badge with
+ * the number. Named `NumberMarker` to keep it apart from `PlacementMarker.vue`.
+ */
+export interface NumberMarker {
+  /** Number inside the badge. */
+  label: number
+  /** Badge center relative to the placement position; never rotates with it. */
+  offset: Vec2
+}
 
 export interface Placement {
   id: string
@@ -178,6 +194,7 @@ export interface Placement {
    */
   size?: Vec2
   roomId?: string
+  marker?: NumberMarker
   props?: PlacementProps
 }
 
@@ -237,8 +254,16 @@ export interface PropFieldSchema {
   values?: string[]
 }
 
-/** Closed set of parametric vector building blocks (docs/02 §4). */
-export type StructuralKind = 'door' | 'double-door' | 'obstacle' | 'spawn-room' | 'stairs'
+/** Closed set of parametric vector building blocks. */
+export type StructuralKind =
+  | 'door'
+  | 'double-door'
+  | 'barricaded-door'
+  | 'window'
+  | 'crawl-passage'
+  | 'obstacle'
+  | 'spawn-room'
+  | 'stairs'
 
 export interface StructuralRender {
   kind: StructuralKind
@@ -260,7 +285,10 @@ export interface ElementDefinition {
    * centered in the shape (e.g. spawn room).
    */
   icon?: string
-  /** Accent/fallback color: tooltip border, legend, placeholder rendering. */
+  /**
+   * Accent/fallback color: tooltip border, legend, placeholder rendering — and
+   * the body fill of every structural shape except `spawn-room` (neutral floor).
+   */
   color: string
   /** Default size in map units. */
   size?: number

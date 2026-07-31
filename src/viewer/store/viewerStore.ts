@@ -171,7 +171,7 @@ export const useViewerStore = defineStore('viewer', () => {
     }
   }
 
-  /** Data problems do not block the viewer but must stay discoverable (docs/03 §5). */
+  /** Data problems do not block the viewer but must stay discoverable. */
   function warnAboutLogicIssues(
     document: TrialDocument,
     loadedLibrary: ElementLibrary | null,

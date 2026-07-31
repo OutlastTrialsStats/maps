@@ -7,6 +7,7 @@ import { STRUCTURAL_META } from '../../core/render/structuralShapes'
 import type { Placement, TrialDocument } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { useLibraryStore } from '../store/libraryStore'
+import PlacementMarkerEditor from './PlacementMarkerEditor.vue'
 import PropsSchemaForm from './PropsSchemaForm.vue'
 
 const props = defineProps<{ placement: Placement }>()
@@ -175,6 +176,7 @@ function setProps(value: Placement['props']): void {
         @update:model-value="setRoomId($event)"
       />
     </label>
+    <PlacementMarkerEditor :placement-id="placement.id" />
     <template v-if="element?.propsSchema">
       <span class="field-label">Properties</span>
       <PropsSchemaForm

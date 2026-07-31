@@ -1,9 +1,9 @@
 import type { Room, RoomShape, Vec2 } from './types'
 
 /**
- * Minimal path parser for room outlines (docs/03 §7: paths are only parsed for
- * editing in the editor and for validation). Supports exactly the commands the
- * editor emits itself: M/m, L/l, H/h, V/v, Z/z — a single subpath.
+ * Minimal path parser for room outlines — paths are only parsed for editing in
+ * the editor and for validation. Supports exactly the commands the editor
+ * emits itself: M/m, L/l, H/h, V/v, Z/z — a single subpath.
  * Curves etc. return `null` (vertex editing is then disabled).
  */
 

@@ -72,7 +72,11 @@ export const DUPLICATE_OFFSET = 5
 /** Hit radius for vertex handles and for switching the active drawing end, in map units. */
 export const VERTEX_HIT_RADIUS = 4
 
-/** Touch: a long press opens the viewer context menu (docs/99 P7). */
+/** Wall gaps (openings in a room outline), in map units. */
+export const WALL_GAP_DEFAULT_LENGTH = 8
+export const WALL_GAP_MIN_LENGTH = 1
+
+/** Touch: a long press opens the viewer context menu. */
 export const LONG_PRESS_MS = 500
 export const LONG_PRESS_MOVE_TOLERANCE_PX = 10
 
@@ -96,3 +100,26 @@ export const SELECTION_COLOR = '#4da3ff'
 /** Gap of the selection ring around icons, in map units. */
 export const SELECTION_RING_OFFSET = 2
 export const CAMERA_MARKER_SIZE = 8
+
+// Structural shapes (all in map units, see src/core/render/structuralShapes.ts)
+/** How far the barricade plank sticks out beyond both ends of the door. */
+export const BARRICADE_OVERHANG = 2
+export const BARRICADE_PLANK_THICKNESS = 2
+/** Air between the door edge and the plank. */
+export const BARRICADE_PLANK_GAP = 0.5
+export const BARRICADE_HATCH_SPACING = 2
+/** Spacing of the slanted bars of a crawl passage. */
+export const CRAWL_BAR_SPACING = 1.6
+
+// Number marker (dot → leader line → diamond badge with a number)
+export const MARKER_COLOR = '#aaaaaa'
+export const MARKER_DOT_RADIUS = 1
+export const MARKER_LEADER_WIDTH = 0.5
+/** Half diagonal of the outer diamond. */
+export const MARKER_BADGE_RADIUS = 5
+export const MARKER_BADGE_INNER_RADIUS = 3
+export const MARKER_FONT_SIZE = 5
+/** Text baseline below the badge center, so the digits sit centered. */
+export const MARKER_TEXT_BASELINE_OFFSET = 1.5
+/** Badge position of a freshly created marker, relative to the placement. */
+export const MARKER_DEFAULT_OFFSET: [number, number] = [0, -15]

@@ -1,10 +1,21 @@
-import type { Contributors, ElementLibrary, MapManifest, TrialDocument, ZoneLibrary } from './types'
+// Explicit .ts extensions: scripts/validate-data.mjs loads this module via Node
+// type stripping, and Node's ESM resolver has no extensionless lookup.
+import { shapeToPoints } from './roomPath.ts'
+import type {
+  Contributors,
+  ElementLibrary,
+  MapManifest,
+  Room,
+  TrialDocument,
+  ZoneLibrary,
+} from './types'
+import { edgeLength, edgeSegments } from './wallGaps.ts'
 
 /**
- * Logic rules from docs/02-datenmodell.md §5 — the structural check is done by
- * the JSON schema (including the path character set), the reference rules live here.
- * Runs in the browser (editor export/import) and in Node (scripts/validate-data.mjs)
- * — hence: no DOM/Vue imports, only erasable TypeScript syntax.
+ * Reference rules the JSON schema cannot express (the structural check is done
+ * by the schema). Runs in the browser (editor export/import) and in Node
+ * (scripts/validate-data.mjs) — hence: no DOM/Vue imports, only erasable
+ * TypeScript syntax.
  */
 
 export interface ValidationIssue {
@@ -101,6 +112,44 @@ export function collectContributorIssues(
   return issues
 }
 
+function collectWallGapIssues(room: Room, roomPath: string): ValidationIssue[] {
+  const gaps = room.wallGaps
+  if (!gaps?.length) {
+    return []
+  }
+  const points = shapeToPoints(room.shape)
+  if (!points) {
+    return [
+      {
+        path: `${roomPath}.wallGaps`,
+        message: 'wall gaps need a parsable outline (only M/L/H/V/Z are supported)',
+      },
+    ]
+  }
+  const edges = edgeSegments(points)
+  const issues: ValidationIssue[] = []
+  gaps.forEach((gap, index) => {
+    const path = `${roomPath}.wallGaps[${index}]`
+    const edge = edges[gap.edge]
+    if (!edge) {
+      issues.push({ path, message: `unknown edge ${gap.edge} (outline has ${edges.length})` })
+      return
+    }
+    if (gap.length <= 0) {
+      issues.push({ path, message: 'length must be greater than 0' })
+      return
+    }
+    const available = edgeLength(edge)
+    if (gap.start < 0 || gap.start + gap.length > available) {
+      issues.push({
+        path,
+        message: `gap ${gap.start}–${gap.start + gap.length} exceeds edge ${gap.edge} (length ${Math.round(available * 100) / 100})`,
+      })
+    }
+  })
+  return issues
+}
+
 export function collectManifestIssues(manifest: MapManifest): ValidationIssue[] {
   const issues: ValidationIssue[] = []
   checkUniqueIds(issues, 'trials', 'trial', manifest.trials.map((trial) => trial.id))
@@ -140,6 +189,7 @@ export function collectTrialLogicIssues(
     if (!zoneIds.has(room.zone)) {
       issues.push({ path: `rooms[${index}].zone`, message: `unknown zone "${room.zone}"` })
     }
+    issues.push(...collectWallGapIssues(room, `rooms[${index}]`))
   })
 
   trial.placements.forEach((placement, index) => {

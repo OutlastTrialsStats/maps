@@ -3,7 +3,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useViewerStore } from './store/viewerStore'
 
 /**
- * Mirrors trial, floor and room selection into the URL query (deep links, docs/01 V9).
+ * Mirrors trial, floor and room selection into the URL query (deep links).
  * `?trial=` is already honoured by `loadMap` (MapViewer passes it as the initial
  * trial); floor and room are applied here once per map load, from then on the
  * query is only written.

@@ -74,6 +74,27 @@
       "type": "string",
       "pattern": "^[^:]+\\.(jpg|jpeg|png|webp)$"
     },
+    "wallGap": {
+      "description": "Section of the room outline without a wall (entrance, passage).",
+      "type": "object",
+      "required": ["edge", "start", "length"],
+      "additionalProperties": false,
+      "properties": {
+        "edge": { "type": "integer", "minimum": 0 },
+        "start": { "type": "number", "minimum": 0 },
+        "length": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "numberMarker": {
+      "description": "Numbering of a placement: dot, leader line and diamond badge.",
+      "type": "object",
+      "required": ["label", "offset"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "integer" },
+        "offset": { "$ref": "#/definitions/vec2" }
+      }
+    },
     "room": {
       "type": "object",
       "required": ["id", "floor", "zone", "shape"],
@@ -97,6 +118,10 @@
               "maxItems": 2
             }
           }
+        },
+        "wallGaps": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/wallGap" }
         },
         "innerLines": {
           "type": "array",
@@ -167,6 +192,7 @@
         "rotation": { "type": "number", "multipleOf": 45 },
         "size": { "$ref": "#/definitions/vec2" },
         "roomId": { "$ref": "#/definitions/kebabId" },
+        "marker": { "$ref": "#/definitions/numberMarker" },
         "props": { "type": "object" }
       }
     },

@@ -17,6 +17,7 @@ const HANDLE_RADIUS = VERTEX_HIT_RADIUS / 2
 const polyline = computed(() => (props.overlay?.kind === 'polyline' ? props.overlay : null))
 const rect = computed(() => (props.overlay?.kind === 'rect' ? props.overlay : null))
 const vertices = computed(() => (props.overlay?.kind === 'vertices' ? props.overlay : null))
+const wallGaps = computed(() => (props.overlay?.kind === 'wallgaps' ? props.overlay : null))
 const ghost = computed(() => (props.overlay?.kind === 'ghost' ? props.overlay : null))
 
 const previewPathD = computed(() => {
@@ -121,6 +122,23 @@ const ghostElement = computed(() =>
         />
       </g>
     </template>
+    <template v-else-if="wallGaps">
+      <g :transform="`translate(${wallGaps.origin[0]},${wallGaps.origin[1]})`">
+        <polygon :points="wallGaps.points.map((p) => p.join(',')).join(' ')" class="vertex-outline" />
+        <template v-for="(gap, index) in wallGaps.gaps" :key="`g${index}`">
+          <line
+            :x1="gap[0][0]"
+            :y1="gap[0][1]"
+            :x2="gap[1][0]"
+            :y2="gap[1][1]"
+            class="gap-segment"
+            :class="{ active: index === wallGaps.activeIndex }"
+          />
+          <circle :cx="gap[0][0]" :cy="gap[0][1]" :r="HANDLE_RADIUS" class="handle" />
+          <circle :cx="gap[1][0]" :cy="gap[1][1]" :r="HANDLE_RADIUS" class="handle" />
+        </template>
+      </g>
+    </template>
     <g v-else-if="ghostPlacement" class="ghost">
       <PlacementMarker :placement="ghostPlacement" :element="ghostElement" />
     </g>
@@ -175,6 +193,18 @@ const ghostElement = computed(() =>
 .handle.active {
   fill: #e0913c;
   stroke: #e0913c;
+}
+
+.gap-segment {
+  stroke: #e0913c;
+  stroke-width: 4;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.7;
+}
+
+.gap-segment.active {
+  opacity: 1;
 }
 
 .midpoint {

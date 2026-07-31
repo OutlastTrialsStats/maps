@@ -10,7 +10,10 @@ import { elementIconUrl } from '../model/dataSource'
 import type { ElementDefinition, Placement } from '../model/types'
 import {
   STRUCTURAL_META,
+  barricadeHatchPath,
+  barricadePlankPath,
   centeredRectPath,
+  crawlBarsPath,
   doorSeamPath,
   obstacleChevronsPath,
   obstacleTeethPath,
@@ -19,6 +22,7 @@ import {
   spawnRoomWallPath,
   stairsArrowPath,
   stairsRungsPath,
+  windowMullionPath,
 } from './structuralShapes'
 import { useIconFallback } from './useIconFallback'
 
@@ -48,6 +52,11 @@ const thickness = computed(() => dims.value[1])
 
 const rectPath = computed(() => centeredRectPath(length.value, thickness.value))
 const ascending = computed(() => props.placement.props?.direction !== 'down')
+
+/** Door/window/stairs variants differ only by the library color, not by code. */
+const bodyFill = computed(() =>
+  meta.value?.fill === 'element' ? props.element.color : undefined,
+)
 
 const groupTransform = computed(() => placementTransform(props.placement))
 
@@ -82,16 +91,29 @@ const selectionBounds = computed(() => {
     class="structural"
   >
     <template v-if="kind === 'door' || kind === 'double-door'">
-      <path :d="rectPath" class="door" />
+      <path :d="rectPath" :fill="bodyFill" class="body" />
       <path v-if="kind === 'double-door'" :d="doorSeamPath(thickness)" class="door-seam" />
     </template>
+    <template v-else-if="kind === 'barricaded-door'">
+      <path :d="rectPath" :fill="bodyFill" class="body" />
+      <path :d="barricadePlankPath(length, thickness)" :fill="bodyFill" class="barricade-plank" />
+      <path :d="barricadeHatchPath(length, thickness)" class="barricade-hatch" />
+    </template>
+    <template v-else-if="kind === 'window'">
+      <path :d="rectPath" :fill="bodyFill" class="body" />
+      <path :d="windowMullionPath(length)" class="window-mullion" />
+    </template>
+    <template v-else-if="kind === 'crawl-passage'">
+      <path :d="rectPath" :fill="bodyFill" class="body" />
+      <path :d="crawlBarsPath(length, thickness)" class="crawl-bars" />
+    </template>
     <template v-else-if="kind === 'obstacle'">
-      <path :d="rectPath" class="obstacle" />
+      <path :d="rectPath" :fill="bodyFill" />
       <path :d="obstacleTeethPath(length, thickness)" class="obstacle-decor" />
       <path :d="obstacleChevronsPath(length, thickness)" class="obstacle-chevrons" />
     </template>
     <template v-else-if="kind === 'stairs'">
-      <path :d="rectPath" class="stairs" />
+      <path :d="rectPath" :fill="bodyFill" class="stairs" />
       <path :d="stairsRungsPath(length, thickness)" class="stairs-rungs" />
       <path :d="stairsArrowPath(length, thickness, ascending)" class="stairs-arrow" />
     </template>
@@ -122,8 +144,7 @@ const selectionBounds = computed(() => {
 </template>
 
 <style scoped>
-.door {
-  fill: #465b92;
+.body {
   stroke: #000000;
   stroke-width: 1;
 }
@@ -134,8 +155,22 @@ const selectionBounds = computed(() => {
   stroke-width: 0.6;
 }
 
-.obstacle {
-  fill: #1e616c;
+.window-mullion {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 1;
+}
+
+.barricade-plank {
+  stroke: #000000;
+  stroke-width: 0.25;
+}
+
+.barricade-hatch,
+.crawl-bars {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 0.5;
 }
 
 .obstacle-decor {
@@ -151,7 +186,6 @@ const selectionBounds = computed(() => {
 }
 
 .stairs {
-  fill: #556065;
   stroke: #000000;
   stroke-width: 0.6;
 }

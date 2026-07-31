@@ -1,3 +1,10 @@
+import {
+  BARRICADE_HATCH_SPACING,
+  BARRICADE_OVERHANG,
+  BARRICADE_PLANK_GAP,
+  BARRICADE_PLANK_THICKNESS,
+  CRAWL_BAR_SPACING,
+} from '../constants'
 import type { Placement, StructuralKind } from '../model/types'
 
 /**
@@ -13,14 +20,23 @@ const OBSTACLE_TOOTH_SPACING = 2.5
 
 /**
  * Properties per structural kind: `resizable` allows `placement.size`;
- * `anchor: 'edge'` anchors the shape at the anchor edge (y=0) instead of centered.
+ * `anchor: 'edge'` anchors the shape at the anchor edge (y=0) instead of centered;
+ * `fill: 'element'` fills the body with `ElementDefinition.color`, so door/window
+ * variants differ by data alone. `spawn-room` keeps a neutral floor because its
+ * color is the enemy category accent.
  */
-export const STRUCTURAL_META: Record<StructuralKind, { resizable: boolean; anchor: 'center' | 'edge' }> = {
-  door: { resizable: true, anchor: 'center' },
-  'double-door': { resizable: true, anchor: 'center' },
-  obstacle: { resizable: true, anchor: 'center' },
-  stairs: { resizable: true, anchor: 'center' },
-  'spawn-room': { resizable: false, anchor: 'edge' },
+export const STRUCTURAL_META: Record<
+  StructuralKind,
+  { resizable: boolean; anchor: 'center' | 'edge'; fill: 'element' | 'neutral' }
+> = {
+  door: { resizable: true, anchor: 'center', fill: 'element' },
+  'double-door': { resizable: true, anchor: 'center', fill: 'element' },
+  'barricaded-door': { resizable: true, anchor: 'center', fill: 'element' },
+  window: { resizable: true, anchor: 'center', fill: 'element' },
+  'crawl-passage': { resizable: true, anchor: 'center', fill: 'element' },
+  obstacle: { resizable: true, anchor: 'center', fill: 'element' },
+  stairs: { resizable: true, anchor: 'center', fill: 'element' },
+  'spawn-room': { resizable: false, anchor: 'edge', fill: 'neutral' },
 }
 
 export function placementTransform(placement: Placement): string {
@@ -36,6 +52,46 @@ export function centeredRectPath(length: number, thickness: number): string {
 /** Center seam of a double door, across the main axis. */
 export function doorSeamPath(thickness: number): string {
   return `M0,${-thickness / 2} v${thickness}`
+}
+
+/** Center mullion of a window, along the main axis. */
+export function windowMullionPath(length: number): string {
+  return `M${-length / 2},0 h${length}`
+}
+
+function plankTop(thickness: number): number {
+  return -thickness / 2 - BARRICADE_PLANK_GAP - BARRICADE_PLANK_THICKNESS
+}
+
+/** Plank across the side the door cannot be opened from (flips with rotation). */
+export function barricadePlankPath(length: number, thickness: number): string {
+  const width = length + 2 * BARRICADE_OVERHANG
+  return `M${-width / 2},${plankTop(thickness)} h${width} v${BARRICADE_PLANK_THICKNESS} h${-width} z`
+}
+
+/** Diagonal hatching inside the barricade plank (top-left to bottom-right). */
+export function barricadeHatchPath(length: number, thickness: number): string {
+  const width = length + 2 * BARRICADE_OVERHANG
+  const top = plankTop(thickness)
+  const count = Math.max(1, Math.floor(width / BARRICADE_HATCH_SPACING))
+  const segments: string[] = []
+  for (let index = 0; index < count; index += 1) {
+    const x = -width / 2 + index * BARRICADE_HATCH_SPACING
+    const slant = Math.min(BARRICADE_PLANK_THICKNESS, width / 2 - x)
+    segments.push(`M${x},${top} l${slant},${slant}`)
+  }
+  return segments.join(' ')
+}
+
+/** Slanted bars of a crawl passage, spanning the full thickness. */
+export function crawlBarsPath(length: number, thickness: number): string {
+  const count = Math.max(1, Math.floor(length / CRAWL_BAR_SPACING))
+  const slant = length / count
+  const segments: string[] = []
+  for (let index = 0; index < count; index += 1) {
+    segments.push(`M${-length / 2 + index * slant},${-thickness / 2} l${slant},${thickness}`)
+  }
+  return segments.join(' ')
 }
 
 /** Row of teeth along the upper long edge (obstacle). */

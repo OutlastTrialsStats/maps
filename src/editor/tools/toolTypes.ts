@@ -3,7 +3,7 @@ import type { HitTarget } from '../../core/interaction/hitTest'
 import type { Vec2 } from '../../core/model/types'
 
 export type ToolId = 'select' | 'room' | 'placement' | 'route'
-export type RoomToolMode = 'polygon' | 'rect' | 'innerline'
+export type RoomToolMode = 'polygon' | 'rect' | 'innerline' | 'wallgap'
 /** Which end of an open polyline new points attach to. */
 export type DrawEnd = 'head' | 'tail'
 
@@ -20,6 +20,14 @@ export type ToolOverlay =
   | { kind: 'polyline'; points: Vec2[]; preview: Vec2 | null; activeEnd?: DrawEnd }
   | { kind: 'rect'; from: Vec2; to: Vec2 }
   | { kind: 'vertices'; origin: Vec2; points: Vec2[]; activeIndex: number | null }
+  | {
+      kind: 'wallgaps'
+      origin: Vec2
+      points: Vec2[]
+      /** Start and end point of every gap, in shape-local coordinates. */
+      gaps: Array<[Vec2, Vec2]>
+      activeIndex: number | null
+    }
   | { kind: 'ghost'; pos: Vec2; rotation: number; elementId: string }
 
 export interface EditorTool {
