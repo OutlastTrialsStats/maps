@@ -4,7 +4,7 @@ import Toast from 'primevue/toast'
 import { onMounted, ref, watch } from 'vue'
 import { VALIDATION_DEBOUNCE_MS } from '../core/constants'
 import type { Vec2 } from '../core/model/types'
-import { collectMapLogicIssues, type ValidationIssue } from '../core/model/validation'
+import { collectTrialLogicIssues, type ValidationIssue } from '../core/model/validation'
 import ControlsLegend from '../core/ui/ControlsLegend.vue'
 import EditorCanvas from './EditorCanvas.vue'
 import EditorStatusBar from './EditorStatusBar.vue'
@@ -45,7 +45,7 @@ watch(
       return
     }
     validationTimer = window.setTimeout(() => {
-      validationIssues.value = collectMapLogicIssues(doc, libraryStore.library, zonesStore.zoneLibrary)
+      validationIssues.value = collectTrialLogicIssues(doc, libraryStore.library, zonesStore.zoneLibrary)
     }, VALIDATION_DEBOUNCE_MS)
   },
   { immediate: true },

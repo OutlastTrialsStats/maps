@@ -4,8 +4,9 @@ import { buildContributorIndex } from '../../core/model/contributorIndex'
 import {
   loadContributors,
   loadElementLibrary,
-  loadMapDefinition,
+  loadMapManifest,
   loadMapsIndex,
+  loadTrialDocument,
   loadZoneLibrary,
 } from '../../core/model/dataSource'
 import { buildElementIndex, buildZoneIndex } from '../../core/model/elementIndex'
@@ -13,14 +14,16 @@ import { defaultTrialId, initialFloorIndex } from '../../core/model/mapDefaults'
 import type {
   Contributors,
   ElementLibrary,
-  MapDefinition,
+  MapManifest,
   Room,
+  TrialDocument,
   ZoneLibrary,
 } from '../../core/model/types'
-import { collectMapLogicIssues } from '../../core/model/validation'
+import { collectTrialLogicIssues } from '../../core/model/validation'
 
 export const useViewerStore = defineStore('viewer', () => {
-  const map = ref<MapDefinition | null>(null)
+  const manifest = ref<MapManifest | null>(null)
+  const trial = ref<TrialDocument | null>(null)
   const library = ref<ElementLibrary | null>(null)
   const zones = ref<ZoneLibrary | null>(null)
   const contributors = ref<Contributors | null>(null)
@@ -32,27 +35,29 @@ export const useViewerStore = defineStore('viewer', () => {
   const selectedRoomId = ref<string | null>(null)
   const panelOpen = ref(true)
   const backgroundUrl = ref('')
+  /** Trial documents already fetched for the open map (cleared on map change). */
+  const trialCache = new Map<string, TrialDocument>()
 
-  const trials = computed(() => map.value?.trials ?? [])
-  const filters = computed(() => map.value?.filters ?? [])
+  const trials = computed(() => manifest.value?.trials ?? [])
+  const filters = computed(() => trial.value?.filters ?? [])
   const floorsTopDown = computed(() =>
-    [...(map.value?.floors ?? [])].sort((a, b) => b.index - a.index),
+    [...(trial.value?.floors ?? [])].sort((a, b) => b.index - a.index),
   )
   const activeFloorName = computed(
-    () => map.value?.floors.find((floor) => floor.index === activeFloor.value)?.name ?? '',
+    () => trial.value?.floors.find((floor) => floor.index === activeFloor.value)?.name ?? '',
   )
   const elementIndex = computed(() => buildElementIndex(library.value))
   const zonesById = computed(() => buildZoneIndex(zones.value))
   /** Authors of the open map, with a profile link where possible (contributors.json). */
   const credits = computed(() => {
     const byName = buildContributorIndex(contributors.value)
-    return (map.value?.meta.authors ?? []).map((name) => ({
+    return (manifest.value?.meta.authors ?? []).map((name) => ({
       name,
       profileUrl: byName.get(name)?.profileUrl,
     }))
   })
   const selectedRoom = computed<Room | null>(
-    () => map.value?.rooms.find((room) => room.id === selectedRoomId.value) ?? null,
+    () => trial.value?.rooms.find((room) => room.id === selectedRoomId.value) ?? null,
   )
   const hiddenCategories = computed(() => {
     const hidden = new Set<string>()
@@ -66,33 +71,81 @@ export const useViewerStore = defineStore('viewer', () => {
     return hidden
   })
 
-  async function loadMap(mapId: string): Promise<void> {
+  async function loadMap(mapId: string, initialTrialId?: string): Promise<void> {
     loading.value = true
     loadError.value = ''
-    map.value = null
+    manifest.value = null
+    trial.value = null
     selectedRoomId.value = null
+    trialCache.clear()
     void loadBackground(mapId)
     void loadCredits()
     try {
-      const [definition, loadedLibrary, loadedZones] = await Promise.all([
-        loadMapDefinition(mapId),
+      // The trial fetch only depends on the manifest — chain it there instead of
+      // waiting for the library/zones fetches.
+      const [[loadedManifest, trialId, document], loadedLibrary, loadedZones] = await Promise.all([
+        loadMapManifest(mapId).then(async (loaded) => {
+          const requested = loaded.trials.some((entry) => entry.id === initialTrialId)
+            ? initialTrialId
+            : undefined
+          const id = requested ?? defaultTrialId(loaded.trials) ?? ''
+          return [loaded, id, await fetchTrial(mapId, id)] as const
+        }),
         library.value ?? loadElementLibrary(),
         zones.value ?? loadZoneLibrary(),
       ])
       library.value = loadedLibrary
       zones.value = loadedZones
-      map.value = definition
-      activeTrialId.value = defaultTrialId(definition.trials) ?? ''
-      activeFloor.value = initialFloorIndex(definition.floors)
+      manifest.value = loadedManifest
+      trial.value = document
+      activeTrialId.value = trialId
+      activeFloor.value = initialFloorIndex(document.floors)
       disabledFilterIds.value = new Set(
-        definition.filters.filter((filter) => filter.default === false).map((filter) => filter.id),
+        document.filters.filter((filter) => filter.default === false).map((filter) => filter.id),
       )
-      warnAboutLogicIssues(definition, loadedLibrary, loadedZones)
+      warnAboutLogicIssues(document, loadedLibrary, loadedZones)
     } catch (error) {
       loadError.value = String(error)
     } finally {
       loading.value = false
     }
+  }
+
+  /** Trial switch = fetch of the trial file; floor and filter state carry over where possible. */
+  async function setActiveTrial(trialId: string): Promise<void> {
+    const mapId = manifest.value?.id
+    if (!mapId || trialId === activeTrialId.value) {
+      return
+    }
+    loadError.value = ''
+    try {
+      const document = await fetchTrial(mapId, trialId)
+      trial.value = document
+      activeTrialId.value = trialId
+      if (!document.floors.some((floor) => floor.index === activeFloor.value)) {
+        activeFloor.value = initialFloorIndex(document.floors)
+      }
+      const filterIds = new Set(document.filters.map((filter) => filter.id))
+      disabledFilterIds.value = new Set(
+        [...disabledFilterIds.value].filter((id) => filterIds.has(id)),
+      )
+      if (selectedRoomId.value && !document.rooms.some((room) => room.id === selectedRoomId.value)) {
+        selectedRoomId.value = null
+      }
+      warnAboutLogicIssues(document, library.value, zones.value)
+    } catch (error) {
+      loadError.value = String(error)
+    }
+  }
+
+  async function fetchTrial(mapId: string, trialId: string): Promise<TrialDocument> {
+    const cached = trialCache.get(trialId)
+    if (cached) {
+      return cached
+    }
+    const document = await loadTrialDocument(mapId, trialId)
+    trialCache.set(trialId, document)
+    return document
   }
 
   /** Background image from the registry — failures here do not block the viewer. */
@@ -120,12 +173,14 @@ export const useViewerStore = defineStore('viewer', () => {
 
   /** Data problems do not block the viewer but must stay discoverable (docs/03 §5). */
   function warnAboutLogicIssues(
-    definition: MapDefinition,
-    loadedLibrary: ElementLibrary,
-    loadedZones: ZoneLibrary,
+    document: TrialDocument,
+    loadedLibrary: ElementLibrary | null,
+    loadedZones: ZoneLibrary | null,
   ): void {
-    for (const issue of collectMapLogicIssues(definition, loadedLibrary, loadedZones)) {
-      console.warn(`map "${definition.id}": ${issue.path}: ${issue.message}`)
+    for (const issue of collectTrialLogicIssues(document, loadedLibrary, loadedZones)) {
+      console.warn(
+        `trial "${document.mapId}/${document.trialId}": ${issue.path}: ${issue.message}`,
+      )
     }
   }
 
@@ -138,7 +193,7 @@ export const useViewerStore = defineStore('viewer', () => {
   }
 
   function stepFloor(step: 1 | -1): void {
-    const ascending = [...(map.value?.floors ?? [])].sort((a, b) => a.index - b.index)
+    const ascending = [...(trial.value?.floors ?? [])].sort((a, b) => a.index - b.index)
     const position = ascending.findIndex((floor) => floor.index === activeFloor.value)
     const next = ascending[position + step]
     if (next) {
@@ -147,7 +202,8 @@ export const useViewerStore = defineStore('viewer', () => {
   }
 
   return {
-    map,
+    manifest,
+    trial,
     loading,
     loadError,
     activeTrialId,
@@ -166,6 +222,7 @@ export const useViewerStore = defineStore('viewer', () => {
     selectedRoom,
     hiddenCategories,
     loadMap,
+    setActiveTrial,
     toggleFilter,
     stepFloor,
   }

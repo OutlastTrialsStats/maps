@@ -1,4 +1,5 @@
 import { computed } from 'vue'
+import { mapManifestPath, trialDocumentPath } from '../../core/model/dataPaths'
 import {
   collectLibraryIssues,
   collectZoneLibraryIssues,
@@ -26,9 +27,10 @@ function prefixIssues(filename: string, issues: ValidationIssue[]): ValidationIs
 }
 
 /**
- * Export artifacts: map.json always; elements.json/zones.json only when the
- * global working copies differ from the repo state. Exporting is blocked as
- * long as any artifact has validation errors.
+ * Export artifacts: manifest (map.json) and the edited trial file always;
+ * elements.json/zones.json only when the global working copies differ from
+ * the repo state. Exporting is blocked as long as any artifact has
+ * validation errors.
  */
 export function useExportArtifacts() {
   const store = useEditorStore()
@@ -37,17 +39,26 @@ export function useExportArtifacts() {
 
   const artifacts = computed<ExportArtifact[]>(() => {
     const doc = store.document
-    if (!doc) {
+    const manifest = store.manifest
+    if (!doc || !manifest) {
       return []
+    }
+    // Both files share one dirty baseline — exporting either one resets it.
+    const markExported = (): void => {
+      store.dirty = false
     }
     const list: ExportArtifact[] = [
       {
         filename: 'map.json',
-        repoPath: `public/data/maps/${doc.id}/map.json`,
+        repoPath: `public/data/${mapManifestPath(manifest.id)}`,
+        data: manifest,
+        onExported: markExported,
+      },
+      {
+        filename: `${doc.trialId}.json`,
+        repoPath: `public/data/${trialDocumentPath(manifest.id, doc.trialId)}`,
         data: doc,
-        onExported: () => {
-          store.dirty = false
-        },
+        onExported: markExported,
       },
     ]
     if (libraryStore.dirty && libraryStore.library) {
@@ -71,16 +82,25 @@ export function useExportArtifacts() {
 
   async function validateAll(): Promise<ValidationIssue[]> {
     const doc = store.document
-    if (!doc) {
+    const manifest = store.manifest
+    if (!doc || !manifest) {
       return []
     }
-    const issues = prefixIssues(
-      'map.json',
-      await validateForExport(doc, libraryStore.library, zonesStore.zoneLibrary),
-    )
+    // Kick off all schema fetches before awaiting — they are cached per file.
     const schemaValidation = await loadSchemaValidation()
-    if (libraryStore.dirty && libraryStore.library) {
-      const validate = await schemaValidation.getLibrarySchemaValidator()
+    const libraryValidator =
+      libraryStore.dirty && libraryStore.library
+        ? schemaValidation.getLibrarySchemaValidator()
+        : null
+    const zonesValidator =
+      zonesStore.dirty && zonesStore.zoneLibrary ? schemaValidation.getZonesSchemaValidator() : null
+    const result = await validateForExport(manifest, doc, libraryStore.library, zonesStore.zoneLibrary)
+    const issues = [
+      ...prefixIssues('map.json', result.manifest),
+      ...prefixIssues(`${doc.trialId}.json`, result.trial),
+    ]
+    if (libraryValidator && libraryStore.library) {
+      const validate = await libraryValidator
       const schemaIssues = validate(libraryStore.library)
       issues.push(
         ...prefixIssues(
@@ -89,8 +109,8 @@ export function useExportArtifacts() {
         ),
       )
     }
-    if (zonesStore.dirty && zonesStore.zoneLibrary) {
-      const validate = await schemaValidation.getZonesSchemaValidator()
+    if (zonesValidator && zonesStore.zoneLibrary) {
+      const validate = await zonesValidator
       const schemaIssues = validate(zonesStore.zoneLibrary)
       issues.push(
         ...prefixIssues(

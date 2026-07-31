@@ -41,12 +41,13 @@ async function runImport(): Promise<void> {
   try {
     const result = await importDocument(text.value, libraryStore.library, zonesStore.zoneLibrary)
     issues.value = result.issues
-    if (result.document) {
-      store.setDocument(result.document, { markDirty: true })
+    if (result.workspace) {
+      const { manifest, document } = result.workspace
+      store.setWorkspace(manifest, document, { markDirty: true })
       visible.value = false
       toast.add({
         severity: 'success',
-        summary: `Imported "${result.document.id}"`,
+        summary: `Imported "${document.mapId} / ${document.trialId}"`,
         life: 4000,
       })
     }
@@ -59,14 +60,14 @@ async function runImport(): Promise<void> {
 </script>
 
 <template>
-  <Dialog v-model:visible="visible" modal header="Import map.json">
+  <Dialog v-model:visible="visible" modal header="Import trial file">
     <div class="form">
       <input type="file" accept="application/json,.json" @change="onFilePicked" />
       <Textarea
         v-model="text"
         rows="10"
         class="json-input"
-        placeholder="…or paste map.json content here"
+        placeholder="…or paste trials/<trial-id>.json content here"
       />
       <IssueList v-if="issues.length > 0" :issues="issues" />
       <div class="actions">

@@ -9,20 +9,20 @@ function setName(raw: string): void {
   if (!name) {
     return
   }
-  store.commit((doc) => {
-    doc.meta.name = name
+  store.commitManifest((manifest) => {
+    manifest.meta.name = name
   })
 }
 </script>
 
 <template>
-  <div v-if="store.document" class="map-meta">
-    <h3>Map: {{ store.document.id }}</h3>
+  <div v-if="store.manifest" class="map-meta">
+    <h3>Map: {{ store.manifest.id }}</h3>
     <div class="field">
       <label class="field-label" for="map-name">Name</label>
       <InputText
         id="map-name"
-        :model-value="store.document.meta.name"
+        :model-value="store.manifest.meta.name"
         size="small"
         @change="setName(($event.target as HTMLInputElement).value)"
       />

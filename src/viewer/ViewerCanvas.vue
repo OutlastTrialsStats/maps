@@ -22,10 +22,10 @@ const svgEl = computed(() => canvas.value?.svgEl ?? null)
 const { transform, resetView } = usePanZoom(svgEl, { dragPan: true })
 
 watch(
-  () => viewer.map,
-  (map) => {
-    if (map) {
-      resetView(roomsBounds(map.rooms) ?? undefined)
+  () => viewer.trial,
+  (trial) => {
+    if (trial) {
+      resetView(roomsBounds(trial.rooms) ?? undefined)
     }
   },
   { flush: 'post' },
@@ -61,7 +61,7 @@ function onPointerMove(event: PointerEvent): void {
   const placement = hitId
     ? tooltip.value?.placement.id === hitId
       ? tooltip.value.placement
-      : viewer.map?.placements.find((entry) => entry.id === hitId)
+      : viewer.trial?.placements.find((entry) => entry.id === hitId)
     : undefined
   tooltip.value = placement
     ? { x: event.clientX + TOOLTIP_OFFSET_PX, y: event.clientY + TOOLTIP_OFFSET_PX, placement }
@@ -113,10 +113,9 @@ function cancelLongPress(): void {
       @contextmenu.prevent="onContextMenu"
     >
       <FloorLayer
-        v-if="viewer.map"
-        :map="viewer.map"
+        v-if="viewer.trial"
+        :trial="viewer.trial"
         :floor="viewer.activeFloor"
-        :trial-id="viewer.activeTrialId"
         :element-index="viewer.elementIndex"
         :zones="viewer.zonesById"
         :selected-ids="selectedIds"

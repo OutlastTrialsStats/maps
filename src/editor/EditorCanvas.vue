@@ -58,7 +58,7 @@ watch(
 
 onMounted(() => fitToDocument())
 watch(
-  () => editor.document?.id,
+  () => (editor.document ? `${editor.document.mapId}/${editor.document.trialId}` : null),
   () => fitToDocument(),
   { flush: 'post' },
 )
@@ -87,9 +87,8 @@ function fitToDocument(): void {
     <GridLayer :transform="transform" :viewport="viewport" />
     <FloorLayer
       v-if="editor.document"
-      :map="editor.document"
+      :trial="editor.document"
       :floor="editor.activeFloor"
-      :trial-id="editor.trialContext ?? undefined"
       :element-index="libraryStore.elementIndex"
       :zones="zonesStore.zonesById"
       :selected-ids="editor.selectedIds"

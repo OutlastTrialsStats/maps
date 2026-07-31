@@ -24,9 +24,6 @@ export function useRouteTool(): EditorTool {
         path: pointsToOpenPath(points),
         style: 'route',
       }
-      if (store.visibilityForNewObjects) {
-        route.visibility = store.visibilityForNewObjects
-      }
       doc.routes.push(route)
       store.setSelection([{ kind: 'route', id: route.id }])
     })

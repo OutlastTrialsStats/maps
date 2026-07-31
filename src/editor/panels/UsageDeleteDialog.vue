@@ -41,20 +41,23 @@ function confirm(): void {
         <table v-if="usage.length > 0" class="usage">
           <thead>
             <tr>
-              <th>Map</th>
+              <th>Map / Trial</th>
               <th class="count">Used</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="entry in usage" :key="entry.mapId">
-              <td>{{ entry.mapName }}{{ entry.isOpenDocument ? ' (open)' : '' }}</td>
+            <tr v-for="entry in usage" :key="`${entry.mapId}/${entry.trialId}`">
+              <td>
+                {{ entry.mapName }} / {{ entry.trialId
+                }}{{ entry.isOpenDocument ? ' (open)' : '' }}
+              </td>
               <td class="count">{{ entry.count }}</td>
             </tr>
           </tbody>
         </table>
         <p v-else class="hint">Not used by any map.</p>
         <p v-if="foreignBlocked" class="error" role="alert">
-          Blocked: other maps still use this entry. Remove those usages first (separate PR).
+          Blocked: other trial files still use this entry. Remove those usages first (separate PR).
         </p>
         <p v-else-if="blocked" class="error" role="alert">{{ blockedHint }}</p>
         <p v-else-if="cascadeHint" class="warning">{{ cascadeHint }}</p>

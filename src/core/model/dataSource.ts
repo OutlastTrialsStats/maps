@@ -6,7 +6,15 @@ import {
   MAPS_INDEX_URL,
   ZONE_LIBRARY_URL,
 } from '../constants'
-import type { Contributors, ElementLibrary, MapDefinition, MapsIndex, ZoneLibrary } from './types'
+import { mapManifestPath, trialDocumentPath } from './dataPaths'
+import type {
+  Contributors,
+  ElementLibrary,
+  MapManifest,
+  MapsIndex,
+  TrialDocument,
+  ZoneLibrary,
+} from './types'
 
 export async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url)
@@ -32,8 +40,12 @@ export function loadContributors(): Promise<Contributors> {
   return fetchJson<Contributors>(CONTRIBUTORS_URL)
 }
 
-export function loadMapDefinition(mapId: string): Promise<MapDefinition> {
-  return fetchJson<MapDefinition>(mapAssetUrl(mapId, 'map.json'))
+export function loadMapManifest(mapId: string): Promise<MapManifest> {
+  return fetchJson<MapManifest>(`${DATA_BASE_URL}/${mapManifestPath(mapId)}`)
+}
+
+export function loadTrialDocument(mapId: string, trialId: string): Promise<TrialDocument> {
+  return fetchJson<TrialDocument>(`${DATA_BASE_URL}/${trialDocumentPath(mapId, trialId)}`)
 }
 
 export function mapAssetUrl(mapId: string, relativePath: string): string {

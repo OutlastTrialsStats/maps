@@ -5,14 +5,14 @@ import type { HitTarget } from '../../core/interaction/hitTest'
 import type {
   ElementLibrary,
   InnerLineStyle,
-  MapDefinition,
+  MapManifest,
   Room,
   Placement,
   RouteLine,
-  Visibility,
+  TrialDocument,
   ZoneLibrary,
 } from '../../core/model/types'
-import { defaultTrialId, initialFloorIndex } from '../../core/model/mapDefaults'
+import { initialFloorIndex } from '../../core/model/mapDefaults'
 import type { RoomToolMode, ToolId } from '../tools/toolTypes'
 import { saveAutosave, type AutosavePayload, type WorkspaceSnapshot } from './documentIO'
 import { jsonClone } from './jsonClone'
@@ -37,7 +37,8 @@ export const useEditorStore = defineStore('editor', () => {
   const libraryStore = useLibraryStore()
   const zonesStore = useZonesStore()
 
-  const document = ref<MapDefinition | null>(null)
+  const manifest = ref<MapManifest | null>(null)
+  const document = ref<TrialDocument | null>(null)
   const activeTool = ref<ToolId>('select')
   const roomToolMode = ref<RoomToolMode>('polygon')
   /** 90° snapping while drawing polygons (Alt inverts temporarily). */
@@ -47,8 +48,6 @@ export const useEditorStore = defineStore('editor', () => {
   /** Short tool hint for the status bar (e.g. a path that cannot be edited). */
   const toolHint = ref('')
   const activeFloor = ref(0)
-  /** Trial ID that drives the canvas filter and new objects; null only without a document. */
-  const trialContext = ref<string | null>(null)
   const activeElementId = ref<string | null>(null)
   const selection = ref<HitTarget[]>([])
   const undoStack = ref<WorkspaceSnapshot[]>([])
@@ -64,7 +63,12 @@ export const useEditorStore = defineStore('editor', () => {
   const canUndo = computed(() => drawingHistory.value?.canUndo() ?? undoStack.value.length > 0)
   const canRedo = computed(() => drawingHistory.value?.canRedo() ?? redoStack.value.length > 0)
   const floors = computed(() => document.value?.floors ?? [])
-  const trials = computed(() => document.value?.trials ?? [])
+  const trials = computed(() => manifest.value?.trials ?? [])
+  /** Display name of the trial being edited (from the manifest, fallback: its ID). */
+  const trialName = computed(() => {
+    const trialId = document.value?.trialId
+    return trials.value.find((trial) => trial.id === trialId)?.name ?? trialId ?? ''
+  })
   const selectedIds = computed(() => new Set(selection.value.map((target) => target.id)))
 
   const primarySelection = computed(() =>
@@ -86,20 +90,18 @@ export const useEditorStore = defineStore('editor', () => {
       : null,
   )
 
-  const visibilityForNewObjects = computed<Visibility | undefined>(() =>
-    trialContext.value ? { trials: [trialContext.value] } : undefined,
-  )
-
-  /** Undo unit: document + both global working copies (cascades stay atomic). */
+  /** Undo unit: manifest + document + both global working copies (cascades stay atomic). */
   function snapshot(): WorkspaceSnapshot {
     return jsonClone({
-      document: document.value as MapDefinition,
+      manifest: manifest.value as MapManifest,
+      document: document.value as TrialDocument,
       library: libraryStore.library,
       zones: zonesStore.zoneLibrary,
     })
   }
 
   function restoreSnapshot(snap: WorkspaceSnapshot): void {
+    manifest.value = snap.manifest
     document.value = snap.document
     libraryStore.restore(snap.library)
     zonesStore.restore(snap.zones)
@@ -123,12 +125,22 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   /** Default path for all document changes: snapshot → mutation → autosave. */
-  function commit(mutate: (doc: MapDefinition) => void): void {
+  function commit(mutate: (doc: TrialDocument) => void): void {
     if (!document.value) {
       return
     }
     pushUndo()
     mutate(document.value)
+    markChanged()
+  }
+
+  /** Changes to the map manifest (meta, trial names) — same undo path as `commit`. */
+  function commitManifest(mutate: (target: MapManifest) => void): void {
+    if (!document.value || !manifest.value) {
+      return
+    }
+    pushUndo()
+    mutate(manifest.value)
     markChanged()
   }
 
@@ -153,7 +165,7 @@ export const useEditorStore = defineStore('editor', () => {
 
   /** Atomic change across document + library (e.g. the element delete cascade). */
   function commitWorkspace(
-    mutate: (workspace: { doc: MapDefinition; library: ElementLibrary }) => void,
+    mutate: (workspace: { doc: TrialDocument; library: ElementLibrary }) => void,
   ): void {
     if (!document.value || !libraryStore.library) {
       return
@@ -207,7 +219,7 @@ export const useEditorStore = defineStore('editor', () => {
     markChanged()
   }
 
-  /** Selection/floor/trial context must not point at deleted objects after undo/redo. */
+  /** Selection/floor must not point at deleted objects after undo/redo. */
   function cleanupAfterHistory(): void {
     const doc = document.value
     if (!doc) {
@@ -223,15 +235,17 @@ export const useEditorStore = defineStore('editor', () => {
     if (!doc.floors.some((floor) => floor.index === activeFloor.value)) {
       activeFloor.value = doc.floors[0]?.index ?? 0
     }
-    if (!doc.trials.some((trial) => trial.id === trialContext.value)) {
-      trialContext.value = defaultTrialId(doc.trials)
-    }
     if (activeElementId.value && !libraryStore.elementIndex.has(activeElementId.value)) {
       activeElementId.value = null
     }
   }
 
-  function setDocument(doc: MapDefinition, options?: { markDirty?: boolean }): void {
+  function setWorkspace(
+    newManifest: MapManifest,
+    doc: TrialDocument,
+    options?: { markDirty?: boolean },
+  ): void {
+    manifest.value = newManifest
     document.value = doc
     undoStack.value = []
     redoStack.value = []
@@ -239,7 +253,6 @@ export const useEditorStore = defineStore('editor', () => {
     selection.value = []
     activeTool.value = 'select'
     activeFloor.value = initialFloorIndex(doc.floors)
-    trialContext.value = defaultTrialId(doc.trials)
     dirty.value = options?.markDirty ?? false
     autosaveError.value = ''
     if (dirty.value) {
@@ -247,7 +260,7 @@ export const useEditorStore = defineStore('editor', () => {
     }
   }
 
-  /** "Continue autosave": restores existing working copies and the document. */
+  /** "Continue autosave": restores existing working copies and the workspace. */
   function restoreAutosave(payload: AutosavePayload): void {
     // Null would mean: at autosave time the library was not loaded yet —
     // then do not overwrite the freshly fetched state.
@@ -257,11 +270,34 @@ export const useEditorStore = defineStore('editor', () => {
     if (payload.zones) {
       zonesStore.restore(payload.zones)
     }
-    setDocument(payload.document, { markDirty: true })
+    setWorkspace(payload.manifest, payload.document, { markDirty: true })
   }
 
   function setSelection(targets: HitTarget[]): void {
     selection.value = targets
+  }
+
+  function clearSelection(): void {
+    selection.value = []
+  }
+
+  /** Removes all selected rooms/placements/routes from the document (undoable). */
+  function deleteSelection(): void {
+    if (selection.value.length === 0) {
+      return
+    }
+    const ids = selectedIds.value
+    commit((doc) => {
+      doc.rooms = doc.rooms.filter((room) => !ids.has(room.id))
+      doc.placements = doc.placements.filter((placement) => !ids.has(placement.id))
+      doc.routes = doc.routes.filter((route) => !ids.has(route.id))
+      for (const placement of doc.placements) {
+        if (placement.roomId && ids.has(placement.roomId)) {
+          delete placement.roomId
+        }
+      }
+    })
+    selection.value = []
   }
 
   function generateId(prefix: string): string {
@@ -273,7 +309,6 @@ export const useEditorStore = defineStore('editor', () => {
         doc.rooms,
         doc.placements,
         doc.routes,
-        doc.trials,
         doc.filters,
       ]
       for (const list of lists) {
@@ -291,11 +326,12 @@ export const useEditorStore = defineStore('editor', () => {
   function scheduleAutosave(): void {
     window.clearTimeout(autosaveTimer)
     autosaveTimer = window.setTimeout(() => {
-      if (!document.value) {
+      if (!document.value || !manifest.value) {
         return
       }
       // No snapshot clone needed: saveAutosave serializes the live objects directly.
       const error = saveAutosave({
+        manifest: manifest.value,
         document: document.value,
         library: libraryStore.library,
         zones: zonesStore.zoneLibrary,
@@ -308,6 +344,7 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   return {
+    manifest,
     document,
     activeTool,
     roomToolMode,
@@ -316,7 +353,6 @@ export const useEditorStore = defineStore('editor', () => {
     drawingHistory,
     toolHint,
     activeFloor,
-    trialContext,
     activeElementId,
     selection,
     dirty,
@@ -327,13 +363,14 @@ export const useEditorStore = defineStore('editor', () => {
     canRedo,
     floors,
     trials,
+    trialName,
     selectedIds,
     primarySelection,
     selectedRoom,
     selectedPlacement,
     selectedRoute,
-    visibilityForNewObjects,
     commit,
+    commitManifest,
     commitLibrary,
     commitZones,
     commitWorkspace,
@@ -342,9 +379,11 @@ export const useEditorStore = defineStore('editor', () => {
     cancelDrag,
     undo,
     redo,
-    setDocument,
+    setWorkspace,
     restoreAutosave,
     setSelection,
+    clearSelection,
+    deleteSelection,
     generateId,
   }
 })

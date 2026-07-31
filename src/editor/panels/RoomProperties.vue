@@ -7,11 +7,10 @@ import Textarea from 'primevue/textarea'
 import { computed } from 'vue'
 import { KEBAB_ID_PATTERN } from '../../core/constants'
 import { pointsBounds, shapeToPoints } from '../../core/model/roomPath'
-import type { MapDefinition, Room, RoomFlag, RoomInfo, Vec2, Visibility } from '../../core/model/types'
+import type { Room, RoomFlag, RoomInfo, TrialDocument, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { useZonesStore } from '../store/zonesStore'
 import RoomImagesEditor from './RoomImagesEditor.vue'
-import VisibilityEditor from './VisibilityEditor.vue'
 
 const props = defineProps<{ room: Room }>()
 const store = useEditorStore()
@@ -31,7 +30,7 @@ const zoneOptions = computed(() =>
 const flags = computed(() => new Set(props.room.flags ?? []))
 
 /** All changes go through the document object from the store (never through the prop). */
-function mutateRoom(mutate: (room: Room, doc: MapDefinition) => void): void {
+function mutateRoom(mutate: (room: Room, doc: TrialDocument) => void): void {
   store.commit((doc) => {
     const room = doc.rooms.find((entry) => entry.id === props.room.id)
     if (room) {
@@ -141,16 +140,6 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
     }
   })
 }
-
-function setVisibility(visibility: Visibility | undefined): void {
-  mutateRoom((room) => {
-    if (visibility) {
-      room.visibility = visibility
-    } else {
-      delete room.visibility
-    }
-  })
-}
 </script>
 
 <template>
@@ -243,11 +232,6 @@ function setVisibility(visibility: Visibility | undefined): void {
         />
       </label>
     </div>
-    <VisibilityEditor
-      :model-value="room.visibility"
-      :trials="store.trials"
-      @update:model-value="setVisibility"
-    />
     <RoomImagesEditor :room-id="room.id" />
   </div>
 </template>

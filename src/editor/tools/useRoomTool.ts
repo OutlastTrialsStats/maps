@@ -124,9 +124,6 @@ export function useRoomTool(): EditorTool {
         zone: zoneId,
         shape,
       }
-      if (store.visibilityForNewObjects) {
-        room.visibility = store.visibilityForNewObjects
-      }
       doc.rooms.push(room)
       store.setSelection([{ kind: 'room', id: room.id }])
     })

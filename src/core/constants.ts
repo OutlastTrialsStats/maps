@@ -36,7 +36,7 @@ export const ICON_URL_PATTERN = /^https:\/\/outlasttrialsstats\.com\/game-assets
 
 export const EDITOR_AUTOSAVE_KEY = 'outlasttrials-maps:editor-autosave'
 /** Payload version of the autosave; older states are discarded (not migratable). */
-export const EDITOR_AUTOSAVE_VERSION = 2
+export const EDITOR_AUTOSAVE_VERSION = 3
 
 export const CURSOR_STORAGE_KEY = 'outlasttrials-maps:custom-cursor'
 export const AUTOSAVE_DEBOUNCE_MS = 1000

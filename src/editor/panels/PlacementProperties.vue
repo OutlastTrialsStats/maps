@@ -4,11 +4,10 @@ import Select from 'primevue/select'
 import { computed } from 'vue'
 import { ROTATION_VALUES } from '../../core/constants'
 import { STRUCTURAL_META } from '../../core/render/structuralShapes'
-import type { MapDefinition, Placement, Visibility } from '../../core/model/types'
+import type { Placement, TrialDocument } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { useLibraryStore } from '../store/libraryStore'
 import PropsSchemaForm from './PropsSchemaForm.vue'
-import VisibilityEditor from './VisibilityEditor.vue'
 
 const props = defineProps<{ placement: Placement }>()
 const store = useEditorStore()
@@ -31,7 +30,7 @@ const roomOptions = computed(() => [
 ])
 
 /** All changes go through the document object from the store (never through the prop). */
-function mutatePlacement(mutate: (placement: Placement, doc: MapDefinition) => void): void {
+function mutatePlacement(mutate: (placement: Placement, doc: TrialDocument) => void): void {
   store.commit((doc) => {
     const placement = doc.placements.find((entry) => entry.id === props.placement.id)
     if (placement) {
@@ -84,16 +83,6 @@ function setRoomId(roomId: string | null): void {
       placement.roomId = roomId
     } else {
       delete placement.roomId
-    }
-  })
-}
-
-function setVisibility(visibility: Visibility | undefined): void {
-  mutatePlacement((placement) => {
-    if (visibility) {
-      placement.visibility = visibility
-    } else {
-      delete placement.visibility
     }
   })
 }
@@ -186,11 +175,6 @@ function setProps(value: Placement['props']): void {
         @update:model-value="setRoomId($event)"
       />
     </label>
-    <VisibilityEditor
-      :model-value="placement.visibility"
-      :trials="store.trials"
-      @update:model-value="setVisibility"
-    />
     <template v-if="element?.propsSchema">
       <span class="field-label">Properties</span>
       <PropsSchemaForm

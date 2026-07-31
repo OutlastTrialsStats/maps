@@ -1,4 +1,4 @@
-import type { Contributors, ElementLibrary, MapDefinition, Visibility, ZoneLibrary } from './types'
+import type { Contributors, ElementLibrary, MapManifest, TrialDocument, ZoneLibrary } from './types'
 
 /**
  * Logic rules from docs/02-datenmodell.md §5 — the structural check is done by
@@ -101,54 +101,48 @@ export function collectContributorIssues(
   return issues
 }
 
-export function collectMapLogicIssues(
-  map: MapDefinition,
-  library: ElementLibrary | null,
-  zones: ZoneLibrary | null,
-): ValidationIssue[] {
+export function collectManifestIssues(manifest: MapManifest): ValidationIssue[] {
   const issues: ValidationIssue[] = []
-
-  const trialIds = new Set(map.trials.map((trial) => trial.id))
-  const floorIndexes = new Set(map.floors.map((floor) => floor.index))
-  const zoneIds = new Set((zones?.zones ?? []).map((zone) => zone.id))
-  const categoryIds = new Set((library?.categories ?? []).map((category) => category.id))
-  const elementsById = new Map((library?.elements ?? []).map((element) => [element.id, element]))
-  const roomsById = new Map(map.rooms.map((room) => [room.id, room]))
-
-  checkUniqueIds(issues, 'trials', 'trial', map.trials.map((trial) => trial.id))
-  checkUniqueIds(issues, 'floors', 'floor', map.floors.map((floor) => floor.index))
-  checkUniqueIds(issues, 'filters', 'filter', map.filters.map((filter) => filter.id))
-  checkUniqueIds(issues, 'rooms', 'room', map.rooms.map((room) => room.id))
-  checkUniqueIds(issues, 'placements', 'placement', map.placements.map((p) => p.id))
-  checkUniqueIds(issues, 'routes', 'route', map.routes.map((route) => route.id))
-
-  const defaultCount = map.trials.filter((trial) => trial.default).length
+  checkUniqueIds(issues, 'trials', 'trial', manifest.trials.map((trial) => trial.id))
+  const defaultCount = manifest.trials.filter((trial) => trial.default).length
   if (defaultCount !== 1) {
     issues.push({
       path: 'trials',
       message: `exactly one trial must have "default": true (found ${defaultCount})`,
     })
   }
+  return issues
+}
 
-  const checkVisibility = (path: string, visibility: Visibility | undefined): void => {
-    for (const trialId of visibility?.trials ?? visibility?.hiddenInTrials ?? []) {
-      if (!trialIds.has(trialId)) {
-        issues.push({ path, message: `unknown trial "${trialId}"` })
-      }
-    }
-  }
+export function collectTrialLogicIssues(
+  trial: TrialDocument,
+  library: ElementLibrary | null,
+  zones: ZoneLibrary | null,
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = []
 
-  map.rooms.forEach((room, index) => {
+  const floorIndexes = new Set(trial.floors.map((floor) => floor.index))
+  const zoneIds = new Set((zones?.zones ?? []).map((zone) => zone.id))
+  const categoryIds = new Set((library?.categories ?? []).map((category) => category.id))
+  const elementsById = new Map((library?.elements ?? []).map((element) => [element.id, element]))
+  const roomsById = new Map(trial.rooms.map((room) => [room.id, room]))
+
+  checkUniqueIds(issues, 'floors', 'floor', trial.floors.map((floor) => floor.index))
+  checkUniqueIds(issues, 'filters', 'filter', trial.filters.map((filter) => filter.id))
+  checkUniqueIds(issues, 'rooms', 'room', trial.rooms.map((room) => room.id))
+  checkUniqueIds(issues, 'placements', 'placement', trial.placements.map((p) => p.id))
+  checkUniqueIds(issues, 'routes', 'route', trial.routes.map((route) => route.id))
+
+  trial.rooms.forEach((room, index) => {
     if (!floorIndexes.has(room.floor)) {
       issues.push({ path: `rooms[${index}].floor`, message: `unknown floor ${room.floor}` })
     }
     if (!zoneIds.has(room.zone)) {
       issues.push({ path: `rooms[${index}].zone`, message: `unknown zone "${room.zone}"` })
     }
-    checkVisibility(`rooms[${index}].visibility`, room.visibility)
   })
 
-  map.placements.forEach((placement, index) => {
+  trial.placements.forEach((placement, index) => {
     const element = elementsById.get(placement.element)
     if (!element) {
       issues.push({
@@ -190,17 +184,15 @@ export function collectMapLogicIssues(
         })
       }
     }
-    checkVisibility(`placements[${index}].visibility`, placement.visibility)
   })
 
-  map.routes.forEach((route, index) => {
+  trial.routes.forEach((route, index) => {
     if (!floorIndexes.has(route.floor)) {
       issues.push({ path: `routes[${index}].floor`, message: `unknown floor ${route.floor}` })
     }
-    checkVisibility(`routes[${index}].visibility`, route.visibility)
   })
 
-  map.filters.forEach((filter, filterIndex) => {
+  trial.filters.forEach((filter, filterIndex) => {
     filter.categories.forEach((category) => {
       if (!categoryIds.has(category)) {
         issues.push({

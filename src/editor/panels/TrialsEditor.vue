@@ -10,8 +10,12 @@ const store = useEditorStore()
     <div v-for="trial in store.trials" :key="trial.id" class="row">
       <span class="name">{{ trial.name }}</span>
       <span v-if="trial.default" class="default-tag">default</span>
+      <span v-if="trial.id === store.document?.trialId" class="default-tag">editing</span>
     </div>
-    <p class="hint">Trials are maintained by hand in map.json.</p>
+    <p class="hint">
+      Trials are maintained by hand in map.json; each trial's content lives in
+      trials/&lt;trial-id&gt;.json.
+    </p>
   </fieldset>
 </template>
 

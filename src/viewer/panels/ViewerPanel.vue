@@ -12,14 +12,20 @@ const viewer = useViewerStore()
 const roomInfo = computed(() => viewer.selectedRoom?.info ?? null)
 
 const canFloorUp = computed(() =>
-  viewer.map?.floors.some((floor) => floor.index > viewer.activeFloor),
+  viewer.trial?.floors.some((floor) => floor.index > viewer.activeFloor),
 )
 const canFloorDown = computed(() =>
-  viewer.map?.floors.some((floor) => floor.index < viewer.activeFloor),
+  viewer.trial?.floors.some((floor) => floor.index < viewer.activeFloor),
 )
 
+/** Selecting a trial fetches its file — hence a setter instead of a direct v-model. */
+const selectedTrialId = computed({
+  get: () => viewer.activeTrialId,
+  set: (trialId: string) => void viewer.setActiveTrial(trialId),
+})
+
 function imageUrl(src: string): string {
-  return viewer.map ? mapAssetUrl(viewer.map.id, src) : src
+  return viewer.manifest ? mapAssetUrl(viewer.manifest.id, src) : src
 }
 </script>
 
@@ -28,7 +34,7 @@ function imageUrl(src: string): string {
     <section>
       <h2>Trial</h2>
       <Select
-        v-model="viewer.activeTrialId"
+        v-model="selectedTrialId"
         :options="viewer.trials"
         option-label="name"
         option-value="id"

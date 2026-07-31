@@ -2,9 +2,8 @@
 import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
 import { computed } from 'vue'
-import type { RouteLine, Visibility } from '../../core/model/types'
+import type { RouteLine } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
-import VisibilityEditor from './VisibilityEditor.vue'
 
 const props = defineProps<{ route: RouteLine }>()
 const store = useEditorStore()
@@ -37,16 +36,6 @@ function setFloor(floor: number): void {
     route.floor = floor
   })
 }
-
-function setVisibility(visibility: Visibility | undefined): void {
-  mutateRoute((route) => {
-    if (visibility) {
-      route.visibility = visibility
-    } else {
-      delete route.visibility
-    }
-  })
-}
 </script>
 
 <template>
@@ -72,11 +61,6 @@ function setVisibility(visibility: Visibility | undefined): void {
         @update:model-value="setFloor($event)"
       />
     </label>
-    <VisibilityEditor
-      :model-value="route.visibility"
-      :trials="store.trials"
-      @update:model-value="setVisibility"
-    />
   </div>
 </template>
 

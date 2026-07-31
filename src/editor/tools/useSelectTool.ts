@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import { DUPLICATE_OFFSET, NUDGE_STEP, NUDGE_STEP_LARGE } from '../../core/constants'
 import type { HitTarget } from '../../core/interaction/hitTest'
 import { translateAbsolutePathStart } from '../../core/model/roomPath'
-import type { MapDefinition, Vec2 } from '../../core/model/types'
+import type { TrialDocument, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { jsonClone } from '../store/jsonClone'
 import type { CanvasPointerEvent, EditorTool } from './toolTypes'
@@ -18,7 +18,7 @@ export function useSelectTool(): EditorTool {
   const store = useEditorStore()
   let dragState: { last: Vec2; moved: boolean } | null = null
 
-  function moveSelection(doc: MapDefinition, delta: Vec2): void {
+  function moveSelection(doc: TrialDocument, delta: Vec2): void {
     const ids = store.selectedIds
     for (const room of doc.rooms) {
       if (ids.has(room.id)) {
@@ -35,21 +35,6 @@ export function useSelectTool(): EditorTool {
         route.path = translateAbsolutePathStart(route.path, delta) ?? route.path
       }
     }
-  }
-
-  function deleteSelection(): void {
-    const ids = store.selectedIds
-    store.commit((doc) => {
-      doc.rooms = doc.rooms.filter((room) => !ids.has(room.id))
-      doc.placements = doc.placements.filter((placement) => !ids.has(placement.id))
-      doc.routes = doc.routes.filter((route) => !ids.has(route.id))
-      for (const placement of doc.placements) {
-        if (placement.roomId && ids.has(placement.roomId)) {
-          delete placement.roomId
-        }
-      }
-    })
-    store.setSelection([])
   }
 
   function duplicateSelection(): void {
@@ -88,8 +73,7 @@ export function useSelectTool(): EditorTool {
           const copy = jsonClone(route)
           copy.id = store.generateId('route')
           copy.path =
-            translateAbsolutePathStart(copy.path, [DUPLICATE_OFFSET, DUPLICATE_OFFSET]) ??
-            copy.path
+            translateAbsolutePathStart(copy.path, [DUPLICATE_OFFSET, DUPLICATE_OFFSET]) ?? copy.path
           doc.routes.push(copy)
           created.push({ kind: 'route', id: copy.id })
         }
@@ -102,7 +86,7 @@ export function useSelectTool(): EditorTool {
     onPointerDown(event: CanvasPointerEvent): void {
       const hit = event.hit
       if (!hit) {
-        store.setSelection([])
+        store.clearSelection()
         return
       }
       const alreadySelected = store.selection.some((target) => target.id === hit.id)
@@ -151,10 +135,6 @@ export function useSelectTool(): EditorTool {
     onKeydown(event: KeyboardEvent): boolean {
       if (store.selection.length === 0) {
         return false
-      }
-      if (event.key === 'Delete' || event.key === 'Backspace') {
-        deleteSelection()
-        return true
       }
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'd') {
         duplicateSelection()

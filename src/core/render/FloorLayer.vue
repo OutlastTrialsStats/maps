@@ -1,39 +1,32 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { ElementIndex } from '../model/elementIndex'
-import type { MapDefinition, Visibility, Zone } from '../model/types'
-import { isVisibleInTrial } from '../model/visibility'
+import type { TrialDocument, Zone } from '../model/types'
 import PlacementMarker from './PlacementMarker.vue'
 import RoomShape from './RoomShape.vue'
 import RoutePath from './RoutePath.vue'
 
 const props = defineProps<{
-  map: MapDefinition
+  trial: TrialDocument
   floor: number
-  /** Without an entry everything is rendered (editor without a loaded document). */
-  trialId?: string
   elementIndex: ElementIndex
   zones: ReadonlyMap<string, Zone>
   selectedIds?: ReadonlySet<string>
   hiddenCategories?: ReadonlySet<string>
 }>()
 
-function visible<T extends { floor: number; visibility?: Visibility }>(items: T[]): T[] {
-  return items.filter(
-    (item) =>
-      item.floor === props.floor &&
-      (!props.trialId || isVisibleInTrial(item.visibility, props.trialId)),
-  )
+function visible<T extends { floor: number }>(items: T[]): T[] {
+  return items.filter((item) => item.floor === props.floor)
 }
 
-const rooms = computed(() => visible(props.map.rooms))
+const rooms = computed(() => visible(props.trial.rooms))
 const placements = computed(() =>
-  visible(props.map.placements).filter((placement) => {
+  visible(props.trial.placements).filter((placement) => {
     const category = props.elementIndex.get(placement.element)?.category
     return !category || !props.hiddenCategories?.has(category)
   }),
 )
-const routes = computed(() => visible(props.map.routes))
+const routes = computed(() => visible(props.trial.routes))
 </script>
 
 <template>

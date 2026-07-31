@@ -18,7 +18,7 @@ const TOOL_HOTKEYS: Record<string, ToolId> = {
 /**
  * Translates raw pointer/keyboard events into tool calls: coordinates in world
  * units, grid snapping (Ctrl = fine grid), hit testing and the global shortcuts
- * (undo/redo, tool selection, escape).
+ * (undo/redo, tool selection, delete, escape).
  */
 export function useCanvasEvents(options: {
   svgRef: Readonly<Ref<SVGSVGElement | null>>
@@ -129,8 +129,13 @@ export function useCanvasEvents(options: {
       store.activeTool = toolId
       return
     }
+    if ((event.key === 'Delete' || event.key === 'Backspace') && store.selection.length > 0) {
+      store.deleteSelection()
+      event.preventDefault()
+      return
+    }
     if (event.key === 'Escape') {
-      store.setSelection([])
+      store.clearSelection()
     }
   }
 

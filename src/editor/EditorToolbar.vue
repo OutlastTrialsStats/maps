@@ -31,10 +31,6 @@ const innerLineStyles: Array<{ label: string; value: InnerLineStyle }> = [
 const floorOptions = computed(() =>
   store.floors.map((floor) => ({ label: floor.name, value: floor.index })),
 )
-
-const trialOptions = computed(() =>
-  store.trials.map((trial) => ({ label: trial.name, value: trial.id })),
-)
 </script>
 
 <template>
@@ -88,16 +84,8 @@ const trialOptions = computed(() =>
         size="small"
         class="floor-select"
       />
-      <label class="field-label" for="trial-select">Editing for</label>
-      <Select
-        v-model="store.trialContext"
-        input-id="trial-select"
-        :options="trialOptions"
-        option-label="label"
-        option-value="value"
-        size="small"
-        class="trial-select"
-      />
+      <span class="field-label">Trial</span>
+      <span class="trial-name">{{ store.trialName }}</span>
     </div>
     <div class="group push-right">
       <Button
@@ -144,8 +132,12 @@ const trialOptions = computed(() =>
   color: var(--text-muted);
 }
 
-.floor-select,
-.trial-select {
+.floor-select {
   min-width: 140px;
+}
+
+.trial-name {
+  font-size: 13px;
+  font-weight: 600;
 }
 </style>

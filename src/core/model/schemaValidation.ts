@@ -12,8 +12,12 @@ export type SchemaValidator = (data: unknown) => ValidationIssue[]
 
 const cache = new Map<string, Promise<SchemaValidator>>()
 
-export function getMapSchemaValidator(): Promise<SchemaValidator> {
+export function getManifestSchemaValidator(): Promise<SchemaValidator> {
   return getValidator('map.schema.json')
+}
+
+export function getTrialSchemaValidator(): Promise<SchemaValidator> {
+  return getValidator('trial.schema.json')
 }
 
 export function getLibrarySchemaValidator(): Promise<SchemaValidator> {

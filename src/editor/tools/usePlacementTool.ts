@@ -36,9 +36,6 @@ export function usePlacementTool(): EditorTool {
         if (event.hit?.kind === 'room') {
           placement.roomId = event.hit.id
         }
-        if (store.visibilityForNewObjects) {
-          placement.visibility = store.visibilityForNewObjects
-        }
         doc.placements.push(placement)
         store.setSelection([{ kind: 'placement', id: placement.id }])
       })

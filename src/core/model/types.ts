@@ -48,14 +48,29 @@ export interface Contributor {
 }
 
 // ---------------------------------------------------------------------------
-// Map definition — public/data/maps/<mapId>/map.json
+// Map manifest — public/data/maps/<mapId>/map.json
 // ---------------------------------------------------------------------------
 
-export interface MapDefinition {
+/** Map-level identity; the content lives in one self-contained file per trial. */
+export interface MapManifest {
   $schema?: string
   id: string
   meta: MapMeta
   trials: Trial[]
+}
+
+// ---------------------------------------------------------------------------
+// Trial document — public/data/maps/<mapId>/trials/<trialId>.json
+// ---------------------------------------------------------------------------
+
+/**
+ * Complete content of one trial. Trials sharing rooms duplicate them —
+ * there is no base/overlay merging and no per-object visibility.
+ */
+export interface TrialDocument {
+  $schema?: string
+  mapId: string
+  trialId: string
   floors: Floor[]
   filters: FilterDefinition[]
   rooms: Room[]
@@ -113,15 +128,6 @@ export interface RoomLabel {
 
 export type RoomFlag = 'secret' | 'reel' | 'disabled' | 'noWalls' | 'unreachable'
 
-/**
- * Without any entry: visible in all trials. `trials` is an allowlist,
- * `hiddenInTrials` the alternative to it — never both at once.
- */
-export interface Visibility {
-  trials?: string[]
-  hiddenInTrials?: string[]
-}
-
 export interface CameraInfo {
   pos: Vec2
   /** Facing in degrees. */
@@ -148,7 +154,6 @@ export interface Room {
   innerLines?: InnerLine[]
   label?: RoomLabel
   flags?: RoomFlag[]
-  visibility?: Visibility
   info?: RoomInfo
 }
 
@@ -173,7 +178,6 @@ export interface Placement {
    */
   size?: Vec2
   roomId?: string
-  visibility?: Visibility
   props?: PlacementProps
 }
 
@@ -187,7 +191,6 @@ export interface RouteLine {
   id: string
   name: string
   floor: number
-  visibility?: Visibility
   path: string
   style: RouteLineStyle
 }

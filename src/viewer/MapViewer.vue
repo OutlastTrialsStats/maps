@@ -19,7 +19,10 @@ useViewerUrlSync()
 
 watch(
   () => String(route.params.mapId),
-  (mapId) => viewer.loadMap(mapId),
+  (mapId) => {
+    const trial = route.query.trial
+    void viewer.loadMap(mapId, typeof trial === 'string' ? trial : undefined)
+  },
   { immediate: true },
 )
 
@@ -70,15 +73,15 @@ function buildMenuItems(hit: HitTarget | null): MenuItem[] {
 }
 
 function stairsTargetFloor(placementId: string): Floor | null {
-  const placement = viewer.map?.placements.find((entry) => entry.id === placementId)
+  const placement = viewer.trial?.placements.find((entry) => entry.id === placementId)
   const target = placement?.props?.targetFloor
   if (typeof target !== 'number' || target === viewer.activeFloor) {
     return null
   }
-  return viewer.map?.floors.find((floor) => floor.index === target) ?? null
+  return viewer.trial?.floors.find((floor) => floor.index === target) ?? null
 }
 
-const title = computed(() => viewer.map?.id ?? String(route.params.mapId))
+const title = computed(() => viewer.manifest?.meta.name ?? String(route.params.mapId))
 </script>
 
 <template>
