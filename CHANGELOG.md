@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0] - 2026-07-31
+
+- chore: simplify packageManager field in package.json (1139b52)
+- feat: replace NumberMarkers with CalloutMarkers, add support for icons, colors, and dashed lines (ed32c93)
+- feat: add room wall gaps, new door/window elements and number markers (4cea942)
+- feat: simplify icon handling by switching to bare file names, add enhanced UI feedback for tools (cf426d7)
+- feat: remove migrate visibility logic and add remove element options and deselect elements (f9c5ad4)
+- feat: integrate `<totstats-profile>` widget and refine contributors display (d0f1663)
+- ci: bump docker/login-action from 3 to 4.5.2 (c53e7a2)
+- ci: bump docker/metadata-action from 5 to 6 (576098e)
+- ci: bump docker/setup-buildx-action from 3 to 4 (23d8217)
+
 ## [0.1.3] - 2026-07-26
 
 - feat: improve polygon drawing with active-end switching, undo/redo, and orthogonal snapping (600f053)
