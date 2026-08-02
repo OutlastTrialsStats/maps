@@ -3,7 +3,8 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useElementSize } from '../core/interaction/useElementSize'
 import { usePanZoom } from '../core/interaction/usePanZoom'
 import { roomsBounds } from '../core/model/roomPath'
-import type { Vec2 } from '../core/model/types'
+import type { CameraInfo, Vec2 } from '../core/model/types'
+import CameraMarker from '../core/render/CameraMarker.vue'
 import FloorLayer from '../core/render/FloorLayer.vue'
 import GridLayer from '../core/render/GridLayer.vue'
 import MapCanvas from '../core/render/MapCanvas.vue'
@@ -20,6 +21,7 @@ import { useSelectTool } from './tools/useSelectTool'
 const emit = defineEmits<{
   cursorMove: [pos: Vec2 | null]
   zoomChange: [k: number]
+  fineGridChange: [fine: boolean]
 }>()
 
 const editor = useEditorStore()
@@ -28,7 +30,7 @@ const zonesStore = useZonesStore()
 
 const canvas = ref<InstanceType<typeof MapCanvas> | null>(null)
 const svgEl = computed(() => canvas.value?.svgEl ?? null)
-const { transform, isSpacePanning, resetView } = usePanZoom(svgEl)
+const { transform, isSpacePanning, resetView, zoomBy } = usePanZoom(svgEl)
 const viewport = useElementSize(svgEl)
 
 const tools = {
@@ -40,6 +42,7 @@ const tools = {
 
 const {
   cursorWorld,
+  isFineGrid,
   overlay,
   onPointerDown,
   onPointerMove,
@@ -47,7 +50,13 @@ const {
   onPointerLeave,
   onDblClick,
   onContextMenu,
-} = useCanvasEvents({ svgRef: svgEl, transform, isSpacePanning, tools })
+} = useCanvasEvents({
+  svgRef: svgEl,
+  transform,
+  isSpacePanning,
+  tools,
+  fitView: () => fitToDocument(),
+})
 
 watch(cursorWorld, (pos) => emit('cursorMove', pos))
 watch(
@@ -55,6 +64,19 @@ watch(
   (k) => emit('zoomChange', k),
   { immediate: true },
 )
+watch(isFineGrid, (fine) => emit('fineGridChange', fine))
+
+const isDrawTool = computed(() => editor.activeTool !== 'select')
+
+const selectedRoomCameras = computed<CameraInfo[]>(() => {
+  const room = editor.selectedRoom
+  if (!room || room.floor !== editor.activeFloor) {
+    return []
+  }
+  return (room.info?.images ?? [])
+    .map((image) => image.camera)
+    .filter((camera): camera is CameraInfo => Boolean(camera))
+})
 
 onMounted(() => fitToDocument())
 watch(
@@ -70,13 +92,15 @@ function fitToDocument(): void {
   }
   resetView(roomsBounds(doc.rooms) ?? undefined)
 }
+
+defineExpose({ fitToDocument, zoomBy })
 </script>
 
 <template>
   <MapCanvas
     ref="canvas"
     :transform="transform"
-    :class="{ panning: isSpacePanning }"
+    :class="{ panning: isSpacePanning, 'draw-cursor': isDrawTool && !isSpacePanning }"
     @pointerdown="onPointerDown"
     @pointermove="onPointerMove"
     @pointerup="onPointerUp"
@@ -92,6 +116,12 @@ function fitToDocument(): void {
       :element-index="libraryStore.elementIndex"
       :zones="zonesStore.zonesById"
       :selected-ids="editor.selectedIds"
+      interactive-routes
+    />
+    <CameraMarker
+      v-for="(camera, index) in selectedRoomCameras"
+      :key="`cam-${index}`"
+      :camera="camera"
     />
     <ToolOverlayLayer :overlay="overlay" :element-index="libraryStore.elementIndex" />
   </MapCanvas>
@@ -100,5 +130,9 @@ function fitToDocument(): void {
 <style scoped>
 .panning {
   cursor: grab;
+}
+
+.draw-cursor {
+  cursor: crosshair;
 }
 </style>

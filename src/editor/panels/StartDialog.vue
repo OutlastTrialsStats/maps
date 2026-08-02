@@ -3,7 +3,7 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { KEBAB_ID_PATTERN } from '../../core/constants'
 import { loadMapManifest, loadMapsIndex, loadTrialDocument } from '../../core/model/dataSource'
 import type { MapManifest, MapRegistryEntry } from '../../core/model/types'
@@ -62,6 +62,16 @@ onMounted(async () => {
     registry.value = (await loadMapsIndex()).maps
   } catch (error) {
     loadError.value = `Failed to load the map registry: ${String(error)}`
+  }
+})
+
+// The dialog stays mounted; on reopen ("Open…" in the toolbar) reset the stale state.
+watch(visible, (open) => {
+  if (open) {
+    mode.value = 'menu'
+    loadError.value = ''
+    selectedManifest.value = null
+    autosave.value = loadAutosave()
   }
 })
 

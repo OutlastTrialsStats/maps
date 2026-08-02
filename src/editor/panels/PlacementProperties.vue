@@ -30,14 +30,24 @@ const roomOptions = computed(() => [
     .map((room) => ({ label: room.info?.title ?? room.id, value: room.id as string | null })),
 ])
 
+const floorOptions = computed(() =>
+  store.floors.map((floor) => ({ label: floor.name, value: floor.index })),
+)
+
 /** All changes go through the document object from the store (never through the prop). */
-function mutatePlacement(mutate: (placement: Placement, doc: TrialDocument) => void): void {
-  store.commit((doc) => {
-    const placement = doc.placements.find((entry) => entry.id === props.placement.id)
-    if (placement) {
-      mutate(placement, doc)
-    }
-  })
+function mutatePlacement(
+  mutate: (placement: Placement, doc: TrialDocument) => void,
+  coalesce?: string,
+): void {
+  store.commit(
+    (doc) => {
+      const placement = doc.placements.find((entry) => entry.id === props.placement.id)
+      if (placement) {
+        mutate(placement, doc)
+      }
+    },
+    coalesce ? { coalesce: `${props.placement.id}:${coalesce}` } : undefined,
+  )
 }
 
 function setPos(axis: 0 | 1, value: number | null): void {
@@ -45,7 +55,7 @@ function setPos(axis: 0 | 1, value: number | null): void {
     const pos: [number, number] = [...placement.pos]
     pos[axis] = value ?? 0
     placement.pos = pos
-  })
+  }, `pos${axis}`)
 }
 
 function setRotation(value: number | null): void {
@@ -75,7 +85,24 @@ function setSize(axis: 0 | 1, value: number | null): void {
     } else {
       placement.size = size
     }
+  }, `size${axis}`)
+}
+
+/** A room assignment on the old floor is dropped — the panel only offers same-floor rooms. */
+function setFloor(floor: number): void {
+  if (floor === props.placement.floor) {
+    return
+  }
+  mutatePlacement((placement, doc) => {
+    placement.floor = floor
+    if (placement.roomId) {
+      const room = doc.rooms.find((entry) => entry.id === placement.roomId)
+      if (room && room.floor !== floor) {
+        delete placement.roomId
+      }
+    }
   })
+  store.activeFloor = floor
 }
 
 function setRoomId(roomId: string | null): void {
@@ -165,6 +192,17 @@ function setProps(value: Placement['props']): void {
         />
       </label>
     </div>
+    <label class="field">
+      <span class="field-label">Floor</span>
+      <Select
+        :model-value="placement.floor"
+        :options="floorOptions"
+        option-label="label"
+        option-value="value"
+        size="small"
+        @update:model-value="setFloor($event)"
+      />
+    </label>
     <label class="field">
       <span class="field-label">Room</span>
       <Select

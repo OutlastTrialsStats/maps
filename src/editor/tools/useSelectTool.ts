@@ -1,10 +1,24 @@
-import { MARKER_BADGE_RADIUS, NUDGE_STEP, NUDGE_STEP_LARGE } from '../../core/constants'
-import { translateAbsolutePathStart } from '../../core/model/roomPath'
+import { computed, ref } from 'vue'
+import {
+  MARKER_BADGE_RADIUS,
+  MARQUEE_MIN_DRAG_PX,
+  NUDGE_STEP,
+  NUDGE_STEP_LARGE,
+} from '../../core/constants'
+import type { HitTarget } from '../../core/interaction/hitTest'
+import {
+  absolutePathStart,
+  parseOpenPath,
+  pointsBounds,
+  roomWorldPoints,
+  translateAbsolutePathStart,
+} from '../../core/model/roomPath'
 import type { TrialDocument, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
-import type { CanvasPointerEvent, EditorTool } from './toolTypes'
+import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 import { useClipboard } from './useClipboard'
 import { useRoomResize } from './useRoomResize'
+import { useRouteEditMode } from './useRouteEditMode'
 
 const ARROW_DELTAS: Record<string, Vec2> = {
   ArrowLeft: [-1, 0],
@@ -13,11 +27,102 @@ const ARROW_DELTAS: Record<string, Vec2> = {
   ArrowDown: [0, 1],
 }
 
+interface WorldRect {
+  min: Vec2
+  max: Vec2
+}
+
+function inRect(rect: WorldRect, point: Vec2): boolean {
+  return (
+    point[0] >= rect.min[0] &&
+    point[0] <= rect.max[0] &&
+    point[1] >= rect.min[1] &&
+    point[1] <= rect.max[1]
+  )
+}
+
+function boundsOverlap(rect: WorldRect, bounds: WorldRect): boolean {
+  return (
+    bounds.min[0] <= rect.max[0] &&
+    bounds.max[0] >= rect.min[0] &&
+    bounds.min[1] <= rect.max[1] &&
+    bounds.max[1] >= rect.min[1]
+  )
+}
+
 export function useSelectTool(): EditorTool {
   const store = useEditorStore()
   const clipboard = useClipboard()
   const resize = useRoomResize()
+  const routeEdit = useRouteEditMode()
   let dragState: { last: Vec2; moved: boolean; markerId: string | null } | null = null
+  const marquee = ref<{ from: Vec2; to: Vec2; screenFrom: Vec2; additive: boolean } | null>(null)
+
+  function targetsInRect(rect: WorldRect): HitTarget[] {
+    const doc = store.document
+    if (!doc) {
+      return []
+    }
+    const targets: HitTarget[] = []
+    for (const room of doc.rooms) {
+      if (room.floor !== store.activeFloor) {
+        continue
+      }
+      const points = roomWorldPoints(room)
+      if (points.length > 0 && boundsOverlap(rect, pointsBounds(points))) {
+        targets.push({ kind: 'room', id: room.id })
+      }
+    }
+    for (const placement of doc.placements) {
+      if (placement.floor === store.activeFloor && inRect(rect, placement.pos)) {
+        targets.push({ kind: 'placement', id: placement.id })
+      }
+    }
+    for (const route of doc.routes) {
+      if (route.floor !== store.activeFloor) {
+        continue
+      }
+      const points = parseOpenPath(route.path) ?? [absolutePathStart(route.path)].filter(
+        (point): point is Vec2 => point !== null,
+      )
+      if (points.some((point) => inRect(rect, point))) {
+        targets.push({ kind: 'route', id: route.id })
+      }
+    }
+    return targets
+  }
+
+  function finishMarquee(event: CanvasPointerEvent): void {
+    const state = marquee.value
+    if (!state) {
+      return
+    }
+    marquee.value = null
+    const screenDistance = Math.hypot(
+      event.event.clientX - state.screenFrom[0],
+      event.event.clientY - state.screenFrom[1],
+    )
+    if (screenDistance < MARQUEE_MIN_DRAG_PX) {
+      if (!state.additive) {
+        store.clearSelection()
+      }
+      return
+    }
+    const rect: WorldRect = {
+      min: [Math.min(state.from[0], state.to[0]), Math.min(state.from[1], state.to[1])],
+      max: [Math.max(state.from[0], state.to[0]), Math.max(state.from[1], state.to[1])],
+    }
+    const found = targetsInRect(rect)
+    if (state.additive) {
+      const existing = new Set(store.selection.map((target) => target.id))
+      store.setSelection([
+        ...store.selection,
+        ...found.filter((target) => !existing.has(target.id)),
+      ])
+    } else {
+      store.setSelection(found)
+    }
+  }
 
   /** Hit-tested geometrically — `CalloutMarker.vue` is pointer-transparent. */
   function markerUnderPointer(world: Vec2): string | null {
@@ -59,6 +164,9 @@ export function useSelectTool(): EditorTool {
 
   return {
     onPointerDown(event: CanvasPointerEvent): void {
+      if (routeEdit.onPointerDown(event)) {
+        return
+      }
       if (resize.onPointerDown(event)) {
         return
       }
@@ -70,7 +178,13 @@ export function useSelectTool(): EditorTool {
       }
       const hit = event.hit
       if (!hit) {
-        store.clearSelection()
+        // Selection is only cleared on pointer-up: a drag from empty canvas is a marquee.
+        marquee.value = {
+          from: event.world,
+          to: event.world,
+          screenFrom: [event.event.clientX, event.event.clientY],
+          additive: event.event.shiftKey,
+        }
         return
       }
       const alreadySelected = store.selection.some((target) => target.id === hit.id)
@@ -89,6 +203,13 @@ export function useSelectTool(): EditorTool {
     },
 
     onPointerMove(event: CanvasPointerEvent): void {
+      if (routeEdit.onPointerMove(event)) {
+        return
+      }
+      if (marquee.value) {
+        marquee.value = { ...marquee.value, to: event.world }
+        return
+      }
       if (resize.onPointerMove(event)) {
         return
       }
@@ -116,7 +237,14 @@ export function useSelectTool(): EditorTool {
       dragState.last = event.snapped
     },
 
-    onPointerUp(): void {
+    onPointerUp(event: CanvasPointerEvent): void {
+      if (routeEdit.onPointerUp()) {
+        return
+      }
+      if (marquee.value) {
+        finishMarquee(event)
+        return
+      }
       if (resize.onPointerUp()) {
         return
       }
@@ -126,7 +254,17 @@ export function useSelectTool(): EditorTool {
       dragState = null
     },
 
+    onDblClick(event: CanvasPointerEvent): void {
+      if (event.hit?.kind === 'route') {
+        store.setSelection([event.hit])
+        routeEdit.enter(event.hit.id)
+      }
+    },
+
     onKeydown(event: KeyboardEvent): boolean {
+      if (routeEdit.onKeydown(event)) {
+        return true
+      }
       if (store.selection.length === 0) {
         return false
       }
@@ -144,10 +282,17 @@ export function useSelectTool(): EditorTool {
     },
 
     deactivate(): void {
+      routeEdit.exit()
       resize.cancel()
       dragState = null
+      marquee.value = null
     },
 
-    overlay: resize.overlay,
+    overlay: computed<ToolOverlay | null>(() => {
+      if (marquee.value) {
+        return { kind: 'rect', from: marquee.value.from, to: marquee.value.to }
+      }
+      return routeEdit.overlay.value ?? resize.overlay.value
+    }),
   }
 }

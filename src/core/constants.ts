@@ -21,6 +21,8 @@ export const GRID_SNAP_DEFAULT = 5
 /** Zoom factor, not percent. */
 export const ZOOM_MIN = 0.25
 export const ZOOM_MAX = 8
+/** Scale step of the +/− zoom buttons. */
+export const ZOOM_BUTTON_FACTOR = 1.5
 
 /** Fallback for elements without their own `size`, in map units. */
 export const ICON_DEFAULT_SIZE = 10
@@ -44,6 +46,8 @@ export const EDITOR_AUTOSAVE_VERSION = 4
 export const CURSOR_STORAGE_KEY = 'outlasttrials-maps:custom-cursor'
 export const AUTOSAVE_DEBOUNCE_MS = 1000
 export const UNDO_STACK_LIMIT = 100
+/** Commits with the same coalesce key within this window share one undo snapshot. */
+export const UNDO_COALESCE_MS = 800
 
 export const VALIDATION_DEBOUNCE_MS = 500
 
@@ -71,6 +75,9 @@ export const DUPLICATE_OFFSET = 5
 
 /** Hit radius for vertex handles and for switching the active drawing end, in map units. */
 export const VERTEX_HIT_RADIUS = 4
+
+/** Below this pointer travel (screen px) an empty-canvas drag counts as a click, not a marquee. */
+export const MARQUEE_MIN_DRAG_PX = 4
 
 /** Smallest width/height a room can be resized to, in map units (one grid cell). */
 export const ROOM_RESIZE_MIN_SIZE = 5

@@ -3,7 +3,7 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import Textarea from 'primevue/textarea'
 import { useToast } from 'primevue/usetoast'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { ValidationIssue } from '../../core/model/validation'
 import { importDocument } from '../store/documentIO'
 import { useEditorStore } from '../store/editorStore'
@@ -21,6 +21,8 @@ const toast = useToast()
 const text = ref('')
 const issues = ref<ValidationIssue[]>([])
 const importing = ref(false)
+
+const replacesUnsaved = computed(() => Boolean(store.document) && store.dirty)
 
 watch(visible, (open) => {
   if (open) {
@@ -70,9 +72,19 @@ async function runImport(): Promise<void> {
         placeholder="…or paste trials/<trial-id>.json content here"
       />
       <IssueList v-if="issues.length > 0" :issues="issues" />
+      <p v-if="replacesUnsaved" class="replace-warning" role="alert">
+        The open trial has unsaved changes — importing replaces it. The current state stays in
+        the browser autosave.
+      </p>
       <div class="actions">
         <Button label="Cancel" severity="secondary" text @click="visible = false" />
-        <Button label="Import" :disabled="!text.trim()" :loading="importing" @click="runImport" />
+        <Button
+          :label="replacesUnsaved ? 'Replace & import' : 'Import'"
+          :severity="replacesUnsaved ? 'warn' : undefined"
+          :disabled="!text.trim()"
+          :loading="importing"
+          @click="runImport"
+        />
       </div>
     </div>
   </Dialog>
@@ -95,5 +107,11 @@ async function runImport(): Promise<void> {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.replace-warning {
+  margin: 0;
+  font-size: 12px;
+  color: var(--warning);
 }
 </style>

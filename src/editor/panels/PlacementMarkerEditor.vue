@@ -36,21 +36,24 @@ const iconPreview = computed(() =>
 const markerColor = computed(() => marker.value?.color ?? MARKER_COLOR)
 const lineColor = computed(() => marker.value?.lineColor ?? markerColor.value)
 
-function mutatePlacement(mutate: (placement: Placement) => void): void {
-  store.commit((doc) => {
-    const placement = doc.placements.find((entry) => entry.id === props.placementId)
-    if (placement) {
-      mutate(placement)
-    }
-  })
+function mutatePlacement(mutate: (placement: Placement) => void, coalesce?: string): void {
+  store.commit(
+    (doc) => {
+      const placement = doc.placements.find((entry) => entry.id === props.placementId)
+      if (placement) {
+        mutate(placement)
+      }
+    },
+    coalesce ? { coalesce: `${props.placementId}:${coalesce}` } : undefined,
+  )
 }
 
-function mutateMarker(mutate: (marker: CalloutMarker) => void): void {
+function mutateMarker(mutate: (marker: CalloutMarker) => void, coalesce?: string): void {
   mutatePlacement((placement) => {
     if (placement.marker) {
       mutate(placement.marker)
     }
-  })
+  }, coalesce)
 }
 
 /** Next free number on this floor, so numbering does not restart at 1 every time. */
@@ -111,7 +114,7 @@ function setLabel(value: number | null): void {
     if ('label' in entry) {
       entry.label = Math.round(value ?? 0)
     }
-  })
+  }, 'marker-label')
 }
 
 function setIcon(value: string | undefined): void {
@@ -120,7 +123,7 @@ function setIcon(value: string | undefined): void {
     if ('icon' in entry) {
       entry.icon = name
     }
-  })
+  }, 'marker-icon')
 }
 
 function setOffset(axis: 0 | 1, value: number | null): void {
@@ -128,7 +131,7 @@ function setOffset(axis: 0 | 1, value: number | null): void {
     const offset: Vec2 = [...entry.offset]
     offset[axis] = value ?? 0
     entry.offset = offset
-  })
+  }, `marker-offset${axis}`)
 }
 
 /** The PrimeVue ColorPicker returns hex without "#". */
@@ -143,7 +146,7 @@ function setColor(value: unknown): void {
     } else {
       entry.color = color
     }
-  })
+  }, 'marker-color')
 }
 
 function setLineColor(value: unknown): void {
@@ -157,7 +160,7 @@ function setLineColor(value: unknown): void {
     } else {
       entry.lineColor = color
     }
-  })
+  }, 'marker-line-color')
 }
 
 function setDashed(dashed: boolean): void {

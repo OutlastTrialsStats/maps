@@ -2,7 +2,7 @@
 import Button from 'primevue/button'
 import Select from 'primevue/select'
 import { computed } from 'vue'
-import type { InnerLineStyle } from '../core/model/types'
+import { INNER_LINE_STYLE_OPTIONS } from './innerLineStyles'
 import { useEditorStore } from './store/editorStore'
 import type { RoomToolMode, ToolId } from './tools/toolTypes'
 
@@ -35,13 +35,6 @@ const roomModes: Array<{ id: RoomToolMode; label: string; icon: string; hint: st
     icon: 'pi pi-minus-circle',
     hint: 'Wall gaps — cut openings into the outer wall',
   },
-]
-
-const innerLineStyles: Array<{ label: string; value: InnerLineStyle }> = [
-  { label: 'Wall', value: 'wall' },
-  { label: 'Object', value: 'object' },
-  { label: 'Object (dark)', value: 'objectDark' },
-  { label: 'Dashed', value: 'dashed' },
 ]
 
 const floorOptions = computed(() =>
@@ -86,7 +79,7 @@ const floorOptions = computed(() =>
       <Select
         v-if="store.roomToolMode === 'innerline'"
         v-model="store.innerLineStyle"
-        :options="innerLineStyles"
+        :options="INNER_LINE_STYLE_OPTIONS"
         option-label="label"
         option-value="value"
         size="small"

@@ -4,6 +4,7 @@ import { VERTEX_HIT_RADIUS } from '../core/constants'
 import type { ElementIndex } from '../core/model/elementIndex'
 import { pointsToOpenPath } from '../core/model/roomPath'
 import type { Placement, Vec2 } from '../core/model/types'
+import CameraMarker from '../core/render/CameraMarker.vue'
 import PlacementMarker from '../core/render/PlacementMarker.vue'
 import type { ToolOverlay } from './tools/toolTypes'
 
@@ -20,6 +21,7 @@ const vertices = computed(() => (props.overlay?.kind === 'vertices' ? props.over
 const wallGaps = computed(() => (props.overlay?.kind === 'wallgaps' ? props.overlay : null))
 const ghost = computed(() => (props.overlay?.kind === 'ghost' ? props.overlay : null))
 const resize = computed(() => (props.overlay?.kind === 'resize' ? props.overlay : null))
+const camera = computed(() => (props.overlay?.kind === 'camera' ? props.overlay : null))
 
 const previewPathD = computed(() => {
   if (!polyline.value?.preview || polyline.value.points.length === 0) {
@@ -55,7 +57,8 @@ const midpoints = computed<Vec2[]>(() => {
   if (!points) {
     return []
   }
-  return points.map((point, index): Vec2 => {
+  const edgeCount = vertices.value?.closed === false ? points.length - 1 : points.length
+  return points.slice(0, edgeCount).map((point, index): Vec2 => {
     const next = points[(index + 1) % points.length]
     return [(point[0] + next[0]) / 2, (point[1] + next[1]) / 2]
   })
@@ -103,6 +106,12 @@ const ghostElement = computed(() =>
     <template v-else-if="vertices">
       <g :transform="`translate(${vertices.origin[0]},${vertices.origin[1]})`">
         <polygon
+          v-if="vertices.closed !== false"
+          :points="vertices.points.map((p) => p.join(',')).join(' ')"
+          class="vertex-outline"
+        />
+        <polyline
+          v-else
           :points="vertices.points.map((p) => p.join(',')).join(' ')"
           class="vertex-outline"
         />
@@ -148,6 +157,9 @@ const ghostElement = computed(() =>
     </template>
     <g v-else-if="ghostPlacement" class="ghost">
       <PlacementMarker :placement="ghostPlacement" :element="ghostElement" />
+    </g>
+    <g v-else-if="camera" class="ghost">
+      <CameraMarker :camera="{ pos: camera.pos, rotation: camera.rotation }" />
     </g>
     <template v-else-if="resize">
       <rect

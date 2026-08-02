@@ -42,12 +42,15 @@ function setColor(zoneId: string, key: 'fill' | 'walls', value: unknown): void {
   if (typeof value !== 'string' || !value) {
     return
   }
-  store.commitZones((zones) => {
-    const zone = zones.zones.find((entry) => entry.id === zoneId)
-    if (zone) {
-      zone[key] = `#${value.toLowerCase()}`
-    }
-  })
+  store.commitZones(
+    (zones) => {
+      const zone = zones.zones.find((entry) => entry.id === zoneId)
+      if (zone) {
+        zone[key] = `#${value.toLowerCase()}`
+      }
+    },
+    { coalesce: `${zoneId}:${key}` },
+  )
 }
 
 function add(): void {

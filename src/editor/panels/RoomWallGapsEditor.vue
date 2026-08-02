@@ -20,20 +20,23 @@ const edgeLengths = computed(() => {
   return points ? edgeSegments(points).map(edgeLength) : []
 })
 
-function mutateGaps(mutate: (list: WallGap[]) => void): void {
-  store.commit((doc) => {
-    const target = doc.rooms.find((entry) => entry.id === props.roomId)
-    if (!target) {
-      return
-    }
-    const list = target.wallGaps ?? []
-    mutate(list)
-    if (list.length === 0) {
-      delete target.wallGaps
-    } else {
-      target.wallGaps = list
-    }
-  })
+function mutateGaps(mutate: (list: WallGap[]) => void, coalesce?: string): void {
+  store.commit(
+    (doc) => {
+      const target = doc.rooms.find((entry) => entry.id === props.roomId)
+      if (!target) {
+        return
+      }
+      const list = target.wallGaps ?? []
+      mutate(list)
+      if (list.length === 0) {
+        delete target.wallGaps
+      } else {
+        target.wallGaps = list
+      }
+    },
+    coalesce ? { coalesce: `${props.roomId}:${coalesce}` } : undefined,
+  )
 }
 
 function maxLength(gap: WallGap): number {
@@ -46,7 +49,7 @@ function setEdge(index: number, value: number | null): void {
   const edge = Math.min(Math.max(value ?? 0, 0), edges > 0 ? edges - 1 : 0)
   mutateGaps((list) => {
     list[index].edge = edge
-  })
+  }, `gap${index}-edge`)
 }
 
 function setStart(index: number, value: number | null): void {
@@ -55,14 +58,14 @@ function setStart(index: number, value: number | null): void {
     const available = edgeLengths.value[gap.edge] ?? gap.start + gap.length
     gap.start = Math.min(Math.max(value ?? 0, 0), Math.max(0, available - WALL_GAP_MIN_LENGTH))
     gap.length = Math.min(gap.length, Math.max(WALL_GAP_MIN_LENGTH, available - gap.start))
-  })
+  }, `gap${index}-start`)
 }
 
 function setLength(index: number, value: number | null): void {
   mutateGaps((list) => {
     const gap = list[index]
     gap.length = Math.min(Math.max(value ?? 0, WALL_GAP_MIN_LENGTH), maxLength(gap))
-  })
+  }, `gap${index}-length`)
 }
 
 function removeGap(index: number): void {

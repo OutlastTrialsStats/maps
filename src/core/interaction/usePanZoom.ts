@@ -82,6 +82,13 @@ export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?
     window.removeEventListener('keyup', onKeyUp)
   })
 
+  /** Scales around the viewport center; d3 clamps against the scale extent. */
+  function zoomBy(factor: number): void {
+    if (behavior && selection) {
+      behavior.scaleBy(selection, factor)
+    }
+  }
+
   /** Fits the view to the given world bounds (without bounds: identity). */
   function resetView(bounds?: WorldBounds): void {
     const svg = svgRef.value
@@ -119,5 +126,6 @@ export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?
     transform: readonly(transform),
     isSpacePanning: readonly(isSpacePanning),
     resetView,
+    zoomBy,
   }
 }
