@@ -348,6 +348,16 @@ export const useEditorStore = defineStore('editor', () => {
     selection.value = []
   }
 
+  /** Steps to the next existing floor; indices may have gaps and imported documents may be unsorted. */
+  function stepFloor(step: 1 | -1): void {
+    const ascending = [...floors.value].sort((a, b) => a.index - b.index)
+    const position = ascending.findIndex((floor) => floor.index === activeFloor.value)
+    const next = ascending[position + step]
+    if (next) {
+      activeFloor.value = next.index
+    }
+  }
+
   /** Removes all selected rooms/placements/routes from the document (undoable). */
   function deleteSelection(): void {
     if (selection.value.length === 0) {
@@ -454,6 +464,7 @@ export const useEditorStore = defineStore('editor', () => {
     cancelCameraPick,
     setSelection,
     clearSelection,
+    stepFloor,
     deleteSelection,
     generateId,
   }

@@ -11,6 +11,8 @@ export type DrawEnd = 'head' | 'tail'
 export interface CanvasPointerEvent {
   world: Vec2
   snapped: Vec2
+  /** Handle hit radius in world units — `VERTEX_HIT_RADIUS_PX` at the current zoom. */
+  hitRadius: number
   hit: HitTarget | null
   event: MouseEvent
 }

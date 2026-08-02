@@ -1,9 +1,5 @@
 import { computed, ref, type ComputedRef } from 'vue'
-import {
-  VERTEX_HIT_RADIUS,
-  WALL_GAP_DEFAULT_LENGTH,
-  WALL_GAP_MIN_LENGTH,
-} from '../../core/constants'
+import { WALL_GAP_DEFAULT_LENGTH, WALL_GAP_MIN_LENGTH } from '../../core/constants'
 import { shapeToPoints } from '../../core/model/roomPath'
 import type { Room, Vec2, WallGap } from '../../core/model/types'
 import {
@@ -31,8 +27,6 @@ interface DragState {
   end: 'start' | 'end'
   moved: boolean
 }
-
-const EDGE_HIT_DISTANCE = VERTEX_HIT_RADIUS
 
 /** Room-tool mode that cuts openings into the outer wall (`Room.wallGaps`). */
 export interface WallGapMode {
@@ -101,7 +95,7 @@ export function useWallGapMode(): WallGapMode {
     return [point[0] - current.origin[0], point[1] - current.origin[1]]
   }
 
-  function findHandle(current: ActiveRoom, local: Vec2): DragState | null {
+  function findHandle(current: ActiveRoom, local: Vec2, hitRadius: number): DragState | null {
     const gaps = gapsOf()
     for (let index = 0; index < gaps.length; index += 1) {
       const endpoints = gapEndpoints(current.points, gaps[index])
@@ -109,24 +103,24 @@ export function useWallGapMode(): WallGapMode {
         continue
       }
       const [from, to] = endpoints
-      if (Math.hypot(local[0] - from[0], local[1] - from[1]) <= VERTEX_HIT_RADIUS) {
+      if (Math.hypot(local[0] - from[0], local[1] - from[1]) <= hitRadius) {
         return { gapIndex: index, end: 'start', moved: false }
       }
-      if (Math.hypot(local[0] - to[0], local[1] - to[1]) <= VERTEX_HIT_RADIUS) {
+      if (Math.hypot(local[0] - to[0], local[1] - to[1]) <= hitRadius) {
         return { gapIndex: index, end: 'end', moved: false }
       }
     }
     return null
   }
 
-  function findGap(current: ActiveRoom, local: Vec2): number {
+  function findGap(current: ActiveRoom, local: Vec2, hitRadius: number): number {
     const edges = edgeSegments(current.points)
     return gapsOf().findIndex((gap) => {
       if (gap.edge >= edges.length) {
         return false
       }
       const edge = edges[gap.edge]
-      if (distanceToEdge(edge, local) > EDGE_HIT_DISTANCE) {
+      if (distanceToEdge(edge, local) > hitRadius) {
         return false
       }
       const distance = projectOnEdge(edge, local)
@@ -134,11 +128,11 @@ export function useWallGapMode(): WallGapMode {
     })
   }
 
-  function createGap(current: ActiveRoom, world: Vec2, snapped: Vec2): boolean {
+  function createGap(current: ActiveRoom, world: Vec2, snapped: Vec2, hitRadius: number): boolean {
     const edges = edgeSegments(current.points)
     const worldLocal = toLocal(current, world)
     let bestIndex = -1
-    let bestDistance = EDGE_HIT_DISTANCE
+    let bestDistance = hitRadius
     edges.forEach((edge, index) => {
       const distance = distanceToEdge(edge, worldLocal)
       if (distance <= bestDistance) {
@@ -185,19 +179,19 @@ export function useWallGapMode(): WallGapMode {
       const current = active.value
       if (current) {
         const local = toLocal(current, event.world)
-        const handle = findHandle(current, local)
+        const handle = findHandle(current, local, event.hitRadius)
         if (handle) {
           drag.value = handle
           return
         }
         if (event.event.altKey) {
-          const gapIndex = findGap(current, local)
+          const gapIndex = findGap(current, local, event.hitRadius)
           if (gapIndex >= 0) {
             mutateGaps((gaps) => gaps.filter((_, index) => index !== gapIndex))
             return
           }
         }
-        if (createGap(current, event.world, event.snapped)) {
+        if (createGap(current, event.world, event.snapped, event.hitRadius)) {
           return
         }
       }

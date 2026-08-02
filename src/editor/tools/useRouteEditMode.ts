@@ -1,5 +1,4 @@
 import { computed, ref } from 'vue'
-import { VERTEX_HIT_RADIUS } from '../../core/constants'
 import { parseOpenPath, pointsToOpenPath } from '../../core/model/roomPath'
 import type { RouteLine, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
@@ -58,19 +57,19 @@ export function useRouteEditMode() {
     }
   }
 
-  function hitIndex(points: Vec2[], world: Vec2): number {
+  function hitIndex(points: Vec2[], world: Vec2, hitRadius: number): number {
     return points.findIndex(
-      (point) => Math.hypot(world[0] - point[0], world[1] - point[1]) <= VERTEX_HIT_RADIUS,
+      (point) => Math.hypot(world[0] - point[0], world[1] - point[1]) <= hitRadius,
     )
   }
 
-  function midpointIndex(points: Vec2[], world: Vec2): number {
+  function midpointIndex(points: Vec2[], world: Vec2, hitRadius: number): number {
     for (let index = 0; index < points.length - 1; index += 1) {
       const mid: Vec2 = [
         (points[index][0] + points[index + 1][0]) / 2,
         (points[index][1] + points[index + 1][1]) / 2,
       ]
-      if (Math.hypot(world[0] - mid[0], world[1] - mid[1]) <= VERTEX_HIT_RADIUS) {
+      if (Math.hypot(world[0] - mid[0], world[1] - mid[1]) <= hitRadius) {
         return index
       }
     }
@@ -86,7 +85,7 @@ export function useRouteEditMode() {
       exit()
       return false
     }
-    const vertex = hitIndex(points, event.world)
+    const vertex = hitIndex(points, event.world, event.hitRadius)
     if (vertex >= 0) {
       if (event.event.altKey) {
         if (points.length > MIN_ROUTE_POINTS) {
@@ -104,7 +103,7 @@ export function useRouteEditMode() {
       activeIndex.value = vertex
       return true
     }
-    const midpoint = midpointIndex(points, event.world)
+    const midpoint = midpointIndex(points, event.world, event.hitRadius)
     if (midpoint >= 0) {
       const inserted: Vec2 = [
         (points[midpoint][0] + points[midpoint + 1][0]) / 2,

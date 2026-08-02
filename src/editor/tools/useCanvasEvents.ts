@@ -1,5 +1,12 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
-import { GRID_SNAP_DEFAULT, GRID_SNAP_FINE } from '../../core/constants'
+import {
+  ARROW_DIRECTIONS,
+  GRID_SNAP_DEFAULT,
+  GRID_SNAP_FINE,
+  VERTEX_HIT_RADIUS_PX,
+  VIEW_PAN_STEP_LARGE_PX,
+  VIEW_PAN_STEP_PX,
+} from '../../core/constants'
 import { isUiOwnedTarget } from '../../core/interaction/eventTargets'
 import { hitFromEventTarget } from '../../core/interaction/hitTest'
 import { snapToGrid } from '../../core/interaction/snapping'
@@ -28,6 +35,7 @@ export function useCanvasEvents(options: {
   isSpacePanning: Readonly<Ref<boolean>>
   tools: Partial<Record<ToolId, EditorTool>>
   fitView?: () => void
+  panBy?: (dx: number, dy: number) => void
 }) {
   const store = useEditorStore()
   const clipboard = useClipboard()
@@ -60,7 +68,13 @@ export function useCanvasEvents(options: {
       options.transform.value,
     )
     const snapped = snapToGrid(world, event.ctrlKey ? GRID_SNAP_FINE : GRID_SNAP_DEFAULT)
-    return { world, snapped, hit: hitFromEventTarget(event.target), event }
+    return {
+      world,
+      snapped,
+      hitRadius: VERTEX_HIT_RADIUS_PX / options.transform.value.k,
+      hit: hitFromEventTarget(event.target),
+      event,
+    }
   }
 
   function onPointerDown(event: PointerEvent): void {
@@ -157,6 +171,19 @@ export function useCanvasEvents(options: {
     }
     if ((event.key === 'Delete' || event.key === 'Backspace') && store.selection.length > 0) {
       store.deleteSelection()
+      event.preventDefault()
+      return
+    }
+    const panDirection = ARROW_DIRECTIONS[event.key]
+    if (panDirection && !ctrl) {
+      const step = event.shiftKey ? VIEW_PAN_STEP_LARGE_PX : VIEW_PAN_STEP_PX
+      options.panBy?.(panDirection[0] * step, panDirection[1] * step)
+      event.preventDefault()
+      return
+    }
+    // Without the guard Ctrl+PageUp/PageDown would switch floor while the browser switches tab.
+    if ((event.key === 'PageUp' || event.key === 'PageDown') && !ctrl) {
+      store.stepFloor(event.key === 'PageUp' ? 1 : -1)
       event.preventDefault()
       return
     }

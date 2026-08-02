@@ -34,8 +34,9 @@ defineProps<{
 .route-hit {
   fill: none;
   stroke: transparent;
-  stroke-width: 8;
+  stroke-width: 12;
   stroke-linecap: round;
   stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 </style>

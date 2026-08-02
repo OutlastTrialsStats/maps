@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { VERTEX_HIT_RADIUS } from '../core/constants'
+import { VERTEX_HIT_RADIUS_PX } from '../core/constants'
 import type { ElementIndex } from '../core/model/elementIndex'
 import { pointsToOpenPath } from '../core/model/roomPath'
 import type { Placement, Vec2 } from '../core/model/types'
@@ -11,9 +11,11 @@ import type { ToolOverlay } from './tools/toolTypes'
 const props = defineProps<{
   overlay: ToolOverlay | null
   elementIndex: ElementIndex
+  /** Current zoom factor — handles keep a constant screen size. */
+  scale: number
 }>()
 
-const HANDLE_RADIUS = VERTEX_HIT_RADIUS / 2
+const handleRadius = computed(() => VERTEX_HIT_RADIUS_PX / 2 / props.scale)
 
 const polyline = computed(() => (props.overlay?.kind === 'polyline' ? props.overlay : null))
 const rect = computed(() => (props.overlay?.kind === 'rect' ? props.overlay : null))
@@ -90,7 +92,7 @@ const ghostElement = computed(() =>
         :key="index"
         :cx="point[0]"
         :cy="point[1]"
-        :r="HANDLE_RADIUS"
+        :r="handleRadius"
         class="handle"
         :class="{ first: index === 0, 'active-end': index === activeEndIndex }"
       />
@@ -118,10 +120,10 @@ const ghostElement = computed(() =>
         <rect
           v-for="(mid, index) in midpoints"
           :key="`m${index}`"
-          :x="mid[0] - HANDLE_RADIUS / 2"
-          :y="mid[1] - HANDLE_RADIUS / 2"
-          :width="HANDLE_RADIUS"
-          :height="HANDLE_RADIUS"
+          :x="mid[0] - handleRadius / 2"
+          :y="mid[1] - handleRadius / 2"
+          :width="handleRadius"
+          :height="handleRadius"
           class="midpoint"
         />
         <circle
@@ -129,7 +131,7 @@ const ghostElement = computed(() =>
           :key="`v${index}`"
           :cx="point[0]"
           :cy="point[1]"
-          :r="HANDLE_RADIUS"
+          :r="handleRadius"
           class="handle"
           :class="{ active: index === vertices.activeIndex }"
         />
@@ -150,8 +152,8 @@ const ghostElement = computed(() =>
             class="gap-segment"
             :class="{ active: index === wallGaps.activeIndex }"
           />
-          <circle :cx="gap[0][0]" :cy="gap[0][1]" :r="HANDLE_RADIUS" class="handle" />
-          <circle :cx="gap[1][0]" :cy="gap[1][1]" :r="HANDLE_RADIUS" class="handle" />
+          <circle :cx="gap[0][0]" :cy="gap[0][1]" :r="handleRadius" class="handle" />
+          <circle :cx="gap[1][0]" :cy="gap[1][1]" :r="handleRadius" class="handle" />
         </template>
       </g>
     </template>
@@ -172,10 +174,10 @@ const ghostElement = computed(() =>
       <rect
         v-for="(handle, index) in resize.handles"
         :key="`r${index}`"
-        :x="handle[0] - HANDLE_RADIUS"
-        :y="handle[1] - HANDLE_RADIUS"
-        :width="HANDLE_RADIUS * 2"
-        :height="HANDLE_RADIUS * 2"
+        :x="handle[0] - handleRadius"
+        :y="handle[1] - handleRadius"
+        :width="handleRadius * 2"
+        :height="handleRadius * 2"
         class="resize-handle"
         :class="{ active: index === resize.activeIndex }"
       />

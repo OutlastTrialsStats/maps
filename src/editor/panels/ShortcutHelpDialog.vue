@@ -16,8 +16,12 @@ const groups: Array<{ title: string; entries: Array<{ keys: string[]; action: st
   {
     title: 'View',
     entries: [
-      { keys: ['Space', 'Drag'], action: 'Pan (also middle mouse button)' },
+      { keys: ['Space', 'Drag'], action: 'Pan (also middle or right mouse button)' },
       { keys: ['Wheel'], action: 'Zoom at cursor' },
+      { keys: ['Shift', 'Wheel'], action: 'Pan left / right' },
+      { keys: ['Alt', 'Wheel'], action: 'Pan up / down' },
+      { keys: ['←↑→↓'], action: 'Pan view (empty selection; Shift: faster)' },
+      { keys: ['PgUp', 'PgDn'], action: 'Floor up / down' },
       { keys: ['F'], action: 'Fit view to map' },
       { keys: ['Ctrl'], action: 'Fine grid (2.5 instead of 5 units)' },
     ],
@@ -26,7 +30,7 @@ const groups: Array<{ title: string; entries: Array<{ keys: string[]; action: st
     title: 'Selection',
     entries: [
       { keys: ['Shift', 'Click'], action: 'Add to / remove from selection' },
-      { keys: ['←↑→↓'], action: 'Nudge by 1 unit (Shift: 5)' },
+      { keys: ['←↑→↓'], action: 'Nudge selection by 1 unit (Shift: 5)' },
       { keys: ['Ctrl', 'D'], action: 'Duplicate' },
       { keys: ['Del'], action: 'Delete selection' },
       { keys: ['Esc'], action: 'Deselect / cancel drawing' },

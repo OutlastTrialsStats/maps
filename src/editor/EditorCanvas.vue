@@ -30,7 +30,9 @@ const zonesStore = useZonesStore()
 
 const canvas = ref<InstanceType<typeof MapCanvas> | null>(null)
 const svgEl = computed(() => canvas.value?.svgEl ?? null)
-const { transform, isSpacePanning, resetView, zoomBy } = usePanZoom(svgEl)
+const { transform, isSpacePanning, isPanning, resetView, zoomBy, panBy } = usePanZoom(svgEl, {
+  rightDragPan: true,
+})
 const viewport = useElementSize(svgEl)
 
 const tools = {
@@ -56,6 +58,7 @@ const {
   isSpacePanning,
   tools,
   fitView: () => fitToDocument(),
+  panBy,
 })
 
 watch(cursorWorld, (pos) => emit('cursorMove', pos))
@@ -100,7 +103,11 @@ defineExpose({ fitToDocument, zoomBy })
   <MapCanvas
     ref="canvas"
     :transform="transform"
-    :class="{ panning: isSpacePanning, 'draw-cursor': isDrawTool && !isSpacePanning }"
+    :class="{
+      panning: isSpacePanning,
+      grabbing: isPanning,
+      'draw-cursor': isDrawTool && !isSpacePanning && !isPanning,
+    }"
     @pointerdown="onPointerDown"
     @pointermove="onPointerMove"
     @pointerup="onPointerUp"
@@ -123,7 +130,11 @@ defineExpose({ fitToDocument, zoomBy })
       :key="`cam-${index}`"
       :camera="camera"
     />
-    <ToolOverlayLayer :overlay="overlay" :element-index="libraryStore.elementIndex" />
+    <ToolOverlayLayer
+      :overlay="overlay"
+      :element-index="libraryStore.elementIndex"
+      :scale="transform.k"
+    />
   </MapCanvas>
 </template>
 
@@ -134,5 +145,9 @@ defineExpose({ fitToDocument, zoomBy })
 
 .draw-cursor {
   cursor: crosshair;
+}
+
+.grabbing {
+  cursor: grabbing;
 }
 </style>

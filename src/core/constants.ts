@@ -24,6 +24,12 @@ export const ZOOM_MAX = 8
 /** Scale step of the +/− zoom buttons. */
 export const ZOOM_BUTTON_FACTOR = 1.5
 
+/** Wheel deltas in line mode (Firefox) are converted to px before panning. */
+export const WHEEL_LINE_HEIGHT_PX = 16
+
+/** Below this pointer travel (screen px) a right-drag stays a plain right-click. */
+export const RIGHT_DRAG_PAN_THRESHOLD_PX = 4
+
 /** Fallback for elements without their own `size`, in map units. */
 export const ICON_DEFAULT_SIZE = 10
 
@@ -60,6 +66,18 @@ export const GRID_MIN_SPACING_PX = 8
 export const NUDGE_STEP = 1
 export const NUDGE_STEP_LARGE = 5
 
+/** Direction per arrow key; y grows downwards (screen and world alike). */
+export const ARROW_DIRECTIONS: Record<string, [number, number]> = {
+  ArrowLeft: [-1, 0],
+  ArrowRight: [1, 0],
+  ArrowUp: [0, -1],
+  ArrowDown: [0, 1],
+}
+
+/** Arrow-key view panning (empty selection), in screen px; Shift uses the large step. */
+export const VIEW_PAN_STEP_PX = 40
+export const VIEW_PAN_STEP_LARGE_PX = 200
+
 /**
  * Rotations are limited to fixed steps (R key and properties select);
  * in sync with the `multipleOf` of the `rotation` field in the map schema.
@@ -73,8 +91,8 @@ export const ROTATION_VALUES = Array.from(
 /** Offset of duplicated objects (Ctrl+D) and of a paste without cursor position, in map units. */
 export const DUPLICATE_OFFSET = 5
 
-/** Hit radius for vertex handles and for switching the active drawing end, in map units. */
-export const VERTEX_HIT_RADIUS = 4
+/** Hit radius of vertex/resize handles in screen px; divided by the zoom for world-space hit tests. */
+export const VERTEX_HIT_RADIUS_PX = 8
 
 /** Below this pointer travel (screen px) an empty-canvas drag counts as a click, not a marquee. */
 export const MARQUEE_MIN_DRAG_PX = 4

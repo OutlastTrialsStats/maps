@@ -186,6 +186,7 @@ onBeforeUnmount(() => {
           class="canvas-legend"
           :hints="[
             { icon: 'left', label: 'Use tool' },
+            { icon: 'right', label: 'Drag to pan' },
             { icon: 'wheel', label: 'Scroll to zoom' },
             { icon: 'wheel', label: 'Hold to pan' },
           ]"

@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import {
+  ARROW_DIRECTIONS,
   MARKER_BADGE_RADIUS,
   MARQUEE_MIN_DRAG_PX,
   NUDGE_STEP,
@@ -19,13 +20,6 @@ import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 import { useClipboard } from './useClipboard'
 import { useRoomResize } from './useRoomResize'
 import { useRouteEditMode } from './useRouteEditMode'
-
-const ARROW_DELTAS: Record<string, Vec2> = {
-  ArrowLeft: [-1, 0],
-  ArrowRight: [1, 0],
-  ArrowUp: [0, -1],
-  ArrowDown: [0, 1],
-}
 
 interface WorldRect {
   min: Vec2
@@ -125,13 +119,14 @@ export function useSelectTool(): EditorTool {
   }
 
   /** Hit-tested geometrically — `CalloutMarker.vue` is pointer-transparent. */
-  function markerUnderPointer(world: Vec2): string | null {
+  function markerUnderPointer(world: Vec2, hitRadius: number): string | null {
+    const radius = Math.max(MARKER_BADGE_RADIUS, hitRadius)
     const placement = (store.document?.placements ?? []).find((entry) => {
       if (!entry.marker || entry.floor !== store.activeFloor) {
         return false
       }
       const badge = [entry.pos[0] + entry.marker.offset[0], entry.pos[1] + entry.marker.offset[1]]
-      return Math.hypot(world[0] - badge[0], world[1] - badge[1]) <= MARKER_BADGE_RADIUS
+      return Math.hypot(world[0] - badge[0], world[1] - badge[1]) <= radius
     })
     return placement?.id ?? null
   }
@@ -170,7 +165,7 @@ export function useSelectTool(): EditorTool {
       if (resize.onPointerDown(event)) {
         return
       }
-      const markerId = markerUnderPointer(event.world)
+      const markerId = markerUnderPointer(event.world, event.hitRadius)
       if (markerId) {
         store.setSelection([{ kind: 'placement', id: markerId }])
         dragState = { last: event.snapped, moved: false, markerId }
@@ -272,7 +267,7 @@ export function useSelectTool(): EditorTool {
         clipboard.duplicateSelection()
         return true
       }
-      const arrow = ARROW_DELTAS[event.key]
+      const arrow = ARROW_DIRECTIONS[event.key]
       if (arrow) {
         const step = event.shiftKey ? NUDGE_STEP_LARGE : NUDGE_STEP
         store.commit((doc) => moveSelection(doc, [arrow[0] * step, arrow[1] * step]))
