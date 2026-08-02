@@ -22,7 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Ensure release runs from main
         if: github.ref_name != 'main'
@@ -39,10 +43,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-
-      - name: Resolve lowercase image name
-        id: image
-        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+          cache: pnpm
 
       - name: Bump version
         id: bump
@@ -66,33 +67,26 @@ jobs:
             printf '%s' "$PREVIOUS_SECTIONS"
           } > CHANGELOG.md
 
-      - uses: docker/setup-buildx-action@v4
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - uses: docker/login-action@v4.5.2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      # Build after the bump so __APP_VERSION__ carries the new version
+      - name: Build
+        run: pnpm build
 
-      - name: Derive image tags and labels
-        id: meta
-        uses: docker/metadata-action@v6
-        with:
-          images: ${{ steps.image.outputs.name }}
-          tags: |
-            type=semver,pattern={{version}},value=${{ steps.bump.outputs.version }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ steps.bump.outputs.version }}
-            type=raw,value=latest
+      # GitHub Pages has no rewrite rules; a 404.html copy keeps history-mode deep links working
+      - name: Add SPA fallback
+        run: cp dist/index.html dist/404.html
 
-      - name: Build and push image
-        uses: docker/build-push-action@v6
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
         with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - name: Commit, tag and push
         env:
@@ -114,12 +108,10 @@ jobs:
       - name: Summary
         env:
           VERSION: ${{ steps.bump.outputs.version }}
-          IMAGE: ${{ steps.image.outputs.name }}
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           {
             echo "### Released v$VERSION"
             echo
-            echo '```'
-            echo "docker pull $IMAGE:$VERSION"
-            echo '```'
+            echo "Deployed to $PAGE_URL"
           } >> "$GITHUB_STEP_SUMMARY"

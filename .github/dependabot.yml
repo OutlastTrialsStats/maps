@@ -32,17 +32,3 @@ updates:
         update-types:
           - minor
           - patch
-
-  # Base images in the Dockerfile (node, nginx)
-  - package-ecosystem: docker
-    directory: /
-    schedule:
-      interval: daily
-    commit-message:
-      prefix: chore
-    groups:
-      docker-patches:
-        patterns:
-          - '*'
-        update-types:
-          - patch

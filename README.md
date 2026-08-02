@@ -14,7 +14,7 @@ Map content goes through the [web editor](https://maps.outlasttrialsstats.com/ed
 
 ## Stack
 
-Vue 3 + Vite + TypeScript (strict), Vue Router, Pinia, PrimeVue 4 with a dark custom theme, SVG rendering with d3-zoom/d3-selection for pan and zoom, Ajv for JSON schema validation. There is no backend; the app is a static build served by nginx in a container.
+Vue 3 + Vite + TypeScript (strict), Vue Router, Pinia, PrimeVue 4 with a dark custom theme, SVG rendering with d3-zoom/d3-selection for pan and zoom, Ajv for JSON schema validation. There is no backend; the app is a static build hosted on GitHub Pages.
 
 ## Development
 
@@ -48,12 +48,7 @@ scripts/           data validation used by CI
 
 ## Deployment
 
-```bash
-docker compose pull maps
-docker compose up -d maps     # published on http://localhost:8080
-```
-
-Or build the image yourself: `docker build -t outlasttrials-maps . && docker run --rm -p 8080:80 outlasttrials-maps`.
+The site is hosted on GitHub Pages under the custom domain `maps.outlasttrialsstats.com`. Deploys happen exclusively through the manual **Release** workflow (GitHub → Actions → Release → Run workflow), which bumps the version, updates the changelog, tags the release and publishes the fresh build to Pages. Nothing deploys automatically on merge.
 
 ## Assets and attribution
 
