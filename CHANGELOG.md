@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.1] - 2026-08-02
+
+- chore(deps-dev): bump vite from 8.1.5 to 8.2.0 (585b545)
+- ci: bump actions/upload-pages-artifact from 4 to 5 (d82600f)
+- ci: bump actions/deploy-pages from 4 to 5 (cd5db83)
+- ci: bump actions/configure-pages from 5 to 6 (85e3841)
+- chore: remove Docker-based deployment and migrate to GitHub Pages with updated release workflow (60c3c94)
+- feat: add room scaling, clipboard, and resize tools with enhanced support for room geometry adjustments and object duplication (0677fc8)
+- feat: enhance export workflow with per-file tracking, "Exported" indicators, and session-based artifacts (d8866be)
+
 ## [0.2.0] - 2026-07-31
 
 - chore: simplify packageManager field in package.json (1139b52)
