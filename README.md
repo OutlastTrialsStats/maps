@@ -12,27 +12,6 @@ The editor lets you draw rooms, place elements, set up floors and trials, and ex
 
 Map content goes through the [web editor](https://maps.outlasttrialsstats.com/editor) and a pull request, so you don't need a dev setup for it. [CONTRIBUTING.md](CONTRIBUTING.md) has the full walkthrough, the image rules and how the **Map Contributor** badge works.
 
-## Stack
-
-Vue 3 + Vite + TypeScript (strict), Vue Router, Pinia, PrimeVue 4 with a dark custom theme, SVG rendering with d3-zoom/d3-selection for pan and zoom, Ajv for JSON schema validation. There is no backend; the app is a static build hosted on GitHub Pages.
-
-## Development
-
-Requires Node.js ≥ 24. The package manager is pnpm; `corepack enable` picks up the version pinned in `package.json`.
-
-```bash
-pnpm install
-pnpm dev            # dev server
-pnpm build          # static build into dist/
-pnpm preview        # serve the production build locally
-pnpm lint           # ESLint
-pnpm typecheck      # vue-tsc
-pnpm format         # Prettier
-pnpm validate:data  # validate public/data against the JSON schemas
-```
-
-`pnpm lint` and `pnpm typecheck` have to pass before every pull request. CI also runs `validate:data`.
-
 ## Project structure
 
 ```
@@ -45,10 +24,6 @@ scripts/           data validation used by CI
 ```
 
 `core/` never imports from `viewer/` or `editor/`, and those two never import from each other.
-
-## Deployment
-
-The site is hosted on GitHub Pages under the custom domain `maps.outlasttrialsstats.com`. Deploys happen exclusively through the manual **Release** workflow (GitHub → Actions → Release → Run workflow), which bumps the version, updates the changelog, tags the release and publishes the fresh build to Pages. Nothing deploys automatically on merge.
 
 ## Assets and attribution
 
