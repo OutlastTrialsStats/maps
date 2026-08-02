@@ -1,12 +1,13 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 import { GRID_SNAP_DEFAULT, GRID_SNAP_FINE } from '../../core/constants'
-import { isEditableTarget } from '../../core/interaction/eventTargets'
+import { isUiOwnedTarget } from '../../core/interaction/eventTargets'
 import { hitFromEventTarget } from '../../core/interaction/hitTest'
 import { snapToGrid } from '../../core/interaction/snapping'
 import { screenToWorld, type ViewTransform } from '../../core/interaction/viewTransform'
 import type { Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, EditorTool, ToolId, ToolOverlay } from './toolTypes'
+import { useClipboard } from './useClipboard'
 
 const TOOL_HOTKEYS: Record<string, ToolId> = {
   '1': 'select',
@@ -27,6 +28,7 @@ export function useCanvasEvents(options: {
   tools: Partial<Record<ToolId, EditorTool>>
 }) {
   const store = useEditorStore()
+  const clipboard = useClipboard()
   const cursorWorld = ref<Vec2 | null>(null)
 
   const activeTool = computed(() => options.tools[store.activeTool])
@@ -105,7 +107,7 @@ export function useCanvasEvents(options: {
   }
 
   function onWindowKeydown(event: KeyboardEvent): void {
-    if (isEditableTarget(event.target)) {
+    if (isUiOwnedTarget(event.target)) {
       return
     }
     if (activeTool.value?.onKeydown?.(event)) {
@@ -139,8 +141,55 @@ export function useCanvasEvents(options: {
     }
   }
 
-  onMounted(() => window.addEventListener('keydown', onWindowKeydown))
-  onBeforeUnmount(() => window.removeEventListener('keydown', onWindowKeydown))
+  /**
+   * Native clipboard events instead of keydown: they carry `clipboardData` in
+   * every browser, while reading the clipboard through `navigator.clipboard`
+   * needs a permission the shortcut path must not depend on.
+   */
+  function onCopy(event: ClipboardEvent): boolean {
+    if (isUiOwnedTarget(event.target) || !event.clipboardData) {
+      return false
+    }
+    const text = clipboard.copySelection()
+    if (!text) {
+      return false
+    }
+    event.clipboardData.setData('text/plain', text)
+    event.preventDefault()
+    return true
+  }
+
+  function onCut(event: ClipboardEvent): void {
+    // Copy first: only when the clipboard accepted the payload may the selection go.
+    if (onCopy(event)) {
+      store.deleteSelection()
+    }
+  }
+
+  function onPaste(event: ClipboardEvent): void {
+    if (isUiOwnedTarget(event.target)) {
+      return
+    }
+    const payload = clipboard.resolvePayload(event.clipboardData?.getData('text/plain') ?? null)
+    if (!payload) {
+      return
+    }
+    event.preventDefault()
+    clipboard.paste(payload, cursorWorld.value)
+  }
+
+  onMounted(() => {
+    window.addEventListener('keydown', onWindowKeydown)
+    window.addEventListener('copy', onCopy)
+    window.addEventListener('cut', onCut)
+    window.addEventListener('paste', onPaste)
+  })
+  onBeforeUnmount(() => {
+    window.removeEventListener('keydown', onWindowKeydown)
+    window.removeEventListener('copy', onCopy)
+    window.removeEventListener('cut', onCut)
+    window.removeEventListener('paste', onPaste)
+  })
 
   return {
     cursorWorld,

@@ -1,16 +1,10 @@
-import { computed } from 'vue'
-import {
-  DUPLICATE_OFFSET,
-  MARKER_BADGE_RADIUS,
-  NUDGE_STEP,
-  NUDGE_STEP_LARGE,
-} from '../../core/constants'
-import type { HitTarget } from '../../core/interaction/hitTest'
+import { MARKER_BADGE_RADIUS, NUDGE_STEP, NUDGE_STEP_LARGE } from '../../core/constants'
 import { translateAbsolutePathStart } from '../../core/model/roomPath'
 import type { TrialDocument, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
-import { jsonClone } from '../store/jsonClone'
 import type { CanvasPointerEvent, EditorTool } from './toolTypes'
+import { useClipboard } from './useClipboard'
+import { useRoomResize } from './useRoomResize'
 
 const ARROW_DELTAS: Record<string, Vec2> = {
   ArrowLeft: [-1, 0],
@@ -21,6 +15,8 @@ const ARROW_DELTAS: Record<string, Vec2> = {
 
 export function useSelectTool(): EditorTool {
   const store = useEditorStore()
+  const clipboard = useClipboard()
+  const resize = useRoomResize()
   let dragState: { last: Vec2; moved: boolean; markerId: string | null } | null = null
 
   /** Hit-tested geometrically — `CalloutMarker.vue` is pointer-transparent. */
@@ -29,10 +25,7 @@ export function useSelectTool(): EditorTool {
       if (!entry.marker || entry.floor !== store.activeFloor) {
         return false
       }
-      const badge = [
-        entry.pos[0] + entry.marker.offset[0],
-        entry.pos[1] + entry.marker.offset[1],
-      ]
+      const badge = [entry.pos[0] + entry.marker.offset[0], entry.pos[1] + entry.marker.offset[1]]
       return Math.hypot(world[0] - badge[0], world[1] - badge[1]) <= MARKER_BADGE_RADIUS
     })
     return placement?.id ?? null
@@ -64,53 +57,11 @@ export function useSelectTool(): EditorTool {
     }
   }
 
-  function duplicateSelection(): void {
-    const targets = [...store.selection]
-    store.commit((doc) => {
-      const created: HitTarget[] = []
-      for (const target of targets) {
-        if (target.kind === 'room') {
-          const room = doc.rooms.find((r) => r.id === target.id)
-          if (!room) {
-            continue
-          }
-          const copy = jsonClone(room)
-          copy.id = store.generateId('room')
-          copy.shape.origin = [
-            copy.shape.origin[0] + DUPLICATE_OFFSET,
-            copy.shape.origin[1] + DUPLICATE_OFFSET,
-          ]
-          doc.rooms.push(copy)
-          created.push({ kind: 'room', id: copy.id })
-        } else if (target.kind === 'placement') {
-          const placement = doc.placements.find((p) => p.id === target.id)
-          if (!placement) {
-            continue
-          }
-          const copy = jsonClone(placement)
-          copy.id = store.generateId('pl')
-          copy.pos = [copy.pos[0] + DUPLICATE_OFFSET, copy.pos[1] + DUPLICATE_OFFSET]
-          doc.placements.push(copy)
-          created.push({ kind: 'placement', id: copy.id })
-        } else {
-          const route = doc.routes.find((r) => r.id === target.id)
-          if (!route) {
-            continue
-          }
-          const copy = jsonClone(route)
-          copy.id = store.generateId('route')
-          copy.path =
-            translateAbsolutePathStart(copy.path, [DUPLICATE_OFFSET, DUPLICATE_OFFSET]) ?? copy.path
-          doc.routes.push(copy)
-          created.push({ kind: 'route', id: copy.id })
-        }
-      }
-      store.setSelection(created)
-    })
-  }
-
   return {
     onPointerDown(event: CanvasPointerEvent): void {
+      if (resize.onPointerDown(event)) {
+        return
+      }
       const markerId = markerUnderPointer(event.world)
       if (markerId) {
         store.setSelection([{ kind: 'placement', id: markerId }])
@@ -138,6 +89,9 @@ export function useSelectTool(): EditorTool {
     },
 
     onPointerMove(event: CanvasPointerEvent): void {
+      if (resize.onPointerMove(event)) {
+        return
+      }
       if (!dragState) {
         return
       }
@@ -163,6 +117,9 @@ export function useSelectTool(): EditorTool {
     },
 
     onPointerUp(): void {
+      if (resize.onPointerUp()) {
+        return
+      }
       if (dragState?.moved) {
         store.endDrag()
       }
@@ -174,7 +131,7 @@ export function useSelectTool(): EditorTool {
         return false
       }
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'd') {
-        duplicateSelection()
+        clipboard.duplicateSelection()
         return true
       }
       const arrow = ARROW_DELTAS[event.key]
@@ -187,9 +144,10 @@ export function useSelectTool(): EditorTool {
     },
 
     deactivate(): void {
+      resize.cancel()
       dragState = null
     },
 
-    overlay: computed(() => null),
+    overlay: resize.overlay,
   }
 }

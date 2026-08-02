@@ -10,3 +10,11 @@ export function isEditableTarget(target: EventTarget | null): boolean {
     target instanceof HTMLSelectElement
   )
 }
+
+/** Editable targets plus open dialogs — global canvas shortcuts must not fire there. */
+export function isUiOwnedTarget(target: EventTarget | null): boolean {
+  if (isEditableTarget(target)) {
+    return true
+  }
+  return target instanceof HTMLElement && target.closest('[role="dialog"]') !== null
+}

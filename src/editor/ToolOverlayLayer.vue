@@ -19,6 +19,7 @@ const rect = computed(() => (props.overlay?.kind === 'rect' ? props.overlay : nu
 const vertices = computed(() => (props.overlay?.kind === 'vertices' ? props.overlay : null))
 const wallGaps = computed(() => (props.overlay?.kind === 'wallgaps' ? props.overlay : null))
 const ghost = computed(() => (props.overlay?.kind === 'ghost' ? props.overlay : null))
+const resize = computed(() => (props.overlay?.kind === 'resize' ? props.overlay : null))
 
 const previewPathD = computed(() => {
   if (!polyline.value?.preview || polyline.value.points.length === 0) {
@@ -101,7 +102,10 @@ const ghostElement = computed(() =>
     />
     <template v-else-if="vertices">
       <g :transform="`translate(${vertices.origin[0]},${vertices.origin[1]})`">
-        <polygon :points="vertices.points.map((p) => p.join(',')).join(' ')" class="vertex-outline" />
+        <polygon
+          :points="vertices.points.map((p) => p.join(',')).join(' ')"
+          class="vertex-outline"
+        />
         <rect
           v-for="(mid, index) in midpoints"
           :key="`m${index}`"
@@ -124,7 +128,10 @@ const ghostElement = computed(() =>
     </template>
     <template v-else-if="wallGaps">
       <g :transform="`translate(${wallGaps.origin[0]},${wallGaps.origin[1]})`">
-        <polygon :points="wallGaps.points.map((p) => p.join(',')).join(' ')" class="vertex-outline" />
+        <polygon
+          :points="wallGaps.points.map((p) => p.join(',')).join(' ')"
+          class="vertex-outline"
+        />
         <template v-for="(gap, index) in wallGaps.gaps" :key="`g${index}`">
           <line
             :x1="gap[0][0]"
@@ -142,6 +149,25 @@ const ghostElement = computed(() =>
     <g v-else-if="ghostPlacement" class="ghost">
       <PlacementMarker :placement="ghostPlacement" :element="ghostElement" />
     </g>
+    <template v-else-if="resize">
+      <rect
+        :x="resize.min[0]"
+        :y="resize.min[1]"
+        :width="resize.max[0] - resize.min[0]"
+        :height="resize.max[1] - resize.min[1]"
+        class="resize-box"
+      />
+      <rect
+        v-for="(handle, index) in resize.handles"
+        :key="`r${index}`"
+        :x="handle[0] - HANDLE_RADIUS"
+        :y="handle[1] - HANDLE_RADIUS"
+        :width="HANDLE_RADIUS * 2"
+        :height="HANDLE_RADIUS * 2"
+        class="resize-handle"
+        :class="{ active: index === resize.activeIndex }"
+      />
+    </template>
   </g>
 </template>
 
@@ -216,5 +242,24 @@ const ghostElement = computed(() =>
 
 .ghost {
   opacity: 0.6;
+}
+
+.resize-box {
+  fill: none;
+  stroke: var(--color-selection);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.resize-handle {
+  fill: #16171d;
+  stroke: var(--color-selection);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.resize-handle.active {
+  fill: var(--color-selection);
 }
 </style>

@@ -29,6 +29,14 @@ export type ToolOverlay =
       activeIndex: number | null
     }
   | { kind: 'ghost'; pos: Vec2; rotation: number; elementId: string }
+  | {
+      kind: 'resize'
+      min: Vec2
+      max: Vec2
+      /** Clockwise from top-left, corners and edge midpoints alternating. */
+      handles: Vec2[]
+      activeIndex: number | null
+    }
 
 export interface EditorTool {
   onPointerDown?(event: CanvasPointerEvent): void

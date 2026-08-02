@@ -1,25 +1,64 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
+import { computed } from 'vue'
+import { useClipboard } from '../tools/useClipboard'
 import { useEditorStore } from '../store/editorStore'
 import PlacementProperties from './PlacementProperties.vue'
 import RoomProperties from './RoomProperties.vue'
 import RouteProperties from './RouteProperties.vue'
 
 const store = useEditorStore()
+const { canPaste, copyToSystemClipboard, cutToSystemClipboard, pasteFromSystemClipboard } =
+  useClipboard()
+
+const hasSelection = computed(() => store.selection.length > 0)
+
+/** Buttons paste without a cursor position — the pointer is not over the canvas. */
+function paste(): void {
+  void pasteFromSystemClipboard(null)
+}
 </script>
 
 <template>
   <div class="properties-panel">
-    <div v-if="store.selection.length > 0" class="selection-actions">
+    <div v-if="store.document" class="selection-actions">
       <span v-if="store.selection.length > 1" class="selection-count">
         {{ store.selection.length }} objects selected
       </span>
+      <Button
+        v-tooltip.bottom="'Copy (Ctrl+C)'"
+        icon="pi pi-copy"
+        size="small"
+        text
+        severity="secondary"
+        :disabled="!hasSelection"
+        @click="copyToSystemClipboard()"
+      />
+      <Button
+        v-tooltip.bottom="'Cut (Ctrl+X)'"
+        label="Cut"
+        size="small"
+        text
+        severity="secondary"
+        :disabled="!hasSelection"
+        @click="cutToSystemClipboard()"
+      />
+      <Button
+        v-tooltip.bottom="'Paste (Ctrl+V)'"
+        icon="pi pi-clipboard"
+        size="small"
+        text
+        severity="secondary"
+        :disabled="!canPaste"
+        @click="paste()"
+      />
       <Button
         v-tooltip.bottom="'Deselect (Esc)'"
         icon="pi pi-times"
         size="small"
         text
         severity="secondary"
+        :disabled="!hasSelection"
         @click="store.clearSelection()"
       />
       <Button
@@ -28,6 +67,7 @@ const store = useEditorStore()
         size="small"
         text
         severity="danger"
+        :disabled="!hasSelection"
         @click="store.deleteSelection()"
       />
     </div>
@@ -49,6 +89,7 @@ const store = useEditorStore()
 
 .selection-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: 4px;

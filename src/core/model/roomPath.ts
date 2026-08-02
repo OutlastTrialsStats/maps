@@ -13,8 +13,7 @@ const CHARSET_RE = /^[MmLlHhVvZz0-9eE+,.\s-]*$/
 
 const fmt = (value: number): string => String(Math.round(value * 1000) / 1000)
 
-/** Points in shape-local coordinates (relative to the origin, implicit "M 0 0"). */
-export function parseRoomPath(path: string): Vec2[] | null {
+function parsePathPoints(path: string): { points: Vec2[]; closed: boolean } | null {
   if (!CHARSET_RE.test(path)) {
     return null
   }
@@ -119,15 +118,31 @@ export function parseRoomPath(path: string): Vec2[] | null {
     }
   }
 
-  if (points.length < 3) {
+  return { points, closed }
+}
+
+/** Points in shape-local coordinates (relative to the origin, implicit "M 0 0"). */
+export function parseRoomPath(path: string): Vec2[] | null {
+  const parsed = parsePathPoints(path)
+  if (!parsed || parsed.points.length < 3) {
     return null
   }
+  const points = parsed.points
   const first = points[0]
   const last = points[points.length - 1]
   if (points.length > 3 && first[0] === last[0] && first[1] === last[1]) {
     points.pop()
   }
   return points
+}
+
+/** Open polyline (inner lines): at least two points, no implicit closing. */
+export function parseOpenPath(path: string): Vec2[] | null {
+  const parsed = parsePathPoints(path)
+  if (!parsed || parsed.closed || parsed.points.length < 2) {
+    return null
+  }
+  return parsed.points
 }
 
 function appendRelativeSegments(parts: string[], points: Vec2[]): void {
@@ -168,19 +183,32 @@ export function pointsToOpenPath(points: Vec2[]): string {
   return parts.join(' ')
 }
 
+const ABSOLUTE_START_RE = /^\s*M\s*(-?(?:\d*\.\d+|\d+))[\s,]+(-?(?:\d*\.\d+|\d+))([\s\S]*)$/
+
 /**
- * Translates an absolute path (e.g. routes) through its leading "M x,y".
- * Returns `null` when the remainder contains further absolute commands and the
- * translation is therefore not possible through the start point alone.
+ * Splits an absolute path (e.g. routes) into its leading "M x,y" and the rest.
+ * `null` when the remainder contains further absolute commands — the path can
+ * then not be translated through its start point alone.
  */
-export function translateAbsolutePathStart(path: string, delta: Vec2): string | null {
-  const match = /^\s*M\s*(-?(?:\d*\.\d+|\d+))[\s,]+(-?(?:\d*\.\d+|\d+))([\s\S]*)$/.exec(path)
+function splitAbsolutePath(path: string): { start: Vec2; rest: string } | null {
+  const match = ABSOLUTE_START_RE.exec(path)
   if (!match || /[MLHVCSQTA]/.test(match[3])) {
     return null
   }
-  const x = Number(match[1]) + delta[0]
-  const y = Number(match[2]) + delta[1]
-  return `M${fmt(x)},${fmt(y)}${match[3]}`
+  return { start: [Number(match[1]), Number(match[2])], rest: match[3] }
+}
+
+/** Start point of an absolute path in world coordinates. */
+export function absolutePathStart(path: string): Vec2 | null {
+  return splitAbsolutePath(path)?.start ?? null
+}
+
+export function translateAbsolutePathStart(path: string, delta: Vec2): string | null {
+  const parts = splitAbsolutePath(path)
+  if (!parts) {
+    return null
+  }
+  return `M${fmt(parts.start[0] + delta[0])},${fmt(parts.start[1] + delta[1])}${parts.rest}`
 }
 
 /** Vertices of a room shape in local coordinates; `rect` becomes 4 points. */
@@ -209,10 +237,13 @@ export function pointsBounds(points: Vec2[]): { min: Vec2; max: Vec2 } {
   return { min, max }
 }
 
+/** Vertices of a room in world coordinates (local points shifted by the origin). */
+export function roomWorldPoints(room: Room): Vec2[] {
+  const points = shapeToPoints(room.shape) ?? []
+  return points.map(([x, y]): Vec2 => [x + room.shape.origin[0], y + room.shape.origin[1]])
+}
+
 export function roomsBounds(rooms: Room[]): { min: Vec2; max: Vec2 } | null {
-  const worldPoints = rooms.flatMap((room) => {
-    const points = shapeToPoints(room.shape) ?? []
-    return points.map(([x, y]): Vec2 => [x + room.shape.origin[0], y + room.shape.origin[1]])
-  })
+  const worldPoints = rooms.flatMap(roomWorldPoints)
   return worldPoints.length > 0 ? pointsBounds(worldPoints) : null
 }

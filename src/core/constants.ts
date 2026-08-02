@@ -66,11 +66,14 @@ export const ROTATION_VALUES = Array.from(
   (_, index) => index * ROTATION_STEP_DEG,
 )
 
-/** Offset of duplicated objects (Ctrl+D), in map units. */
+/** Offset of duplicated objects (Ctrl+D) and of a paste without cursor position, in map units. */
 export const DUPLICATE_OFFSET = 5
 
 /** Hit radius for vertex handles and for switching the active drawing end, in map units. */
 export const VERTEX_HIT_RADIUS = 4
+
+/** Smallest width/height a room can be resized to, in map units (one grid cell). */
+export const ROOM_RESIZE_MIN_SIZE = 5
 
 /** Wall gaps (openings in a room outline), in map units. */
 export const WALL_GAP_DEFAULT_LENGTH = 8
