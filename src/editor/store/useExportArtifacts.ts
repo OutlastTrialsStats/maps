@@ -10,13 +10,15 @@ import { useEditorStore } from './editorStore'
 import { useLibraryStore } from './libraryStore'
 import { useZonesStore } from './zonesStore'
 
+const MANIFEST_FILENAME = 'map.json'
+const LIBRARY_FILENAME = 'elements.json'
+const ZONES_FILENAME = 'zones.json'
+
 /** One exportable file of the PR workflow including its target path in the repo. */
 export interface ExportArtifact {
   filename: string
   repoPath: string
   data: unknown
-  /** Resets the respective dirty baseline (download or copy counts as an export). */
-  onExported: () => void
 }
 
 function prefixIssues(filename: string, issues: ValidationIssue[]): ValidationIssue[] {
@@ -43,42 +45,56 @@ export function useExportArtifacts() {
     if (!doc || !manifest) {
       return []
     }
-    // Both files share one dirty baseline — exporting either one resets it.
-    const markExported = (): void => {
-      store.dirty = false
-    }
     const list: ExportArtifact[] = [
       {
-        filename: 'map.json',
+        filename: MANIFEST_FILENAME,
         repoPath: `public/data/${mapManifestPath(manifest.id)}`,
         data: manifest,
-        onExported: markExported,
       },
       {
         filename: `${doc.trialId}.json`,
         repoPath: `public/data/${trialDocumentPath(manifest.id, doc.trialId)}`,
         data: doc,
-        onExported: markExported,
       },
     ]
     if (libraryStore.dirty && libraryStore.library) {
       list.push({
-        filename: 'elements.json',
-        repoPath: 'public/data/elements.json',
+        filename: LIBRARY_FILENAME,
+        repoPath: `public/data/${LIBRARY_FILENAME}`,
         data: libraryStore.library,
-        onExported: () => libraryStore.markExported(),
       })
     }
     if (zonesStore.dirty && zonesStore.zoneLibrary) {
       list.push({
-        filename: 'zones.json',
-        repoPath: 'public/data/zones.json',
+        filename: ZONES_FILENAME,
+        repoPath: `public/data/${ZONES_FILENAME}`,
         data: zonesStore.zoneLibrary,
-        onExported: () => zonesStore.markExported(),
       })
     }
     return list
   })
+
+  /**
+   * Resets the dirty baselines of the files that actually left the editor.
+   * Runs once when the export dialog closes — resetting per click would drop
+   * the row out of `artifacts` mid-session.
+   */
+  function commitExports(exported: ReadonlySet<string>): void {
+    const doc = store.document
+    if (!doc) {
+      return
+    }
+    // Manifest and trial file share one dirty flag — it may only clear once both are out.
+    if (exported.has(MANIFEST_FILENAME) && exported.has(`${doc.trialId}.json`)) {
+      store.dirty = false
+    }
+    if (exported.has(LIBRARY_FILENAME)) {
+      libraryStore.markExported()
+    }
+    if (exported.has(ZONES_FILENAME)) {
+      zonesStore.markExported()
+    }
+  }
 
   async function validateAll(): Promise<ValidationIssue[]> {
     const doc = store.document
@@ -96,7 +112,7 @@ export function useExportArtifacts() {
       zonesStore.dirty && zonesStore.zoneLibrary ? schemaValidation.getZonesSchemaValidator() : null
     const result = await validateForExport(manifest, doc, libraryStore.library, zonesStore.zoneLibrary)
     const issues = [
-      ...prefixIssues('map.json', result.manifest),
+      ...prefixIssues(MANIFEST_FILENAME, result.manifest),
       ...prefixIssues(`${doc.trialId}.json`, result.trial),
     ]
     if (libraryValidator && libraryStore.library) {
@@ -104,7 +120,7 @@ export function useExportArtifacts() {
       const schemaIssues = validate(libraryStore.library)
       issues.push(
         ...prefixIssues(
-          'elements.json',
+          LIBRARY_FILENAME,
           schemaIssues.length > 0 ? schemaIssues : collectLibraryIssues(libraryStore.library),
         ),
       )
@@ -114,7 +130,7 @@ export function useExportArtifacts() {
       const schemaIssues = validate(zonesStore.zoneLibrary)
       issues.push(
         ...prefixIssues(
-          'zones.json',
+          ZONES_FILENAME,
           schemaIssues.length > 0
             ? schemaIssues
             : collectZoneLibraryIssues(zonesStore.zoneLibrary),
@@ -124,5 +140,5 @@ export function useExportArtifacts() {
     return issues
   }
 
-  return { artifacts, validateAll }
+  return { artifacts, validateAll, commitExports }
 }

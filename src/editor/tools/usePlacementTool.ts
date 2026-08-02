@@ -5,6 +5,8 @@ import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 
 const FULL_CIRCLE_DEG = 360
+const ARMED_HINT = 'Shift+click places multiple.'
+const UNARMED_HINT = 'Pick an element from the palette.'
 
 export function usePlacementTool(): EditorTool {
   const store = useEditorStore()
@@ -22,7 +24,7 @@ export function usePlacementTool(): EditorTool {
         store.toolHint = 'Pick an element from the palette first.'
         return
       }
-      store.toolHint = ''
+      store.toolHint = ARMED_HINT
       store.commit((doc) => {
         const placement: Placement = {
           id: store.generateId('pl'),
@@ -39,6 +41,10 @@ export function usePlacementTool(): EditorTool {
         doc.placements.push(placement)
         store.setSelection([{ kind: 'placement', id: placement.id }])
       })
+      // Focus the new placement instead of arming the next one — Shift keeps placing.
+      if (!event.event.shiftKey) {
+        store.activeTool = 'select'
+      }
     },
 
     /** Right-click rotates the ghost — just like the R key. */
@@ -64,7 +70,7 @@ export function usePlacementTool(): EditorTool {
 
     activate(): void {
       rotation.value = 0
-      store.toolHint = store.activeElementId ? '' : 'Pick an element from the palette.'
+      store.toolHint = store.activeElementId ? ARMED_HINT : UNARMED_HINT
     },
 
     deactivate(): void {

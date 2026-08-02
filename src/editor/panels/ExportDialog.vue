@@ -11,15 +11,23 @@ import IssueList from './IssueList.vue'
 const visible = defineModel<boolean>('visible', { required: true })
 
 const toast = useToast()
-const { artifacts, validateAll } = useExportArtifacts()
+const { artifacts, validateAll, commitExports } = useExportArtifacts()
 
 const validating = ref(false)
 const issues = ref<ValidationIssue[]>([])
+/** Frozen while the dialog is open so no row disappears mid-session. */
+const sessionArtifacts = ref<ExportArtifact[]>([])
+const exported = ref(new Set<string>())
 
 watch(visible, async (open) => {
   if (!open) {
+    commitExports(exported.value)
+    sessionArtifacts.value = []
+    exported.value = new Set()
     return
   }
+  sessionArtifacts.value = artifacts.value
+  exported.value = new Set()
   validating.value = true
   try {
     issues.value = await validateAll()
@@ -32,7 +40,7 @@ watch(visible, async (open) => {
 
 function download(artifact: ExportArtifact): void {
   downloadJson(artifact.filename, artifact.data)
-  artifact.onExported()
+  exported.value.add(artifact.filename)
   toast.add({
     severity: 'success',
     summary: `${artifact.filename} downloaded`,
@@ -44,7 +52,7 @@ function download(artifact: ExportArtifact): void {
 async function copy(artifact: ExportArtifact): Promise<void> {
   try {
     await navigator.clipboard.writeText(serializeJson(artifact.data))
-    artifact.onExported()
+    exported.value.add(artifact.filename)
     toast.add({
       severity: 'success',
       summary: `${artifact.filename} copied to clipboard`,
@@ -76,9 +84,10 @@ async function copy(artifact: ExportArtifact): Promise<void> {
       </p>
       <div class="artifact-list">
         <ExportArtifactRow
-          v-for="artifact in artifacts"
+          v-for="artifact in sessionArtifacts"
           :key="artifact.filename"
           :artifact="artifact"
+          :exported="exported.has(artifact.filename)"
           @download="download(artifact)"
           @copy="copy(artifact)"
         />

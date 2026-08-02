@@ -2,7 +2,7 @@
 import Button from 'primevue/button'
 import type { ExportArtifact } from '../store/useExportArtifacts'
 
-defineProps<{ artifact: ExportArtifact }>()
+defineProps<{ artifact: ExportArtifact; exported: boolean }>()
 
 const emit = defineEmits<{ download: []; copy: [] }>()
 </script>
@@ -10,7 +10,10 @@ const emit = defineEmits<{ download: []; copy: [] }>()
 <template>
   <div class="artifact-row">
     <div class="info">
-      <span class="filename">{{ artifact.filename }}</span>
+      <span class="filename">
+        {{ artifact.filename }}
+        <span v-if="exported" class="exported"><i class="pi pi-check" /> Exported</span>
+      </span>
       <code class="repo-path">{{ artifact.repoPath }}</code>
     </div>
     <div class="buttons">
@@ -45,8 +48,24 @@ const emit = defineEmits<{ download: []; copy: [] }>()
 }
 
 .filename {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 600;
+}
+
+.exported {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--success);
+}
+
+.exported .pi {
+  font-size: 10px;
 }
 
 .repo-path {
