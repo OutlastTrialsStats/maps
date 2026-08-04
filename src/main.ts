@@ -27,4 +27,4 @@ app.use(PrimeVue, {
 app.use(ToastService)
 app.directive('tooltip', Tooltip)
 
-app.mount('#app')
+router.isReady().then(() => app.mount('#app'))
