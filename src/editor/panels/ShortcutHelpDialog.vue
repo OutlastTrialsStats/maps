@@ -39,6 +39,7 @@ const groups: Array<{ title: string; entries: Array<{ keys: string[]; action: st
       { keys: ['Shift', 'Click'], action: 'Add to / remove from selection' },
       { keys: ['←↑→↓'], action: `Nudge selection by ${NUDGE_STEP} unit (Shift: ${NUDGE_STEP_LARGE})` },
       { keys: ['Ctrl', 'D'], action: 'Duplicate' },
+      { keys: ['Ctrl', 'M'], action: 'Merge two selected rooms into one' },
       { keys: ['Del'], action: 'Delete selection' },
       { keys: ['Esc'], action: 'Deselect / cancel drawing' },
       { keys: ['Double-click'], action: 'Edit room corner points' },

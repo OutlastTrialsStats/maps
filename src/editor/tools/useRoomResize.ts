@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import { ROOM_RESIZE_MIN_SIZE } from '../../core/constants'
 import { pointsBounds, roomWorldPoints } from '../../core/model/roomPath'
-import { isRoomScalable, scaleRoomGeometry } from '../../core/model/roomScale'
+import { applyRoomGeometry, isRoomScalable, scaleRoomGeometry } from '../../core/model/roomScale'
 import type { Bounds, Room, Vec2 } from '../../core/model/types'
 import { withinRadius } from '../../core/model/vec2'
 import { useEditorStore } from '../store/editorStore'
@@ -132,18 +132,7 @@ export function useRoomResize() {
     const geometry = scaleRoomGeometry(state.original, anchor, factors)
     const room = store.document?.rooms.find((entry) => entry.id === state.roomId)
     if (geometry && room) {
-      room.shape = geometry.shape
-      if (geometry.wallGaps) {
-        room.wallGaps = geometry.wallGaps
-      } else {
-        delete room.wallGaps
-      }
-      if (geometry.innerLines) {
-        room.innerLines = geometry.innerLines
-      }
-      if (geometry.label) {
-        room.label = geometry.label
-      }
+      applyRoomGeometry(room, geometry)
     }
     return true
   }

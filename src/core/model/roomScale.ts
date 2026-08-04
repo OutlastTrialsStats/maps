@@ -1,7 +1,7 @@
 import { WALL_GAP_MIN_LENGTH } from '../constants'
 import { parseOpenPath, pointsToOpenPath, pointsToRelativePath, shapeToPoints } from './roomPath'
 import type { InnerLine, Room, RoomLabel, RoomShape, Vec2, WallGap } from './types'
-import { clampWallGaps, edgeLength, edgeSegments } from './wallGaps'
+import { clampWallGaps, edgeLength, edgeSegments, setWallGaps } from './wallGaps'
 
 /** Everything of a room that has to scale together when it is resized. */
 export interface RoomGeometry {
@@ -9,6 +9,18 @@ export interface RoomGeometry {
   wallGaps?: WallGap[]
   innerLines?: InnerLine[]
   label?: RoomLabel
+}
+
+/** Writes a recomputed geometry back to the room; an empty gap list drops the property. */
+export function applyRoomGeometry(room: Room, geometry: RoomGeometry): void {
+  room.shape = geometry.shape
+  setWallGaps(room, geometry.wallGaps ?? [])
+  if (geometry.innerLines) {
+    room.innerLines = geometry.innerLines
+  }
+  if (geometry.label) {
+    room.label = geometry.label
+  }
 }
 
 /** Resizing needs every path in parseable form — same restriction as vertex editing. */

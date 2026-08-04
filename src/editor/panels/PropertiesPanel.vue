@@ -2,6 +2,7 @@
 import Button from 'primevue/button'
 import { computed } from 'vue'
 import { useClipboard } from '../tools/useClipboard'
+import { useMergeRooms } from '../tools/useMergeRooms'
 import { useEditorStore } from '../store/editorStore'
 import PlacementProperties from './PlacementProperties.vue'
 import RoomProperties from './RoomProperties.vue'
@@ -10,6 +11,7 @@ import RouteProperties from './RouteProperties.vue'
 const store = useEditorStore()
 const { canPaste, copyToSystemClipboard, cutToSystemClipboard, pasteFromSystemClipboard } =
   useClipboard()
+const { canMerge, mergeSelection } = useMergeRooms()
 
 const hasSelection = computed(() => store.selection.length > 0)
 
@@ -60,6 +62,22 @@ function paste(): void {
         :disabled="!canPaste"
         @click="paste()"
       />
+      <Button
+        v-tooltip.bottom="'Merge rooms (Ctrl+M)'"
+        aria-label="Merge rooms"
+        size="small"
+        text
+        severity="secondary"
+        :disabled="!canMerge"
+        @click="mergeSelection()"
+      >
+        <template #icon>
+          <svg class="merge-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="13" height="13" rx="1" />
+            <rect x="8" y="8" width="13" height="13" rx="1" />
+          </svg>
+        </template>
+      </Button>
       <Button
         v-tooltip.bottom="'Deselect (Esc)'"
         icon="pi pi-times"
@@ -116,8 +134,9 @@ function paste(): void {
   color: var(--text-muted);
 }
 
-/* primeicons has no scissors glyph, hence the inline SVG. */
-.cut-icon {
+/* primeicons has no scissors or union glyph, hence the inline SVGs. */
+.cut-icon,
+.merge-icon {
   width: 14px;
   height: 14px;
   fill: none;

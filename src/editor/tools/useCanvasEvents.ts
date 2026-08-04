@@ -16,6 +16,7 @@ import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, EditorTool, ToolId, ToolOverlay } from './toolTypes'
 import { useCameraPickMode } from './useCameraPickMode'
 import { useClipboard } from './useClipboard'
+import { useMergeRooms } from './useMergeRooms'
 
 const TOOL_HOTKEYS: Record<string, ToolId> = {
   '1': 'select',
@@ -39,6 +40,7 @@ export function useCanvasEvents(options: {
 }) {
   const store = useEditorStore()
   const clipboard = useClipboard()
+  const mergeRooms = useMergeRooms()
   const cameraPick = useCameraPickMode()
   const cursorWorld = ref<Vec2 | null>(null)
   const isFineGrid = ref(false)
@@ -161,6 +163,12 @@ export function useCanvasEvents(options: {
     }
     if (ctrl && (key === 'y' || (key === 'z' && event.shiftKey))) {
       store.redo()
+      event.preventDefault()
+      return
+    }
+    // Firefox mutes the tab on Ctrl+M, so the key is claimed even without a merge.
+    if (ctrl && key === 'm') {
+      mergeRooms.mergeSelection()
       event.preventDefault()
       return
     }
