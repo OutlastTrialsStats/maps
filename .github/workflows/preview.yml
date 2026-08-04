@@ -63,7 +63,7 @@ jobs:
           clean: true
           force: false
           commit-message: 'Deploy preview for PR #${{ github.event.pull_request.number }}'
-      - uses: marocchino/sticky-pull-request-comment@v2
+      - uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: preview
           number: ${{ github.event.pull_request.number }}
@@ -97,7 +97,7 @@ jobs:
           git rm -r -q "pr-preview/pr-$PR"
           git commit -m "Remove preview for PR #$PR"
           git push origin gh-pages
-      - uses: marocchino/sticky-pull-request-comment@v2
+      - uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: preview
           number: ${{ github.event.pull_request.number }}
