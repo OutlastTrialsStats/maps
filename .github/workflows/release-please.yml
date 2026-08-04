@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  # Runs only on the push that merges the release PR; that merge commit already
+  # carries the bumped package.json, so the build embeds the new __APP_VERSION__.
+  deploy:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: gh-pages-push
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6.0.10
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      # GitHub Pages has no rewrite rules; a 404.html copy keeps history-mode deep links working
+      - name: Add SPA fallback
+        run: cp dist/index.html dist/404.html
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
+          clean: true
+          clean-exclude: pr-preview/
+          force: false
+      - name: Summary
+        env:
+          TAG: ${{ needs.release-please.outputs.tag_name }}
+        run: |
+          {
+            echo "### Released $TAG"
+            echo
+            echo "Deployed to https://maps.outlasttrialsstats.com"
+          } >> "$GITHUB_STEP_SUMMARY"
