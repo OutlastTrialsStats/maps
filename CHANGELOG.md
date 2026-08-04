@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0] - 2026-08-04
+
+- chore: Cleanup Code (3044db2)
+- ci: add preview workflow and refactor deployment logic for GitHub Pages (36a999a)
+- chore(deps-dev): bump vue-tsc in the pnpm-patches group (0c97958)
+- ci: bump pnpm/action-setup from 4 to 6.0.9 (176110e)
+- fix(editor): scale handle hit radius with the zoom level (3ab0baf)
+- build(vite): use import attribute for package.json in vite.config (a8fe547)
+- feat(editor): improve UX — feedback, data-loss protection, marquee, camera picker, editability (653f7d3)
+- docs: update CONTRIBUTING.md, README.md, and PR template (5a3939c)
+
 ## [0.2.1] - 2026-08-02
 
 - chore(deps-dev): bump vite from 8.1.5 to 8.2.0 (585b545)
