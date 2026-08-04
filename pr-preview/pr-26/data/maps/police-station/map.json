@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schemas/map.schema.json",
+  "id": "police-station",
+  "meta": {
+    "name": "Police Station",
+    "authors": ["SuprexDE"]
+  },
+  "trials": [
+    {
+      "id": "kill-the-snitch",
+      "name": "Kill the Snitch",
+      "default": true
+    },
+    {
+      "id": "cancel-the-autopsy",
+      "name": "Cancel the Autopsy"
+    },
+    {
+      "id": "sabotage-the-lockdown",
+      "name": "Sabotage the Lockdown"
+    },
+    {
+      "id": "release-the-prisoners",
+      "name": "Release the Prisoners"
+    },
+    {
+      "id": "teach-the-police-officer",
+      "name": "Teach the Police Officer"
+    },
+    {
+      "id": "eliminate-the-past",
+      "name": "Eliminate the Past"
+    }
+  ]
+}
