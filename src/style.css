@@ -9,6 +9,10 @@ body {
   color: var(--text-strong);
 }
 
+#app {
+  overflow: clip;
+}
+
 a {
   color: inherit;
 }

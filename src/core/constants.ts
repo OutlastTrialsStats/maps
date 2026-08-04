@@ -13,8 +13,7 @@ export const ZONE_LIBRARY_URL = `${DATA_BASE_URL}/${ZONE_LIBRARY_PATH}`
 export const CONTRIBUTORS_URL = `${DATA_BASE_URL}/${CONTRIBUTORS_PATH}`
 export const SCHEMA_BASE_URL = `${import.meta.env.BASE_URL}schemas`
 
-/** Repo behind the join link of the contributors section. */
-export const GITHUB_REPO_URL = 'https://github.com/OutlastTrialsStats/maps'
+export const GITHUB_REPO_URL = 'https://github.com/OutlastTrialsStats/maps#contributing'
 
 /** Embed script of outlasttrialsstats.com defining `<totstats-profile>`. */
 export const PROFILE_WIDGET_SRC = 'https://outlasttrialsstats.com/widget/totstats-profile.js'
