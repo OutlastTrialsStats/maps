@@ -1,0 +1,222 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://maps.outlasttrialsstats.com/schemas/trial.schema.json",
+  "title": "Trial-Definition",
+  "type": "object",
+  "required": ["mapId", "trialId", "floors", "filters", "rooms", "placements", "routes"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "mapId": { "$ref": "#/definitions/kebabId" },
+    "trialId": { "$ref": "#/definitions/kebabId" },
+    "floors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["index", "name"],
+        "additionalProperties": false,
+        "properties": {
+          "index": { "type": "integer" },
+          "name": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "categories"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/definitions/kebabId" },
+          "name": { "type": "string", "minLength": 1 },
+          "categories": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/kebabId" },
+            "minItems": 1
+          },
+          "default": { "type": "boolean" }
+        }
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/room" }
+    },
+    "placements": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/placement" }
+    },
+    "routes": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/route" }
+    }
+  },
+  "definitions": {
+    "kebabId": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "color": {
+      "type": "string",
+      "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+    },
+    "vec2": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "svgPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[MmLlHhVvZzCcSsQqTtAa0-9eE+,.\\s-]+$"
+    },
+    "roomImageSrc": {
+      "description": "Either a repo image below the map folder or a full external link (replaced by a repo file before merging).",
+      "type": "string",
+      "anyOf": [{ "pattern": "^[^:]+\\.(jpg|jpeg|png|webp)$" }, { "pattern": "^https?://" }]
+    },
+    "wallGap": {
+      "description": "Section of the room outline without a wall (entrance, passage).",
+      "type": "object",
+      "required": ["edge", "start", "length"],
+      "additionalProperties": false,
+      "properties": {
+        "edge": { "type": "integer", "minimum": 0 },
+        "start": { "type": "number", "minimum": 0 },
+        "length": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "calloutMarker": {
+      "description": "Callout on a placement: dot, leader line and diamond badge with either a number or a game-asset icon.",
+      "type": "object",
+      "required": ["offset"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "integer" },
+        "icon": {
+          "description": "Bare .webp file name under https://outlasttrialsstats.com/game-assets/ (no path, no extension).",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "offset": { "$ref": "#/definitions/vec2" },
+        "color": { "$ref": "#/definitions/color" },
+        "lineColor": { "$ref": "#/definitions/color" },
+        "lineDashed": { "type": "boolean" }
+      },
+      "oneOf": [{ "required": ["label"] }, { "required": ["icon"] }]
+    },
+    "room": {
+      "type": "object",
+      "required": ["id", "floor", "zone", "shape"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/kebabId" },
+        "floor": { "type": "integer" },
+        "zone": { "$ref": "#/definitions/kebabId" },
+        "shape": {
+          "type": "object",
+          "required": ["origin"],
+          "additionalProperties": false,
+          "oneOf": [{ "required": ["path"] }, { "required": ["rect"] }],
+          "properties": {
+            "origin": { "$ref": "#/definitions/vec2" },
+            "path": { "$ref": "#/definitions/svgPath" },
+            "rect": {
+              "type": "array",
+              "items": { "type": "number", "exclusiveMinimum": 0 },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "wallGaps": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/wallGap" }
+        },
+        "innerLines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "style"],
+            "additionalProperties": false,
+            "properties": {
+              "path": { "$ref": "#/definitions/svgPath" },
+              "style": { "enum": ["wall", "object", "objectDark", "dashed"] }
+            }
+          }
+        },
+        "label": {
+          "type": "object",
+          "required": ["text", "pos"],
+          "additionalProperties": false,
+          "properties": {
+            "text": { "type": "string", "minLength": 1 },
+            "pos": { "$ref": "#/definitions/vec2" },
+            "fontSize": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "flags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["secret", "reel", "disabled", "noWalls", "unreachable"] }
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "images": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["src"],
+                "additionalProperties": false,
+                "properties": {
+                  "src": { "$ref": "#/definitions/roomImageSrc" },
+                  "camera": {
+                    "type": "object",
+                    "required": ["pos", "rotation"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "pos": { "$ref": "#/definitions/vec2" },
+                      "rotation": { "type": "number" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "placement": {
+      "type": "object",
+      "required": ["id", "element", "floor", "pos"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/kebabId" },
+        "element": { "$ref": "#/definitions/kebabId" },
+        "floor": { "type": "integer" },
+        "pos": { "$ref": "#/definitions/vec2" },
+        "rotation": { "type": "number", "multipleOf": 45 },
+        "size": { "$ref": "#/definitions/vec2" },
+        "roomId": { "$ref": "#/definitions/kebabId" },
+        "marker": { "$ref": "#/definitions/calloutMarker" },
+        "props": { "type": "object" }
+      }
+    },
+    "route": {
+      "type": "object",
+      "required": ["id", "name", "floor", "path", "style"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/kebabId" },
+        "name": { "type": "string", "minLength": 1 },
+        "floor": { "type": "integer" },
+        "path": { "$ref": "#/definitions/svgPath" },
+        "style": { "enum": ["route"] }
+      }
+    }
+  }
+}

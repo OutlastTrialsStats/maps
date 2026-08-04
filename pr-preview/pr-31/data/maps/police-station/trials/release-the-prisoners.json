@@ -1,0 +1,86 @@
+{
+  "$schema": "../../../../schemas/trial.schema.json",
+  "mapId": "police-station",
+  "trialId": "release-the-prisoners",
+  "floors": [
+    {
+      "index": -1,
+      "name": "Underground"
+    },
+    {
+      "index": 0,
+      "name": "First Floor"
+    },
+    {
+      "index": 1,
+      "name": "Second Floor"
+    },
+    {
+      "index": 2,
+      "name": "Third Floor"
+    },
+    {
+      "index": 3,
+      "name": "Fourth Floor"
+    }
+  ],
+  "filters": [
+    {
+      "id": "enemies",
+      "name": "Enemies",
+      "categories": ["enemy"],
+      "default": true
+    },
+    {
+      "id": "keys",
+      "name": "Keys & Locks",
+      "categories": ["key"],
+      "default": true
+    },
+    {
+      "id": "doors",
+      "name": "Doors & Stairs",
+      "categories": ["door", "stairs"],
+      "default": true
+    },
+    {
+      "id": "objectives",
+      "name": "Objectives",
+      "categories": ["objective"],
+      "default": true
+    },
+    {
+      "id": "items",
+      "name": "Items",
+      "categories": ["item"],
+      "default": true
+    },
+    {
+      "id": "gas-cans",
+      "name": "Gas Cans",
+      "categories": ["gas-can"],
+      "default": true
+    },
+    {
+      "id": "generators",
+      "name": "Generators",
+      "categories": ["generator"],
+      "default": true
+    },
+    {
+      "id": "record-boxes",
+      "name": "Record Boxes",
+      "categories": ["record-box"],
+      "default": true
+    },
+    {
+      "id": "posters",
+      "name": "Posters",
+      "categories": ["poster"],
+      "default": true
+    }
+  ],
+  "rooms": [],
+  "placements": [],
+  "routes": []
+}
