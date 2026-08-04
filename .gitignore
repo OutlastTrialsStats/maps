@@ -52,7 +52,8 @@ $RECYCLE.BIN/
 *~
 
 # Custom
-docs/
+docs/*
+!docs/commit-convention.md
 CLAUDE.md
 .claude/settings.local.json
 

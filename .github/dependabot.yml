@@ -8,7 +8,9 @@ updates:
       interval: daily
     open-pull-requests-limit: 5
     commit-message:
-      prefix: chore
+      # deps (runtime) is a releasable unit for release-please, chore (dev-only) is not
+      prefix: deps
+      prefix-development: chore
       include: scope
     groups:
       # All patch updates in a single PR — CI (validate.yml) checks them together

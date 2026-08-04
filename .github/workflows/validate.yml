@@ -4,7 +4,6 @@ on:
   pull_request:
   push:
     branches: [main]
-  workflow_call:
 
 jobs:
   validate:
@@ -12,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       # Has to run before setup-node, otherwise `cache: pnpm` finds no pnpm.
-      - uses: pnpm/action-setup@v6.0.9
+      - uses: pnpm/action-setup@v6.0.10
       - uses: actions/setup-node@v7
         with:
           node-version: 24
