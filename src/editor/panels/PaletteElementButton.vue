@@ -120,11 +120,19 @@ function shapePreviewPath(element: ElementDefinition): string {
 }
 
 .row-actions {
-  display: none;
+  display: inline-flex;
   flex-shrink: 0;
+  visibility: hidden;
 }
 
-.element-row:hover .row-actions {
-  display: inline-flex;
+.row-actions :deep(.p-button) {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+
+.element-row:hover .row-actions,
+.element-row:focus-within .row-actions {
+  visibility: visible;
 }
 </style>
