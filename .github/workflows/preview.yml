@@ -27,7 +27,7 @@ jobs:
           ref: refs/pull/${{ github.event.pull_request.number }}/head
       - id: head
         run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6.0.9
       - uses: actions/setup-node@v7
         with:
           node-version: 24
@@ -35,7 +35,7 @@ jobs:
       - run: pnpm build --base=/pr-preview/pr-${{ github.event.pull_request.number }}/
       - name: Remove root-only CNAME
         run: rm -f dist/CNAME
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: preview-dist
           path: dist
@@ -50,7 +50,7 @@ jobs:
       group: gh-pages-push
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: preview-dist
           path: dist
