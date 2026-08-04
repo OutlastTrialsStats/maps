@@ -1,13 +1,13 @@
-import type { Vec2, WallGap } from './types'
+import type { Room, Vec2, WallGap } from './types'
+import { formatPathNumber } from './roomPath.ts'
+import { clamp, distance } from './vec2.ts'
 
 /**
  * Wall gap geometry: a gap is anchored to one edge of the closed room outline,
- * measured from that edge's start point. Import-free on purpose (only types):
+ * measured from that edge's start point. Imports use explicit .ts specifiers:
  * scripts/validate-data.mjs reaches this module through validation.ts via Node
  * type stripping.
  */
-
-const fmt = (value: number): string => String(Math.round(value * 1000) / 1000)
 
 const samePoint = (a: Vec2, b: Vec2): boolean => a[0] === b[0] && a[1] === b[1]
 
@@ -17,7 +17,7 @@ export function edgeSegments(points: Vec2[]): Array<[Vec2, Vec2]> {
 }
 
 export function edgeLength([from, to]: [Vec2, Vec2]): number {
-  return Math.hypot(to[0] - from[0], to[1] - from[1])
+  return distance(from, to)
 }
 
 export function pointOnEdge([from, to]: [Vec2, Vec2], distance: number): Vec2 {
@@ -38,12 +38,11 @@ export function projectOnEdge([from, to]: [Vec2, Vec2], point: Vec2): number {
     return 0
   }
   const ratio = ((point[0] - from[0]) * dx + (point[1] - from[1]) * dy) / lengthSq
-  return Math.min(Math.max(ratio, 0), 1) * Math.sqrt(lengthSq)
+  return clamp(ratio, 0, 1) * Math.sqrt(lengthSq)
 }
 
 export function distanceToEdge(edge: [Vec2, Vec2], point: Vec2): number {
-  const projected = pointOnEdge(edge, projectOnEdge(edge, point))
-  return Math.hypot(point[0] - projected[0], point[1] - projected[1])
+  return distance(point, pointOnEdge(edge, projectOnEdge(edge, point)))
 }
 
 /** Start and end point of a gap in shape-local coordinates. */
@@ -86,8 +85,10 @@ function mergedIntervals(gaps: WallGap[], edgeIndex: number, length: number): In
 
 function runToPath(run: Vec2[], closed: boolean): string {
   const [first, ...rest] = run
-  const line = rest.map((point) => `L${fmt(point[0])},${fmt(point[1])}`).join('')
-  return `M${fmt(first[0])},${fmt(first[1])}${line}${closed ? ' z' : ''}`
+  const line = rest
+    .map((point) => `L${formatPathNumber(point[0])},${formatPathNumber(point[1])}`)
+    .join('')
+  return `M${formatPathNumber(first[0])},${formatPathNumber(first[1])}${line}${closed ? ' z' : ''}`
 }
 
 /**
@@ -141,6 +142,15 @@ export function wallRunsPath(points: Vec2[], gaps: WallGap[]): string {
   return runs.map((entry) => runToPath(entry, false)).join(' ')
 }
 
+/** Writes the gap list back to the room; an empty list removes the property. */
+export function setWallGaps(room: Room, gaps: WallGap[]): void {
+  if (gaps.length === 0) {
+    delete room.wallGaps
+  } else {
+    room.wallGaps = gaps
+  }
+}
+
 /** Drops gaps on edges that no longer exist and clamps them to their edge length. */
 export function clampWallGaps(points: Vec2[], gaps: WallGap[], minLength: number): WallGap[] {
   const edges = edgeSegments(points)
@@ -150,7 +160,7 @@ export function clampWallGaps(points: Vec2[], gaps: WallGap[], minLength: number
     }
     const edge = edges[gap.edge]
     const length = edgeLength(edge)
-    const start = Math.min(Math.max(gap.start, 0), length)
+    const start = clamp(gap.start, 0, length)
     const gapLength = Math.min(gap.length, length - start)
     return gapLength >= minLength ? [{ edge: gap.edge, start, length: gapLength }] : []
   })

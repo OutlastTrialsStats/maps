@@ -1,4 +1,5 @@
 import { computed, ref } from 'vue'
+import { FULL_CIRCLE_DEG, HALF_CIRCLE_DEG } from '../../core/constants'
 import type { Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, ToolOverlay } from './toolTypes'
@@ -34,8 +35,11 @@ export function useCameraPickMode() {
       const dx = event.world[0] - drag.value.pos[0]
       const dy = event.world[1] - drag.value.pos[1]
       if (dx !== 0 || dy !== 0) {
-        const degrees = (Math.atan2(dy, dx) * 180) / Math.PI
-        drag.value = { pos: drag.value.pos, rotation: Math.round((degrees + 360) % 360) }
+        const degrees = (Math.atan2(dy, dx) * HALF_CIRCLE_DEG) / Math.PI
+        drag.value = {
+          pos: drag.value.pos,
+          rotation: Math.round((degrees + FULL_CIRCLE_DEG) % FULL_CIRCLE_DEG),
+        }
       }
     } else {
       hover.value = event.snapped

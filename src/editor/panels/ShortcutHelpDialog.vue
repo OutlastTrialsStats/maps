@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import Dialog from 'primevue/dialog'
+import {
+  GRID_SNAP_DEFAULT,
+  GRID_SNAP_FINE,
+  NUDGE_STEP,
+  NUDGE_STEP_LARGE,
+  ROTATION_STEP_DEG,
+} from '../../core/constants'
 
 const visible = defineModel<boolean>('visible', { required: true })
 
@@ -23,14 +30,14 @@ const groups: Array<{ title: string; entries: Array<{ keys: string[]; action: st
       { keys: ['←↑→↓'], action: 'Pan view (empty selection; Shift: faster)' },
       { keys: ['PgUp', 'PgDn'], action: 'Floor up / down' },
       { keys: ['F'], action: 'Fit view to map' },
-      { keys: ['Ctrl'], action: 'Fine grid (2.5 instead of 5 units)' },
+      { keys: ['Ctrl'], action: `Fine grid (${GRID_SNAP_FINE} instead of ${GRID_SNAP_DEFAULT} units)` },
     ],
   },
   {
     title: 'Selection',
     entries: [
       { keys: ['Shift', 'Click'], action: 'Add to / remove from selection' },
-      { keys: ['←↑→↓'], action: 'Nudge selection by 1 unit (Shift: 5)' },
+      { keys: ['←↑→↓'], action: `Nudge selection by ${NUDGE_STEP} unit (Shift: ${NUDGE_STEP_LARGE})` },
       { keys: ['Ctrl', 'D'], action: 'Duplicate' },
       { keys: ['Del'], action: 'Delete selection' },
       { keys: ['Esc'], action: 'Deselect / cancel drawing' },
@@ -50,7 +57,7 @@ const groups: Array<{ title: string; entries: Array<{ keys: string[]; action: st
   {
     title: 'Element tool',
     entries: [
-      { keys: ['R'], action: 'Rotate by 45° (also right-click)' },
+      { keys: ['R'], action: `Rotate by ${ROTATION_STEP_DEG}° (also right-click)` },
       { keys: ['Shift', 'Click'], action: 'Place and keep placing' },
     ],
   },

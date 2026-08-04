@@ -3,28 +3,14 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { computed, ref } from 'vue'
 import type { ElementDefinition } from '../../core/model/types'
-import { useEditorStore } from '../store/editorStore'
+import { NEEDS_DOCUMENT_HINT, useEditorStore } from '../store/editorStore'
 import { groupElementsByCategory, useLibraryStore } from '../store/libraryStore'
-import ElementDialog from './ElementDialog.vue'
-import PaletteElementButton from './PaletteElementButton.vue'
-import UsageDeleteDialog from './UsageDeleteDialog.vue'
-import { useElementCrud } from './useElementCrud'
+import ElementCrudDialogs from './ElementCrudDialogs.vue'
+import ElementGroupList from './ElementGroupList.vue'
 
 const store = useEditorStore()
 const libraryStore = useLibraryStore()
-const {
-  showElementDialog,
-  editElementId,
-  showDeleteDialog,
-  deleteTarget,
-  usage,
-  usageLoading,
-  cascadeHint,
-  openCreate,
-  openEdit,
-  openDelete,
-  confirmDelete,
-} = useElementCrud()
+const crud = ref<InstanceType<typeof ElementCrudDialogs> | null>(null)
 
 const search = ref('')
 
@@ -57,20 +43,15 @@ function pick(elementId: string): void {
       />
     </div>
     <p v-if="search && groups.length === 0" class="empty-hint">No elements match "{{ search }}".</p>
-    <div v-for="group in groups" :key="group.id" class="group">
-      <p class="group-name">{{ group.name }}</p>
-      <PaletteElementButton
-        v-for="element in group.elements"
-        :key="element.id"
-        :element="element"
-        :active="store.activeElementId === element.id"
-        @pick="pick(element.id)"
-        @edit="openEdit(element.id)"
-        @remove="openDelete(element)"
-      />
-    </div>
+    <ElementGroupList
+      :groups="groups"
+      :active-id="store.activeElementId"
+      @pick="pick"
+      @edit="crud?.openEdit($event)"
+      @remove="crud?.openDelete($event)"
+    />
     <span
-      v-tooltip.top="{ value: 'Load or create a map first', disabled: Boolean(store.document) }"
+      v-tooltip.top="{ value: NEEDS_DOCUMENT_HINT, disabled: Boolean(store.document) }"
       class="new-element-wrap"
     >
       <Button
@@ -79,19 +60,10 @@ function pick(elementId: string): void {
         severity="secondary"
         class="new-element"
         :disabled="!store.document"
-        @click="openCreate()"
+        @click="crud?.openCreate()"
       />
     </span>
-    <ElementDialog v-model:visible="showElementDialog" :element-id="editElementId" @saved="pick" />
-    <UsageDeleteDialog
-      v-model:visible="showDeleteDialog"
-      header="Delete element"
-      :target-label="deleteTarget?.name ?? ''"
-      :usage="usage"
-      :loading="usageLoading"
-      :cascade-hint="cascadeHint"
-      @confirm="confirmDelete()"
-    />
+    <ElementCrudDialogs ref="crud" @saved="pick" />
   </div>
 </template>
 
@@ -100,20 +72,6 @@ function pick(elementId: string): void {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.group {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.group-name {
-  margin: 4px 0 2px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-faint);
 }
 
 .search-wrap {

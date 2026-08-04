@@ -6,6 +6,12 @@
 /** Point or size in map units, [x, y] or [w, h]. */
 export type Vec2 = [number, number]
 
+/** Axis-aligned bounding box in world or shape-local coordinates. */
+export interface Bounds {
+  min: Vec2
+  max: Vec2
+}
+
 // ---------------------------------------------------------------------------
 // Map registry — public/data/maps/index.json
 // ---------------------------------------------------------------------------

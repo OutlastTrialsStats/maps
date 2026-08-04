@@ -25,21 +25,22 @@ export async function fetchJson<T>(url: string): Promise<T> {
   return (await response.json()) as T
 }
 
-export function loadMapsIndex(): Promise<MapsIndex> {
-  return fetchJson<MapsIndex>(MAPS_INDEX_URL)
+/** Shares one fetch per session for static files; a failure clears the cache so retries work. */
+function once<T>(load: () => Promise<T>): () => Promise<T> {
+  let promise: Promise<T> | null = null
+  return () => {
+    promise ??= load().catch((error: unknown) => {
+      promise = null
+      throw error
+    })
+    return promise
+  }
 }
 
-export function loadElementLibrary(): Promise<ElementLibrary> {
-  return fetchJson<ElementLibrary>(ELEMENT_LIBRARY_URL)
-}
-
-export function loadZoneLibrary(): Promise<ZoneLibrary> {
-  return fetchJson<ZoneLibrary>(ZONE_LIBRARY_URL)
-}
-
-export function loadContributors(): Promise<Contributors> {
-  return fetchJson<Contributors>(CONTRIBUTORS_URL)
-}
+export const loadMapsIndex = once(() => fetchJson<MapsIndex>(MAPS_INDEX_URL))
+export const loadElementLibrary = once(() => fetchJson<ElementLibrary>(ELEMENT_LIBRARY_URL))
+export const loadZoneLibrary = once(() => fetchJson<ZoneLibrary>(ZONE_LIBRARY_URL))
+export const loadContributors = once(() => fetchJson<Contributors>(CONTRIBUTORS_URL))
 
 export function loadMapManifest(mapId: string): Promise<MapManifest> {
   return fetchJson<MapManifest>(`${DATA_BASE_URL}/${mapManifestPath(mapId)}`)

@@ -1,9 +1,16 @@
+import {
+  CONTRIBUTORS_PATH,
+  ELEMENT_LIBRARY_PATH,
+  MAPS_INDEX_PATH,
+  ZONE_LIBRARY_PATH,
+} from './model/dataPaths'
+
 /** Base URL of all content fetched at runtime (public/data); BASE_URL always ends with '/'. */
 export const DATA_BASE_URL = `${import.meta.env.BASE_URL}data`
-export const MAPS_INDEX_URL = `${DATA_BASE_URL}/maps/index.json`
-export const ELEMENT_LIBRARY_URL = `${DATA_BASE_URL}/elements.json`
-export const ZONE_LIBRARY_URL = `${DATA_BASE_URL}/zones.json`
-export const CONTRIBUTORS_URL = `${DATA_BASE_URL}/contributors.json`
+export const MAPS_INDEX_URL = `${DATA_BASE_URL}/${MAPS_INDEX_PATH}`
+export const ELEMENT_LIBRARY_URL = `${DATA_BASE_URL}/${ELEMENT_LIBRARY_PATH}`
+export const ZONE_LIBRARY_URL = `${DATA_BASE_URL}/${ZONE_LIBRARY_PATH}`
+export const CONTRIBUTORS_URL = `${DATA_BASE_URL}/${CONTRIBUTORS_PATH}`
 export const SCHEMA_BASE_URL = `${import.meta.env.BASE_URL}schemas`
 
 /** Repo behind the join link of the contributors section. */
@@ -50,7 +57,10 @@ export const EDITOR_AUTOSAVE_KEY = 'outlasttrials-maps:editor-autosave'
 export const EDITOR_AUTOSAVE_VERSION = 4
 
 export const CURSOR_STORAGE_KEY = 'outlasttrials-maps:custom-cursor'
+/** The custom cursor image points slightly left of its top-left corner. */
+export const CURSOR_HOTSPOT_OFFSET_PX = 2
 export const AUTOSAVE_DEBOUNCE_MS = 1000
+export const TOAST_LIFE_MS = 5000
 export const UNDO_STACK_LIMIT = 100
 /** Commits with the same coalesce key within this window share one undo snapshot. */
 export const UNDO_COALESCE_MS = 800
@@ -82,9 +92,11 @@ export const VIEW_PAN_STEP_LARGE_PX = 200
  * Rotations are limited to fixed steps (R key and properties select);
  * in sync with the `multipleOf` of the `rotation` field in the map schema.
  */
+export const FULL_CIRCLE_DEG = 360
+export const HALF_CIRCLE_DEG = 180
 export const ROTATION_STEP_DEG = 45
 export const ROTATION_VALUES = Array.from(
-  { length: 360 / ROTATION_STEP_DEG },
+  { length: FULL_CIRCLE_DEG / ROTATION_STEP_DEG },
   (_, index) => index * ROTATION_STEP_DEG,
 )
 
@@ -99,6 +111,11 @@ export const MARQUEE_MIN_DRAG_PX = 4
 
 /** Smallest width/height a room can be resized to, in map units (one grid cell). */
 export const ROOM_RESIZE_MIN_SIZE = 5
+
+/** Open polylines (routes, inner lines) need at least a start and an end point. */
+export const MIN_OPEN_PATH_POINTS = 2
+/** A polygon room needs at least a triangle. */
+export const MIN_POLYGON_POINTS = 3
 
 /** Wall gaps (openings in a room outline), in map units. */
 export const WALL_GAP_DEFAULT_LENGTH = 8
@@ -138,6 +155,10 @@ export const BARRICADE_PLANK_GAP = 0.5
 export const BARRICADE_HATCH_SPACING = 2
 /** Spacing of the slanted bars of a crawl passage. */
 export const CRAWL_BAR_SPACING = 1.6
+/** Spacing of the step rungs on stairs. */
+export const STAIRS_RUNG_SPACING = 3
+/** Spacing of the teeth on obstacles. */
+export const OBSTACLE_TOOTH_SPACING = 2.5
 
 // Number marker (dot → leader line → diamond badge with a number)
 export const MARKER_COLOR = '#aaaaaa'

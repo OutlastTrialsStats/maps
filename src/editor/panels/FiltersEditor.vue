@@ -11,20 +11,14 @@ const store = useEditorStore()
 const libraryStore = useLibraryStore()
 
 const filters = computed(() => store.document?.filters ?? [])
-const categoryOptions = computed(() =>
-  libraryStore.categories.map((entry) => ({ label: entry.name, value: entry.id })),
-)
 
 function rename(filterId: string, raw: string): void {
   const name = raw.trim()
   if (!name) {
     return
   }
-  store.commit((doc) => {
-    const filter = doc.filters.find((entry) => entry.id === filterId)
-    if (filter) {
-      filter.name = name
-    }
+  store.commitOn('filter', filterId, (filter) => {
+    filter.name = name
   })
 }
 
@@ -32,23 +26,17 @@ function setCategories(filterId: string, categories: string[]): void {
   if (categories.length === 0) {
     return
   }
-  store.commit((doc) => {
-    const filter = doc.filters.find((entry) => entry.id === filterId)
-    if (filter) {
-      filter.categories = categories
-    }
+  store.commitOn('filter', filterId, (filter) => {
+    filter.categories = categories
   })
 }
 
 function setDefault(filterId: string, enabled: boolean): void {
-  store.commit((doc) => {
-    const filter = doc.filters.find((entry) => entry.id === filterId)
-    if (filter) {
-      if (enabled) {
-        filter.default = true
-      } else {
-        delete filter.default
-      }
+  store.commitOn('filter', filterId, (filter) => {
+    if (enabled) {
+      filter.default = true
+    } else {
+      delete filter.default
     }
   })
 }
@@ -76,7 +64,7 @@ function add(): void {
 </script>
 
 <template>
-  <fieldset class="filters">
+  <fieldset class="filters panel-fieldset">
     <legend>Viewer filters (checkbox = on by default)</legend>
     <div v-for="filter in filters" :key="filter.id" class="row">
       <Checkbox
@@ -101,7 +89,7 @@ function add(): void {
       />
       <MultiSelect
         :model-value="filter.categories"
-        :options="categoryOptions"
+        :options="libraryStore.categoryOptions"
         option-label="label"
         option-value="value"
         size="small"
@@ -113,7 +101,7 @@ function add(): void {
       label="Add filter"
       size="small"
       severity="secondary"
-      :disabled="categoryOptions.length === 0"
+      :disabled="libraryStore.categoryOptions.length === 0"
       @click="add"
     />
   </fieldset>
@@ -121,18 +109,7 @@ function add(): void {
 
 <style scoped>
 .filters {
-  display: flex;
-  flex-direction: column;
   gap: 6px;
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  padding: 8px;
-}
-
-.filters legend {
-  font-size: 12px;
-  color: var(--text-muted);
-  padding: 0 4px;
 }
 
 .row {

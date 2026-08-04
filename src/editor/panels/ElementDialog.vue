@@ -7,12 +7,13 @@ import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
 import Textarea from 'primevue/textarea'
 import { computed, ref, watch } from 'vue'
-import { ICON_FILE_PATTERN, UNKNOWN_ELEMENT_COLOR } from '../../core/constants'
-import { elementIconUrl, toIconFileName } from '../../core/model/dataSource'
+import { UNKNOWN_ELEMENT_COLOR } from '../../core/constants'
+import { toIconFileName } from '../../core/model/dataSource'
 import type { ElementAnchor, ElementDefinition } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import { slugify } from '../store/ids'
 import { useLibraryStore } from '../store/libraryStore'
+import { ICON_FILE_ERROR, useIconField } from './useIconField'
 
 const visible = defineModel<boolean>('visible', { required: true })
 
@@ -31,8 +32,14 @@ const category = ref<string | null>(null)
 /** Hex without "#" (ColorPicker format). */
 const color = ref(UNKNOWN_ELEMENT_COLOR.slice(1))
 const description = ref('')
-/** Bare file name without extension; the host and `.webp` are added when rendering. */
-const iconFile = ref('')
+/** Bare file name without extension; a pasted full asset URL is reduced on write. */
+const rawIcon = ref('')
+const iconFile = computed({
+  get: () => rawIcon.value,
+  set: (value: string) => {
+    rawIcon.value = toIconFileName(value)
+  },
+})
 const size = ref<number | null>(null)
 const anchor = ref<ElementAnchor | null>(null)
 
@@ -48,15 +55,11 @@ const id = computed(() => editing.value?.id ?? slugify(name.value))
 const idTaken = computed(
   () => !editing.value && libraryStore.elements.some((element) => element.id === id.value),
 )
-const iconValid = computed(() => iconFile.value === '' || ICON_FILE_PATTERN.test(iconFile.value))
-const iconPreview = computed(() => (iconValid.value ? elementIconUrl(iconFile.value) : undefined))
+const { valid: iconValid, previewUrl: iconPreview } = useIconField(iconFile)
 const valid = computed(
   () => id.value !== '' && !idTaken.value && category.value !== null && iconValid.value,
 )
 
-const categoryOptions = computed(() =>
-  libraryStore.categories.map((entry) => ({ label: entry.name, value: entry.id })),
-)
 const anchorOptions: Array<{ label: string; value: ElementAnchor | null }> = [
   { label: '(default: center)', value: null },
   { label: 'center', value: 'center' },
@@ -75,11 +78,6 @@ watch(visible, (open) => {
   iconFile.value = element?.icon ?? ''
   size.value = element?.size ?? null
   anchor.value = element?.anchor ?? null
-})
-
-/** Convenience: a pasted full asset URL is reduced to the file name instead of being rejected. */
-watch(iconFile, (value) => {
-  iconFile.value = toIconFileName(value)
 })
 
 /** Merge scalar fields; `render`/`propsSchema` stay untouched (hand-edited only). */
@@ -147,7 +145,7 @@ function save(): void {
         <span class="field-label">Category</span>
         <Select
           v-model="category"
-          :options="categoryOptions"
+          :options="libraryStore.categoryOptions"
           option-label="label"
           option-value="value"
           size="small"
@@ -164,9 +162,7 @@ function save(): void {
       <label class="field">
         <span class="field-label">Icon file name (game-assets, without .webp — empty = placeholder)</span>
         <InputText v-model.trim="iconFile" size="small" placeholder="objectif_key" />
-        <small v-if="!iconValid" class="field-error">
-          Only a bare file name is allowed (no path, no .webp).
-        </small>
+        <small v-if="!iconValid" class="field-error">{{ ICON_FILE_ERROR }}</small>
         <img v-if="iconPreview" :src="iconPreview" alt="" class="icon-preview" />
       </label>
       <div class="field-row">
@@ -207,47 +203,11 @@ function save(): void {
   min-width: 340px;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
 .field-row {
-  display: flex;
   gap: 8px;
 }
 
 .field-row .field {
   flex: 1;
-  min-width: 0;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.field-hint {
-  font-size: 11px;
-  color: var(--text-faint);
-}
-
-.field-error {
-  font-size: 11px;
-  color: var(--danger);
-}
-
-.icon-preview {
-  width: 32px;
-  height: 32px;
-  margin-top: 4px;
-  object-fit: contain;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
 }
 </style>

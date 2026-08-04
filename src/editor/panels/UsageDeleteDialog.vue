@@ -103,14 +103,4 @@ function confirm(): void {
 .warning {
   color: var(--warning);
 }
-
-.error {
-  color: var(--danger);
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
 </style>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
 import Select from 'primevue/select'
-import { computed } from 'vue'
 import { INNER_LINE_STYLE_OPTIONS } from './innerLineStyles'
 import { useEditorStore } from './store/editorStore'
 import type { RoomToolMode, ToolId } from './tools/toolTypes'
@@ -36,10 +35,6 @@ const roomModes: Array<{ id: RoomToolMode; label: string; icon: string; hint: st
     hint: 'Wall gaps — cut openings into the outer wall',
   },
 ]
-
-const floorOptions = computed(() =>
-  store.floors.map((floor) => ({ label: floor.name, value: floor.index })),
-)
 </script>
 
 <template>
@@ -91,7 +86,7 @@ const floorOptions = computed(() =>
       <Select
         v-model="store.activeFloor"
         input-id="floor-select"
-        :options="floorOptions"
+        :options="store.floorOptions"
         option-label="label"
         option-value="value"
         size="small"
@@ -142,11 +137,6 @@ const floorOptions = computed(() =>
 
 .push-right {
   margin-left: auto;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
 }
 
 .floor-select {

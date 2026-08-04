@@ -7,6 +7,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { HitTarget } from '../core/interaction/hitTest'
 import type { Floor } from '../core/model/types'
 import ControlsLegend from '../core/ui/ControlsLegend.vue'
+import PageBackdrop from './PageBackdrop.vue'
 import ViewerCanvas from './ViewerCanvas.vue'
 import ViewerPanel from './panels/ViewerPanel.vue'
 import { useViewerStore } from './store/viewerStore'
@@ -20,8 +21,12 @@ useViewerUrlSync()
 watch(
   () => String(route.params.mapId),
   (mapId) => {
-    const trial = route.query.trial
-    void viewer.loadMap(mapId, typeof trial === 'string' ? trial : undefined)
+    const { trial, floor, room } = route.query
+    void viewer.loadMap(mapId, {
+      trialId: typeof trial === 'string' ? trial : undefined,
+      floor: typeof floor === 'string' ? Number(floor) : undefined,
+      roomId: typeof room === 'string' ? room : undefined,
+    })
   },
   { immediate: true },
 )
@@ -86,10 +91,7 @@ const title = computed(() => viewer.manifest?.meta.name ?? String(route.params.m
 
 <template>
   <div class="viewer">
-    <div v-if="viewer.backgroundUrl" class="backdrop" aria-hidden="true">
-      <img class="backdrop-img" :src="viewer.backgroundUrl" alt="" loading="eager" />
-      <div class="backdrop-overlay" />
-    </div>
+    <PageBackdrop v-if="viewer.backgroundUrl" :src="viewer.backgroundUrl" overlay="flat" />
     <div class="canvas-wrap">
       <ViewerCanvas @open-menu="openMenu" />
       <p v-if="viewer.loading" class="status">Loading {{ title }}…</p>
@@ -134,24 +136,6 @@ const title = computed(() => viewer.manifest?.meta.name ?? String(route.params.m
   height: 100vh;
 }
 
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-}
-
-.backdrop-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.backdrop-overlay {
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--bg-page) 85%, transparent);
-}
-
 .canvas-wrap {
   position: relative;
   flex: 1;
@@ -174,10 +158,6 @@ const title = computed(() => viewer.manifest?.meta.name ?? String(route.params.m
   border-radius: var(--radius-md);
   background: var(--glass-bg);
   backdrop-filter: blur(18px);
-}
-
-.error {
-  color: var(--danger);
 }
 
 .top-controls {

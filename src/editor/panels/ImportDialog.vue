@@ -4,6 +4,7 @@ import Dialog from 'primevue/dialog'
 import Textarea from 'primevue/textarea'
 import { useToast } from 'primevue/usetoast'
 import { computed, ref, watch } from 'vue'
+import { TOAST_LIFE_MS } from '../../core/constants'
 import type { ValidationIssue } from '../../core/model/validation'
 import { importDocument } from '../store/documentIO'
 import { useEditorStore } from '../store/editorStore'
@@ -50,7 +51,7 @@ async function runImport(): Promise<void> {
       toast.add({
         severity: 'success',
         summary: `Imported "${document.mapId} / ${document.trialId}"`,
-        life: 4000,
+        life: TOAST_LIFE_MS,
       })
     }
   } catch (error) {
@@ -101,12 +102,6 @@ async function runImport(): Promise<void> {
 .json-input {
   font-family: ui-monospace, Consolas, monospace;
   font-size: 12px;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
 }
 
 .replace-warning {

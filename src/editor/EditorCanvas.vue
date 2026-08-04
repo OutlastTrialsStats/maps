@@ -2,8 +2,8 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useElementSize } from '../core/interaction/useElementSize'
 import { usePanZoom } from '../core/interaction/usePanZoom'
+import { roomCameras } from '../core/model/roomCameras'
 import { roomsBounds } from '../core/model/roomPath'
-import type { CameraInfo, Vec2 } from '../core/model/types'
 import CameraMarker from '../core/render/CameraMarker.vue'
 import FloorLayer from '../core/render/FloorLayer.vue'
 import GridLayer from '../core/render/GridLayer.vue'
@@ -18,21 +18,16 @@ import { useRoomTool } from './tools/useRoomTool'
 import { useRouteTool } from './tools/useRouteTool'
 import { useSelectTool } from './tools/useSelectTool'
 
-const emit = defineEmits<{
-  cursorMove: [pos: Vec2 | null]
-  zoomChange: [k: number]
-  fineGridChange: [fine: boolean]
-}>()
-
 const editor = useEditorStore()
 const libraryStore = useLibraryStore()
 const zonesStore = useZonesStore()
 
 const canvas = ref<InstanceType<typeof MapCanvas> | null>(null)
 const svgEl = computed(() => canvas.value?.svgEl ?? null)
-const { transform, isSpacePanning, isPanning, resetView, zoomBy, panBy } = usePanZoom(svgEl, {
-  rightDragPan: true,
-})
+const { transform, isSpacePanning, isPanning, resetView, fitBounds, zoomBy, panBy } = usePanZoom(
+  svgEl,
+  { rightDragPan: true },
+)
 const viewport = useElementSize(svgEl)
 
 const tools = {
@@ -57,29 +52,14 @@ const {
   transform,
   isSpacePanning,
   tools,
-  fitView: () => fitToDocument(),
+  fitView: fitToDocument,
   panBy,
 })
 
-watch(cursorWorld, (pos) => emit('cursorMove', pos))
-watch(
-  () => transform.value.k,
-  (k) => emit('zoomChange', k),
-  { immediate: true },
-)
-watch(isFineGrid, (fine) => emit('fineGridChange', fine))
-
+const zoom = computed(() => transform.value.k)
 const isDrawTool = computed(() => editor.activeTool !== 'select')
 
-const selectedRoomCameras = computed<CameraInfo[]>(() => {
-  const room = editor.selectedRoom
-  if (!room || room.floor !== editor.activeFloor) {
-    return []
-  }
-  return (room.info?.images ?? [])
-    .map((image) => image.camera)
-    .filter((camera): camera is CameraInfo => Boolean(camera))
-})
+const selectedRoomCameras = computed(() => roomCameras(editor.selectedRoom, editor.activeFloor))
 
 onMounted(() => fitToDocument())
 watch(
@@ -93,10 +73,15 @@ function fitToDocument(): void {
   if (!doc) {
     return
   }
-  resetView(roomsBounds(doc.rooms) ?? undefined)
+  const bounds = roomsBounds(doc.rooms)
+  if (bounds) {
+    fitBounds(bounds)
+  } else {
+    resetView()
+  }
 }
 
-defineExpose({ fitToDocument, zoomBy })
+defineExpose({ fitToDocument, zoomBy, cursorWorld, zoom, isFineGrid })
 </script>
 
 <template>

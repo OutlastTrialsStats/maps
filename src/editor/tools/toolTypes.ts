@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 import type { HitTarget } from '../../core/interaction/hitTest'
-import type { Vec2 } from '../../core/model/types'
+import type { Bounds, Vec2 } from '../../core/model/types'
 
 export type ToolId = 'select' | 'room' | 'placement' | 'route'
 export type RoomToolMode = 'polygon' | 'rect' | 'innerline' | 'wallgap'
@@ -39,14 +39,12 @@ export type ToolOverlay =
     }
   | { kind: 'ghost'; pos: Vec2; rotation: number; elementId: string }
   | { kind: 'camera'; pos: Vec2; rotation: number }
-  | {
+  | (Bounds & {
       kind: 'resize'
-      min: Vec2
-      max: Vec2
       /** Clockwise from top-left, corners and edge midpoints alternating. */
       handles: Vec2[]
       activeIndex: number | null
-    }
+    })
 
 export interface EditorTool {
   onPointerDown?(event: CanvasPointerEvent): void

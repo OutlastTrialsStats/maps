@@ -110,15 +110,4 @@ function setList(key: string, raw: string): void {
   flex-direction: column;
   gap: 8px;
 }
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
 </style>

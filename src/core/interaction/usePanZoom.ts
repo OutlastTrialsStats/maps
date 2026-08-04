@@ -8,14 +8,10 @@ import {
   ZOOM_MAX,
   ZOOM_MIN,
 } from '../constants'
-import type { Vec2 } from '../model/types'
+import type { Bounds, Vec2 } from '../model/types'
+import { clamp, distance } from '../model/vec2'
 import { isEditableTarget } from './eventTargets'
 import type { ViewTransform } from './viewTransform'
-
-export interface WorldBounds {
-  min: Vec2
-  max: Vec2
-}
 
 export interface PanZoomOptions {
   /** Pan with the left mouse button as well — in the editor it stays reserved for the tools. */
@@ -84,7 +80,7 @@ export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?
     if (!rightDragStart || rightDragMoved) {
       return
     }
-    const travel = Math.hypot(event.clientX - rightDragStart[0], event.clientY - rightDragStart[1])
+    const travel = distance([event.clientX, event.clientY], rightDragStart)
     rightDragMoved = travel > RIGHT_DRAG_PAN_THRESHOLD_PX
   }
   /** `rightDragMoved` has to survive this: `contextmenu` only fires after the pointer-up. */
@@ -180,14 +176,15 @@ export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?
     }
   }
 
-  /** Fits the view to the given world bounds (without bounds: identity). */
-  function resetView(bounds?: WorldBounds): void {
+  function resetView(): void {
+    if (behavior && selection) {
+      selection.call(behavior.transform, zoomIdentity)
+    }
+  }
+
+  function fitBounds(bounds: Bounds): void {
     const svg = svgRef.value
     if (!svg || !behavior || !selection) {
-      return
-    }
-    if (!bounds) {
-      selection.call(behavior.transform, zoomIdentity)
       return
     }
     const rect = svg.getBoundingClientRect()
@@ -196,11 +193,9 @@ export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?
     if (rect.width === 0 || rect.height === 0 || width <= 0 || height <= 0) {
       return
     }
-    const scale = Math.min(
-      Math.max(
-        Math.min(rect.width / width, rect.height / height) * FIT_VIEW_PADDING_RATIO,
-        ZOOM_MIN,
-      ),
+    const scale = clamp(
+      Math.min(rect.width / width, rect.height / height) * FIT_VIEW_PADDING_RATIO,
+      ZOOM_MIN,
       ZOOM_MAX,
     )
     const center: Vec2 = [(bounds.min[0] + bounds.max[0]) / 2, (bounds.min[1] + bounds.max[1]) / 2]
@@ -218,6 +213,7 @@ export function usePanZoom(svgRef: Readonly<Ref<SVGSVGElement | null>>, options?
     isSpacePanning: readonly(isSpacePanning),
     isPanning: readonly(isPanning),
     resetView,
+    fitBounds,
     zoomBy,
     panBy,
   }

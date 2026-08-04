@@ -59,7 +59,7 @@ defineProps<{
   font-weight: 700;
   line-height: 1.1;
   color: var(--text-primary);
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 4px var(--text-shadow-color);
 }
 
 .banner-subtitle {
@@ -70,6 +70,6 @@ defineProps<{
   line-height: 1.5;
   color: var(--text-body);
   text-wrap: balance;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 4px var(--text-shadow-color);
 }
 </style>

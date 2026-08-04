@@ -1,15 +1,12 @@
 import { computed, ref, watch } from 'vue'
-import { WALL_GAP_MIN_LENGTH } from '../../core/constants'
+import { MIN_OPEN_PATH_POINTS, MIN_POLYGON_POINTS } from '../../core/constants'
 import { snapOrtho } from '../../core/interaction/snapping'
-import { pointsToOpenPath, pointsToRelativePath, shapeToPoints } from '../../core/model/roomPath'
-import type { Room, Vec2, WallGap } from '../../core/model/types'
-import {
-  clampWallGaps,
-  remapWallGapsOnInsert,
-  remapWallGapsOnRemove,
-} from '../../core/model/wallGaps'
+import { pointsToOpenPath, pointsToRelativePath } from '../../core/model/roomPath'
+import type { Room, Vec2 } from '../../core/model/types'
+import { distance } from '../../core/model/vec2'
 import { useEditorStore } from '../store/editorStore'
 import { useZonesStore } from '../store/zonesStore'
+import { useRoomVertexMode } from './useRoomVertexMode'
 import { useWallGapMode } from './useWallGapMode'
 import {
   activeAnchor,
@@ -22,8 +19,6 @@ import {
 } from './drawingPoints'
 import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 
-const MIN_POLYGON_POINTS = 3
-const MIN_INNER_LINE_POINTS = 2
 /** Below two points both ends coincide — the far end is the anchor itself. */
 const MIN_ENDPOINT_HIT_POINTS = 2
 
@@ -35,23 +30,11 @@ type RoomToolState =
   | ({ kind: 'drawing'; preview: Vec2 | null } & DrawingPoints)
   | { kind: 'rect'; start: Vec2; preview: Vec2 | null }
   | ({ kind: 'innerline'; roomId: string; origin: Vec2; preview: Vec2 | null } & DrawingPoints)
-  | {
-      kind: 'vertex'
-      roomId: string
-      origin: Vec2
-      points: Vec2[]
-      dragIndex: number | null
-      dragged: boolean
-      /** Edge indexes of the wall gaps shift with inserted/removed vertices. */
-      gapRemap: ((gaps: WallGap[]) => WallGap[]) | null
-    }
 
-function distance(a: Vec2, b: Vec2): number {
-  return Math.hypot(a[0] - b[0], a[1] - b[1])
-}
+type DrawingState = Extract<RoomToolState, { kind: 'drawing' | 'innerline' }>
 
-function midpoint(a: Vec2, b: Vec2): Vec2 {
-  return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
+function isDrawing(state: RoomToolState): state is DrawingState {
+  return state.kind === 'drawing' || state.kind === 'innerline'
 }
 
 export function useRoomTool(): EditorTool {
@@ -59,6 +42,7 @@ export function useRoomTool(): EditorTool {
   const zonesStore = useZonesStore()
   const state = ref<RoomToolState>({ kind: 'idle' })
   const wallGaps = useWallGapMode()
+  const vertexMode = useRoomVertexMode()
 
   const inWallGapMode = (): boolean => store.roomToolMode === 'wallgap'
 
@@ -82,6 +66,7 @@ export function useRoomTool(): EditorTool {
 
   function reset(): void {
     state.value = { kind: 'idle' }
+    vertexMode.reset()
     store.drawingHistory = null
     if (inWallGapMode()) {
       wallGaps.reset()
@@ -92,23 +77,20 @@ export function useRoomTool(): EditorTool {
 
   function registerHistory(): void {
     store.drawingHistory = {
-      canUndo: () => state.value.kind === 'drawing' || state.value.kind === 'innerline',
+      canUndo: () => isDrawing(state.value),
       canRedo: () => {
         const current = state.value
-        return (
-          (current.kind === 'drawing' || current.kind === 'innerline') &&
-          current.redoPoints.length > 0
-        )
+        return isDrawing(current) && current.redoPoints.length > 0
       },
       undo: () => {
         const current = state.value
-        if ((current.kind === 'drawing' || current.kind === 'innerline') && !undoPoint(current)) {
+        if (isDrawing(current) && !undoPoint(current)) {
           reset()
         }
       },
       redo: () => {
         const current = state.value
-        if (current.kind === 'drawing' || current.kind === 'innerline') {
+        if (isDrawing(current)) {
           redoPoint(current)
         }
       },
@@ -173,102 +155,15 @@ export function useRoomTool(): EditorTool {
   }
 
   function commitInnerLine(roomId: string, origin: Vec2, points: Vec2[]): void {
-    if (points.length < MIN_INNER_LINE_POINTS) {
+    if (points.length < MIN_OPEN_PATH_POINTS) {
       reset()
       return
     }
     const local = points.map(([x, y]): Vec2 => [x - origin[0], y - origin[1]])
-    store.commit((doc) => {
-      const room = doc.rooms.find((entry) => entry.id === roomId)
-      if (!room) {
-        return
-      }
+    store.commitOn('room', roomId, (room) => {
       room.innerLines = room.innerLines ?? []
       room.innerLines.push({ path: pointsToOpenPath(local), style: store.innerLineStyle })
     })
-    reset()
-  }
-
-  /** End of vertex editing: normalize the origin to the first point, rect becomes path. */
-  function commitVertexEdit(current: Extract<RoomToolState, { kind: 'vertex' }>): void {
-    const first = current.points[0]
-    const origin: Vec2 = [current.origin[0] + first[0], current.origin[1] + first[1]]
-    const local = current.points.map(([x, y]): Vec2 => [x - first[0], y - first[1]])
-    const remap = current.gapRemap
-    current.gapRemap = null
-    store.commit((doc) => {
-      const room = doc.rooms.find((entry) => entry.id === current.roomId)
-      if (!room) {
-        return
-      }
-      room.shape = { origin, path: pointsToRelativePath(local) }
-      const previous = room.wallGaps ?? []
-      const gaps = clampWallGaps(local, remap ? remap(previous) : previous, WALL_GAP_MIN_LENGTH)
-      if (gaps.length > 0) {
-        room.wallGaps = gaps
-      } else {
-        delete room.wallGaps
-      }
-    })
-  }
-
-  function enterVertexEdit(roomId: string): void {
-    const room = store.document?.rooms.find((entry) => entry.id === roomId)
-    if (!room) {
-      return
-    }
-    const points = shapeToPoints(room.shape)
-    if (!points) {
-      store.toolHint = 'This room path uses unsupported commands — vertex editing is disabled.'
-      return
-    }
-    state.value = {
-      kind: 'vertex',
-      roomId,
-      origin: room.shape.origin,
-      points,
-      dragIndex: null,
-      dragged: false,
-      gapRemap: null,
-    }
-    store.toolHint = 'Drag vertices; click a midpoint to insert, Alt+click a vertex to delete.'
-    store.setSelection([{ kind: 'room', id: roomId }])
-  }
-
-  function handleVertexPointerDown(
-    current: Extract<RoomToolState, { kind: 'vertex' }>,
-    event: CanvasPointerEvent,
-  ): void {
-    const local: Vec2 = [event.world[0] - current.origin[0], event.world[1] - current.origin[1]]
-    const vertexIndex = current.points.findIndex(
-      (point) => distance(point, local) <= event.hitRadius,
-    )
-    if (vertexIndex >= 0) {
-      if (event.event.altKey) {
-        if (current.points.length > MIN_POLYGON_POINTS) {
-          current.points.splice(vertexIndex, 1)
-          current.gapRemap = (gaps) => remapWallGapsOnRemove(gaps, vertexIndex)
-          commitVertexEdit(current)
-          enterVertexEdit(current.roomId)
-        }
-        return
-      }
-      current.dragIndex = vertexIndex
-      current.dragged = false
-      return
-    }
-    const midIndex = current.points.findIndex((point, index) => {
-      const next = current.points[(index + 1) % current.points.length]
-      return distance(midpoint(point, next), local) <= event.hitRadius
-    })
-    if (midIndex >= 0) {
-      const next = current.points[(midIndex + 1) % current.points.length]
-      current.points.splice(midIndex + 1, 0, midpoint(current.points[midIndex], next))
-      current.gapRemap = (gaps) => remapWallGapsOnInsert(gaps, midIndex)
-      current.dragIndex = midIndex + 1
-      current.dragged = true
-      return
-    }
     reset()
   }
 
@@ -280,13 +175,13 @@ export function useRoomTool(): EditorTool {
         wallGaps.onPointerDown(event)
         return
       }
+      if (vertexMode.isActive.value) {
+        vertexMode.onPointerDown(event)
+        return
+      }
       const current = state.value
       const mode = store.roomToolMode
 
-      if (current.kind === 'vertex') {
-        handleVertexPointerDown(current, event)
-        return
-      }
       if (mode === 'polygon') {
         if (current.kind === 'drawing') {
           if (isEndpointClick(current, event)) {
@@ -347,19 +242,15 @@ export function useRoomTool(): EditorTool {
         wallGaps.onPointerMove(event)
         return
       }
+      if (vertexMode.isActive.value) {
+        vertexMode.onPointerMove(event)
+        return
+      }
       const current = state.value
       if (current.kind === 'drawing') {
         current.preview = snapPoint(event, activeAnchor(current))
-      } else if (current.kind === 'rect') {
+      } else if (current.kind === 'rect' || current.kind === 'innerline') {
         current.preview = event.snapped
-      } else if (current.kind === 'innerline') {
-        current.preview = event.snapped
-      } else if (current.kind === 'vertex' && current.dragIndex !== null) {
-        current.points[current.dragIndex] = [
-          event.snapped[0] - current.origin[0],
-          event.snapped[1] - current.origin[1],
-        ]
-        current.dragged = true
       }
     },
 
@@ -368,15 +259,7 @@ export function useRoomTool(): EditorTool {
         wallGaps.onPointerUp()
         return
       }
-      const current = state.value
-      if (current.kind === 'vertex' && current.dragIndex !== null) {
-        if (current.dragged) {
-          commitVertexEdit(current)
-          enterVertexEdit(current.roomId)
-        } else {
-          current.dragIndex = null
-        }
-      }
+      vertexMode.onPointerUp()
     },
 
     onDblClick(event: CanvasPointerEvent): void {
@@ -388,11 +271,11 @@ export function useRoomTool(): EditorTool {
       // points to become anything it was meant for the room underneath.
       const startsVertexEdit =
         (current.kind === 'drawing' && current.points.length < MIN_POLYGON_POINTS) ||
-        (current.kind === 'innerline' && current.points.length < MIN_INNER_LINE_POINTS) ||
+        (current.kind === 'innerline' && current.points.length < MIN_OPEN_PATH_POINTS) ||
         current.kind === 'idle'
       if (startsVertexEdit && store.roomToolMode !== 'rect' && event.hit?.kind === 'room') {
         reset()
-        enterVertexEdit(event.hit.id)
+        vertexMode.enter(event.hit.id)
         return
       }
       if (current.kind === 'drawing') {
@@ -409,7 +292,7 @@ export function useRoomTool(): EditorTool {
         return wallGaps.onKeydown(event)
       }
       const current = state.value
-      if (event.key === 'Tab' && (current.kind === 'drawing' || current.kind === 'innerline')) {
+      if (event.key === 'Tab' && isDrawing(current)) {
         switchEnd(current)
         return true
       }
@@ -424,16 +307,13 @@ export function useRoomTool(): EditorTool {
         }
         return false
       }
-      if (
-        event.key === 'Backspace' &&
-        (current.kind === 'drawing' || current.kind === 'innerline')
-      ) {
+      if (event.key === 'Backspace' && isDrawing(current)) {
         if (!undoPoint(current)) {
           reset()
         }
         return true
       }
-      if (event.key === 'Escape' && current.kind !== 'idle') {
+      if (event.key === 'Escape' && (current.kind !== 'idle' || vertexMode.isActive.value)) {
         reset()
         return true
       }
@@ -445,6 +325,7 @@ export function useRoomTool(): EditorTool {
     },
     deactivate(): void {
       state.value = { kind: 'idle' }
+      vertexMode.reset()
       store.drawingHistory = null
       wallGaps.reset()
       store.toolHint = ''
@@ -454,8 +335,11 @@ export function useRoomTool(): EditorTool {
       if (inWallGapMode()) {
         return wallGaps.overlay.value
       }
+      if (vertexMode.overlay.value) {
+        return vertexMode.overlay.value
+      }
       const current = state.value
-      if (current.kind === 'drawing') {
+      if (isDrawing(current)) {
         return {
           kind: 'polyline',
           points: current.points,
@@ -465,22 +349,6 @@ export function useRoomTool(): EditorTool {
       }
       if (current.kind === 'rect') {
         return { kind: 'rect', from: current.start, to: current.preview ?? current.start }
-      }
-      if (current.kind === 'innerline') {
-        return {
-          kind: 'polyline',
-          points: current.points,
-          preview: current.preview,
-          activeEnd: current.activeEnd,
-        }
-      }
-      if (current.kind === 'vertex') {
-        return {
-          kind: 'vertices',
-          origin: current.origin,
-          points: current.points,
-          activeIndex: current.dragIndex,
-        }
       }
       return null
     }),

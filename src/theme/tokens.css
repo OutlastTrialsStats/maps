@@ -19,7 +19,6 @@
   --surface-active: rgba(255, 255, 255, 0.12);
   --surface-popup: rgba(20, 20, 25, 0.98);
   --glass-bg: rgba(13, 14, 18, 0.72);
-  --glass-card-bg: rgba(10, 10, 10, 0.75);
 
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.06);
@@ -33,38 +32,23 @@
   --text-body: rgba(255, 255, 255, 0.7);
   --text-muted: rgba(255, 255, 255, 0.55);
   --text-faint: rgba(255, 255, 255, 0.45);
-  --text-subtitle: #9ca3af;
 
   /* Accents */
   --accent: #ef4444;
   --accent-hover: #f87171;
-  --accent-soft: rgba(239, 68, 68, 0.15);
   --danger: #ef4444;
   --warning: #e0913c;
   --success: #22c55e;
-  --info: #22d3ee;
   --color-selection: #4da3ff; /* must match SELECTION_COLOR (core/constants.ts) */
   --color-selection-soft: rgba(77, 163, 255, 0.12);
+  --text-shadow-color: rgba(0, 0, 0, 0.8);
 
   /* Radii */
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 12px;
   --radius-xl: 14px;
-  --radius-2xl: 16px;
   --radius-pill: 999px;
-
-  /* Shadows */
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --shadow-heavy: 0 12px 48px rgba(0, 0, 0, 0.4);
-  --glow-accent: 0 6px 28px rgba(239, 68, 68, 0.22);
-}
-
-.glass-card {
-  background: var(--glass-card-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-xl);
 }
 
 .surface-card {
@@ -75,4 +59,17 @@
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+.error {
+  color: var(--danger);
+}
+
+.panel-heading {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }

@@ -7,8 +7,10 @@ import {
 } from '../core/constants'
 import { hitFromEventTarget, type HitTarget } from '../core/interaction/hitTest'
 import { usePanZoom } from '../core/interaction/usePanZoom'
+import { roomCameras } from '../core/model/roomCameras'
 import { roomsBounds } from '../core/model/roomPath'
 import type { Placement } from '../core/model/types'
+import { withinRadius } from '../core/model/vec2'
 import CameraMarker from '../core/render/CameraMarker.vue'
 import FloorLayer from '../core/render/FloorLayer.vue'
 import MapCanvas from '../core/render/MapCanvas.vue'
@@ -19,13 +21,18 @@ const emit = defineEmits<{ openMenu: [hit: HitTarget | null, event: MouseEvent] 
 const viewer = useViewerStore()
 const canvas = ref<InstanceType<typeof MapCanvas> | null>(null)
 const svgEl = computed(() => canvas.value?.svgEl ?? null)
-const { transform, resetView } = usePanZoom(svgEl, { dragPan: true })
+const { transform, resetView, fitBounds } = usePanZoom(svgEl, { dragPan: true })
 
 watch(
   () => viewer.trial,
   (trial) => {
     if (trial) {
-      resetView(roomsBounds(trial.rooms) ?? undefined)
+      const bounds = roomsBounds(trial.rooms)
+      if (bounds) {
+        fitBounds(bounds)
+      } else {
+        resetView()
+      }
     }
   },
   { flush: 'post' },
@@ -35,13 +42,7 @@ const selectedIds = computed(
   () => new Set(viewer.selectedRoomId ? [viewer.selectedRoomId] : []),
 )
 
-const cameraMarkers = computed(() => {
-  const room = viewer.selectedRoom
-  if (!room || room.floor !== viewer.activeFloor) {
-    return []
-  }
-  return (room.info?.images ?? []).flatMap((image) => (image.camera ? [image.camera] : []))
-})
+const cameraMarkers = computed(() => roomCameras(viewer.selectedRoom, viewer.activeFloor))
 
 const tooltip = ref<{ x: number; y: number; placement: Placement } | null>(null)
 
@@ -88,8 +89,7 @@ function onPointerDown(event: PointerEvent): void {
 function cancelLongPressOnMove(event: PointerEvent): void {
   if (
     longPressStart &&
-    Math.hypot(event.clientX - longPressStart[0], event.clientY - longPressStart[1]) >
-      LONG_PRESS_MOVE_TOLERANCE_PX
+    !withinRadius([event.clientX, event.clientY], longPressStart, LONG_PRESS_MOVE_TOLERANCE_PX)
   ) {
     cancelLongPress()
   }

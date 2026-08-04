@@ -14,19 +14,15 @@ import {
   roomWorldPoints,
   translateAbsolutePathStart,
 } from '../../core/model/roomPath'
-import type { TrialDocument, Vec2 } from '../../core/model/types'
+import type { Bounds, TrialDocument, Vec2 } from '../../core/model/types'
+import { distance, withinRadius } from '../../core/model/vec2'
 import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 import { useClipboard } from './useClipboard'
 import { useRoomResize } from './useRoomResize'
 import { useRouteEditMode } from './useRouteEditMode'
 
-interface WorldRect {
-  min: Vec2
-  max: Vec2
-}
-
-function inRect(rect: WorldRect, point: Vec2): boolean {
+function inRect(rect: Bounds, point: Vec2): boolean {
   return (
     point[0] >= rect.min[0] &&
     point[0] <= rect.max[0] &&
@@ -35,7 +31,7 @@ function inRect(rect: WorldRect, point: Vec2): boolean {
   )
 }
 
-function boundsOverlap(rect: WorldRect, bounds: WorldRect): boolean {
+function boundsOverlap(rect: Bounds, bounds: Bounds): boolean {
   return (
     bounds.min[0] <= rect.max[0] &&
     bounds.max[0] >= rect.min[0] &&
@@ -52,7 +48,7 @@ export function useSelectTool(): EditorTool {
   let dragState: { last: Vec2; moved: boolean; markerId: string | null } | null = null
   const marquee = ref<{ from: Vec2; to: Vec2; screenFrom: Vec2; additive: boolean } | null>(null)
 
-  function targetsInRect(rect: WorldRect): HitTarget[] {
+  function targetsInRect(rect: Bounds): HitTarget[] {
     const doc = store.document
     if (!doc) {
       return []
@@ -92,9 +88,9 @@ export function useSelectTool(): EditorTool {
       return
     }
     marquee.value = null
-    const screenDistance = Math.hypot(
-      event.event.clientX - state.screenFrom[0],
-      event.event.clientY - state.screenFrom[1],
+    const screenDistance = distance(
+      [event.event.clientX, event.event.clientY],
+      state.screenFrom,
     )
     if (screenDistance < MARQUEE_MIN_DRAG_PX) {
       if (!state.additive) {
@@ -102,7 +98,7 @@ export function useSelectTool(): EditorTool {
       }
       return
     }
-    const rect: WorldRect = {
+    const rect: Bounds = {
       min: [Math.min(state.from[0], state.to[0]), Math.min(state.from[1], state.to[1])],
       max: [Math.max(state.from[0], state.to[0]), Math.max(state.from[1], state.to[1])],
     }
@@ -125,8 +121,11 @@ export function useSelectTool(): EditorTool {
       if (!entry.marker || entry.floor !== store.activeFloor) {
         return false
       }
-      const badge = [entry.pos[0] + entry.marker.offset[0], entry.pos[1] + entry.marker.offset[1]]
-      return Math.hypot(world[0] - badge[0], world[1] - badge[1]) <= radius
+      const badge: Vec2 = [
+        entry.pos[0] + entry.marker.offset[0],
+        entry.pos[1] + entry.marker.offset[1],
+      ]
+      return withinRadius(world, badge, radius)
     })
     return placement?.id ?? null
   }

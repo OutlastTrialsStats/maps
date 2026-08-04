@@ -34,23 +34,24 @@ const props = defineProps<{
 
 const iconUrl = computed(() => elementIconUrl(props.element.icon))
 
-const { showIcon, onIconError } = useIconFallback(() => iconUrl.value)
+const { showIcon, onIconError } = useIconFallback(iconUrl)
 
-const render = computed(() => props.element.render)
-const kind = computed(() => render.value?.kind)
+const kind = computed(() => props.element.render?.kind)
 const meta = computed(() => (kind.value ? STRUCTURAL_META[kind.value] : undefined))
 
-const dims = computed<[number, number]>(() => {
-  const fallback: [number, number] = [render.value?.length ?? 0, render.value?.thickness ?? 0]
+const dims = computed(() => {
+  const render = props.element.render
+  const fallback = { length: render?.length ?? 0, thickness: render?.thickness ?? 0 }
   if (!meta.value?.resizable) {
     return fallback
   }
-  return [props.placement.size?.[0] ?? fallback[0], props.placement.size?.[1] ?? fallback[1]]
+  return {
+    length: props.placement.size?.[0] ?? fallback.length,
+    thickness: props.placement.size?.[1] ?? fallback.thickness,
+  }
 })
-const length = computed(() => dims.value[0])
-const thickness = computed(() => dims.value[1])
 
-const rectPath = computed(() => centeredRectPath(length.value, thickness.value))
+const rectPath = computed(() => centeredRectPath(dims.value.length, dims.value.thickness))
 const ascending = computed(() => props.placement.props?.direction !== 'down')
 
 /** Door/window/stairs variants differ only by the library color, not by code. */
@@ -67,12 +68,12 @@ const icon = computed(() => {
     return undefined
   }
   const size = props.element.size ?? ICON_DEFAULT_SIZE
-  const centerY = meta.value?.anchor === 'edge' ? -thickness.value / 2 : 0
+  const centerY = meta.value?.anchor === 'edge' ? -dims.value.thickness / 2 : 0
   return { url, size, x: -size / 2, y: centerY - size / 2 }
 })
 
 const selectionBounds = computed(() => {
-  const [l, t] = dims.value
+  const { length: l, thickness: t } = dims.value
   const offset = SELECTION_RING_OFFSET
   return {
     x: -l / 2 - offset,
@@ -92,35 +93,35 @@ const selectionBounds = computed(() => {
   >
     <template v-if="kind === 'door' || kind === 'double-door'">
       <path :d="rectPath" :fill="bodyFill" class="body" />
-      <path v-if="kind === 'double-door'" :d="doorSeamPath(thickness)" class="door-seam" />
+      <path v-if="kind === 'double-door'" :d="doorSeamPath(dims.thickness)" class="door-seam" />
     </template>
     <template v-else-if="kind === 'barricaded-door'">
       <path :d="rectPath" :fill="bodyFill" class="body" />
-      <path :d="barricadePlankPath(length, thickness)" :fill="bodyFill" class="barricade-plank" />
-      <path :d="barricadeHatchPath(length, thickness)" class="barricade-hatch" />
+      <path :d="barricadePlankPath(dims.length, dims.thickness)" :fill="bodyFill" class="barricade-plank" />
+      <path :d="barricadeHatchPath(dims.length, dims.thickness)" class="barricade-hatch" />
     </template>
     <template v-else-if="kind === 'window'">
       <path :d="rectPath" :fill="bodyFill" class="body" />
-      <path :d="windowMullionPath(length)" class="window-mullion" />
+      <path :d="windowMullionPath(dims.length)" class="window-mullion" />
     </template>
     <template v-else-if="kind === 'crawl-passage'">
       <path :d="rectPath" :fill="bodyFill" class="body" />
-      <path :d="crawlBarsPath(length, thickness)" class="crawl-bars" />
+      <path :d="crawlBarsPath(dims.length, dims.thickness)" class="crawl-bars" />
     </template>
     <template v-else-if="kind === 'obstacle'">
       <path :d="rectPath" :fill="bodyFill" />
-      <path :d="obstacleTeethPath(length, thickness)" class="obstacle-decor" />
-      <path :d="obstacleChevronsPath(length, thickness)" class="obstacle-chevrons" />
+      <path :d="obstacleTeethPath(dims.length, dims.thickness)" class="obstacle-decor" />
+      <path :d="obstacleChevronsPath(dims.length, dims.thickness)" class="obstacle-chevrons" />
     </template>
     <template v-else-if="kind === 'stairs'">
       <path :d="rectPath" :fill="bodyFill" class="stairs" />
-      <path :d="stairsRungsPath(length, thickness)" class="stairs-rungs" />
-      <path :d="stairsArrowPath(length, thickness, ascending)" class="stairs-arrow" />
+      <path :d="stairsRungsPath(dims.length, dims.thickness)" class="stairs-rungs" />
+      <path :d="stairsArrowPath(dims.length, dims.thickness, ascending)" class="stairs-arrow" />
     </template>
     <template v-else-if="kind === 'spawn-room'">
-      <path :d="spawnRoomFloorPath(length, thickness)" class="spawn-floor" />
+      <path :d="spawnRoomFloorPath(dims.length, dims.thickness)" class="spawn-floor" />
       <path
-        :d="spawnRoomWallPath(length, thickness)"
+        :d="spawnRoomWallPath(dims.length, dims.thickness)"
         :stroke-width="ROOM_WALL_WIDTH"
         class="spawn-walls"
       />

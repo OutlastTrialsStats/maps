@@ -3,8 +3,11 @@
 import { shapeToPoints } from './roomPath.ts'
 import type {
   Contributors,
+  ElementDefinition,
   ElementLibrary,
   MapManifest,
+  MapsIndex,
+  Placement,
   Room,
   TrialDocument,
   ZoneLibrary,
@@ -23,7 +26,7 @@ export interface ValidationIssue {
   message: string
 }
 
-export function checkUniqueIds(
+function checkUniqueIds(
   issues: ValidationIssue[],
   path: string,
   label: string,
@@ -71,6 +74,17 @@ export function collectZoneLibraryIssues(zones: ZoneLibrary): ValidationIssue[] 
     'zones',
     'zone',
     zones.zones.map((zone) => zone.id),
+  )
+  return issues
+}
+
+export function collectMapsIndexIssues(mapsIndex: MapsIndex): ValidationIssue[] {
+  const issues: ValidationIssue[] = []
+  checkUniqueIds(
+    issues,
+    'maps',
+    'map',
+    mapsIndex.maps.map((entry) => entry.id),
   )
   return issues
 }
@@ -163,88 +177,114 @@ export function collectManifestIssues(manifest: MapManifest): ValidationIssue[] 
   return issues
 }
 
+/** Lookup sets shared by the per-entity collectors of `collectTrialLogicIssues`. */
+interface TrialContext {
+  floorIndexes: ReadonlySet<number>
+  zoneIds: ReadonlySet<string>
+  categoryIds: ReadonlySet<string>
+  elementsById: ReadonlyMap<string, ElementDefinition>
+  roomsById: ReadonlyMap<string, Room>
+}
+
+function collectRoomIssues(room: Room, index: number, context: TrialContext): ValidationIssue[] {
+  const issues: ValidationIssue[] = []
+  if (!context.floorIndexes.has(room.floor)) {
+    issues.push({ path: `rooms[${index}].floor`, message: `unknown floor ${room.floor}` })
+  }
+  if (!context.zoneIds.has(room.zone)) {
+    issues.push({ path: `rooms[${index}].zone`, message: `unknown zone "${room.zone}"` })
+  }
+  issues.push(...collectWallGapIssues(room, `rooms[${index}]`))
+  return issues
+}
+
+function collectPlacementIssues(
+  placement: Placement,
+  index: number,
+  context: TrialContext,
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = []
+  const element = context.elementsById.get(placement.element)
+  if (!element) {
+    issues.push({
+      path: `placements[${index}].element`,
+      message: `unknown element "${placement.element}"`,
+    })
+  }
+  if (placement.size !== undefined) {
+    if (element && !element.render) {
+      issues.push({
+        path: `placements[${index}].size`,
+        message: `"size" is only allowed on structural elements (element "${placement.element}" has none)`,
+      })
+    }
+    if (placement.size.some((value) => value <= 0)) {
+      issues.push({
+        path: `placements[${index}].size`,
+        message: 'size values must be greater than 0',
+      })
+    }
+  }
+  if (!context.floorIndexes.has(placement.floor)) {
+    issues.push({
+      path: `placements[${index}].floor`,
+      message: `unknown floor ${placement.floor}`,
+    })
+  }
+  if (placement.roomId !== undefined) {
+    const room = context.roomsById.get(placement.roomId)
+    if (!room) {
+      issues.push({
+        path: `placements[${index}].roomId`,
+        message: `unknown room "${placement.roomId}"`,
+      })
+    } else if (room.floor !== placement.floor) {
+      issues.push({
+        path: `placements[${index}].roomId`,
+        message: `placement is on floor ${placement.floor} but room "${room.id}" is on floor ${room.floor}`,
+      })
+    }
+  }
+  return issues
+}
+
 export function collectTrialLogicIssues(
   trial: TrialDocument,
   library: ElementLibrary | null,
   zones: ZoneLibrary | null,
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = []
+  const context: TrialContext = {
+    floorIndexes: new Set(trial.floors.map((floor) => floor.index)),
+    zoneIds: new Set((zones?.zones ?? []).map((zone) => zone.id)),
+    categoryIds: new Set((library?.categories ?? []).map((category) => category.id)),
+    elementsById: new Map((library?.elements ?? []).map((element) => [element.id, element])),
+    roomsById: new Map(trial.rooms.map((room) => [room.id, room])),
+  }
 
-  const floorIndexes = new Set(trial.floors.map((floor) => floor.index))
-  const zoneIds = new Set((zones?.zones ?? []).map((zone) => zone.id))
-  const categoryIds = new Set((library?.categories ?? []).map((category) => category.id))
-  const elementsById = new Map((library?.elements ?? []).map((element) => [element.id, element]))
-  const roomsById = new Map(trial.rooms.map((room) => [room.id, room]))
+  const uniqueIdChecks: Array<[string, string, Array<string | number>]> = [
+    ['floors', 'floor', trial.floors.map((floor) => floor.index)],
+    ['filters', 'filter', trial.filters.map((filter) => filter.id)],
+    ['rooms', 'room', trial.rooms.map((room) => room.id)],
+    ['placements', 'placement', trial.placements.map((placement) => placement.id)],
+    ['routes', 'route', trial.routes.map((route) => route.id)],
+  ]
+  for (const [path, label, ids] of uniqueIdChecks) {
+    checkUniqueIds(issues, path, label, ids)
+  }
 
-  checkUniqueIds(issues, 'floors', 'floor', trial.floors.map((floor) => floor.index))
-  checkUniqueIds(issues, 'filters', 'filter', trial.filters.map((filter) => filter.id))
-  checkUniqueIds(issues, 'rooms', 'room', trial.rooms.map((room) => room.id))
-  checkUniqueIds(issues, 'placements', 'placement', trial.placements.map((p) => p.id))
-  checkUniqueIds(issues, 'routes', 'route', trial.routes.map((route) => route.id))
-
-  trial.rooms.forEach((room, index) => {
-    if (!floorIndexes.has(room.floor)) {
-      issues.push({ path: `rooms[${index}].floor`, message: `unknown floor ${room.floor}` })
-    }
-    if (!zoneIds.has(room.zone)) {
-      issues.push({ path: `rooms[${index}].zone`, message: `unknown zone "${room.zone}"` })
-    }
-    issues.push(...collectWallGapIssues(room, `rooms[${index}]`))
-  })
-
-  trial.placements.forEach((placement, index) => {
-    const element = elementsById.get(placement.element)
-    if (!element) {
-      issues.push({
-        path: `placements[${index}].element`,
-        message: `unknown element "${placement.element}"`,
-      })
-    }
-    if (placement.size !== undefined) {
-      if (element && !element.render) {
-        issues.push({
-          path: `placements[${index}].size`,
-          message: `"size" is only allowed on structural elements (element "${placement.element}" has none)`,
-        })
-      }
-      if (placement.size.some((value) => value <= 0)) {
-        issues.push({
-          path: `placements[${index}].size`,
-          message: 'size values must be greater than 0',
-        })
-      }
-    }
-    if (!floorIndexes.has(placement.floor)) {
-      issues.push({
-        path: `placements[${index}].floor`,
-        message: `unknown floor ${placement.floor}`,
-      })
-    }
-    if (placement.roomId !== undefined) {
-      const room = roomsById.get(placement.roomId)
-      if (!room) {
-        issues.push({
-          path: `placements[${index}].roomId`,
-          message: `unknown room "${placement.roomId}"`,
-        })
-      } else if (room.floor !== placement.floor) {
-        issues.push({
-          path: `placements[${index}].roomId`,
-          message: `placement is on floor ${placement.floor} but room "${room.id}" is on floor ${room.floor}`,
-        })
-      }
-    }
-  })
-
+  trial.rooms.forEach((room, index) => issues.push(...collectRoomIssues(room, index, context)))
+  trial.placements.forEach((placement, index) =>
+    issues.push(...collectPlacementIssues(placement, index, context)),
+  )
   trial.routes.forEach((route, index) => {
-    if (!floorIndexes.has(route.floor)) {
+    if (!context.floorIndexes.has(route.floor)) {
       issues.push({ path: `routes[${index}].floor`, message: `unknown floor ${route.floor}` })
     }
   })
-
   trial.filters.forEach((filter, filterIndex) => {
     filter.categories.forEach((category) => {
-      if (!categoryIds.has(category)) {
+      if (!context.categoryIds.has(category)) {
         issues.push({
           path: `filters[${filterIndex}].categories`,
           message: `unknown category "${category}"`,

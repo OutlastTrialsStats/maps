@@ -2,7 +2,8 @@ import { computed, ref } from 'vue'
 import { ROOM_RESIZE_MIN_SIZE } from '../../core/constants'
 import { pointsBounds, roomWorldPoints } from '../../core/model/roomPath'
 import { isRoomScalable, scaleRoomGeometry } from '../../core/model/roomScale'
-import type { Room, Vec2 } from '../../core/model/types'
+import type { Bounds, Room, Vec2 } from '../../core/model/types'
+import { withinRadius } from '../../core/model/vec2'
 import { useEditorStore } from '../store/editorStore'
 import { jsonClone } from '../store/jsonClone'
 import type { CanvasPointerEvent, ToolOverlay } from './toolTypes'
@@ -45,10 +46,10 @@ interface ResizeDrag {
  */
 export function useRoomResize() {
   const store = useEditorStore()
-  const activeIndex = ref<number | null>(null)
-  let drag: ResizeDrag | null = null
+  const drag = ref<ResizeDrag | null>(null)
+  const activeIndex = computed(() => drag.value?.index ?? null)
 
-  function roomBounds(room: Room): { min: Vec2; max: Vec2 } | null {
+  function roomBounds(room: Room): Bounds | null {
     const points = roomWorldPoints(room)
     return points.length > 0 ? pointsBounds(points) : null
   }
@@ -81,10 +82,11 @@ export function useRoomResize() {
 
   /** Dragged span relative to the anchor: same side as the original, never below min size. */
   function axisFactor(axis: 0 | 1, moves: boolean, anchor: Vec2, target: Vec2): number {
-    if (!drag || !moves) {
+    const state = drag.value
+    if (!state || !moves) {
       return 1
     }
-    const originalSpan = drag.handles[drag.index][axis] - anchor[axis]
+    const originalSpan = state.handles[state.index][axis] - anchor[axis]
     if (originalSpan === 0) {
       return 1
     }
@@ -105,32 +107,30 @@ export function useRoomResize() {
     const handles = handlePositions(bounds.min, bounds.max)
     const shortestEdge = Math.min(bounds.max[0] - bounds.min[0], bounds.max[1] - bounds.min[1])
     const hitRadius = Math.min(event.hitRadius, shortestEdge * HANDLE_HIT_BOX_RATIO)
-    const index = handles.findIndex(
-      (handle) => Math.hypot(event.world[0] - handle[0], event.world[1] - handle[1]) <= hitRadius,
-    )
+    const index = handles.findIndex((handle) => withinRadius(event.world, handle, hitRadius))
     if (index < 0) {
       return false
     }
-    drag = { roomId: room.id, original: jsonClone(room), handles, index, moved: false }
-    activeIndex.value = index
+    drag.value = { roomId: room.id, original: jsonClone(room), handles, index, moved: false }
     return true
   }
 
   function onPointerMove(event: CanvasPointerEvent): boolean {
-    if (!drag) {
+    const state = drag.value
+    if (!state) {
       return false
     }
-    const anchor = drag.handles[(drag.index + HANDLE_COUNT / 2) % HANDLE_COUNT]
+    const anchor = state.handles[(state.index + HANDLE_COUNT / 2) % HANDLE_COUNT]
     const factors: Vec2 = [
-      axisFactor(0, MOVES_X[drag.index], anchor, event.snapped),
-      axisFactor(1, MOVES_Y[drag.index], anchor, event.snapped),
+      axisFactor(0, MOVES_X[state.index], anchor, event.snapped),
+      axisFactor(1, MOVES_Y[state.index], anchor, event.snapped),
     ]
-    if (!drag.moved) {
+    if (!state.moved) {
       store.beginDrag()
-      drag.moved = true
+      state.moved = true
     }
-    const geometry = scaleRoomGeometry(drag.original, anchor, factors)
-    const room = store.document?.rooms.find((entry) => entry.id === drag?.roomId)
+    const geometry = scaleRoomGeometry(state.original, anchor, factors)
+    const room = store.document?.rooms.find((entry) => entry.id === state.roomId)
     if (geometry && room) {
       room.shape = geometry.shape
       if (geometry.wallGaps) {
@@ -149,23 +149,21 @@ export function useRoomResize() {
   }
 
   function onPointerUp(): boolean {
-    if (!drag) {
+    if (!drag.value) {
       return false
     }
-    if (drag.moved) {
+    if (drag.value.moved) {
       store.endDrag()
     }
-    drag = null
-    activeIndex.value = null
+    drag.value = null
     return true
   }
 
   function cancel(): void {
-    if (drag?.moved) {
+    if (drag.value?.moved) {
       store.cancelDrag()
     }
-    drag = null
-    activeIndex.value = null
+    drag.value = null
   }
 
   return { overlay, onPointerDown, onPointerMove, onPointerUp, cancel }

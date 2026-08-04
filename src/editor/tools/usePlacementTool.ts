@@ -1,10 +1,9 @@
 import { computed, ref } from 'vue'
-import { ROTATION_STEP_DEG } from '../../core/constants'
+import { FULL_CIRCLE_DEG, ROTATION_STEP_DEG } from '../../core/constants'
 import type { Placement, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
 
-const FULL_CIRCLE_DEG = 360
 const ARMED_HINT = 'Shift+click places multiple.'
 const UNARMED_HINT = 'Pick an element from the palette.'
 

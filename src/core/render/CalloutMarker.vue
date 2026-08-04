@@ -34,7 +34,7 @@ const label = computed(() => ('label' in props.marker ? props.marker.label : nul
 const iconUrl = computed(() =>
   'icon' in props.marker ? elementIconUrl(props.marker.icon) : undefined,
 )
-const { showIcon, onIconError } = useIconFallback(() => iconUrl.value)
+const { showIcon, onIconError } = useIconFallback(iconUrl)
 
 /** Diamond centered on the origin, `radius` = half diagonal. */
 function diamondPath(radius: number): string {
@@ -61,7 +61,7 @@ const innerDiamond = diamondPath(MARKER_BADGE_INNER_RADIUS)
       <path :d="outerDiamond" class="badge-plate" />
       <path :d="outerDiamond" :stroke="markerColor" class="badge-ring" />
       <image
-        v-if="showIcon && iconUrl"
+        v-if="showIcon"
         :href="iconUrl"
         :x="-MARKER_ICON_SIZE / 2"
         :y="-MARKER_ICON_SIZE / 2"

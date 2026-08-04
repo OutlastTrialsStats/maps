@@ -1,4 +1,4 @@
-import type { Room, RoomShape, Vec2 } from './types'
+import type { Bounds, Room, RoomShape, Vec2 } from './types'
 
 /**
  * Minimal path parser for room outlines — paths are only parsed for editing in
@@ -11,7 +11,18 @@ const COMMAND_RE = /^[A-Za-z]$/
 const TOKEN_RE = /[A-Za-z]|-?(?:\d*\.\d+|\d+)(?:[eE][+-]?\d+)?/g
 const CHARSET_RE = /^[MmLlHhVvZz0-9eE+,.\s-]*$/
 
-const fmt = (value: number): string => String(Math.round(value * 1000) / 1000)
+/** Path numbers are rounded to 3 decimals so emitted `d` strings stay compact. */
+export const formatPathNumber = (value: number): string =>
+  String(Math.round(value * 1000) / 1000)
+
+const LINETO = {
+  L: ([x, y]: number[], current: Vec2, absolute: boolean): Vec2 =>
+    absolute ? [x, y] : [current[0] + x, current[1] + y],
+  H: ([x]: number[], current: Vec2, absolute: boolean): Vec2 =>
+    absolute ? [x, current[1]] : [current[0] + x, current[1]],
+  V: ([y]: number[], current: Vec2, absolute: boolean): Vec2 =>
+    absolute ? [current[0], y] : [current[0], current[1] + y],
+}
 
 function parsePathPoints(path: string): { points: Vec2[]; closed: boolean } | null {
   if (!CHARSET_RE.test(path)) {
@@ -29,13 +40,20 @@ function parsePathPoints(path: string): { points: Vec2[]; closed: boolean } | nu
   let index = 0
 
   const isNumberNext = (): boolean => index < tokens.length && !COMMAND_RE.test(tokens[index])
-  const nextNumber = (): number | null => {
-    if (!isNumberNext()) {
-      return null
+  const readNumbers = (count: number): number[] | null => {
+    const values: number[] = []
+    while (values.length < count) {
+      if (!isNumberNext()) {
+        return null
+      }
+      const value = Number(tokens[index])
+      index += 1
+      if (!Number.isFinite(value)) {
+        return null
+      }
+      values.push(value)
     }
-    const value = Number(tokens[index])
-    index += 1
-    return Number.isFinite(value) ? value : null
+    return values
   }
   const push = (point: Vec2): void => {
     current = point
@@ -52,69 +70,38 @@ function parsePathPoints(path: string): { points: Vec2[]; closed: boolean } | nu
       return null
     }
     index += 1
-    switch (command) {
-      case 'M':
-      case 'm': {
-        if (started) {
-          return null
-        }
-        const x = nextNumber()
-        const y = nextNumber()
-        if (x === null || y === null) {
-          return null
-        }
-        current = command === 'M' ? [x, y] : [current[0] + x, current[1] + y]
-        points[0] = current
-        while (isNumberNext()) {
-          const lx = nextNumber()
-          const ly = nextNumber()
-          if (lx === null || ly === null) {
-            return null
-          }
-          push(command === 'M' ? [lx, ly] : [current[0] + lx, current[1] + ly])
-        }
-        break
-      }
-      case 'L':
-      case 'l': {
-        do {
-          const x = nextNumber()
-          const y = nextNumber()
-          if (x === null || y === null) {
-            return null
-          }
-          push(command === 'L' ? [x, y] : [current[0] + x, current[1] + y])
-        } while (isNumberNext())
-        break
-      }
-      case 'H':
-      case 'h': {
-        do {
-          const x = nextNumber()
-          if (x === null) {
-            return null
-          }
-          push(command === 'H' ? [x, current[1]] : [current[0] + x, current[1]])
-        } while (isNumberNext())
-        break
-      }
-      case 'V':
-      case 'v': {
-        do {
-          const y = nextNumber()
-          if (y === null) {
-            return null
-          }
-          push(command === 'V' ? [current[0], y] : [current[0], current[1] + y])
-        } while (isNumberNext())
-        break
-      }
-      case 'Z':
-      case 'z':
-        closed = true
-        break
-      default:
+    const upper = command.toUpperCase()
+    const absolute = command === upper
+    if (upper === 'M') {
+      if (started) {
         return null
+      }
+      const args = readNumbers(2)
+      if (!args) {
+        return null
+      }
+      current = absolute ? [args[0], args[1]] : [current[0] + args[0], current[1] + args[1]]
+      points[0] = current
+      // Further coordinate pairs after M/m are implicit linetos.
+      while (isNumberNext()) {
+        const lineArgs = readNumbers(2)
+        if (!lineArgs) {
+          return null
+        }
+        push(LINETO.L(lineArgs, current, absolute))
+      }
+    } else if (upper === 'L' || upper === 'H' || upper === 'V') {
+      do {
+        const args = readNumbers(upper === 'L' ? 2 : 1)
+        if (!args) {
+          return null
+        }
+        push(LINETO[upper](args, current, absolute))
+      } while (isNumberNext())
+    } else if (upper === 'Z') {
+      closed = true
+    } else {
+      return null
     }
   }
 
@@ -122,7 +109,7 @@ function parsePathPoints(path: string): { points: Vec2[]; closed: boolean } | nu
 }
 
 /** Points in shape-local coordinates (relative to the origin, implicit "M 0 0"). */
-export function parseRoomPath(path: string): Vec2[] | null {
+function parseRoomPath(path: string): Vec2[] | null {
   const parsed = parsePathPoints(path)
   if (!parsed || parsed.points.length < 3) {
     return null
@@ -145,7 +132,8 @@ export function parseOpenPath(path: string): Vec2[] | null {
   return parsed.points
 }
 
-function appendRelativeSegments(parts: string[], points: Vec2[]): void {
+function relativeSegments(points: Vec2[]): string[] {
+  const parts: string[] = []
   for (let i = 1; i < points.length; i += 1) {
     const dx = points[i][0] - points[i - 1][0]
     const dy = points[i][1] - points[i - 1][1]
@@ -153,24 +141,23 @@ function appendRelativeSegments(parts: string[], points: Vec2[]): void {
       continue
     }
     if (dy === 0) {
-      parts.push(`h${fmt(dx)}`)
+      parts.push(`h${formatPathNumber(dx)}`)
     } else if (dx === 0) {
-      parts.push(`v${fmt(dy)}`)
+      parts.push(`v${formatPathNumber(dy)}`)
     } else {
-      parts.push(`l${fmt(dx)},${fmt(dy)}`)
+      parts.push(`l${formatPathNumber(dx)},${formatPathNumber(dy)}`)
     }
   }
+  return parts
 }
 
 export function pointsToRelativePath(points: Vec2[]): string {
-  const parts: string[] = []
   const start = points[0]
-  if (start[0] !== 0 || start[1] !== 0) {
-    parts.push(`M${fmt(start[0])},${fmt(start[1])}`)
-  }
-  appendRelativeSegments(parts, points)
-  parts.push('z')
-  return parts.join(' ')
+  const prefix =
+    start[0] !== 0 || start[1] !== 0
+      ? [`M${formatPathNumber(start[0])},${formatPathNumber(start[1])}`]
+      : []
+  return [...prefix, ...relativeSegments(points), 'z'].join(' ')
 }
 
 /** Open path (inner lines, routes): explicit M to the first point, then h/v/l. */
@@ -178,9 +165,10 @@ export function pointsToOpenPath(points: Vec2[]): string {
   if (points.length === 0) {
     return ''
   }
-  const parts: string[] = [`M${fmt(points[0][0])},${fmt(points[0][1])}`]
-  appendRelativeSegments(parts, points)
-  return parts.join(' ')
+  return [
+    `M${formatPathNumber(points[0][0])},${formatPathNumber(points[0][1])}`,
+    ...relativeSegments(points),
+  ].join(' ')
 }
 
 const ABSOLUTE_START_RE = /^\s*M\s*(-?(?:\d*\.\d+|\d+))[\s,]+(-?(?:\d*\.\d+|\d+))([\s\S]*)$/
@@ -208,7 +196,7 @@ export function translateAbsolutePathStart(path: string, delta: Vec2): string | 
   if (!parts) {
     return null
   }
-  return `M${fmt(parts.start[0] + delta[0])},${fmt(parts.start[1] + delta[1])}${parts.rest}`
+  return `M${formatPathNumber(parts.start[0] + delta[0])},${formatPathNumber(parts.start[1] + delta[1])}${parts.rest}`
 }
 
 /** Vertices of a room shape in local coordinates; `rect` becomes 4 points. */
@@ -225,7 +213,7 @@ export function shapeToPoints(shape: RoomShape): Vec2[] | null {
   return parseRoomPath(shape.path)
 }
 
-export function pointsBounds(points: Vec2[]): { min: Vec2; max: Vec2 } {
+export function pointsBounds(points: Vec2[]): Bounds {
   const min: Vec2 = [Infinity, Infinity]
   const max: Vec2 = [-Infinity, -Infinity]
   for (const [x, y] of points) {
@@ -243,7 +231,7 @@ export function roomWorldPoints(room: Room): Vec2[] {
   return points.map(([x, y]): Vec2 => [x + room.shape.origin[0], y + room.shape.origin[1]])
 }
 
-export function roomsBounds(rooms: Room[]): { min: Vec2; max: Vec2 } | null {
+export function roomsBounds(rooms: Room[]): Bounds | null {
   const worldPoints = rooms.flatMap(roomWorldPoints)
   return worldPoints.length > 0 ? pointsBounds(worldPoints) : null
 }
