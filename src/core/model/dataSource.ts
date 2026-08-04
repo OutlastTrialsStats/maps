@@ -7,7 +7,7 @@ import {
   MAPS_INDEX_URL,
   ZONE_LIBRARY_URL,
 } from '../constants'
-import { mapManifestPath, trialDocumentPath } from './dataPaths'
+import { isExternalImageUrl, mapManifestPath, trialDocumentPath } from './dataPaths'
 import type {
   Contributors,
   ElementLibrary,
@@ -52,6 +52,10 @@ export function loadTrialDocument(mapId: string, trialId: string): Promise<Trial
 
 export function mapAssetUrl(mapId: string, relativePath: string): string {
   return `${DATA_BASE_URL}/maps/${mapId}/${relativePath}`
+}
+
+export function roomImageUrl(mapId: string, src: string): string {
+  return isExternalImageUrl(src) ? src : mapAssetUrl(mapId, src)
 }
 
 /** Full URL of a game image whose file name alone is stored in the data. */

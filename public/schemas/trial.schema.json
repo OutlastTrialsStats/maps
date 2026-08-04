@@ -70,9 +70,10 @@
       "minLength": 1,
       "pattern": "^[MmLlHhVvZzCcSsQqTtAa0-9eE+,.\\s-]+$"
     },
-    "repoImagePath": {
+    "roomImageSrc": {
+      "description": "Either a repo image below the map folder or a full external link (replaced by a repo file before merging).",
       "type": "string",
-      "pattern": "^[^:]+\\.(jpg|jpeg|png|webp)$"
+      "anyOf": [{ "pattern": "^[^:]+\\.(jpg|jpeg|png|webp)$" }, { "pattern": "^https?://" }]
     },
     "wallGap": {
       "description": "Section of the room outline without a wall (entrance, passage).",
@@ -172,7 +173,7 @@
                 "required": ["src"],
                 "additionalProperties": false,
                 "properties": {
-                  "src": { "$ref": "#/definitions/repoImagePath" },
+                  "src": { "$ref": "#/definitions/roomImageSrc" },
                   "camera": {
                     "type": "object",
                     "required": ["pos", "rotation"],

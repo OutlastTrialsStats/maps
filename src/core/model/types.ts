@@ -144,6 +144,7 @@ export interface CameraInfo {
 }
 
 export interface RoomImage {
+  /** Path below the map folder, or a full http(s) link until the file lands in the repo. */
   src: string
   camera?: CameraInfo
 }
