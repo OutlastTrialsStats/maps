@@ -3,7 +3,7 @@ import Button from 'primevue/button'
 import Select from 'primevue/select'
 import { INNER_LINE_STYLE_OPTIONS } from './innerLineStyles'
 import { useEditorStore } from './store/editorStore'
-import type { RoomToolMode, ToolId } from './tools/toolTypes'
+import type { RoomToolMode, ShapeToolMode, ToolId } from './tools/toolTypes'
 
 const store = useEditorStore()
 
@@ -12,6 +12,7 @@ const tools: Array<{ id: ToolId; label: string; icon: string; hotkey: string }> 
   { id: 'room', label: 'Room', icon: 'pi pi-home', hotkey: '2' },
   { id: 'placement', label: 'Element', icon: 'pi pi-map-marker', hotkey: '3' },
   { id: 'route', label: 'Route', icon: 'pi pi-directions', hotkey: '4' },
+  { id: 'shape', label: 'Shape', icon: 'pi pi-pencil', hotkey: '5' },
 ]
 
 const roomModes: Array<{ id: RoomToolMode; label: string; icon: string; hint: string }> = [
@@ -34,6 +35,12 @@ const roomModes: Array<{ id: RoomToolMode; label: string; icon: string; hint: st
     icon: 'pi pi-minus-circle',
     hint: 'Wall gaps — cut openings into the outer wall',
   },
+]
+
+const shapeModes: Array<{ id: ShapeToolMode; label: string; icon: string; hint: string }> = [
+  { id: 'circle', label: 'Circle', icon: 'pi pi-circle', hint: 'Circle — center, then radius' },
+  { id: 'rect', label: 'Rectangle', icon: 'pi pi-stop', hint: 'Rectangle — two clicks' },
+  { id: 'line', label: 'Line', icon: 'pi pi-minus', hint: 'Line — Enter/double-click ends' },
 ]
 </script>
 
@@ -79,6 +86,19 @@ const roomModes: Array<{ id: RoomToolMode; label: string; icon: string; hint: st
         option-value="value"
         size="small"
         aria-label="Inner line style"
+      />
+    </div>
+    <div v-if="store.activeTool === 'shape'" class="group">
+      <Button
+        v-for="mode in shapeModes"
+        :key="mode.id"
+        v-tooltip.bottom="mode.hint"
+        :icon="mode.icon"
+        :aria-label="mode.label"
+        size="small"
+        text
+        :severity="store.shapeToolMode === mode.id ? 'primary' : 'secondary'"
+        @click="store.shapeToolMode = mode.id"
       />
     </div>
     <div class="group">

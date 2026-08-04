@@ -8,12 +8,12 @@ import {
 } from '../../core/constants'
 import type { HitTarget } from '../../core/interaction/hitTest'
 import {
-  absolutePathStart,
-  parseOpenPath,
+  openPathPoints,
   pointsBounds,
   roomWorldPoints,
   translateAbsolutePathStart,
 } from '../../core/model/roomPath'
+import { isLineShape, shapeWorldPoints, translateShape } from '../../core/model/shapes'
 import type { Bounds, TrialDocument, Vec2 } from '../../core/model/types'
 import { distance, withinRadius } from '../../core/model/vec2'
 import { useEditorStore } from '../store/editorStore'
@@ -72,11 +72,20 @@ export function useSelectTool(): EditorTool {
       if (route.floor !== store.activeFloor) {
         continue
       }
-      const points = parseOpenPath(route.path) ?? [absolutePathStart(route.path)].filter(
-        (point): point is Vec2 => point !== null,
-      )
-      if (points.some((point) => inRect(rect, point))) {
+      if (openPathPoints(route.path).some((point) => inRect(rect, point))) {
         targets.push({ kind: 'route', id: route.id })
+      }
+    }
+    for (const shape of doc.shapes) {
+      if (shape.floor !== store.activeFloor) {
+        continue
+      }
+      const points = shapeWorldPoints(shape)
+      const overlaps = isLineShape(shape)
+        ? points.some((point) => inRect(rect, point))
+        : boundsOverlap(rect, pointsBounds(points))
+      if (overlaps) {
+        targets.push({ kind: 'shape', id: shape.id })
       }
     }
     return targets
@@ -152,6 +161,11 @@ export function useSelectTool(): EditorTool {
     for (const route of doc.routes) {
       if (ids.has(route.id)) {
         route.path = translateAbsolutePathStart(route.path, delta) ?? route.path
+      }
+    }
+    for (const shape of doc.shapes) {
+      if (ids.has(shape.id)) {
+        translateShape(shape, delta)
       }
     }
   }

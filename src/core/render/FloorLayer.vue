@@ -6,6 +6,7 @@ import CalloutMarker from './CalloutMarker.vue'
 import PlacementMarker from './PlacementMarker.vue'
 import RoomShape from './RoomShape.vue'
 import RoutePath from './RoutePath.vue'
+import ShapeOutline from './ShapeOutline.vue'
 
 const props = defineProps<{
   trial: TrialDocument
@@ -14,8 +15,8 @@ const props = defineProps<{
   zones: ReadonlyMap<string, Zone>
   selectedIds?: ReadonlySet<string>
   hiddenCategories?: ReadonlySet<string>
-  /** Editor: routes get an invisible wide hit stroke for clicking/double-clicking. */
-  interactiveRoutes?: boolean
+  /** Editor: routes and shapes get an invisible wide hit stroke along their outline. */
+  interactive?: boolean
 }>()
 
 function visible<T extends { floor: number }>(items: T[]): T[] {
@@ -30,6 +31,7 @@ const placements = computed(() =>
   }),
 )
 const routes = computed(() => visible(props.trial.routes))
+const shapes = computed(() => visible(props.trial.shapes))
 /** Drawn after all placements so callouts never disappear behind a neighbour. */
 const markedPlacements = computed(() => placements.value.filter((placement) => placement.marker))
 </script>
@@ -43,12 +45,19 @@ const markedPlacements = computed(() => placements.value.filter((placement) => p
       :zone="zones.get(room.zone)"
       :selected="selectedIds?.has(room.id)"
     />
+    <ShapeOutline
+      v-for="shape in shapes"
+      :key="shape.id"
+      :shape="shape"
+      :selected="selectedIds?.has(shape.id)"
+      :hit-area="interactive"
+    />
     <RoutePath
       v-for="route in routes"
       :key="route.id"
       :route="route"
       :selected="selectedIds?.has(route.id)"
-      :hit-area="interactiveRoutes"
+      :hit-area="interactive"
     />
     <PlacementMarker
       v-for="placement in placements"

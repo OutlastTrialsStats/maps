@@ -268,6 +268,7 @@ export function collectTrialLogicIssues(
     ['rooms', 'room', trial.rooms.map((room) => room.id)],
     ['placements', 'placement', trial.placements.map((placement) => placement.id)],
     ['routes', 'route', trial.routes.map((route) => route.id)],
+    ['shapes', 'shape', trial.shapes.map((shape) => shape.id)],
   ]
   for (const [path, label, ids] of uniqueIdChecks) {
     checkUniqueIds(issues, path, label, ids)
@@ -277,11 +278,17 @@ export function collectTrialLogicIssues(
   trial.placements.forEach((placement, index) =>
     issues.push(...collectPlacementIssues(placement, index, context)),
   )
-  trial.routes.forEach((route, index) => {
-    if (!context.floorIndexes.has(route.floor)) {
-      issues.push({ path: `routes[${index}].floor`, message: `unknown floor ${route.floor}` })
-    }
-  })
+  const floorChecks: Array<[string, Array<{ floor: number }>]> = [
+    ['routes', trial.routes],
+    ['shapes', trial.shapes],
+  ]
+  for (const [path, items] of floorChecks) {
+    items.forEach((item, index) => {
+      if (!context.floorIndexes.has(item.floor)) {
+        issues.push({ path: `${path}[${index}].floor`, message: `unknown floor ${item.floor}` })
+      }
+    })
+  }
   trial.filters.forEach((filter, filterIndex) => {
     filter.categories.forEach((category) => {
       if (!context.categoryIds.has(category)) {

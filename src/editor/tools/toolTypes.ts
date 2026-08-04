@@ -2,8 +2,9 @@ import type { ComputedRef } from 'vue'
 import type { HitTarget } from '../../core/interaction/hitTest'
 import type { Bounds, Vec2 } from '../../core/model/types'
 
-export type ToolId = 'select' | 'room' | 'placement' | 'route'
+export type ToolId = 'select' | 'room' | 'placement' | 'route' | 'shape'
 export type RoomToolMode = 'polygon' | 'rect' | 'innerline' | 'wallgap'
+export type ShapeToolMode = 'circle' | 'rect' | 'line'
 /** Which end of an open polyline new points attach to. */
 export type DrawEnd = 'head' | 'tail'
 
@@ -21,6 +22,7 @@ export interface CanvasPointerEvent {
 export type ToolOverlay =
   | { kind: 'polyline'; points: Vec2[]; preview: Vec2 | null; activeEnd?: DrawEnd }
   | { kind: 'rect'; from: Vec2; to: Vec2 }
+  | { kind: 'circle'; center: Vec2; radius: number }
   | {
       kind: 'vertices'
       origin: Vec2

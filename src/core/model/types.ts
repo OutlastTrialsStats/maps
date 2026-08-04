@@ -77,6 +77,7 @@ export interface TrialDocument {
   rooms: Room[]
   placements: Placement[]
   routes: RouteLine[]
+  shapes: MapShape[]
 }
 
 export interface MapMeta {
@@ -220,6 +221,30 @@ export interface RouteLine {
   path: string
   style: RouteLineStyle
 }
+
+// ---------------------------------------------------------------------------
+// Shapes
+// ---------------------------------------------------------------------------
+
+/**
+ * Free-standing decorative outline (tables, scaffolding …) — neither a room
+ * nor a library element, never filled. Variants: circle (`pos` = center),
+ * rectangle (`pos` = center, rotation in 45° steps in sync with the schema
+ * `multipleOf`) or an open absolute path.
+ */
+export type MapShapeGeometry =
+  | { pos: Vec2; radius: number }
+  | { pos: Vec2; size: Vec2; rotation?: number }
+  | { path: string }
+
+export type MapShape = {
+  id: string
+  floor: number
+  /** Stroke overrides — `SHAPE_DEFAULT_*` constants apply and are not stored. */
+  color?: string
+  strokeWidth?: number
+  dashed?: boolean
+} & MapShapeGeometry
 
 // ---------------------------------------------------------------------------
 // Zone library — public/data/zones.json (global across all maps)

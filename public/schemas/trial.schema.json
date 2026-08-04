@@ -3,7 +3,7 @@
   "$id": "https://maps.outlasttrialsstats.com/schemas/trial.schema.json",
   "title": "Trial-Definition",
   "type": "object",
-  "required": ["mapId", "trialId", "floors", "filters", "rooms", "placements", "routes"],
+  "required": ["mapId", "trialId", "floors", "filters", "rooms", "placements", "routes", "shapes"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "type": "string" },
@@ -51,6 +51,10 @@
     "routes": {
       "type": "array",
       "items": { "$ref": "#/definitions/route" }
+    },
+    "shapes": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/shape" }
     }
   },
   "definitions": {
@@ -203,6 +207,34 @@
         "roomId": { "$ref": "#/definitions/kebabId" },
         "marker": { "$ref": "#/definitions/calloutMarker" },
         "props": { "type": "object" }
+      }
+    },
+    "shape": {
+      "description": "Free-standing decorative outline (circle, rectangle or open polyline); color/strokeWidth/dashed override the render defaults.",
+      "type": "object",
+      "required": ["id", "floor"],
+      "additionalProperties": false,
+      "oneOf": [
+        { "required": ["pos", "radius"] },
+        { "required": ["pos", "size"] },
+        { "required": ["path"] }
+      ],
+      "properties": {
+        "id": { "$ref": "#/definitions/kebabId" },
+        "floor": { "type": "integer" },
+        "color": { "$ref": "#/definitions/color" },
+        "strokeWidth": { "type": "number", "exclusiveMinimum": 0 },
+        "dashed": { "type": "boolean" },
+        "pos": { "$ref": "#/definitions/vec2" },
+        "radius": { "type": "number", "exclusiveMinimum": 0 },
+        "size": {
+          "type": "array",
+          "items": { "type": "number", "exclusiveMinimum": 0 },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "rotation": { "type": "number", "multipleOf": 45 },
+        "path": { "$ref": "#/definitions/svgPath" }
       }
     },
     "route": {

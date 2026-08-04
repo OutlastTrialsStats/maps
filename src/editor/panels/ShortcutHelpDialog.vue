@@ -18,6 +18,7 @@ const groups: Array<{ title: string; entries: Array<{ keys: string[]; action: st
       { keys: ['2'], action: 'Room tool' },
       { keys: ['3'], action: 'Element tool' },
       { keys: ['4'], action: 'Route tool' },
+      { keys: ['5'], action: 'Shape tool' },
     ],
   },
   {

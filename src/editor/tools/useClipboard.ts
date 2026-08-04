@@ -4,6 +4,7 @@ import { DUPLICATE_OFFSET, GRID_SNAP_DEFAULT, TOAST_LIFE_MS } from '../../core/c
 import type { HitTarget } from '../../core/interaction/hitTest'
 import { snapToGrid } from '../../core/interaction/snapping'
 import { translateAbsolutePathStart } from '../../core/model/roomPath'
+import { translateShape } from '../../core/model/shapes'
 import type { TrialDocument, Vec2 } from '../../core/model/types'
 import { serializeJson } from '../store/documentIO'
 import { useEditorStore } from '../store/editorStore'
@@ -140,6 +141,14 @@ export function useClipboard() {
       doc.routes.push(route)
       created.push({ kind: 'route', id: route.id })
     }
+    for (const source of payload.shapes) {
+      const shape = jsonClone(source)
+      shape.id = store.generateId('shape')
+      shape.floor = store.activeFloor
+      translateShape(shape, offset)
+      doc.shapes.push(shape)
+      created.push({ kind: 'shape', id: shape.id })
+    }
     return created
   }
 
@@ -189,7 +198,7 @@ export function useClipboard() {
       toast.add({
         severity: 'info',
         summary: 'Nothing to paste',
-        detail: 'Copy rooms, placements or routes first (Ctrl+C).',
+        detail: 'Copy rooms, placements, routes or shapes first (Ctrl+C).',
         life: TOAST_LIFE_MS,
       })
       return

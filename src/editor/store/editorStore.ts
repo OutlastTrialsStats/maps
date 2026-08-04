@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import { computed, ref, shallowRef } from 'vue'
 import { AUTOSAVE_DEBOUNCE_MS, UNDO_COALESCE_MS, UNDO_STACK_LIMIT } from '../../core/constants'
-import type { HitTarget } from '../../core/interaction/hitTest'
+import type { EntityKind, HitTarget } from '../../core/interaction/hitTest'
 import type {
   ElementLibrary,
   InnerLineStyle,
   MapManifest,
+  MapShape,
   Room,
   Placement,
   RouteLine,
@@ -13,7 +14,7 @@ import type {
   ZoneLibrary,
 } from '../../core/model/types'
 import { initialFloorIndex } from '../../core/model/mapDefaults'
-import type { RoomToolMode, ToolId } from '../tools/toolTypes'
+import type { RoomToolMode, ShapeToolMode, ToolId } from '../tools/toolTypes'
 import { saveAutosave, type AutosavePayload, type WorkspaceSnapshot } from './documentIO'
 import { jsonClone } from './jsonClone'
 import { useLibraryStore } from './libraryStore'
@@ -28,8 +29,9 @@ const ENTITY_COLLECTIONS = {
   room: 'rooms',
   placement: 'placements',
   route: 'routes',
+  shape: 'shapes',
   filter: 'filters',
-} as const
+} as const satisfies Record<EntityKind | 'filter', keyof TrialDocument>
 
 /**
  * While set, undo/redo route here exclusively — a document undo/redo mid-drawing
@@ -53,6 +55,7 @@ export const useEditorStore = defineStore('editor', () => {
   /** 90° snapping while drawing polygons — off by default, Alt inverts temporarily. */
   const roomOrthoSnap = ref(false)
   const innerLineStyle = ref<InnerLineStyle>('object')
+  const shapeToolMode = ref<ShapeToolMode>('rect')
   const drawingHistory = shallowRef<TransientHistory | null>(null)
   /** Short tool hint for the status bar (e.g. a path that cannot be edited). */
   const toolHint = ref('')
@@ -107,6 +110,11 @@ export const useEditorStore = defineStore('editor', () => {
   const selectedRoute = computed<RouteLine | null>(() =>
     primarySelection.value?.kind === 'route'
       ? (document.value?.routes.find((route) => route.id === primarySelection.value?.id) ?? null)
+      : null,
+  )
+  const selectedShape = computed<MapShape | null>(() =>
+    primarySelection.value?.kind === 'shape'
+      ? (document.value?.shapes.find((shape) => shape.id === primarySelection.value?.id) ?? null)
       : null,
   )
 
@@ -291,6 +299,7 @@ export const useEditorStore = defineStore('editor', () => {
       ...doc.rooms.map((room) => room.id),
       ...doc.placements.map((placement) => placement.id),
       ...doc.routes.map((route) => route.id),
+      ...doc.shapes.map((shape) => shape.id),
     ])
     selection.value = selection.value.filter((target) => ids.has(target.id))
     if (!doc.floors.some((floor) => floor.index === activeFloor.value)) {
@@ -393,7 +402,7 @@ export const useEditorStore = defineStore('editor', () => {
     }
   }
 
-  /** Removes all selected rooms/placements/routes from the document (undoable). */
+  /** Removes all selected rooms/placements/routes/shapes from the document (undoable). */
   function deleteSelection(): void {
     if (selection.value.length === 0) {
       return
@@ -403,6 +412,7 @@ export const useEditorStore = defineStore('editor', () => {
       doc.rooms = doc.rooms.filter((room) => !ids.has(room.id))
       doc.placements = doc.placements.filter((placement) => !ids.has(placement.id))
       doc.routes = doc.routes.filter((route) => !ids.has(route.id))
+      doc.shapes = doc.shapes.filter((shape) => !ids.has(shape.id))
       for (const placement of doc.placements) {
         if (placement.roomId && ids.has(placement.roomId)) {
           delete placement.roomId
@@ -421,6 +431,7 @@ export const useEditorStore = defineStore('editor', () => {
         doc.rooms,
         doc.placements,
         doc.routes,
+        doc.shapes,
         doc.filters,
       ]
       for (const list of lists) {
@@ -462,6 +473,7 @@ export const useEditorStore = defineStore('editor', () => {
     roomToolMode,
     roomOrthoSnap,
     innerLineStyle,
+    shapeToolMode,
     drawingHistory,
     toolHint,
     activeFloor,
@@ -482,6 +494,7 @@ export const useEditorStore = defineStore('editor', () => {
     selectedRoom,
     selectedPlacement,
     selectedRoute,
+    selectedShape,
     commit,
     commitOn,
     commitManifest,
