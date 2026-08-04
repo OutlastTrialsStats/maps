@@ -15,26 +15,29 @@ const images = computed(
   () => store.document?.rooms.find((room) => room.id === props.roomId)?.info?.images ?? [],
 )
 
-function mutateImages(mutate: (list: RoomImage[]) => void): void {
-  store.commit((doc) => {
-    const room = doc.rooms.find((entry) => entry.id === props.roomId)
-    if (!room) {
-      return
-    }
-    const info = room.info ?? {}
-    const list = info.images ?? []
-    mutate(list)
-    if (list.length === 0) {
-      delete info.images
-    } else {
-      info.images = list
-    }
-    if (Object.keys(info).length === 0) {
-      delete room.info
-    } else {
-      room.info = info
-    }
-  })
+function mutateImages(mutate: (list: RoomImage[]) => void, coalesce?: string): void {
+  store.commit(
+    (doc) => {
+      const room = doc.rooms.find((entry) => entry.id === props.roomId)
+      if (!room) {
+        return
+      }
+      const info = room.info ?? {}
+      const list = info.images ?? []
+      mutate(list)
+      if (list.length === 0) {
+        delete info.images
+      } else {
+        info.images = list
+      }
+      if (Object.keys(info).length === 0) {
+        delete room.info
+      } else {
+        room.info = info
+      }
+    },
+    coalesce ? { coalesce: `${props.roomId}:${coalesce}` } : undefined,
+  )
 }
 
 function addImage(): void {
@@ -67,6 +70,7 @@ function toggleCamera(index: number, enabled: boolean): void {
 }
 
 function setCamera(index: number, patch: { x?: number; y?: number; rotation?: number }): void {
+  const field = patch.x !== undefined ? 'x' : patch.y !== undefined ? 'y' : 'rotation'
   mutateImages((list) => {
     const camera = list[index].camera
     if (!camera) {
@@ -74,11 +78,15 @@ function setCamera(index: number, patch: { x?: number; y?: number; rotation?: nu
     }
     camera.pos = [patch.x ?? camera.pos[0], patch.y ?? camera.pos[1]]
     camera.rotation = patch.rotation ?? camera.rotation
-  })
+  }, `img${index}-camera-${field}`)
 }
 
 function removeImage(index: number): void {
   mutateImages((list) => list.splice(index, 1))
+}
+
+function isPicking(index: number): boolean {
+  return store.cameraPick?.roomId === props.roomId && store.cameraPick.imageIndex === index
 }
 </script>
 
@@ -93,16 +101,35 @@ function removeImage(index: number): void {
           class="src-input"
           @change="setSrc(index, ($event.target as HTMLInputElement).value)"
         />
-        <Button label="✕" size="small" severity="danger" text @click="removeImage(index)" />
-      </div>
-      <label class="camera-toggle">
-        <Checkbox
-          :model-value="Boolean(image.camera)"
-          binary
-          @update:model-value="toggleCamera(index, $event as boolean)"
+        <Button
+          v-tooltip.left="'Remove screenshot'"
+          icon="pi pi-trash"
+          aria-label="Remove screenshot"
+          size="small"
+          severity="danger"
+          text
+          @click="removeImage(index)"
         />
-        <span>Camera marker</span>
-      </label>
+      </div>
+      <div class="camera-row">
+        <label class="camera-toggle">
+          <Checkbox
+            :model-value="Boolean(image.camera)"
+            binary
+            @update:model-value="toggleCamera(index, $event as boolean)"
+          />
+          <span>Camera marker</span>
+        </label>
+        <Button
+          v-tooltip.left="'Place camera — click the map for the position, drag for the direction'"
+          icon="pi pi-camera"
+          aria-label="Place camera on map"
+          size="small"
+          text
+          :severity="isPicking(index) ? 'primary' : 'secondary'"
+          @click="store.armCameraPick(props.roomId, index)"
+        />
+      </div>
       <div v-if="image.camera" class="camera-fields">
         <InputNumber
           :model-value="image.camera.pos[0]"
@@ -178,6 +205,12 @@ function removeImage(index: number): void {
 .src-input {
   flex: 1;
   min-width: 0;
+}
+
+.camera-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .camera-toggle {

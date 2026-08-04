@@ -1,5 +1,5 @@
 import { computed, ref, watch } from 'vue'
-import { VERTEX_HIT_RADIUS, WALL_GAP_MIN_LENGTH } from '../../core/constants'
+import { WALL_GAP_MIN_LENGTH } from '../../core/constants'
 import { snapOrtho } from '../../core/interaction/snapping'
 import { pointsToOpenPath, pointsToRelativePath, shapeToPoints } from '../../core/model/roomPath'
 import type { Room, Vec2, WallGap } from '../../core/model/types'
@@ -126,7 +126,7 @@ export function useRoomTool(): EditorTool {
   function isEndpointClick(current: DrawingPoints, event: CanvasPointerEvent): boolean {
     return (
       current.points.length >= MIN_ENDPOINT_HIT_POINTS &&
-      distance(event.world, oppositeEndpoint(current)) <= VERTEX_HIT_RADIUS
+      distance(event.world, oppositeEndpoint(current)) <= event.hitRadius
     )
   }
 
@@ -241,7 +241,7 @@ export function useRoomTool(): EditorTool {
   ): void {
     const local: Vec2 = [event.world[0] - current.origin[0], event.world[1] - current.origin[1]]
     const vertexIndex = current.points.findIndex(
-      (point) => distance(point, local) <= VERTEX_HIT_RADIUS,
+      (point) => distance(point, local) <= event.hitRadius,
     )
     if (vertexIndex >= 0) {
       if (event.event.altKey) {
@@ -259,7 +259,7 @@ export function useRoomTool(): EditorTool {
     }
     const midIndex = current.points.findIndex((point, index) => {
       const next = current.points[(index + 1) % current.points.length]
-      return distance(midpoint(point, next), local) <= VERTEX_HIT_RADIUS
+      return distance(midpoint(point, next), local) <= event.hitRadius
     })
     if (midIndex >= 0) {
       const next = current.points[(midIndex + 1) % current.points.length]

@@ -22,11 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: gh-pages-push
     steps:
       - name: Ensure release runs from main
         if: github.ref_name != 'main'
@@ -78,15 +75,14 @@ jobs:
       - name: Add SPA fallback
         run: cp dist/index.html dist/404.html
 
-      - uses: actions/configure-pages@v6
-
-      - uses: actions/upload-pages-artifact@v5
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: dist
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+          folder: dist
+          branch: gh-pages
+          clean: true
+          clean-exclude: pr-preview/
+          force: false
 
       - name: Commit, tag and push
         env:
@@ -108,10 +104,9 @@ jobs:
       - name: Summary
         env:
           VERSION: ${{ steps.bump.outputs.version }}
-          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           {
             echo "### Released v$VERSION"
             echo
-            echo "Deployed to $PAGE_URL"
+            echo "Deployed to https://maps.outlasttrialsstats.com"
           } >> "$GITHUB_STEP_SUMMARY"

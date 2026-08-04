@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import { ROOM_RESIZE_MIN_SIZE, VERTEX_HIT_RADIUS } from '../../core/constants'
+import { ROOM_RESIZE_MIN_SIZE } from '../../core/constants'
 import { pointsBounds, roomWorldPoints } from '../../core/model/roomPath'
 import { isRoomScalable, scaleRoomGeometry } from '../../core/model/roomScale'
 import type { Room, Vec2 } from '../../core/model/types'
@@ -9,6 +9,8 @@ import type { CanvasPointerEvent, ToolOverlay } from './toolTypes'
 
 /** Clockwise from top-left: even indexes are corners, odd ones edge midpoints. */
 const HANDLE_COUNT = 8
+/** Cap of the handle hit radius relative to the box: the center stays free for dragging. */
+const HANDLE_HIT_BOX_RATIO = 0.25
 const MOVES_X = [true, false, true, true, true, false, true, true]
 const MOVES_Y = [true, true, true, false, true, true, true, false]
 
@@ -101,9 +103,10 @@ export function useRoomResize() {
       return false
     }
     const handles = handlePositions(bounds.min, bounds.max)
+    const shortestEdge = Math.min(bounds.max[0] - bounds.min[0], bounds.max[1] - bounds.min[1])
+    const hitRadius = Math.min(event.hitRadius, shortestEdge * HANDLE_HIT_BOX_RATIO)
     const index = handles.findIndex(
-      (handle) =>
-        Math.hypot(event.world[0] - handle[0], event.world[1] - handle[1]) <= VERTEX_HIT_RADIUS,
+      (handle) => Math.hypot(event.world[0] - handle[0], event.world[1] - handle[1]) <= hitRadius,
     )
     if (index < 0) {
       return false

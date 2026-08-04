@@ -82,15 +82,17 @@ function add(): void {
         class="name-input"
         @change="rename(floor.index, ($event.target as HTMLInputElement).value)"
       />
-      <Button
-        v-tooltip.left="canRemove(floor.index) ? 'Remove' : 'In use or last floor'"
-        label="✕"
-        size="small"
-        severity="danger"
-        text
-        :disabled="!canRemove(floor.index)"
-        @click="remove(floor.index)"
-      />
+      <span v-tooltip.left="canRemove(floor.index) ? 'Remove floor' : 'In use or last floor'">
+        <Button
+          icon="pi pi-trash"
+          aria-label="Remove floor"
+          size="small"
+          severity="danger"
+          text
+          :disabled="!canRemove(floor.index)"
+          @click="remove(floor.index)"
+        />
+      </span>
     </div>
     <div class="add-row">
       <InputNumber

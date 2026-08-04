@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref, shallowRef } from 'vue'
-import { AUTOSAVE_DEBOUNCE_MS, UNDO_STACK_LIMIT } from '../../core/constants'
+import { AUTOSAVE_DEBOUNCE_MS, UNDO_COALESCE_MS, UNDO_STACK_LIMIT } from '../../core/constants'
 import type { HitTarget } from '../../core/interaction/hitTest'
 import type {
   ElementLibrary,
@@ -49,6 +49,8 @@ export const useEditorStore = defineStore('editor', () => {
   const toolHint = ref('')
   const activeFloor = ref(0)
   const activeElementId = ref<string | null>(null)
+  /** Transient "place camera" mode, armed from the room screenshots panel. */
+  const cameraPick = ref<{ roomId: string; imageIndex: number } | null>(null)
   const selection = ref<HitTarget[]>([])
   const undoStack = ref<WorkspaceSnapshot[]>([])
   const redoStack = ref<WorkspaceSnapshot[]>([])
@@ -59,6 +61,12 @@ export const useEditorStore = defineStore('editor', () => {
   const revision = ref(0)
 
   let autosaveTimer: number | undefined
+  /**
+   * Per-keystroke emitters (InputNumber, ColorPicker) pass a coalesce key so a
+   * burst of commits shares one undo snapshot. Any other history operation must
+   * clear this, otherwise a follow-up coalesced commit would skip its snapshot.
+   */
+  let lastCoalesce: { key: string; at: number } | null = null
 
   const canUndo = computed(() => drawingHistory.value?.canUndo() ?? undoStack.value.length > 0)
   const canRedo = computed(() => drawingHistory.value?.canRedo() ?? redoStack.value.length > 0)
@@ -124,12 +132,23 @@ export const useEditorStore = defineStore('editor', () => {
     scheduleAutosave()
   }
 
-  /** Default path for all document changes: snapshot → mutation → autosave. */
-  function commit(mutate: (doc: TrialDocument) => void): void {
-    if (!document.value) {
+  /** Pushes a snapshot unless the previous commit used the same fresh coalesce key. */
+  function pushUndoCoalesced(key: string | undefined): void {
+    const now = Date.now()
+    if (key && lastCoalesce?.key === key && now - lastCoalesce.at < UNDO_COALESCE_MS) {
+      lastCoalesce.at = now
       return
     }
     pushUndo()
+    lastCoalesce = key ? { key, at: now } : null
+  }
+
+  /** Default path for all document changes: snapshot → mutation → autosave. */
+  function commit(mutate: (doc: TrialDocument) => void, options?: { coalesce?: string }): void {
+    if (!document.value) {
+      return
+    }
+    pushUndoCoalesced(options?.coalesce)
     mutate(document.value)
     markChanged()
   }
@@ -139,7 +158,7 @@ export const useEditorStore = defineStore('editor', () => {
     if (!document.value || !manifest.value) {
       return
     }
-    pushUndo()
+    pushUndoCoalesced(undefined)
     mutate(manifest.value)
     markChanged()
   }
@@ -149,16 +168,19 @@ export const useEditorStore = defineStore('editor', () => {
     if (!document.value || !libraryStore.library) {
       return
     }
-    pushUndo()
+    pushUndoCoalesced(undefined)
     mutate(libraryStore.library)
     markChanged()
   }
 
-  function commitZones(mutate: (zones: ZoneLibrary) => void): void {
+  function commitZones(
+    mutate: (zones: ZoneLibrary) => void,
+    options?: { coalesce?: string },
+  ): void {
     if (!document.value || !zonesStore.zoneLibrary) {
       return
     }
-    pushUndo()
+    pushUndoCoalesced(options?.coalesce)
     mutate(zonesStore.zoneLibrary)
     markChanged()
   }
@@ -170,19 +192,21 @@ export const useEditorStore = defineStore('editor', () => {
     if (!document.value || !libraryStore.library) {
       return
     }
-    pushUndo()
+    pushUndoCoalesced(undefined)
     mutate({ doc: document.value, library: libraryStore.library })
     markChanged()
   }
 
   /** For drags: one snapshot at the start, direct mutations until endDrag/cancelDrag. */
   function beginDrag(): void {
+    lastCoalesce = null
     pushUndo()
   }
   function endDrag(): void {
     markChanged()
   }
   function cancelDrag(): void {
+    lastCoalesce = null
     const previous = undoStack.value.pop()
     if (previous) {
       restoreSnapshot(previous)
@@ -190,6 +214,7 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   function undo(): void {
+    lastCoalesce = null
     if (drawingHistory.value) {
       drawingHistory.value.undo()
       return
@@ -205,6 +230,7 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   function redo(): void {
+    lastCoalesce = null
     if (drawingHistory.value) {
       drawingHistory.value.redo()
       return
@@ -250,6 +276,7 @@ export const useEditorStore = defineStore('editor', () => {
     undoStack.value = []
     redoStack.value = []
     drawingHistory.value = null
+    lastCoalesce = null
     selection.value = []
     activeTool.value = 'select'
     activeFloor.value = initialFloorIndex(doc.floors)
@@ -258,6 +285,34 @@ export const useEditorStore = defineStore('editor', () => {
     if (dirty.value) {
       scheduleAutosave()
     }
+  }
+
+  /**
+   * Closes the workspace and reopens the start dialog. The LocalStorage autosave
+   * is kept (and flushed first) — it is the user's recovery path.
+   */
+  function closeWorkspace(): void {
+    window.clearTimeout(autosaveTimer)
+    if (dirty.value && document.value && manifest.value) {
+      saveAutosave({
+        manifest: manifest.value,
+        document: document.value,
+        library: libraryStore.library,
+        zones: zonesStore.zoneLibrary,
+      })
+    }
+    manifest.value = null
+    document.value = null
+    undoStack.value = []
+    redoStack.value = []
+    drawingHistory.value = null
+    lastCoalesce = null
+    selection.value = []
+    activeTool.value = 'select'
+    activeElementId.value = null
+    toolHint.value = ''
+    dirty.value = false
+    autosaveError.value = ''
   }
 
   /** "Continue autosave": restores existing working copies and the workspace. */
@@ -273,12 +328,34 @@ export const useEditorStore = defineStore('editor', () => {
     setWorkspace(payload.manifest, payload.document, { markDirty: true })
   }
 
+  function armCameraPick(roomId: string, imageIndex: number): void {
+    cameraPick.value = { roomId, imageIndex }
+    toolHint.value = 'Click sets the camera position, drag the view direction — Esc cancels'
+  }
+
+  function cancelCameraPick(): void {
+    if (cameraPick.value) {
+      cameraPick.value = null
+      toolHint.value = ''
+    }
+  }
+
   function setSelection(targets: HitTarget[]): void {
     selection.value = targets
   }
 
   function clearSelection(): void {
     selection.value = []
+  }
+
+  /** Steps to the next existing floor; indices may have gaps and imported documents may be unsorted. */
+  function stepFloor(step: 1 | -1): void {
+    const ascending = [...floors.value].sort((a, b) => a.index - b.index)
+    const position = ascending.findIndex((floor) => floor.index === activeFloor.value)
+    const next = ascending[position + step]
+    if (next) {
+      activeFloor.value = next.index
+    }
   }
 
   /** Removes all selected rooms/placements/routes from the document (undoable). */
@@ -354,6 +431,7 @@ export const useEditorStore = defineStore('editor', () => {
     toolHint,
     activeFloor,
     activeElementId,
+    cameraPick,
     selection,
     dirty,
     autosaveError,
@@ -380,9 +458,13 @@ export const useEditorStore = defineStore('editor', () => {
     undo,
     redo,
     setWorkspace,
+    closeWorkspace,
     restoreAutosave,
+    armCameraPick,
+    cancelCameraPick,
     setSelection,
     clearSelection,
+    stepFloor,
     deleteSelection,
     generateId,
   }

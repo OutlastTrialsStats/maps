@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { VERTEX_HIT_RADIUS } from '../core/constants'
+import { VERTEX_HIT_RADIUS_PX } from '../core/constants'
 import type { ElementIndex } from '../core/model/elementIndex'
 import { pointsToOpenPath } from '../core/model/roomPath'
 import type { Placement, Vec2 } from '../core/model/types'
+import CameraMarker from '../core/render/CameraMarker.vue'
 import PlacementMarker from '../core/render/PlacementMarker.vue'
 import type { ToolOverlay } from './tools/toolTypes'
 
 const props = defineProps<{
   overlay: ToolOverlay | null
   elementIndex: ElementIndex
+  /** Current zoom factor — handles keep a constant screen size. */
+  scale: number
 }>()
 
-const HANDLE_RADIUS = VERTEX_HIT_RADIUS / 2
+const handleRadius = computed(() => VERTEX_HIT_RADIUS_PX / 2 / props.scale)
 
 const polyline = computed(() => (props.overlay?.kind === 'polyline' ? props.overlay : null))
 const rect = computed(() => (props.overlay?.kind === 'rect' ? props.overlay : null))
@@ -20,6 +23,7 @@ const vertices = computed(() => (props.overlay?.kind === 'vertices' ? props.over
 const wallGaps = computed(() => (props.overlay?.kind === 'wallgaps' ? props.overlay : null))
 const ghost = computed(() => (props.overlay?.kind === 'ghost' ? props.overlay : null))
 const resize = computed(() => (props.overlay?.kind === 'resize' ? props.overlay : null))
+const camera = computed(() => (props.overlay?.kind === 'camera' ? props.overlay : null))
 
 const previewPathD = computed(() => {
   if (!polyline.value?.preview || polyline.value.points.length === 0) {
@@ -55,7 +59,8 @@ const midpoints = computed<Vec2[]>(() => {
   if (!points) {
     return []
   }
-  return points.map((point, index): Vec2 => {
+  const edgeCount = vertices.value?.closed === false ? points.length - 1 : points.length
+  return points.slice(0, edgeCount).map((point, index): Vec2 => {
     const next = points[(index + 1) % points.length]
     return [(point[0] + next[0]) / 2, (point[1] + next[1]) / 2]
   })
@@ -87,7 +92,7 @@ const ghostElement = computed(() =>
         :key="index"
         :cx="point[0]"
         :cy="point[1]"
-        :r="HANDLE_RADIUS"
+        :r="handleRadius"
         class="handle"
         :class="{ first: index === 0, 'active-end': index === activeEndIndex }"
       />
@@ -103,16 +108,22 @@ const ghostElement = computed(() =>
     <template v-else-if="vertices">
       <g :transform="`translate(${vertices.origin[0]},${vertices.origin[1]})`">
         <polygon
+          v-if="vertices.closed !== false"
+          :points="vertices.points.map((p) => p.join(',')).join(' ')"
+          class="vertex-outline"
+        />
+        <polyline
+          v-else
           :points="vertices.points.map((p) => p.join(',')).join(' ')"
           class="vertex-outline"
         />
         <rect
           v-for="(mid, index) in midpoints"
           :key="`m${index}`"
-          :x="mid[0] - HANDLE_RADIUS / 2"
-          :y="mid[1] - HANDLE_RADIUS / 2"
-          :width="HANDLE_RADIUS"
-          :height="HANDLE_RADIUS"
+          :x="mid[0] - handleRadius / 2"
+          :y="mid[1] - handleRadius / 2"
+          :width="handleRadius"
+          :height="handleRadius"
           class="midpoint"
         />
         <circle
@@ -120,7 +131,7 @@ const ghostElement = computed(() =>
           :key="`v${index}`"
           :cx="point[0]"
           :cy="point[1]"
-          :r="HANDLE_RADIUS"
+          :r="handleRadius"
           class="handle"
           :class="{ active: index === vertices.activeIndex }"
         />
@@ -141,13 +152,16 @@ const ghostElement = computed(() =>
             class="gap-segment"
             :class="{ active: index === wallGaps.activeIndex }"
           />
-          <circle :cx="gap[0][0]" :cy="gap[0][1]" :r="HANDLE_RADIUS" class="handle" />
-          <circle :cx="gap[1][0]" :cy="gap[1][1]" :r="HANDLE_RADIUS" class="handle" />
+          <circle :cx="gap[0][0]" :cy="gap[0][1]" :r="handleRadius" class="handle" />
+          <circle :cx="gap[1][0]" :cy="gap[1][1]" :r="handleRadius" class="handle" />
         </template>
       </g>
     </template>
     <g v-else-if="ghostPlacement" class="ghost">
       <PlacementMarker :placement="ghostPlacement" :element="ghostElement" />
+    </g>
+    <g v-else-if="camera" class="ghost">
+      <CameraMarker :camera="{ pos: camera.pos, rotation: camera.rotation }" />
     </g>
     <template v-else-if="resize">
       <rect
@@ -160,10 +174,10 @@ const ghostElement = computed(() =>
       <rect
         v-for="(handle, index) in resize.handles"
         :key="`r${index}`"
-        :x="handle[0] - HANDLE_RADIUS"
-        :y="handle[1] - HANDLE_RADIUS"
-        :width="HANDLE_RADIUS * 2"
-        :height="HANDLE_RADIUS * 2"
+        :x="handle[0] - handleRadius"
+        :y="handle[1] - handleRadius"
+        :width="handleRadius * 2"
+        :height="handleRadius * 2"
         class="resize-handle"
         :class="{ active: index === resize.activeIndex }"
       />

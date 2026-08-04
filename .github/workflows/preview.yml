@@ -1,0 +1,104 @@
+name: Preview
+
+on:
+  pull_request_target:
+    types: [labeled, unlabeled, synchronize, reopened, closed]
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  build:
+    if: >-
+      (github.event.action == 'labeled' && github.event.label.name == 'preview') ||
+      (contains(fromJSON('["synchronize", "reopened"]'), github.event.action) &&
+       contains(github.event.pull_request.labels.*.name, 'preview'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      sha: ${{ steps.head.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+      - id: head
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build --base=/pr-preview/pr-${{ github.event.pull_request.number }}/
+      - name: Remove root-only CNAME
+        run: rm -f dist/CNAME
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-dist
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: gh-pages-push
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v4
+        with:
+          name: preview-dist
+          path: dist
+      - name: Deploy preview to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
+          target-folder: pr-preview/pr-${{ github.event.pull_request.number }}
+          clean: true
+          force: false
+          commit-message: "Deploy preview for PR #${{ github.event.pull_request.number }}"
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: preview
+          number: ${{ github.event.pull_request.number }}
+          message: |
+            :mag: Preview: https://maps.outlasttrialsstats.com/pr-preview/pr-${{ github.event.pull_request.number }}/
+
+            Built from ${{ needs.build.outputs.sha }}. Updates on every push while the `preview` label is set.
+            Note: page reloads and deep links inside the preview are not supported.
+
+  cleanup:
+    if: >-
+      github.event.action == 'closed' ||
+      (github.event.action == 'unlabeled' && github.event.label.name == 'preview')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: gh-pages-push
+    steps:
+      - uses: actions/checkout@v7
+      - name: Remove preview folder from gh-pages
+        env:
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          git fetch origin gh-pages:gh-pages --depth=1 || exit 0
+          git switch gh-pages
+          [ -d "pr-preview/pr-$PR" ] || exit 0
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -r -q "pr-preview/pr-$PR"
+          git commit -m "Remove preview for PR #$PR"
+          git push origin gh-pages
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: preview
+          number: ${{ github.event.pull_request.number }}
+          delete: true

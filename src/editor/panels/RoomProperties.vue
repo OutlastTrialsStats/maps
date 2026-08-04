@@ -11,6 +11,7 @@ import type { Room, RoomFlag, RoomInfo, TrialDocument, Vec2 } from '../../core/m
 import { useEditorStore } from '../store/editorStore'
 import { useZonesStore } from '../store/zonesStore'
 import RoomImagesEditor from './RoomImagesEditor.vue'
+import RoomInnerLinesEditor from './RoomInnerLinesEditor.vue'
 import RoomWallGapsEditor from './RoomWallGapsEditor.vue'
 
 const props = defineProps<{ room: Room }>()
@@ -28,16 +29,22 @@ const flagOptions: Array<{ id: RoomFlag; label: string }> = [
 const zoneOptions = computed(() =>
   zonesStore.zones.map((zone) => ({ label: zone.name, value: zone.id })),
 )
+const floorOptions = computed(() =>
+  store.floors.map((floor) => ({ label: floor.name, value: floor.index })),
+)
 const flags = computed(() => new Set(props.room.flags ?? []))
 
 /** All changes go through the document object from the store (never through the prop). */
-function mutateRoom(mutate: (room: Room, doc: TrialDocument) => void): void {
-  store.commit((doc) => {
-    const room = doc.rooms.find((entry) => entry.id === props.room.id)
-    if (room) {
-      mutate(room, doc)
-    }
-  })
+function mutateRoom(mutate: (room: Room, doc: TrialDocument) => void, coalesce?: string): void {
+  store.commit(
+    (doc) => {
+      const room = doc.rooms.find((entry) => entry.id === props.room.id)
+      if (room) {
+        mutate(room, doc)
+      }
+    },
+    coalesce ? { coalesce: `${props.room.id}:${coalesce}` } : undefined,
+  )
 }
 
 function renameId(raw: string): void {
@@ -87,6 +94,22 @@ function setZone(zone: string): void {
   })
 }
 
+/** Placements assigned to the room move along — the floor mismatch would be a validation error. */
+function setFloor(floor: number): void {
+  if (floor === props.room.floor) {
+    return
+  }
+  mutateRoom((room, doc) => {
+    room.floor = floor
+    for (const placement of doc.placements) {
+      if (placement.roomId === room.id) {
+        placement.floor = floor
+      }
+    }
+  })
+  store.activeFloor = floor
+}
+
 function toggleFlag(flag: RoomFlag, checked: boolean): void {
   mutateRoom((room) => {
     const next = new Set(room.flags ?? [])
@@ -124,7 +147,7 @@ function setLabelText(raw: string): void {
   })
 }
 
-function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
+function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }, coalesce: string): void {
   mutateRoom((room) => {
     if (!room.label) {
       return
@@ -139,7 +162,7 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
         room.label.fontSize = patch.fontSize
       }
     }
-  })
+  }, coalesce)
 }
 </script>
 
@@ -182,6 +205,17 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
         @update:model-value="setZone($event)"
       />
     </label>
+    <label class="field">
+      <span class="field-label">Floor (assigned placements move along)</span>
+      <Select
+        :model-value="room.floor"
+        :options="floorOptions"
+        option-label="label"
+        option-value="value"
+        size="small"
+        @update:model-value="setFloor($event)"
+      />
+    </label>
     <fieldset class="flags">
       <legend>Flags</legend>
       <label v-for="option in flagOptions" :key="option.id" class="flag-row">
@@ -209,7 +243,7 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
           size="small"
           :use-grouping="false"
           :max-fraction-digits="1"
-          @update:model-value="setLabelValue({ pos: [$event ?? 0, room.label.pos[1]] })"
+          @update:model-value="setLabelValue({ pos: [$event ?? 0, room.label.pos[1]] }, 'label-x')"
         />
       </label>
       <label class="field">
@@ -219,7 +253,7 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
           size="small"
           :use-grouping="false"
           :max-fraction-digits="1"
-          @update:model-value="setLabelValue({ pos: [room.label.pos[0], $event ?? 0] })"
+          @update:model-value="setLabelValue({ pos: [room.label.pos[0], $event ?? 0] }, 'label-y')"
         />
       </label>
       <label class="field">
@@ -229,11 +263,12 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }): void {
           size="small"
           :use-grouping="false"
           :max-fraction-digits="1"
-          @update:model-value="setLabelValue({ fontSize: $event })"
+          @update:model-value="setLabelValue({ fontSize: $event }, 'label-size')"
         />
       </label>
     </div>
     <RoomWallGapsEditor :room-id="room.id" />
+    <RoomInnerLinesEditor :room-id="room.id" />
     <RoomImagesEditor :room-id="room.id" />
   </div>
 </template>

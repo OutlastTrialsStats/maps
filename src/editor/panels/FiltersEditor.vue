@@ -90,7 +90,15 @@ function add(): void {
         class="name-input"
         @change="rename(filter.id, ($event.target as HTMLInputElement).value)"
       />
-      <Button label="✕" size="small" severity="danger" text @click="remove(filter.id)" />
+      <Button
+        v-tooltip.left="'Remove filter'"
+        icon="pi pi-trash"
+        aria-label="Remove filter"
+        size="small"
+        severity="danger"
+        text
+        @click="remove(filter.id)"
+      />
       <MultiSelect
         :model-value="filter.categories"
         :options="categoryOptions"

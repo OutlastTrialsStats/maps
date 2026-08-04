@@ -11,6 +11,8 @@ export type DrawEnd = 'head' | 'tail'
 export interface CanvasPointerEvent {
   world: Vec2
   snapped: Vec2
+  /** Handle hit radius in world units — `VERTEX_HIT_RADIUS_PX` at the current zoom. */
+  hitRadius: number
   hit: HitTarget | null
   event: MouseEvent
 }
@@ -19,7 +21,14 @@ export interface CanvasPointerEvent {
 export type ToolOverlay =
   | { kind: 'polyline'; points: Vec2[]; preview: Vec2 | null; activeEnd?: DrawEnd }
   | { kind: 'rect'; from: Vec2; to: Vec2 }
-  | { kind: 'vertices'; origin: Vec2; points: Vec2[]; activeIndex: number | null }
+  | {
+      kind: 'vertices'
+      origin: Vec2
+      points: Vec2[]
+      activeIndex: number | null
+      /** false renders an open polyline without the closing edge (routes). */
+      closed?: boolean
+    }
   | {
       kind: 'wallgaps'
       origin: Vec2
@@ -29,6 +38,7 @@ export type ToolOverlay =
       activeIndex: number | null
     }
   | { kind: 'ghost'; pos: Vec2; rotation: number; elementId: string }
+  | { kind: 'camera'; pos: Vec2; rotation: number }
   | {
       kind: 'resize'
       min: Vec2

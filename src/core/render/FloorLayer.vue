@@ -14,6 +14,8 @@ const props = defineProps<{
   zones: ReadonlyMap<string, Zone>
   selectedIds?: ReadonlySet<string>
   hiddenCategories?: ReadonlySet<string>
+  /** Editor: routes get an invisible wide hit stroke for clicking/double-clicking. */
+  interactiveRoutes?: boolean
 }>()
 
 function visible<T extends { floor: number }>(items: T[]): T[] {
@@ -46,6 +48,7 @@ const markedPlacements = computed(() => placements.value.filter((placement) => p
       :key="route.id"
       :route="route"
       :selected="selectedIds?.has(route.id)"
+      :hit-area="interactiveRoutes"
     />
     <PlacementMarker
       v-for="placement in placements"
