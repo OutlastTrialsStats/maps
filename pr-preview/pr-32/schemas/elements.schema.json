@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://maps.outlasttrialsstats.com/schemas/elements.schema.json",
+  "title": "Element-Bibliothek",
+  "type": "object",
+  "required": ["categories", "elements"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "categories": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/category" }
+    },
+    "elements": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/element" }
+    }
+  },
+  "definitions": {
+    "kebabId": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "color": {
+      "type": "string",
+      "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+    },
+    "category": {
+      "type": "object",
+      "required": ["id", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/kebabId" },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "element": {
+      "type": "object",
+      "required": ["id", "name", "category", "color"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/kebabId" },
+        "name": { "type": "string", "minLength": 1 },
+        "category": { "$ref": "#/definitions/kebabId" },
+        "icon": {
+          "description": "Bare .webp file name under https://outlasttrialsstats.com/game-assets/ (no path, no extension).",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "color": { "$ref": "#/definitions/color" },
+        "size": { "type": "number", "exclusiveMinimum": 0 },
+        "anchor": { "enum": ["center", "topleft"] },
+        "description": { "type": "string" },
+        "propsSchema": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/propField" }
+        },
+        "render": { "$ref": "#/definitions/structuralRender" }
+      }
+    },
+    "structuralRender": {
+      "type": "object",
+      "required": ["kind", "length", "thickness"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "door",
+            "double-door",
+            "barricaded-door",
+            "window",
+            "crawl-passage",
+            "obstacle",
+            "spawn-room",
+            "stairs"
+          ]
+        },
+        "length": { "type": "number", "exclusiveMinimum": 0 },
+        "thickness": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "propField": {
+      "type": "object",
+      "required": ["type", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["string", "string[]", "number", "boolean", "enum"] },
+        "label": { "type": "string", "minLength": 1 },
+        "values": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}
