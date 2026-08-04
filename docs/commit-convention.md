@@ -26,22 +26,23 @@ feat(data)!: switch trial file layout to one file per trial
 
 ## Types
 
-| Type       | Triggers release | Version bump | Changelog                |
-| ---------- | ---------------- | ------------ | ------------------------ |
-| `feat`     | yes              | minor        | Features                 |
-| `fix`      | yes              | patch        | Bug Fixes                |
-| `deps`     | yes              | patch        | Dependencies             |
-| `perf`     | no ¹             | —            | Performance Improvements |
-| `refactor` | no ¹             | —            | Code Refactoring         |
-| `chore`    | no ¹             | —            | Miscellaneous Chores     |
-| `docs`     | no ¹             | —            | hidden                   |
-| `style`    | no ¹             | —            | hidden                   |
-| `ci`       | no ¹             | —            | hidden                   |
+| Type       | Version bump | Changelog                |
+| ---------- | ------------ | ------------------------ |
+| `feat`     | minor        | Features                 |
+| `fix`      | patch        | Bug Fixes                |
+| `perf`     | patch        | Performance Improvements |
+| `refactor` | patch        | Code Refactoring         |
+| `chore`    | patch        | Miscellaneous Chores     |
+| `deps`     | patch        | Dependencies             |
+| `docs`     | patch        | Documentation            |
+| `ci`       | patch        | Continuous Integration   |
+| `style`    | none         | hidden                   |
 
-¹ Only `feat`, `fix` and `deps` commits (and breaking changes) are _releasable units_: they make
-release-please open or update the release PR. All other types never trigger a release on their
-own — they ride along with the next release, and "hidden" means the commit is valid but does not
-appear in the changelog.
+Release-please opens (or updates) the release PR as soon as at least one commit since the last
+tag lands in a non-hidden changelog section. Hidden types (`style`, `test`, `build`, `revert`)
+are valid but neither appear in the changelog nor trigger a release on their own — they ride
+along with the next one. Triggering only means the release PR exists; nothing is released until
+a maintainer merges it.
 
 A `!` before the colon or a `BREAKING CHANGE:` footer bumps the **major** version, regardless of
 type.
