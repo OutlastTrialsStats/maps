@@ -1,10 +1,10 @@
-/** Base URL of all content fetched at runtime (public/data). */
-export const DATA_BASE_URL = '/data'
+/** Base URL of all content fetched at runtime (public/data); BASE_URL always ends with '/'. */
+export const DATA_BASE_URL = `${import.meta.env.BASE_URL}data`
 export const MAPS_INDEX_URL = `${DATA_BASE_URL}/maps/index.json`
 export const ELEMENT_LIBRARY_URL = `${DATA_BASE_URL}/elements.json`
 export const ZONE_LIBRARY_URL = `${DATA_BASE_URL}/zones.json`
 export const CONTRIBUTORS_URL = `${DATA_BASE_URL}/contributors.json`
-export const SCHEMA_BASE_URL = '/schemas'
+export const SCHEMA_BASE_URL = `${import.meta.env.BASE_URL}schemas`
 
 /** Repo behind the join link of the contributors section. */
 export const GITHUB_REPO_URL = 'https://github.com/OutlastTrialsStats/maps'

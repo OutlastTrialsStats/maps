@@ -43,7 +43,7 @@ function releasePressed() {
 
 onMounted(() => {
   // Preload the pressed variant so the first click does not flicker
-  new Image().src = '/images/cursor/cursor_pressed.webp'
+  new Image().src = `${import.meta.env.BASE_URL}images/cursor/cursor_pressed.webp`
 
   window.addEventListener('pointermove', onPointerMove, { passive: true })
   window.addEventListener('pointerdown', onPointerDown)
