@@ -53,10 +53,6 @@ h2 {
   color: var(--text-primary);
 }
 
-.error {
-  color: var(--danger);
-}
-
 .grid {
   display: flex;
   flex-wrap: wrap;

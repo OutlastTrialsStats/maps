@@ -53,7 +53,11 @@ defineProps<{ map: MapRegistryEntry }>()
 .card-shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(13, 14, 18, 0.9) 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 55%,
+    color-mix(in srgb, var(--bg-page) 90%, transparent) 100%
+  );
 }
 
 .card-body {
@@ -73,7 +77,7 @@ defineProps<{ map: MapRegistryEntry }>()
   font-family: var(--font-brand);
   font-size: 1.3rem;
   color: var(--text-primary);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 2px 8px var(--text-shadow-color);
 }
 
 .card-progress {

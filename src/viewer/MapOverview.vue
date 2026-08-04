@@ -2,12 +2,16 @@
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHorizontalWheelScroll } from '../core/interaction/useHorizontalWheelScroll'
-import { loadMapsIndex } from '../core/model/dataSource'
+import { gameAssetUrl, loadMapsIndex } from '../core/model/dataSource'
 import type { MapRegistryEntry } from '../core/model/types'
 import ContributorsSection from './ContributorsSection.vue'
 import HeroBanner from './HeroBanner.vue'
 import MapCard from './MapCard.vue'
+import PageBackdrop from './PageBackdrop.vue'
 import SiteFooter from './SiteFooter.vue'
+
+// A component prop is not rewritten by Vite's asset pipeline, hence the explicit base.
+const backdropSrc = `${import.meta.env.BASE_URL}images/bdg_home.png`
 
 const maps = ref<MapRegistryEntry[]>([])
 const loadError = ref('')
@@ -25,22 +29,9 @@ onMounted(async () => {
 
 <template>
   <div class="page">
-    <div class="backdrop" aria-hidden="true">
-      <img
-        class="backdrop-img"
-        src="/images/bdg_home.png"
-        alt=""
-        loading="eager"
-        fetchpriority="high"
-      />
-      <div class="backdrop-overlay" />
-    </div>
+    <PageBackdrop :src="backdropSrc" overlay="gradient" />
     <RouterLink to="/editor" class="editor-link">
-      <img
-        src="https://outlasttrialsstats.com/game-assets/tag_rename.webp"
-        alt=""
-        class="editor-link-icon"
-      />
+      <img :src="gameAssetUrl('tag_rename.webp')" alt="" class="editor-link-icon" />
       Map editor
     </RouterLink>
     <main class="overview">
@@ -66,29 +57,6 @@ onMounted(async () => {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-}
-
-.backdrop-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.backdrop-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(13, 14, 18, 0.2) 0%,
-    rgba(13, 14, 18, 0.6) 40%,
-    var(--bg-page) 75%
-  );
 }
 
 .editor-link {
@@ -136,10 +104,6 @@ onMounted(async () => {
 
 .hero {
   padding: clamp(1.25rem, 5vw, 3rem) 0 clamp(1.25rem, 4vw, 2rem);
-}
-
-.error {
-  color: var(--danger);
 }
 
 .cards {

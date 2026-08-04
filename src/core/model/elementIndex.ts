@@ -1,11 +1,12 @@
 import type { ElementDefinition, ElementLibrary, Zone, ZoneLibrary } from './types'
 
-export type ElementIndex = Map<string, ElementDefinition>
+export type ElementIndex = ReadonlyMap<string, ElementDefinition>
+export type ZoneIndex = ReadonlyMap<string, Zone>
 
 export function buildElementIndex(library: ElementLibrary | null): ElementIndex {
   return new Map((library?.elements ?? []).map((def) => [def.id, def]))
 }
 
-export function buildZoneIndex(library: ZoneLibrary | null): ReadonlyMap<string, Zone> {
+export function buildZoneIndex(library: ZoneLibrary | null): ZoneIndex {
   return new Map((library?.zones ?? []).map((zone) => [zone.id, zone]))
 }

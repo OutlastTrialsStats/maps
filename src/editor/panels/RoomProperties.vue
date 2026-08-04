@@ -29,22 +29,11 @@ const flagOptions: Array<{ id: RoomFlag; label: string }> = [
 const zoneOptions = computed(() =>
   zonesStore.zones.map((zone) => ({ label: zone.name, value: zone.id })),
 )
-const floorOptions = computed(() =>
-  store.floors.map((floor) => ({ label: floor.name, value: floor.index })),
-)
 const flags = computed(() => new Set(props.room.flags ?? []))
 
 /** All changes go through the document object from the store (never through the prop). */
 function mutateRoom(mutate: (room: Room, doc: TrialDocument) => void, coalesce?: string): void {
-  store.commit(
-    (doc) => {
-      const room = doc.rooms.find((entry) => entry.id === props.room.id)
-      if (room) {
-        mutate(room, doc)
-      }
-    },
-    coalesce ? { coalesce: `${props.room.id}:${coalesce}` } : undefined,
-  )
+  store.commitOn('room', props.room.id, mutate, coalesce ? { coalesce } : undefined)
 }
 
 function renameId(raw: string): void {
@@ -168,7 +157,7 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }, coalesce
 
 <template>
   <div class="room-props">
-    <h3>Room</h3>
+    <h3 class="panel-title">Room</h3>
     <label class="field">
       <span class="field-label">ID</span>
       <InputText
@@ -209,14 +198,14 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }, coalesce
       <span class="field-label">Floor (assigned placements move along)</span>
       <Select
         :model-value="room.floor"
-        :options="floorOptions"
+        :options="store.floorOptions"
         option-label="label"
         option-value="value"
         size="small"
         @update:model-value="setFloor($event)"
       />
     </label>
-    <fieldset class="flags">
+    <fieldset class="flags panel-fieldset">
       <legend>Flags</legend>
       <label v-for="option in flagOptions" :key="option.id" class="flag-row">
         <Checkbox
@@ -280,44 +269,8 @@ function setLabelValue(patch: { pos?: Vec2; fontSize?: number | null }, coalesce
   gap: 10px;
 }
 
-h3 {
-  margin: 0;
-  font-size: 14px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.field-row {
-  display: flex;
-  gap: 6px;
-}
-
-.field-row .field {
-  min-width: 0;
-}
-
 .flags {
-  display: flex;
-  flex-direction: column;
   gap: 4px;
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  padding: 8px;
-}
-
-.flags legend {
-  font-size: 12px;
-  color: var(--text-muted);
-  padding: 0 4px;
 }
 
 .flag-row {

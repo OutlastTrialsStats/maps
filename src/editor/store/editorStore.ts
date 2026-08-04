@@ -22,11 +22,20 @@ import { useZonesStore } from './zonesStore'
 /** Number of digits of the running number in generated IDs (e.g. "pl-0042"). */
 const GENERATED_ID_DIGITS = 4
 
+export const NEEDS_DOCUMENT_HINT = 'Load or create a map first'
+
+const ENTITY_COLLECTIONS = {
+  room: 'rooms',
+  placement: 'placements',
+  route: 'routes',
+  filter: 'filters',
+} as const
+
 /**
  * While set, undo/redo route here exclusively — a document undo/redo mid-drawing
  * could delete the very room an inner line is being drawn into.
  */
-export interface TransientHistory {
+interface TransientHistory {
   canUndo(): boolean
   canRedo(): boolean
   undo(): void
@@ -71,6 +80,9 @@ export const useEditorStore = defineStore('editor', () => {
   const canUndo = computed(() => drawingHistory.value?.canUndo() ?? undoStack.value.length > 0)
   const canRedo = computed(() => drawingHistory.value?.canRedo() ?? redoStack.value.length > 0)
   const floors = computed(() => document.value?.floors ?? [])
+  const floorOptions = computed(() =>
+    floors.value.map((floor) => ({ label: floor.name, value: floor.index })),
+  )
   const trials = computed(() => manifest.value?.trials ?? [])
   /** Display name of the trial being edited (from the manifest, fallback: its ID). */
   const trialName = computed(() => {
@@ -151,6 +163,29 @@ export const useEditorStore = defineStore('editor', () => {
     pushUndoCoalesced(options?.coalesce)
     mutate(document.value)
     markChanged()
+  }
+
+  /** `commit` scoped to one entity: looks it up by id and mutates only that entry. */
+  function commitOn<K extends keyof typeof ENTITY_COLLECTIONS>(
+    kind: K,
+    id: string,
+    mutate: (
+      entity: TrialDocument[(typeof ENTITY_COLLECTIONS)[K]][number],
+      doc: TrialDocument,
+    ) => void,
+    options?: { coalesce?: string },
+  ): void {
+    commit(
+      (doc) => {
+        const list: Array<TrialDocument[(typeof ENTITY_COLLECTIONS)[K]][number]> =
+          doc[ENTITY_COLLECTIONS[kind]]
+        const entity = list.find((entry) => entry.id === id)
+        if (entity) {
+          mutate(entity, doc)
+        }
+      },
+      options?.coalesce ? { coalesce: `${id}:${options.coalesce}` } : undefined,
+    )
   }
 
   /** Changes to the map manifest (meta, trial names) — same undo path as `commit`. */
@@ -440,14 +475,15 @@ export const useEditorStore = defineStore('editor', () => {
     canUndo,
     canRedo,
     floors,
+    floorOptions,
     trials,
     trialName,
     selectedIds,
-    primarySelection,
     selectedRoom,
     selectedPlacement,
     selectedRoute,
     commit,
+    commitOn,
     commitManifest,
     commitLibrary,
     commitZones,

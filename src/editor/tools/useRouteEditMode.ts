@@ -1,10 +1,10 @@
 import { computed, ref } from 'vue'
+import { MIN_OPEN_PATH_POINTS } from '../../core/constants'
 import { parseOpenPath, pointsToOpenPath } from '../../core/model/roomPath'
 import type { RouteLine, Vec2 } from '../../core/model/types'
+import { midpoint, withinRadius } from '../../core/model/vec2'
 import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, ToolOverlay } from './toolTypes'
-
-const MIN_ROUTE_POINTS = 2
 
 /**
  * Vertex editing for routes, entered by double-clicking a route with the select
@@ -58,22 +58,21 @@ export function useRouteEditMode() {
   }
 
   function hitIndex(points: Vec2[], world: Vec2, hitRadius: number): number {
-    return points.findIndex(
-      (point) => Math.hypot(world[0] - point[0], world[1] - point[1]) <= hitRadius,
-    )
+    return points.findIndex((point) => withinRadius(world, point, hitRadius))
   }
 
-  function midpointIndex(points: Vec2[], world: Vec2, hitRadius: number): number {
+  function midpointHit(
+    points: Vec2[],
+    world: Vec2,
+    hitRadius: number,
+  ): { index: number; point: Vec2 } | null {
     for (let index = 0; index < points.length - 1; index += 1) {
-      const mid: Vec2 = [
-        (points[index][0] + points[index + 1][0]) / 2,
-        (points[index][1] + points[index + 1][1]) / 2,
-      ]
-      if (Math.hypot(world[0] - mid[0], world[1] - mid[1]) <= hitRadius) {
-        return index
+      const mid = midpoint(points[index], points[index + 1])
+      if (withinRadius(world, mid, hitRadius)) {
+        return { index, point: mid }
       }
     }
-    return -1
+    return null
   }
 
   function onPointerDown(event: CanvasPointerEvent): boolean {
@@ -85,16 +84,14 @@ export function useRouteEditMode() {
       exit()
       return false
     }
+    const routeId = editRouteId.value
     const vertex = hitIndex(points, event.world, event.hitRadius)
     if (vertex >= 0) {
       if (event.event.altKey) {
-        if (points.length > MIN_ROUTE_POINTS) {
-          store.commit((doc) => {
-            const route = doc.routes.find((entry) => entry.id === editRouteId.value)
-            if (route) {
-              writePoints(route, points.filter((_, index) => index !== vertex))
-            }
-          })
+        if (points.length > MIN_OPEN_PATH_POINTS) {
+          store.commitOn('route', routeId, (route) =>
+            writePoints(route, points.filter((_, index) => index !== vertex)),
+          )
         }
         activeIndex.value = null
         return true
@@ -103,23 +100,16 @@ export function useRouteEditMode() {
       activeIndex.value = vertex
       return true
     }
-    const midpoint = midpointIndex(points, event.world, event.hitRadius)
-    if (midpoint >= 0) {
-      const inserted: Vec2 = [
-        (points[midpoint][0] + points[midpoint + 1][0]) / 2,
-        (points[midpoint][1] + points[midpoint + 1][1]) / 2,
-      ]
-      store.commit((doc) => {
-        const route = doc.routes.find((entry) => entry.id === editRouteId.value)
-        if (route) {
-          writePoints(route, [
-            ...points.slice(0, midpoint + 1),
-            inserted,
-            ...points.slice(midpoint + 1),
-          ])
-        }
-      })
-      activeIndex.value = midpoint + 1
+    const mid = midpointHit(points, event.world, event.hitRadius)
+    if (mid) {
+      store.commitOn('route', routeId, (route) =>
+        writePoints(route, [
+          ...points.slice(0, mid.index + 1),
+          mid.point,
+          ...points.slice(mid.index + 1),
+        ]),
+      )
+      activeIndex.value = mid.index + 1
       return true
     }
     exit()

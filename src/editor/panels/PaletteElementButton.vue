@@ -15,7 +15,7 @@ const emit = defineEmits<{ pick: []; edit: []; remove: [] }>()
 
 const iconUrl = computed(() => elementIconUrl(props.element.icon))
 
-const { showIcon, onIconError } = useIconFallback(() => iconUrl.value)
+const { showIcon, onIconError } = useIconFallback(iconUrl)
 
 function shapePreviewPath(element: ElementDefinition): string {
   const render = element.render

@@ -20,11 +20,7 @@ function pointCount(line: InnerLine): string {
 }
 
 function mutateLines(mutate: (list: InnerLine[]) => void): void {
-  store.commit((doc) => {
-    const room = doc.rooms.find((entry) => entry.id === props.roomId)
-    if (!room) {
-      return
-    }
+  store.commitOn('room', props.roomId, (room) => {
     const list = room.innerLines ?? []
     mutate(list)
     if (list.length === 0) {
@@ -82,11 +78,6 @@ function removeLine(index: number): void {
   display: flex;
   flex-direction: column;
   gap: 6px;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
 }
 
 .hint {

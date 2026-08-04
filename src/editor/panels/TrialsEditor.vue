@@ -5,7 +5,7 @@ const store = useEditorStore()
 </script>
 
 <template>
-  <fieldset class="trials">
+  <fieldset class="panel-fieldset trials">
     <legend>Trials</legend>
     <div v-for="trial in store.trials" :key="trial.id" class="row">
       <span class="name">{{ trial.name }}</span>
@@ -21,18 +21,7 @@ const store = useEditorStore()
 
 <style scoped>
 .trials {
-  display: flex;
-  flex-direction: column;
   gap: 6px;
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  padding: 8px;
-}
-
-.trials legend {
-  font-size: 12px;
-  color: var(--text-muted);
-  padding: 0 4px;
 }
 
 .row {

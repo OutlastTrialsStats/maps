@@ -4,6 +4,7 @@ import { VERTEX_HIT_RADIUS_PX } from '../core/constants'
 import type { ElementIndex } from '../core/model/elementIndex'
 import { pointsToOpenPath } from '../core/model/roomPath'
 import type { Placement, Vec2 } from '../core/model/types'
+import { midpoint } from '../core/model/vec2'
 import CameraMarker from '../core/render/CameraMarker.vue'
 import PlacementMarker from '../core/render/PlacementMarker.vue'
 import type { ToolOverlay } from './tools/toolTypes'
@@ -60,10 +61,9 @@ const midpoints = computed<Vec2[]>(() => {
     return []
   }
   const edgeCount = vertices.value?.closed === false ? points.length - 1 : points.length
-  return points.slice(0, edgeCount).map((point, index): Vec2 => {
-    const next = points[(index + 1) % points.length]
-    return [(point[0] + next[0]) / 2, (point[1] + next[1]) / 2]
-  })
+  return points
+    .slice(0, edgeCount)
+    .map((point, index) => midpoint(point, points[(index + 1) % points.length]))
 })
 
 const ghostPlacement = computed<Placement | null>(() =>
@@ -225,11 +225,7 @@ const ghostElement = computed(() =>
   fill: var(--color-selection);
 }
 
-.handle.active-end {
-  fill: #e0913c;
-  stroke: #e0913c;
-}
-
+.handle.active-end,
 .handle.active {
   fill: #e0913c;
   stroke: #e0913c;

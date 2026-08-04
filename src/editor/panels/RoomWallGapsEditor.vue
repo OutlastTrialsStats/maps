@@ -5,7 +5,8 @@ import { computed } from 'vue'
 import { WALL_GAP_MIN_LENGTH } from '../../core/constants'
 import { shapeToPoints } from '../../core/model/roomPath'
 import type { WallGap } from '../../core/model/types'
-import { edgeLength, edgeSegments } from '../../core/model/wallGaps'
+import { clamp } from '../../core/model/vec2'
+import { edgeLength, edgeSegments, setWallGaps } from '../../core/model/wallGaps'
 import { useEditorStore } from '../store/editorStore'
 
 const props = defineProps<{ roomId: string }>()
@@ -21,21 +22,15 @@ const edgeLengths = computed(() => {
 })
 
 function mutateGaps(mutate: (list: WallGap[]) => void, coalesce?: string): void {
-  store.commit(
-    (doc) => {
-      const target = doc.rooms.find((entry) => entry.id === props.roomId)
-      if (!target) {
-        return
-      }
+  store.commitOn(
+    'room',
+    props.roomId,
+    (target) => {
       const list = target.wallGaps ?? []
       mutate(list)
-      if (list.length === 0) {
-        delete target.wallGaps
-      } else {
-        target.wallGaps = list
-      }
+      setWallGaps(target, list)
     },
-    coalesce ? { coalesce: `${props.roomId}:${coalesce}` } : undefined,
+    coalesce ? { coalesce } : undefined,
   )
 }
 
@@ -46,7 +41,7 @@ function maxLength(gap: WallGap): number {
 
 function setEdge(index: number, value: number | null): void {
   const edges = edgeLengths.value.length
-  const edge = Math.min(Math.max(value ?? 0, 0), edges > 0 ? edges - 1 : 0)
+  const edge = clamp(value ?? 0, 0, edges > 0 ? edges - 1 : 0)
   mutateGaps((list) => {
     list[index].edge = edge
   }, `gap${index}-edge`)
@@ -56,7 +51,7 @@ function setStart(index: number, value: number | null): void {
   mutateGaps((list) => {
     const gap = list[index]
     const available = edgeLengths.value[gap.edge] ?? gap.start + gap.length
-    gap.start = Math.min(Math.max(value ?? 0, 0), Math.max(0, available - WALL_GAP_MIN_LENGTH))
+    gap.start = clamp(value ?? 0, 0, Math.max(0, available - WALL_GAP_MIN_LENGTH))
     gap.length = Math.min(gap.length, Math.max(WALL_GAP_MIN_LENGTH, available - gap.start))
   }, `gap${index}-start`)
 }
@@ -64,7 +59,7 @@ function setStart(index: number, value: number | null): void {
 function setLength(index: number, value: number | null): void {
   mutateGaps((list) => {
     const gap = list[index]
-    gap.length = Math.min(Math.max(value ?? 0, WALL_GAP_MIN_LENGTH), maxLength(gap))
+    gap.length = clamp(value ?? 0, WALL_GAP_MIN_LENGTH, maxLength(gap))
   }, `gap${index}-length`)
 }
 
@@ -136,11 +131,6 @@ function removeGap(index: number): void {
   gap: 6px;
 }
 
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
 .hint {
   margin: 0;
   font-size: 12px;
@@ -154,9 +144,6 @@ function removeGap(index: number): void {
 }
 
 .field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
   flex: 1 1 0;
   min-width: 0;
 }

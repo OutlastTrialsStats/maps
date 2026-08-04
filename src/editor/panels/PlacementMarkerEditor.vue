@@ -5,10 +5,11 @@ import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import SelectButton from 'primevue/selectbutton'
 import { computed } from 'vue'
-import { ICON_FILE_PATTERN, MARKER_COLOR, MARKER_DEFAULT_OFFSET } from '../../core/constants'
-import { elementIconUrl, toIconFileName } from '../../core/model/dataSource'
+import { MARKER_COLOR, MARKER_DEFAULT_OFFSET } from '../../core/constants'
+import { toIconFileName } from '../../core/model/dataSource'
 import type { CalloutMarker, Placement, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
+import { ICON_FILE_ERROR, useIconField } from './useIconField'
 
 const props = defineProps<{ placementId: string }>()
 const store = useEditorStore()
@@ -28,24 +29,13 @@ const mode = computed<MarkerMode>(() => (marker.value && 'icon' in marker.value 
 const label = computed(() => (marker.value && 'label' in marker.value ? marker.value.label : null))
 const icon = computed(() => (marker.value && 'icon' in marker.value ? marker.value.icon : null))
 
-const iconValid = computed(() => icon.value === null || ICON_FILE_PATTERN.test(icon.value))
-const iconPreview = computed(() =>
-  iconValid.value && icon.value ? elementIconUrl(icon.value) : undefined,
-)
+const { valid: iconValid, previewUrl: iconPreview } = useIconField(icon)
 
 const markerColor = computed(() => marker.value?.color ?? MARKER_COLOR)
 const lineColor = computed(() => marker.value?.lineColor ?? markerColor.value)
 
 function mutatePlacement(mutate: (placement: Placement) => void, coalesce?: string): void {
-  store.commit(
-    (doc) => {
-      const placement = doc.placements.find((entry) => entry.id === props.placementId)
-      if (placement) {
-        mutate(placement)
-      }
-    },
-    coalesce ? { coalesce: `${props.placementId}:${coalesce}` } : undefined,
-  )
+  store.commitOn('placement', props.placementId, mutate, coalesce ? { coalesce } : undefined)
 }
 
 function mutateMarker(mutate: (marker: CalloutMarker) => void, coalesce?: string): void {
@@ -213,9 +203,7 @@ function setDashed(dashed: boolean): void {
           placeholder="objectif_key"
           @update:model-value="setIcon($event)"
         />
-        <small v-if="!iconValid || icon === ''" class="field-error">
-          Only a bare file name is allowed (no path, no .webp).
-        </small>
+        <small v-if="!iconValid || icon === ''" class="field-error">{{ ICON_FILE_ERROR }}</small>
         <img v-if="iconPreview" :src="iconPreview" alt="" class="icon-preview" />
       </label>
       <div class="field-row">
@@ -285,9 +273,6 @@ function setDashed(dashed: boolean): void {
 }
 
 .field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
   flex: 1 1 0;
   min-width: 0;
 }
@@ -299,27 +284,5 @@ function setDashed(dashed: boolean): void {
 .dashed-toggle {
   align-self: flex-end;
   padding-bottom: 4px;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.field-error {
-  font-size: 11px;
-  color: var(--danger);
-}
-
-.icon-preview {
-  width: 32px;
-  height: 32px;
-  margin-top: 4px;
-  object-fit: contain;
-}
-
-.field-row {
-  display: flex;
-  gap: 6px;
 }
 </style>

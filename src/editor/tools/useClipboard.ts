@@ -1,6 +1,6 @@
 import { useToast } from 'primevue/usetoast'
 import { computed, ref } from 'vue'
-import { DUPLICATE_OFFSET, GRID_SNAP_DEFAULT } from '../../core/constants'
+import { DUPLICATE_OFFSET, GRID_SNAP_DEFAULT, TOAST_LIFE_MS } from '../../core/constants'
 import type { HitTarget } from '../../core/interaction/hitTest'
 import { snapToGrid } from '../../core/interaction/snapping'
 import { translateAbsolutePathStart } from '../../core/model/roomPath'
@@ -22,8 +22,6 @@ import {
  * scope so every caller shares the same content.
  */
 const memoryClipboard = ref<ClipboardPayload | null>(null)
-
-const TOAST_LIFE_MS = 5000
 
 export function useClipboard() {
   const store = useEditorStore()

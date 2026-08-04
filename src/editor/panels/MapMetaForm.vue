@@ -17,7 +17,7 @@ function setName(raw: string): void {
 
 <template>
   <div v-if="store.manifest" class="map-meta">
-    <h3>Map: {{ store.manifest.id }}</h3>
+    <h3 class="panel-title">Map: {{ store.manifest.id }}</h3>
     <div class="field">
       <label class="field-label" for="map-name">Name</label>
       <InputText
@@ -35,21 +35,5 @@ function setName(raw: string): void {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-h3 {
-  margin: 0;
-  font-size: 14px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
 }
 </style>

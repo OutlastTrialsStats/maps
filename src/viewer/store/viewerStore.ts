@@ -46,6 +46,12 @@ export const useViewerStore = defineStore('viewer', () => {
   const activeFloorName = computed(
     () => trial.value?.floors.find((floor) => floor.index === activeFloor.value)?.name ?? '',
   )
+  const canFloorUp = computed(() =>
+    floorsTopDown.value.some((floor) => floor.index > activeFloor.value),
+  )
+  const canFloorDown = computed(() =>
+    floorsTopDown.value.some((floor) => floor.index < activeFloor.value),
+  )
   const elementIndex = computed(() => buildElementIndex(library.value))
   const zonesById = computed(() => buildZoneIndex(zones.value))
   /** Authors of the open map, with a profile link where possible (contributors.json). */
@@ -71,7 +77,10 @@ export const useViewerStore = defineStore('viewer', () => {
     return hidden
   })
 
-  async function loadMap(mapId: string, initialTrialId?: string): Promise<void> {
+  async function loadMap(
+    mapId: string,
+    initial?: { trialId?: string; floor?: number; roomId?: string },
+  ): Promise<void> {
     loading.value = true
     loadError.value = ''
     manifest.value = null
@@ -85,21 +94,28 @@ export const useViewerStore = defineStore('viewer', () => {
       // waiting for the library/zones fetches.
       const [[loadedManifest, trialId, document], loadedLibrary, loadedZones] = await Promise.all([
         loadMapManifest(mapId).then(async (loaded) => {
-          const requested = loaded.trials.some((entry) => entry.id === initialTrialId)
-            ? initialTrialId
+          const requested = loaded.trials.some((entry) => entry.id === initial?.trialId)
+            ? initial?.trialId
             : undefined
           const id = requested ?? defaultTrialId(loaded.trials) ?? ''
           return [loaded, id, await fetchTrial(mapId, id)] as const
         }),
-        library.value ?? loadElementLibrary(),
-        zones.value ?? loadZoneLibrary(),
+        loadElementLibrary(),
+        loadZoneLibrary(),
       ])
       library.value = loadedLibrary
       zones.value = loadedZones
       manifest.value = loadedManifest
       trial.value = document
       activeTrialId.value = trialId
-      activeFloor.value = initialFloorIndex(document.floors)
+      activeFloor.value =
+        initial?.floor !== undefined && document.floors.some((f) => f.index === initial.floor)
+          ? initial.floor
+          : initialFloorIndex(document.floors)
+      selectedRoomId.value =
+        initial?.roomId && document.rooms.some((room) => room.id === initial.roomId)
+          ? initial.roomId
+          : null
       disabledFilterIds.value = new Set(
         document.filters.filter((filter) => filter.default === false).map((filter) => filter.id),
       )
@@ -161,14 +177,7 @@ export const useViewerStore = defineStore('viewer', () => {
 
   /** Profile links are an extra — if they are missing, author names stay unlinked. */
   async function loadCredits(): Promise<void> {
-    if (contributors.value) {
-      return
-    }
-    try {
-      contributors.value = await loadContributors()
-    } catch {
-      contributors.value = null
-    }
+    contributors.value = await loadContributors().catch(() => null)
   }
 
   /** Data problems do not block the viewer but must stay discoverable. */
@@ -192,10 +201,11 @@ export const useViewerStore = defineStore('viewer', () => {
     disabledFilterIds.value = next
   }
 
+  /** `floorsTopDown` is sorted descending, so "up" means one position earlier. */
   function stepFloor(step: 1 | -1): void {
-    const ascending = [...(trial.value?.floors ?? [])].sort((a, b) => a.index - b.index)
-    const position = ascending.findIndex((floor) => floor.index === activeFloor.value)
-    const next = ascending[position + step]
+    const floors = floorsTopDown.value
+    const position = floors.findIndex((floor) => floor.index === activeFloor.value)
+    const next = position >= 0 ? floors[position - step] : undefined
     if (next) {
       activeFloor.value = next.index
     }
@@ -216,6 +226,8 @@ export const useViewerStore = defineStore('viewer', () => {
     filters,
     floorsTopDown,
     activeFloorName,
+    canFloorUp,
+    canFloorDown,
     elementIndex,
     zonesById,
     credits,

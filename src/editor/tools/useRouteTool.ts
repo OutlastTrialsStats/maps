@@ -1,10 +1,9 @@
 import { computed, ref } from 'vue'
+import { MIN_OPEN_PATH_POINTS } from '../../core/constants'
 import { pointsToOpenPath } from '../../core/model/roomPath'
 import type { RouteLine, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, EditorTool, ToolOverlay } from './toolTypes'
-
-const MIN_ROUTE_POINTS = 2
 
 export function useRouteTool(): EditorTool {
   const store = useEditorStore()
@@ -13,7 +12,7 @@ export function useRouteTool(): EditorTool {
   function commitRoute(): void {
     const points = drawing.value?.points ?? []
     drawing.value = null
-    if (points.length < MIN_ROUTE_POINTS) {
+    if (points.length < MIN_OPEN_PATH_POINTS) {
       return
     }
     store.commit((doc) => {

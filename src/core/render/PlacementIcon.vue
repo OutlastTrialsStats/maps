@@ -21,7 +21,7 @@ const props = defineProps<{
 
 const iconUrl = computed(() => elementIconUrl(props.element?.icon))
 
-const { showIcon, onIconError } = useIconFallback(() => iconUrl.value)
+const { showIcon, onIconError } = useIconFallback(iconUrl)
 
 const size = computed(() => props.element?.size ?? ICON_DEFAULT_SIZE)
 

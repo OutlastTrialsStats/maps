@@ -11,13 +11,6 @@ const viewer = useViewerStore()
 
 const roomInfo = computed(() => viewer.selectedRoom?.info ?? null)
 
-const canFloorUp = computed(() =>
-  viewer.trial?.floors.some((floor) => floor.index > viewer.activeFloor),
-)
-const canFloorDown = computed(() =>
-  viewer.trial?.floors.some((floor) => floor.index < viewer.activeFloor),
-)
-
 /** Selecting a trial fetches its file — hence a setter instead of a direct v-model. */
 const selectedTrialId = computed({
   get: () => viewer.activeTrialId,
@@ -32,7 +25,7 @@ function imageUrl(src: string): string {
 <template>
   <div class="panel">
     <section>
-      <h2>Trial</h2>
+      <h2 class="panel-heading">Trial</h2>
       <Select
         v-model="selectedTrialId"
         :options="viewer.trials"
@@ -44,13 +37,13 @@ function imageUrl(src: string): string {
     </section>
 
     <section>
-      <h2>Floor</h2>
+      <h2 class="panel-heading">Floor</h2>
       <div class="floor-switcher">
         <Button
           icon="pi pi-chevron-up"
           size="small"
           severity="secondary"
-          :disabled="!canFloorUp"
+          :disabled="!viewer.canFloorUp"
           aria-label="Floor up"
           @click="viewer.stepFloor(1)"
         />
@@ -59,7 +52,7 @@ function imageUrl(src: string): string {
           icon="pi pi-chevron-down"
           size="small"
           severity="secondary"
-          :disabled="!canFloorDown"
+          :disabled="!viewer.canFloorDown"
           aria-label="Floor down"
           @click="viewer.stepFloor(-1)"
         />
@@ -79,7 +72,7 @@ function imageUrl(src: string): string {
     </section>
 
     <section v-if="viewer.filters.length > 0">
-      <h2>Filters</h2>
+      <h2 class="panel-heading">Filters</h2>
       <label v-for="filter in viewer.filters" :key="filter.id" class="filter-row">
         <Checkbox
           :model-value="!viewer.disabledFilterIds.has(filter.id)"
@@ -92,7 +85,7 @@ function imageUrl(src: string): string {
     </section>
 
     <section v-if="viewer.selectedRoom">
-      <h2>Room</h2>
+      <h2 class="panel-heading">Room</h2>
       <template v-if="roomInfo">
         <h3 v-if="roomInfo.title" class="room-title">{{ roomInfo.title }}</h3>
         <p v-if="roomInfo.description" class="room-description">{{ roomInfo.description }}</p>
@@ -123,15 +116,6 @@ function imageUrl(src: string): string {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-h2 {
-  margin: 0 0 8px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
 }
 
 .trial-select {

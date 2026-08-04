@@ -6,7 +6,7 @@ const viewer = useViewerStore()
 
 <template>
   <section v-if="viewer.credits.length > 0">
-    <h2>Credits</h2>
+    <h2 class="panel-heading">Credits</h2>
     <ul class="credit-list">
       <li v-for="credit in viewer.credits" :key="credit.name">
         <a
@@ -26,15 +26,6 @@ const viewer = useViewerStore()
 </template>
 
 <style scoped>
-h2 {
-  margin: 0 0 8px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
 .credit-list {
   display: flex;
   flex-direction: column;

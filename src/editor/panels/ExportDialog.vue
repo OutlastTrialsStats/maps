@@ -2,6 +2,7 @@
 import Dialog from 'primevue/dialog'
 import { useToast } from 'primevue/usetoast'
 import { ref, watch } from 'vue'
+import { TOAST_LIFE_MS } from '../../core/constants'
 import type { ValidationIssue } from '../../core/model/validation'
 import { downloadJson, serializeJson } from '../store/documentIO'
 import { useExportArtifacts, type ExportArtifact } from '../store/useExportArtifacts'
@@ -45,7 +46,7 @@ function download(artifact: ExportArtifact): void {
     severity: 'success',
     summary: `${artifact.filename} downloaded`,
     detail: `Place it at ${artifact.repoPath} in your pull request.`,
-    life: 5000,
+    life: TOAST_LIFE_MS,
   })
 }
 
@@ -56,14 +57,14 @@ async function copy(artifact: ExportArtifact): Promise<void> {
     toast.add({
       severity: 'success',
       summary: `${artifact.filename} copied to clipboard`,
-      life: 4000,
+      life: TOAST_LIFE_MS,
     })
   } catch (error) {
     toast.add({
       severity: 'error',
       summary: 'Copy failed',
       detail: String(error),
-      life: 6000,
+      life: TOAST_LIFE_MS,
     })
   }
 }

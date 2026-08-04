@@ -31,6 +31,9 @@ export const useLibraryStore = defineStore('library', () => {
   const copy = useWorkingCopy(loadElementLibrary, 'element library')
 
   const categories = computed(() => copy.working.value?.categories ?? [])
+  const categoryOptions = computed(() =>
+    categories.value.map((entry) => ({ label: entry.name, value: entry.id })),
+  )
   const elements = computed(() => copy.working.value?.elements ?? [])
   const elementIndex = computed(() => buildElementIndex(copy.working.value))
 
@@ -39,6 +42,7 @@ export const useLibraryStore = defineStore('library', () => {
     loadError: copy.loadError,
     dirty: copy.dirty,
     categories,
+    categoryOptions,
     elements,
     elementIndex,
     load: copy.load,

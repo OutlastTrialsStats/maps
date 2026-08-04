@@ -4,6 +4,8 @@ import {
   BARRICADE_PLANK_GAP,
   BARRICADE_PLANK_THICKNESS,
   CRAWL_BAR_SPACING,
+  OBSTACLE_TOOTH_SPACING,
+  STAIRS_RUNG_SPACING,
 } from '../constants'
 import type { Placement, StructuralKind } from '../model/types'
 
@@ -12,11 +14,6 @@ import type { Placement, StructuralKind } from '../model/types'
  * All shapes are centered around the origin, main axis = x;
  * the orientation comes from the rotation of the placement.
  */
-
-/** Spacing of the step rungs on stairs, in map units. */
-const STAIRS_RUNG_SPACING = 3
-/** Spacing of the teeth on obstacles, in map units. */
-const OBSTACLE_TOOTH_SPACING = 2.5
 
 /**
  * Properties per structural kind: `resizable` allows `placement.size`;
@@ -74,24 +71,21 @@ export function barricadeHatchPath(length: number, thickness: number): string {
   const width = length + 2 * BARRICADE_OVERHANG
   const top = plankTop(thickness)
   const count = Math.max(1, Math.floor(width / BARRICADE_HATCH_SPACING))
-  const segments: string[] = []
-  for (let index = 0; index < count; index += 1) {
+  return Array.from({ length: count }, (_, index) => {
     const x = -width / 2 + index * BARRICADE_HATCH_SPACING
     const slant = Math.min(BARRICADE_PLANK_THICKNESS, width / 2 - x)
-    segments.push(`M${x},${top} l${slant},${slant}`)
-  }
-  return segments.join(' ')
+    return `M${x},${top} l${slant},${slant}`
+  }).join(' ')
 }
 
 /** Slanted bars of a crawl passage, spanning the full thickness. */
 export function crawlBarsPath(length: number, thickness: number): string {
   const count = Math.max(1, Math.floor(length / CRAWL_BAR_SPACING))
   const slant = length / count
-  const segments: string[] = []
-  for (let index = 0; index < count; index += 1) {
-    segments.push(`M${-length / 2 + index * slant},${-thickness / 2} l${slant},${thickness}`)
-  }
-  return segments.join(' ')
+  return Array.from(
+    { length: count },
+    (_, index) => `M${-length / 2 + index * slant},${-thickness / 2} l${slant},${thickness}`,
+  ).join(' ')
 }
 
 /** Row of teeth along the upper long edge (obstacle). */

@@ -2,19 +2,13 @@
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
-import Select from 'primevue/select'
 import { computed, onMounted, ref, watch } from 'vue'
 import { KEBAB_ID_PATTERN } from '../../core/constants'
-import { loadMapManifest, loadMapsIndex, loadTrialDocument } from '../../core/model/dataSource'
+import { loadMapManifest, loadMapsIndex } from '../../core/model/dataSource'
 import type { MapManifest, MapRegistryEntry } from '../../core/model/types'
-import {
-  createEmptyWorkspace,
-  createTrialDocument,
-  ensureTrialInManifest,
-  loadAutosave,
-  type AutosavePayload,
-} from '../store/documentIO'
+import { createEmptyWorkspace, loadAutosave, type AutosavePayload } from '../store/documentIO'
 import { useEditorStore } from '../store/editorStore'
+import TrialStep from './TrialStep.vue'
 
 const emit = defineEmits<{ import: [] }>()
 
@@ -30,21 +24,8 @@ const newMapId = ref('')
 const newMapAuthor = ref('')
 const idValid = computed(() => KEBAB_ID_PATTERN.test(newMapId.value))
 
-/** Manifest of the map picked in step 1; step 2 picks or creates the trial. */
+/** Manifest of the map picked in step 1; the TrialStep picks or creates the trial. */
 const selectedManifest = ref<MapManifest | null>(null)
-const loadingTrialId = ref('')
-const creatingTrial = ref(false)
-const newTrialId = ref('')
-const newTrialName = ref('')
-const copyFromTrialId = ref<string | null>(null)
-const trialIdValid = computed(
-  () =>
-    KEBAB_ID_PATTERN.test(newTrialId.value) &&
-    !selectedManifest.value?.trials.some((trial) => trial.id === newTrialId.value),
-)
-const copyOptions = computed(() =>
-  (selectedManifest.value?.trials ?? []).map((trial) => ({ label: trial.name, value: trial.id })),
-)
 
 const loadableMaps = computed(() => registry.value.filter((entry) => entry.enabled))
 const autosaveLabel = computed(() => {
@@ -91,52 +72,11 @@ async function pickMap(mapId: string): Promise<void> {
   loadError.value = ''
   try {
     selectedManifest.value = await loadMapManifest(mapId)
-    newTrialId.value = ''
-    newTrialName.value = ''
-    copyFromTrialId.value = null
     mode.value = 'trial'
   } catch (error) {
     loadError.value = `Failed to load map "${mapId}": ${String(error)}`
   } finally {
     loadingMapId.value = ''
-  }
-}
-
-async function loadTrial(trialId: string): Promise<void> {
-  const manifest = selectedManifest.value
-  if (!manifest) {
-    return
-  }
-  loadingTrialId.value = trialId
-  loadError.value = ''
-  try {
-    const document = await loadTrialDocument(manifest.id, trialId)
-    editor.setWorkspace(manifest, document)
-  } catch (error) {
-    loadError.value = `Failed to load trial "${trialId}": ${String(error)}`
-  } finally {
-    loadingTrialId.value = ''
-  }
-}
-
-async function startNewTrial(): Promise<void> {
-  const manifest = selectedManifest.value
-  if (!manifest || !trialIdValid.value) {
-    return
-  }
-  creatingTrial.value = true
-  loadError.value = ''
-  try {
-    const source = copyFromTrialId.value
-      ? await loadTrialDocument(manifest.id, copyFromTrialId.value)
-      : undefined
-    const document = createTrialDocument(manifest.id, newTrialId.value, source)
-    ensureTrialInManifest(manifest, newTrialId.value, newTrialName.value)
-    editor.setWorkspace(manifest, document, { markDirty: true })
-  } catch (error) {
-    loadError.value = `Failed to create trial "${newTrialId.value}": ${String(error)}`
-  } finally {
-    creatingTrial.value = false
   }
 }
 </script>
@@ -172,49 +112,11 @@ async function startNewTrial(): Promise<void> {
       </div>
     </div>
 
-    <div v-else-if="mode === 'trial'" class="menu">
-      <span class="section-label">{{ selectedManifest?.meta.name }} — choose a trial</span>
-      <Button
-        v-for="trial in selectedManifest?.trials ?? []"
-        :key="trial.id"
-        :label="trial.default ? `${trial.name} (default)` : trial.name"
-        severity="secondary"
-        :loading="loadingTrialId === trial.id"
-        @click="loadTrial(trial.id)"
-      />
-      <div class="new-trial">
-        <span class="section-label">New trial</span>
-        <label class="field">
-          <span>Trial ID (kebab-case, e.g. "kill-the-snitch")</span>
-          <InputText v-model.trim="newTrialId" placeholder="my-trial" />
-        </label>
-        <label class="field">
-          <span>Trial name</span>
-          <InputText v-model.trim="newTrialName" placeholder="My Trial" />
-        </label>
-        <label class="field">
-          <span>Copy content from</span>
-          <Select
-            v-model="copyFromTrialId"
-            :options="copyOptions"
-            option-label="label"
-            option-value="value"
-            show-clear
-            size="small"
-            placeholder="Start empty"
-          />
-        </label>
-      </div>
-      <div class="actions">
-        <Button label="Back" severity="secondary" text @click="mode = 'menu'" />
-        <Button
-          label="Create trial"
-          :disabled="!trialIdValid"
-          :loading="creatingTrial"
-          @click="startNewTrial"
-        />
-      </div>
-    </div>
+    <TrialStep
+      v-else-if="mode === 'trial' && selectedManifest"
+      :manifest="selectedManifest"
+      @back="mode = 'menu'"
+    />
 
     <div v-else class="new-form">
       <label class="field">
@@ -242,8 +144,7 @@ async function startNewTrial(): Promise<void> {
   min-width: 360px;
 }
 
-.existing,
-.new-trial {
+.existing {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -256,19 +157,7 @@ async function startNewTrial(): Promise<void> {
 }
 
 .field {
-  display: flex;
-  flex-direction: column;
   gap: 4px;
   font-size: 13px;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.error {
-  color: var(--danger);
 }
 </style>

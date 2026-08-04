@@ -1,5 +1,11 @@
 import { computed } from 'vue'
-import { mapManifestPath, trialDocumentPath } from '../../core/model/dataPaths'
+import {
+  ELEMENT_LIBRARY_PATH,
+  MAP_MANIFEST_FILENAME,
+  ZONE_LIBRARY_PATH,
+  mapManifestPath,
+  trialDocumentPath,
+} from '../../core/model/dataPaths'
 import {
   collectLibraryIssues,
   collectZoneLibraryIssues,
@@ -9,10 +15,6 @@ import { loadSchemaValidation, validateForExport } from './documentIO'
 import { useEditorStore } from './editorStore'
 import { useLibraryStore } from './libraryStore'
 import { useZonesStore } from './zonesStore'
-
-const MANIFEST_FILENAME = 'map.json'
-const LIBRARY_FILENAME = 'elements.json'
-const ZONES_FILENAME = 'zones.json'
 
 /** One exportable file of the PR workflow including its target path in the repo. */
 export interface ExportArtifact {
@@ -47,7 +49,7 @@ export function useExportArtifacts() {
     }
     const list: ExportArtifact[] = [
       {
-        filename: MANIFEST_FILENAME,
+        filename: MAP_MANIFEST_FILENAME,
         repoPath: `public/data/${mapManifestPath(manifest.id)}`,
         data: manifest,
       },
@@ -59,15 +61,15 @@ export function useExportArtifacts() {
     ]
     if (libraryStore.dirty && libraryStore.library) {
       list.push({
-        filename: LIBRARY_FILENAME,
-        repoPath: `public/data/${LIBRARY_FILENAME}`,
+        filename: ELEMENT_LIBRARY_PATH,
+        repoPath: `public/data/${ELEMENT_LIBRARY_PATH}`,
         data: libraryStore.library,
       })
     }
     if (zonesStore.dirty && zonesStore.zoneLibrary) {
       list.push({
-        filename: ZONES_FILENAME,
-        repoPath: `public/data/${ZONES_FILENAME}`,
+        filename: ZONE_LIBRARY_PATH,
+        repoPath: `public/data/${ZONE_LIBRARY_PATH}`,
         data: zonesStore.zoneLibrary,
       })
     }
@@ -85,13 +87,13 @@ export function useExportArtifacts() {
       return
     }
     // Manifest and trial file share one dirty flag — it may only clear once both are out.
-    if (exported.has(MANIFEST_FILENAME) && exported.has(`${doc.trialId}.json`)) {
+    if (exported.has(MAP_MANIFEST_FILENAME) && exported.has(`${doc.trialId}.json`)) {
       store.dirty = false
     }
-    if (exported.has(LIBRARY_FILENAME)) {
+    if (exported.has(ELEMENT_LIBRARY_PATH)) {
       libraryStore.markExported()
     }
-    if (exported.has(ZONES_FILENAME)) {
+    if (exported.has(ZONE_LIBRARY_PATH)) {
       zonesStore.markExported()
     }
   }
@@ -112,7 +114,7 @@ export function useExportArtifacts() {
       zonesStore.dirty && zonesStore.zoneLibrary ? schemaValidation.getZonesSchemaValidator() : null
     const result = await validateForExport(manifest, doc, libraryStore.library, zonesStore.zoneLibrary)
     const issues = [
-      ...prefixIssues(MANIFEST_FILENAME, result.manifest),
+      ...prefixIssues(MAP_MANIFEST_FILENAME, result.manifest),
       ...prefixIssues(`${doc.trialId}.json`, result.trial),
     ]
     if (libraryValidator && libraryStore.library) {
@@ -120,7 +122,7 @@ export function useExportArtifacts() {
       const schemaIssues = validate(libraryStore.library)
       issues.push(
         ...prefixIssues(
-          LIBRARY_FILENAME,
+          ELEMENT_LIBRARY_PATH,
           schemaIssues.length > 0 ? schemaIssues : collectLibraryIssues(libraryStore.library),
         ),
       )
@@ -130,7 +132,7 @@ export function useExportArtifacts() {
       const schemaIssues = validate(zonesStore.zoneLibrary)
       issues.push(
         ...prefixIssues(
-          ZONES_FILENAME,
+          ZONE_LIBRARY_PATH,
           schemaIssues.length > 0
             ? schemaIssues
             : collectZoneLibraryIssues(zonesStore.zoneLibrary),

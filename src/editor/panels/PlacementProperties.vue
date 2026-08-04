@@ -30,24 +30,12 @@ const roomOptions = computed(() => [
     .map((room) => ({ label: room.info?.title ?? room.id, value: room.id as string | null })),
 ])
 
-const floorOptions = computed(() =>
-  store.floors.map((floor) => ({ label: floor.name, value: floor.index })),
-)
-
 /** All changes go through the document object from the store (never through the prop). */
 function mutatePlacement(
   mutate: (placement: Placement, doc: TrialDocument) => void,
   coalesce?: string,
 ): void {
-  store.commit(
-    (doc) => {
-      const placement = doc.placements.find((entry) => entry.id === props.placement.id)
-      if (placement) {
-        mutate(placement, doc)
-      }
-    },
-    coalesce ? { coalesce: `${props.placement.id}:${coalesce}` } : undefined,
-  )
+  store.commitOn('placement', props.placement.id, mutate, coalesce ? { coalesce } : undefined)
 }
 
 function setPos(axis: 0 | 1, value: number | null): void {
@@ -128,7 +116,7 @@ function setProps(value: Placement['props']): void {
 
 <template>
   <div class="placement-props">
-    <h3>{{ element?.name ?? placement.element }}</h3>
+    <h3 class="panel-title">{{ element?.name ?? placement.element }}</h3>
     <p class="meta">{{ placement.id }}</p>
     <div class="field-row">
       <label class="field">
@@ -196,7 +184,7 @@ function setProps(value: Placement['props']): void {
       <span class="field-label">Floor</span>
       <Select
         :model-value="placement.floor"
-        :options="floorOptions"
+        :options="store.floorOptions"
         option-label="label"
         option-value="value"
         size="small"
@@ -233,32 +221,10 @@ function setProps(value: Placement['props']): void {
   gap: 10px;
 }
 
-h3 {
-  margin: 0;
-  font-size: 14px;
-}
-
 .meta {
   margin: 0;
   font-size: 11px;
   color: var(--text-faint);
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.field-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.field-row {
-  display: flex;
-  gap: 6px;
 }
 
 .field-row .field {

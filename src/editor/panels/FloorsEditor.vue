@@ -72,7 +72,7 @@ function add(): void {
 </script>
 
 <template>
-  <fieldset class="floors">
+  <fieldset class="panel-fieldset floors">
     <legend>Floors</legend>
     <div v-for="floor in store.floors" :key="floor.index" class="row">
       <span class="index-badge">{{ floor.index }}</span>
@@ -116,18 +116,7 @@ function add(): void {
 
 <style scoped>
 .floors {
-  display: flex;
-  flex-direction: column;
   gap: 6px;
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  padding: 8px;
-}
-
-.floors legend {
-  font-size: 12px;
-  color: var(--text-muted);
-  padding: 0 4px;
 }
 
 .row,

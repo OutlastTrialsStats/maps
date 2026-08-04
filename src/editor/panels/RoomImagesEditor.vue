@@ -16,12 +16,10 @@ const images = computed(
 )
 
 function mutateImages(mutate: (list: RoomImage[]) => void, coalesce?: string): void {
-  store.commit(
-    (doc) => {
-      const room = doc.rooms.find((entry) => entry.id === props.roomId)
-      if (!room) {
-        return
-      }
+  store.commitOn(
+    'room',
+    props.roomId,
+    (room) => {
       const info = room.info ?? {}
       const list = info.images ?? []
       mutate(list)
@@ -36,7 +34,7 @@ function mutateImages(mutate: (list: RoomImage[]) => void, coalesce?: string): v
         room.info = info
       }
     },
-    coalesce ? { coalesce: `${props.roomId}:${coalesce}` } : undefined,
+    coalesce ? { coalesce } : undefined,
   )
 }
 
@@ -91,7 +89,7 @@ function isPicking(index: number): boolean {
 </script>
 
 <template>
-  <fieldset class="images">
+  <fieldset class="images panel-fieldset">
     <legend>Screenshots</legend>
     <div v-for="(image, index) in images" :key="index" class="image-row">
       <div class="src-row">
@@ -173,18 +171,7 @@ function isPicking(index: number): boolean {
 
 <style scoped>
 .images {
-  display: flex;
-  flex-direction: column;
   gap: 8px;
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  padding: 8px;
-}
-
-.images legend {
-  font-size: 12px;
-  color: var(--text-muted);
-  padding: 0 4px;
 }
 
 .image-row {

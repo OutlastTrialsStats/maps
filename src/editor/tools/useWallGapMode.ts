@@ -2,12 +2,14 @@ import { computed, ref, type ComputedRef } from 'vue'
 import { WALL_GAP_DEFAULT_LENGTH, WALL_GAP_MIN_LENGTH } from '../../core/constants'
 import { shapeToPoints } from '../../core/model/roomPath'
 import type { Room, Vec2, WallGap } from '../../core/model/types'
+import { clamp, withinRadius } from '../../core/model/vec2'
 import {
   distanceToEdge,
   edgeLength,
   edgeSegments,
   gapEndpoints,
   projectOnEdge,
+  setWallGaps,
 } from '../../core/model/wallGaps'
 import { useEditorStore } from '../store/editorStore'
 import type { CanvasPointerEvent, ToolOverlay } from './toolTypes'
@@ -29,7 +31,7 @@ interface DragState {
 }
 
 /** Room-tool mode that cuts openings into the outer wall (`Room.wallGaps`). */
-export interface WallGapMode {
+interface WallGapMode {
   onPointerDown(event: CanvasPointerEvent): void
   onPointerMove(event: CanvasPointerEvent): void
   onPointerUp(): void
@@ -53,21 +55,9 @@ export function useWallGapMode(): WallGapMode {
 
   function mutateGaps(mutate: (gaps: WallGap[]) => WallGap[]): void {
     const roomId = active.value?.roomId
-    if (!roomId) {
-      return
+    if (roomId) {
+      store.commitOn('room', roomId, (room) => setWallGaps(room, mutate(room.wallGaps ?? [])))
     }
-    store.commit((doc) => {
-      const room = doc.rooms.find((entry) => entry.id === roomId)
-      if (!room) {
-        return
-      }
-      const next = mutate(room.wallGaps ?? [])
-      if (next.length === 0) {
-        delete room.wallGaps
-      } else {
-        room.wallGaps = next
-      }
-    })
   }
 
   function enterRoom(roomId: string): void {
@@ -103,10 +93,10 @@ export function useWallGapMode(): WallGapMode {
         continue
       }
       const [from, to] = endpoints
-      if (Math.hypot(local[0] - from[0], local[1] - from[1]) <= hitRadius) {
+      if (withinRadius(local, from, hitRadius)) {
         return { gapIndex: index, end: 'start', moved: false }
       }
-      if (Math.hypot(local[0] - to[0], local[1] - to[1]) <= hitRadius) {
+      if (withinRadius(local, to, hitRadius)) {
         return { gapIndex: index, end: 'end', moved: false }
       }
     }
@@ -150,7 +140,7 @@ export function useWallGapMode(): WallGapMode {
       return false
     }
     const center = projectOnEdge(edge, toLocal(current, snapped))
-    const start = Math.min(Math.max(center - length / 2, 0), available - length)
+    const start = clamp(center - length / 2, 0, available - length)
     mutateGaps((gaps) => [...gaps, { edge: bestIndex, start, length }])
     return true
   }
@@ -166,12 +156,12 @@ export function useWallGapMode(): WallGapMode {
     const distance = projectOnEdge(edge, toLocal(current, snapped))
     const end = gap.start + gap.length
     if (state.end === 'start') {
-      const start = Math.min(Math.max(distance, 0), end - WALL_GAP_MIN_LENGTH)
+      const start = clamp(distance, 0, end - WALL_GAP_MIN_LENGTH)
       gap.start = start
       gap.length = end - start
       return
     }
-    gap.length = Math.min(Math.max(distance, gap.start + WALL_GAP_MIN_LENGTH), available) - gap.start
+    gap.length = clamp(distance, gap.start + WALL_GAP_MIN_LENGTH, available) - gap.start
   }
 
   return {

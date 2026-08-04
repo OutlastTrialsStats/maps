@@ -143,7 +143,7 @@ export async function validateForExport(
   return { manifest: manifestIssues, trial: trialIssues }
 }
 
-export interface ImportResult {
+interface ImportResult {
   workspace?: { manifest: MapManifest; document: TrialDocument }
   issues: ValidationIssue[]
 }

@@ -9,12 +9,20 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { dirname, extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Ajv from 'ajv'
-import { mapManifestPath, trialDocumentPath } from '../src/core/model/dataPaths.ts'
 import {
-  checkUniqueIds,
+  CONTRIBUTORS_PATH,
+  ELEMENT_LIBRARY_PATH,
+  MAPS_INDEX_PATH,
+  ZONE_LIBRARY_PATH,
+  mapManifestPath,
+  trialDocumentPath,
+  trialsDirPath,
+} from '../src/core/model/dataPaths.ts'
+import {
   collectContributorIssues,
   collectLibraryIssues,
   collectManifestIssues,
+  collectMapsIndexIssues,
   collectTrialLogicIssues,
   collectZoneLibraryIssues,
 } from '../src/core/model/validation.ts'
@@ -27,22 +35,14 @@ const SCREENSHOT_MAX_BYTES = 500 * 1024
 const SCREENSHOT_WARN_BYTES = 300 * 1024
 const SCREENSHOT_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp'])
 
-const SCHEMA_IDS = {
-  mapsIndex: 'https://maps.outlasttrialsstats.com/schemas/maps-index.schema.json',
-  map: 'https://maps.outlasttrialsstats.com/schemas/map.schema.json',
-  trial: 'https://maps.outlasttrialsstats.com/schemas/trial.schema.json',
-  elements: 'https://maps.outlasttrialsstats.com/schemas/elements.schema.json',
-  zones: 'https://maps.outlasttrialsstats.com/schemas/zones.schema.json',
-  contributors: 'https://maps.outlasttrialsstats.com/schemas/contributors.schema.json',
-}
-
 const ajv = new Ajv({ allErrors: true })
-ajv.addSchema(readJson('public/schemas/maps-index.schema.json'))
-ajv.addSchema(readJson('public/schemas/map.schema.json'))
-ajv.addSchema(readJson('public/schemas/trial.schema.json'))
-ajv.addSchema(readJson('public/schemas/elements.schema.json'))
-ajv.addSchema(readJson('public/schemas/zones.schema.json'))
-ajv.addSchema(readJson('public/schemas/contributors.schema.json'))
+// All $refs are schema-local, so plain per-file compilation is enough.
+const validators = Object.fromEntries(
+  ['maps-index', 'map', 'trial', 'elements', 'zones', 'contributors'].map((name) => [
+    name,
+    ajv.compile(readJson(`public/schemas/${name}.schema.json`)),
+  ]),
+)
 
 const errors = []
 const warnings = []
@@ -65,8 +65,7 @@ function checkScreenshot(relPath) {
   }
 }
 
-function validateSchema(relPath, schemaId, data) {
-  const validate = ajv.getSchema(schemaId)
+function validateSchema(relPath, validate, data) {
   if (!validate(data)) {
     for (const err of validate.errors) {
       errors.push(`${relPath}${err.instancePath}: ${err.message}`)
@@ -82,28 +81,22 @@ function reportIssues(relPath, issues) {
   }
 }
 
-const library = readJson('public/data/elements.json')
-if (validateSchema('public/data/elements.json', SCHEMA_IDS.elements, library)) {
-  reportIssues('public/data/elements.json', collectLibraryIssues(library))
+const libraryPath = `public/data/${ELEMENT_LIBRARY_PATH}`
+const library = readJson(libraryPath)
+if (validateSchema(libraryPath, validators.elements, library)) {
+  reportIssues(libraryPath, collectLibraryIssues(library))
 }
 
-const zones = readJson('public/data/zones.json')
-if (validateSchema('public/data/zones.json', SCHEMA_IDS.zones, zones)) {
-  reportIssues('public/data/zones.json', collectZoneLibraryIssues(zones))
+const zonesPath = `public/data/${ZONE_LIBRARY_PATH}`
+const zones = readJson(zonesPath)
+if (validateSchema(zonesPath, validators.zones, zones)) {
+  reportIssues(zonesPath, collectZoneLibraryIssues(zones))
 }
 
-const mapsIndex = readJson('public/data/maps/index.json')
-validateSchema('public/data/maps/index.json', SCHEMA_IDS.mapsIndex, mapsIndex)
-{
-  const indexIssues = []
-  checkUniqueIds(
-    indexIssues,
-    'maps',
-    'map',
-    mapsIndex.maps.map((entry) => entry.id),
-  )
-  reportIssues('public/data/maps/index.json', indexIssues)
-}
+const mapsIndexPath = `public/data/${MAPS_INDEX_PATH}`
+const mapsIndex = readJson(mapsIndexPath)
+validateSchema(mapsIndexPath, validators['maps-index'], mapsIndex)
+reportIssues(mapsIndexPath, collectMapsIndexIssues(mapsIndex))
 
 let validatedManifests = 0
 let validatedTrials = 0
@@ -120,7 +113,7 @@ for (const entry of mapsIndex.maps) {
     continue
   }
   const manifest = readJson(relPath)
-  if (!validateSchema(relPath, SCHEMA_IDS.map, manifest)) {
+  if (!validateSchema(relPath, validators.map, manifest)) {
     continue
   }
   if (manifest.id !== entry.id) {
@@ -130,7 +123,7 @@ for (const entry of mapsIndex.maps) {
   reportIssues(relPath, collectManifestIssues(manifest))
   validatedManifests += 1
 
-  const trialsDir = dirname(`public/data/${trialDocumentPath(entry.id, 'x')}`)
+  const trialsDir = `public/data/${trialsDirPath(entry.id)}`
   const manifestTrialIds = new Set(manifest.trials.map((trial) => trial.id))
   for (const trial of manifest.trials) {
     const trialPath = `public/data/${trialDocumentPath(entry.id, trial.id)}`
@@ -141,7 +134,7 @@ for (const entry of mapsIndex.maps) {
       continue
     }
     const trialDoc = readJson(trialPath)
-    if (!validateSchema(trialPath, SCHEMA_IDS.trial, trialDoc)) {
+    if (!validateSchema(trialPath, validators.trial, trialDoc)) {
       continue
     }
     if (trialDoc.mapId !== entry.id) {
@@ -173,20 +166,18 @@ for (const entry of mapsIndex.maps) {
   }
 }
 
-const contributors = readJson('public/data/contributors.json')
-if (validateSchema('public/data/contributors.json', SCHEMA_IDS.contributors, contributors)) {
+const contributorsPath = `public/data/${CONTRIBUTORS_PATH}`
+const contributors = readJson(contributorsPath)
+if (validateSchema(contributorsPath, validators.contributors, contributors)) {
   const knownMapIds = new Set(mapsIndex.maps.map((entry) => entry.id))
-  reportIssues(
-    'public/data/contributors.json',
-    collectContributorIssues(contributors, authorsByMapId, knownMapIds),
-  )
+  reportIssues(contributorsPath, collectContributorIssues(contributors, authorsByMapId, knownMapIds))
   // Missing profiles do not block a PR — they show the maintainer what is still open.
   const credited = new Set(contributors.contributors.map((entry) => entry.name))
   for (const [mapId, authors] of authorsByMapId) {
     for (const author of authors) {
       if (!credited.has(author)) {
         warnings.push(
-          `public/data/contributors.json: "${author}" (map "${mapId}") has no entry — the start page shows no profile link`,
+          `${contributorsPath}: "${author}" (map "${mapId}") has no entry — the start page shows no profile link`,
         )
       }
     }
