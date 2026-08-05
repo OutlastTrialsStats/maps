@@ -21,3 +21,9 @@ export function trialsDirPath(mapId: string): string {
 export function trialDocumentPath(mapId: string, trialId: string): string {
   return `${trialsDirPath(mapId)}/${trialId}.json`
 }
+
+const EXTERNAL_IMAGE_URL_PATTERN = /^https?:\/\//
+
+export function isExternalImageUrl(src: string): boolean {
+  return EXTERNAL_IMAGE_URL_PATTERN.test(src)
+}

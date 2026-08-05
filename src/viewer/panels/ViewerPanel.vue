@@ -3,7 +3,7 @@ import Button from 'primevue/button'
 import Checkbox from 'primevue/checkbox'
 import Select from 'primevue/select'
 import { computed } from 'vue'
-import { mapAssetUrl } from '../../core/model/dataSource'
+import { roomImageUrl } from '../../core/model/dataSource'
 import { useViewerStore } from '../store/viewerStore'
 import MapCredits from './MapCredits.vue'
 
@@ -18,7 +18,7 @@ const selectedTrialId = computed({
 })
 
 function imageUrl(src: string): string {
-  return viewer.manifest ? mapAssetUrl(viewer.manifest.id, src) : src
+  return viewer.manifest ? roomImageUrl(viewer.manifest.id, src) : src
 }
 </script>
 

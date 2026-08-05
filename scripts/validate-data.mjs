@@ -14,6 +14,7 @@ import {
   ELEMENT_LIBRARY_PATH,
   MAPS_INDEX_PATH,
   ZONE_LIBRARY_PATH,
+  isExternalImageUrl,
   mapManifestPath,
   trialDocumentPath,
   trialsDirPath,
@@ -146,9 +147,17 @@ for (const entry of mapsIndex.maps) {
     reportIssues(trialPath, collectTrialLogicIssues(trialDoc, library, zones))
     for (const room of trialDoc.rooms) {
       for (const image of room.info?.images ?? []) {
-        const screenshotPath = `public/data/maps/${entry.id}/${image.src}`
-        if (!checkedScreenshots.has(screenshotPath)) {
-          checkedScreenshots.add(screenshotPath)
+        const external = isExternalImageUrl(image.src)
+        const screenshotPath = external ? image.src : `public/data/maps/${entry.id}/${image.src}`
+        if (checkedScreenshots.has(screenshotPath)) {
+          continue
+        }
+        checkedScreenshots.add(screenshotPath)
+        if (external) {
+          warnings.push(
+            `${trialPath}: room "${room.id}" links the external screenshot ${image.src} — replace it with a repo file before merging`,
+          )
+        } else {
           checkScreenshot(screenshotPath)
         }
       }
