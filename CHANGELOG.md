@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.4.0](https://github.com/OutlastTrialsStats/maps/compare/v0.3.0...v0.4.0) (2026-08-05)
+
+
+### Features
+
+* **editor:** accept external links as room screenshots ([#31](https://github.com/OutlastTrialsStats/maps/issues/31)) ([7cbc306](https://github.com/OutlastTrialsStats/maps/commit/7cbc306e9d104071a76653753864ff483e0b1d31))
+* **editor:** add room merging functionality with Ctrl+M shortcut ([#30](https://github.com/OutlastTrialsStats/maps/issues/30)) ([dc22fb2](https://github.com/OutlastTrialsStats/maps/commit/dc22fb2a3933f643234bcc900bf7a11bec299079))
+* **editor:** add support for shape drawing ([#29](https://github.com/OutlastTrialsStats/maps/issues/29)) ([0513856](https://github.com/OutlastTrialsStats/maps/commit/05138564e5649437bc98e50ffe4be7af9c71a2ae))
+* ensure app mounts after router readiness ([#28](https://github.com/OutlastTrialsStats/maps/issues/28)) ([ecdec09](https://github.com/OutlastTrialsStats/maps/commit/ecdec090b52e57b66594d5d94267b075fb721006))
+
+
+### Bug Fixes
+
+* **editor:** keep element rows stable on hover ([#32](https://github.com/OutlastTrialsStats/maps/issues/32)) ([6ec195b](https://github.com/OutlastTrialsStats/maps/commit/6ec195b5cc7af5887d7c918d78604642a3e780b9))
+
+
+### Continuous Integration
+
+* bump marocchino/sticky-pull-request-comment from 2 to 3 ([#35](https://github.com/OutlastTrialsStats/maps/issues/35)) ([4ec4657](https://github.com/OutlastTrialsStats/maps/commit/4ec46576f0f622d4b761e170aa65535865deb699))
+* switch releases to release-please ([#33](https://github.com/OutlastTrialsStats/maps/issues/33)) ([4230f10](https://github.com/OutlastTrialsStats/maps/commit/4230f10a7eaf3da695546d8d558997f797f0ee56))
+* update GitHub Actions dependencies to latest versions ([35342dc](https://github.com/OutlastTrialsStats/maps/commit/35342dc0bdc7b6cf0bbabb4d5dc02d7eff82fa45))
+* update GitHub Actions dependencies to latest versions ([4e7f24e](https://github.com/OutlastTrialsStats/maps/commit/4e7f24eac72d755661a765df13689f14911cf900))
+* update release config ([#36](https://github.com/OutlastTrialsStats/maps/issues/36)) ([13ebfde](https://github.com/OutlastTrialsStats/maps/commit/13ebfde7630f210bda94aa8ca0790166543b51fa))
+
 ## [0.3.0] - 2026-08-04
 
 - chore: Cleanup Code (3044db2)
