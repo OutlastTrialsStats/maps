@@ -17,6 +17,7 @@ import { usePlacementTool } from './tools/usePlacementTool'
 import { useRoomTool } from './tools/useRoomTool'
 import { useRouteTool } from './tools/useRouteTool'
 import { useSelectTool } from './tools/useSelectTool'
+import { useShapeTool } from './tools/useShapeTool'
 
 const editor = useEditorStore()
 const libraryStore = useLibraryStore()
@@ -35,6 +36,7 @@ const tools = {
   room: useRoomTool(),
   placement: usePlacementTool(),
   route: useRouteTool(),
+  shape: useShapeTool(),
 }
 
 const {
@@ -108,7 +110,7 @@ defineExpose({ fitToDocument, zoomBy, cursorWorld, zoom, isFineGrid })
       :element-index="libraryStore.elementIndex"
       :zones="zonesStore.zonesById"
       :selected-ids="editor.selectedIds"
-      interactive-routes
+      interactive
     />
     <CameraMarker
       v-for="(camera, index) in selectedRoomCameras"

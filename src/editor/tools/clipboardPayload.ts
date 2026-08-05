@@ -1,9 +1,10 @@
 import type { HitTarget } from '../../core/interaction/hitTest'
 import { absolutePathStart, pointsBounds, roomWorldPoints } from '../../core/model/roomPath'
-import type { Placement, Room, RouteLine, TrialDocument, Vec2 } from '../../core/model/types'
+import { isLineShape, shapeWorldPoints } from '../../core/model/shapes'
+import type { MapShape, Placement, Room, RouteLine, TrialDocument, Vec2 } from '../../core/model/types'
 
 export const CLIPBOARD_FORMAT = 'outlasttrials-maps/clipboard'
-export const CLIPBOARD_PAYLOAD_VERSION = 1
+export const CLIPBOARD_PAYLOAD_VERSION = 2
 
 /** Copied objects as they travel through the system clipboard (JSON text). */
 export interface ClipboardPayload {
@@ -16,10 +17,16 @@ export interface ClipboardPayload {
   rooms: Room[]
   placements: Placement[]
   routes: RouteLine[]
+  shapes: MapShape[]
 }
 
 /** Group anchor: the paste offset is derived from it, so relative distances survive. */
-function groupAnchor(rooms: Room[], placements: Placement[], routes: RouteLine[]): Vec2 {
+function groupAnchor(
+  rooms: Room[],
+  placements: Placement[],
+  routes: RouteLine[],
+  shapes: MapShape[],
+): Vec2 {
   const routeStarts = routes
     .map((route) => absolutePathStart(route.path))
     .filter((start): start is Vec2 => start !== null)
@@ -27,6 +34,7 @@ function groupAnchor(rooms: Room[], placements: Placement[], routes: RouteLine[]
     ...rooms.flatMap(roomWorldPoints),
     ...placements.map((placement) => placement.pos),
     ...routeStarts,
+    ...shapes.flatMap(shapeWorldPoints),
   ]
   return points.length > 0 ? pointsBounds(points).min : [0, 0]
 }
@@ -43,7 +51,8 @@ export function buildClipboardPayload(
   const rooms = doc.rooms.filter((room) => ids.has(room.id))
   const placements = doc.placements.filter((placement) => ids.has(placement.id))
   const routes = doc.routes.filter((route) => ids.has(route.id))
-  if (rooms.length === 0 && placements.length === 0 && routes.length === 0) {
+  const shapes = doc.shapes.filter((shape) => ids.has(shape.id))
+  if (rooms.length === 0 && placements.length === 0 && routes.length === 0 && shapes.length === 0) {
     return null
   }
   return {
@@ -51,10 +60,11 @@ export function buildClipboardPayload(
     version: CLIPBOARD_PAYLOAD_VERSION,
     mapId: doc.mapId,
     trialId: doc.trialId,
-    anchor: groupAnchor(rooms, placements, routes),
+    anchor: groupAnchor(rooms, placements, routes, shapes),
     rooms,
     placements,
     routes,
+    shapes,
   }
 }
 
@@ -71,7 +81,10 @@ function hasValidItems(payload: ClipboardPayload): boolean {
   return (
     payload.rooms.every((room) => isVec2(room.shape?.origin)) &&
     payload.placements.every((placement) => isVec2(placement.pos)) &&
-    payload.routes.every((route) => typeof route.path === 'string')
+    payload.routes.every((route) => typeof route.path === 'string') &&
+    payload.shapes.every((shape) =>
+      isLineShape(shape) ? typeof shape.path === 'string' : isVec2(shape.pos),
+    )
   )
 }
 
@@ -91,7 +104,8 @@ export function parseClipboardPayload(text: string): ClipboardPayload | null {
     !isVec2(candidate.anchor) ||
     !Array.isArray(candidate.rooms) ||
     !Array.isArray(candidate.placements) ||
-    !Array.isArray(candidate.routes)
+    !Array.isArray(candidate.routes) ||
+    !Array.isArray(candidate.shapes)
   ) {
     return null
   }

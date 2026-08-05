@@ -22,6 +22,7 @@ const TOOL_HOTKEYS: Record<string, ToolId> = {
   '2': 'room',
   '3': 'placement',
   '4': 'route',
+  '5': 'shape',
 }
 
 /**

@@ -27,6 +27,13 @@ export interface AutosavePayload extends WorkspaceSnapshot {
   savedAt: string
 }
 
+/** Trial documents from before the shapes collection stay loadable (import, autosave). */
+function ensureShapes(doc: object): void {
+  if (!('shapes' in doc)) {
+    Object.assign(doc, { shapes: [] })
+  }
+}
+
 /** "fun-park" → "Fun Park" — prefill for names derived from kebab-case IDs. */
 export function titleCaseFromId(id: string): string {
   return id
@@ -82,6 +89,7 @@ export function createTrialDocument(
     rooms: source ? jsonClone(source.rooms) : [],
     placements: source ? jsonClone(source.placements) : [],
     routes: source ? jsonClone(source.routes) : [],
+    shapes: source ? jsonClone(source.shapes) : [],
   }
 }
 
@@ -109,6 +117,7 @@ export function loadAutosave(): AutosavePayload | null {
     if (payload.version !== EDITOR_AUTOSAVE_VERSION || !payload.document || !payload.manifest) {
       return null
     }
+    ensureShapes(payload.document)
     return payload
   } catch {
     return null
@@ -162,6 +171,9 @@ export async function importDocument(
     parsed = JSON.parse(text)
   } catch (error) {
     return { issues: [{ path: '', message: `Invalid JSON: ${String(error)}` }] }
+  }
+  if (typeof parsed === 'object' && parsed !== null) {
+    ensureShapes(parsed)
   }
   const validateSchema = await (await loadSchemaValidation()).getTrialSchemaValidator()
   const schemaIssues = validateSchema(parsed)

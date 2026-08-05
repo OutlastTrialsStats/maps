@@ -1,11 +1,11 @@
-export type EntityKind = 'room' | 'placement' | 'route'
+const ENTITY_KINDS = ['room', 'placement', 'route', 'shape'] as const
+
+export type EntityKind = (typeof ENTITY_KINDS)[number]
 
 export interface HitTarget {
   kind: EntityKind
   id: string
 }
-
-const ENTITY_KINDS: readonly string[] = ['room', 'placement', 'route']
 
 /**
  * Determines the hit map object via event delegation: the render components
@@ -22,7 +22,8 @@ export function hitFromEventTarget(target: EventTarget | null): HitTarget | null
   }
   const kind = entityEl.getAttribute('data-entity-kind')
   const id = entityEl.getAttribute('data-entity-id')
-  if (!kind || !id || !ENTITY_KINDS.includes(kind)) {
+  const kinds: readonly string[] = ENTITY_KINDS
+  if (!kind || !id || !kinds.includes(kind)) {
     return null
   }
   return { kind: kind as EntityKind, id }

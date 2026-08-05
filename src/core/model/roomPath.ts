@@ -132,6 +132,16 @@ export function parseOpenPath(path: string): Vec2[] | null {
   return parsed.points
 }
 
+/** Points of an open path (routes, shapes); unparsable paths fall back to their start point. */
+export function openPathPoints(path: string): Vec2[] {
+  const points = parseOpenPath(path)
+  if (points) {
+    return points
+  }
+  const start = absolutePathStart(path)
+  return start ? [start] : []
+}
+
 function relativeSegments(points: Vec2[]): string[] {
   const parts: string[] = []
   for (let i = 1; i < points.length; i += 1) {

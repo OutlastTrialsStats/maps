@@ -6,6 +6,7 @@ import { useEditorStore } from '../store/editorStore'
 import PlacementProperties from './PlacementProperties.vue'
 import RoomProperties from './RoomProperties.vue'
 import RouteProperties from './RouteProperties.vue'
+import ShapeProperties from './ShapeProperties.vue'
 
 const store = useEditorStore()
 const { canPaste, copyToSystemClipboard, cutToSystemClipboard, pasteFromSystemClipboard } =
@@ -82,6 +83,7 @@ function paste(): void {
     <RoomProperties v-if="store.selectedRoom" :room="store.selectedRoom" />
     <PlacementProperties v-else-if="store.selectedPlacement" :placement="store.selectedPlacement" />
     <RouteProperties v-else-if="store.selectedRoute" :route="store.selectedRoute" />
+    <ShapeProperties v-else-if="store.selectedShape" :shape="store.selectedShape" />
     <p v-else-if="store.selection.length === 0" class="hint">
       Nothing selected. Map settings, elements and zones are managed via the toolbar.
     </p>

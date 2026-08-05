@@ -137,6 +137,10 @@ export const DISABLED_ROOM_OPACITY = 0.45
 export const FALLBACK_ZONE_FILL = '#4a4a4a'
 export const FALLBACK_ZONE_WALLS = '#111111'
 export const DEFAULT_LABEL_FONT_SIZE = 8
+/** Default outline of free-standing shapes; per-shape overrides are optional. */
+export const SHAPE_DEFAULT_COLOR = '#85858c'
+export const SHAPE_DEFAULT_STROKE_WIDTH = 1
+export const SHAPE_LINE_DASH = '3 2'
 export const UNKNOWN_ELEMENT_COLOR = '#7f8c8d'
 /** Font size of the placeholder initials relative to the icon size. */
 export const PLACEHOLDER_FONT_RATIO = 0.45

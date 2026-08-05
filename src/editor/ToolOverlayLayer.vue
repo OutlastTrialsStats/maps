@@ -20,6 +20,7 @@ const handleRadius = computed(() => VERTEX_HIT_RADIUS_PX / 2 / props.scale)
 
 const polyline = computed(() => (props.overlay?.kind === 'polyline' ? props.overlay : null))
 const rect = computed(() => (props.overlay?.kind === 'rect' ? props.overlay : null))
+const circle = computed(() => (props.overlay?.kind === 'circle' ? props.overlay : null))
 const vertices = computed(() => (props.overlay?.kind === 'vertices' ? props.overlay : null))
 const wallGaps = computed(() => (props.overlay?.kind === 'wallgaps' ? props.overlay : null))
 const ghost = computed(() => (props.overlay?.kind === 'ghost' ? props.overlay : null))
@@ -103,7 +104,14 @@ const ghostElement = computed(() =>
       :y="rectBounds.y"
       :width="rectBounds.width"
       :height="rectBounds.height"
-      class="draw-rect"
+      class="draw-area"
+    />
+    <circle
+      v-else-if="circle"
+      :cx="circle.center[0]"
+      :cy="circle.center[1]"
+      :r="circle.radius"
+      class="draw-area"
     />
     <template v-else-if="vertices">
       <g :transform="`translate(${vertices.origin[0]},${vertices.origin[1]})`">
@@ -206,7 +214,7 @@ const ghostElement = computed(() =>
   vector-effect: non-scaling-stroke;
 }
 
-.draw-rect {
+.draw-area {
   fill: var(--color-selection-soft);
   stroke: var(--color-selection);
   stroke-width: 1.5;
