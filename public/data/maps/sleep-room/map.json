@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../schemas/map.schema.json",
+  "id": "sleep-room",
+  "meta": {
+    "name": "Sleep Room",
+    "authors": [
+      "SuprexDE"
+    ]
+  },
+  "trials": [
+    {
+      "id": "main",
+      "name": "Main Trial",
+      "default": true
+    }
+  ]
+}
