@@ -1,0 +1,275 @@
+{
+  "$schema": "../../../../schemas/trial.schema.json",
+  "mapId": "sleep-room",
+  "trialId": "main",
+  "floors": [
+    {
+      "index": 0,
+      "name": "First Floor"
+    }
+  ],
+  "filters": [],
+  "rooms": [
+    {
+      "id": "room-0001",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          385,
+          5
+        ],
+        "rect": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "id": "room-0002",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          145,
+          90
+        ],
+        "rect": [
+          65,
+          55
+        ]
+      }
+    },
+    {
+      "id": "room-0003",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          210,
+          105
+        ],
+        "rect": [
+          45,
+          40
+        ]
+      }
+    },
+    {
+      "id": "room-0004",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          180,
+          150
+        ],
+        "rect": [
+          35,
+          35
+        ]
+      }
+    },
+    {
+      "id": "room-0005",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          180,
+          185
+        ],
+        "rect": [
+          35,
+          35
+        ]
+      }
+    },
+    {
+      "id": "room-0006",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          180,
+          220
+        ],
+        "rect": [
+          35,
+          35
+        ]
+      }
+    },
+    {
+      "id": "room-0007",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          220,
+          145
+        ],
+        "rect": [
+          30,
+          115
+        ]
+      }
+    },
+    {
+      "id": "room-0008",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          205,
+          260
+        ],
+        "rect": [
+          55,
+          55
+        ]
+      }
+    },
+    {
+      "id": "room-0009",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          385,
+          115
+        ],
+        "rect": [
+          35,
+          145
+        ]
+      }
+    },
+    {
+      "id": "room-0010",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          420,
+          115
+        ],
+        "rect": [
+          35,
+          35
+        ]
+      }
+    },
+    {
+      "id": "room-0011",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          420,
+          150
+        ],
+        "rect": [
+          35,
+          35
+        ]
+      }
+    },
+    {
+      "id": "room-0012",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          420,
+          185
+        ],
+        "rect": [
+          35,
+          35
+        ]
+      }
+    },
+    {
+      "id": "room-0013",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          420,
+          220
+        ],
+        "rect": [
+          35,
+          35
+        ]
+      }
+    },
+    {
+      "id": "room-0014",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          305,
+          280
+        ],
+        "rect": [
+          25,
+          45
+        ]
+      }
+    },
+    {
+      "id": "room-0015",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          280,
+          110
+        ],
+        "path": "h65 v40 l5,15 l10,5 l25,5 v85 h-40 l-15,20 h-25 l-15,-20 h-40 v-115 h30 z"
+      }
+    },
+    {
+      "id": "room-0016",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          390,
+          60
+        ],
+        "path": "h30 v55 h-35 v-20 h5 z"
+      }
+    },
+    {
+      "id": "room-0017",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          390,
+          260
+        ],
+        "path": "h55 v5 h5 v35 h-5 v10 h-25 z"
+      }
+    },
+    {
+      "id": "room-0018",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          290,
+          325
+        ],
+        "path": "h55 v25 h-5 v5 h-40 v-5 h-10 z"
+      }
+    }
+  ],
+  "placements": [],
+  "routes": [],
+  "shapes": []
+}
