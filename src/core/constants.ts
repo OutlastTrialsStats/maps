@@ -120,6 +120,9 @@ export const MIN_POLYGON_POINTS = 3
 export const WALL_GAP_DEFAULT_LENGTH = 8
 export const WALL_GAP_MIN_LENGTH = 1
 
+/** Max. distance a wall gap may sit off a merged outline before it is dropped, in map units. */
+export const ROOM_MERGE_GAP_TOLERANCE = 0.05
+
 /** Touch: a long press opens the viewer context menu. */
 export const LONG_PRESS_MS = 500
 export const LONG_PRESS_MOVE_TOLERANCE_PX = 10
