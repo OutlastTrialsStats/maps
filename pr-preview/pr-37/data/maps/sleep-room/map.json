@@ -10,7 +10,7 @@
   "trials": [
     {
       "id": "main",
-      "name": "Main Trial",
+      "name": "Sleep Room",
       "default": true
     }
   ]
