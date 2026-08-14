@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/OutlastTrialsStats/maps/compare/v0.4.0...v0.4.1) (2026-08-14)
+
+
+### Dependencies
+
+* **deps:** bump the pnpm-patches group across 1 directory with 3 updates ([#39](https://github.com/OutlastTrialsStats/maps/issues/39)) ([4a67e88](https://github.com/OutlastTrialsStats/maps/commit/4a67e888972fec0078cb69c894297658b232e653))
+
 ## [0.4.0](https://github.com/OutlastTrialsStats/maps/compare/v0.3.0...v0.4.0) (2026-08-05)
 
 
