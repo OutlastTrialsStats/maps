@@ -69,7 +69,8 @@
             "crawl-passage",
             "obstacle",
             "spawn-room",
-            "stairs"
+            "stairs",
+            "shuttle"
           ]
         },
         "length": { "type": "number", "exclusiveMinimum": 0 },
