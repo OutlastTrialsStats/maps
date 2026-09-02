@@ -8,7 +8,7 @@ const appVersion = __APP_VERSION__
   <footer class="footer">
     <nav class="footer-links footer-zone footer-zone--left" aria-label="Footer">
       <a
-        href="https://outlasttrialsstats.com/impressum"
+        href="https://outlasttrialsstats.com/legal/impressum"
         target="_blank"
         rel="noopener"
         class="footer-link"
@@ -17,7 +17,7 @@ const appVersion = __APP_VERSION__
       </a>
       <span class="footer-sep" aria-hidden="true">·</span>
       <a
-        href="https://outlasttrialsstats.com/datenschutz"
+        href="https://outlasttrialsstats.com/legal/datenschutz"
         target="_blank"
         rel="noopener"
         class="footer-link"
