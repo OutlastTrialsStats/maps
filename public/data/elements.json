@@ -256,6 +256,32 @@
       }
     },
     {
+      "id": "shuttle",
+      "name": "Shuttle Gate",
+      "category": "door",
+      "color": "#465b92",
+      "render": {
+        "kind": "shuttle",
+        "length": 28,
+        "thickness": 7
+      },
+      "description": "Shuttle gate: a row of cells split by a control console.",
+      "propsSchema": {
+        "cells": {
+          "type": "number",
+          "label": "Cells"
+        },
+        "enterable": {
+          "type": "boolean",
+          "label": "Enterable"
+        },
+        "redButton": {
+          "type": "boolean",
+          "label": "Red button"
+        }
+      }
+    },
+    {
       "id": "objective",
       "name": "Objective",
       "category": "objective",

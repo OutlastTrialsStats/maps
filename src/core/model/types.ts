@@ -299,6 +299,7 @@ export type StructuralKind =
   | 'obstacle'
   | 'spawn-room'
   | 'stairs'
+  | 'shuttle'
 
 export interface StructuralRender {
   kind: StructuralKind

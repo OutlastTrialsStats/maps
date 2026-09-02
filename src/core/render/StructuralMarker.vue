@@ -5,6 +5,7 @@ import {
   ROOM_WALL_WIDTH,
   SELECTION_COLOR,
   SELECTION_RING_OFFSET,
+  SHUTTLE_DEFAULT_CELLS,
 } from '../constants'
 import { elementIconUrl } from '../model/dataSource'
 import type { ElementDefinition, Placement } from '../model/types'
@@ -18,6 +19,11 @@ import {
   obstacleChevronsPath,
   obstacleTeethPath,
   placementTransform,
+  shuttleButtonBoxPath,
+  shuttleButtonPath,
+  shuttleDotsPath,
+  shuttleFramePath,
+  shuttleSeamsPath,
   spawnRoomFloorPath,
   spawnRoomWallPath,
   stairsArrowPath,
@@ -53,6 +59,14 @@ const dims = computed(() => {
 
 const rectPath = computed(() => centeredRectPath(dims.value.length, dims.value.thickness))
 const ascending = computed(() => props.placement.props?.direction !== 'down')
+
+const shuttleCells = computed(() => {
+  const raw = Number(props.placement.props?.cells)
+  return Number.isFinite(raw) ? Math.max(1, Math.floor(raw)) : SHUTTLE_DEFAULT_CELLS
+})
+/** Unchecked booleans are absent from `props`, so strict comparison is exact. */
+const shuttleEnterable = computed(() => props.placement.props?.enterable === true)
+const shuttleRedButton = computed(() => props.placement.props?.redButton === true)
 
 /** Door/window/stairs variants differ only by the library color, not by code. */
 const bodyFill = computed(() =>
@@ -117,6 +131,26 @@ const selectionBounds = computed(() => {
       <path :d="rectPath" :fill="bodyFill" class="stairs" />
       <path :d="stairsRungsPath(dims.length, dims.thickness)" class="stairs-rungs" />
       <path :d="stairsArrowPath(dims.length, dims.thickness, ascending)" class="stairs-arrow" />
+    </template>
+    <template v-else-if="kind === 'shuttle'">
+      <path :d="rectPath" class="shuttle-body" />
+      <path :d="shuttleFramePath(dims.length, dims.thickness, shuttleCells)" class="shuttle-frame" />
+      <path :d="shuttleSeamsPath(dims.length, dims.thickness, shuttleCells)" class="shuttle-seams" />
+      <path
+        v-if="shuttleEnterable"
+        :d="shuttleDotsPath(dims.length, dims.thickness, shuttleCells)"
+        class="shuttle-dots"
+      />
+      <template v-if="shuttleRedButton">
+        <path
+          :d="shuttleButtonBoxPath(dims.length, dims.thickness, shuttleCells)"
+          class="shuttle-button-box"
+        />
+        <path
+          :d="shuttleButtonPath(dims.length, dims.thickness, shuttleCells)"
+          class="shuttle-button"
+        />
+      </template>
     </template>
     <template v-else-if="kind === 'spawn-room'">
       <path :d="spawnRoomFloorPath(dims.length, dims.thickness)" class="spawn-floor" />
@@ -203,6 +237,36 @@ const selectionBounds = computed(() => {
   stroke-width: 0.8;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.shuttle-body {
+  fill: #292a29;
+  stroke: #000000;
+  stroke-width: 0.6;
+}
+
+.shuttle-frame {
+  fill: #162623;
+}
+
+.shuttle-seams {
+  fill: none;
+  stroke: #162623;
+  stroke-width: 0.3;
+}
+
+.shuttle-dots {
+  fill: #465b92;
+}
+
+.shuttle-button-box {
+  fill: #666666;
+}
+
+.shuttle-button {
+  fill: #bb0000;
+  stroke: #000000;
+  stroke-width: 0.25;
 }
 
 .spawn-floor {

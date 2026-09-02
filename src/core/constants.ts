@@ -165,6 +165,15 @@ export const CRAWL_BAR_SPACING = 1.6
 export const STAIRS_RUNG_SPACING = 3
 /** Spacing of the teeth on obstacles. */
 export const OBSTACLE_TOOTH_SPACING = 2.5
+// Shuttle gate: ratios relative to the cell height (thickness = cell + 2 rails).
+export const SHUTTLE_RAIL_RATIO = 0.2
+export const SHUTTLE_WALL_RATIO = 0.4
+export const SHUTTLE_CONSOLE_RATIO = 0.75
+/** Radius of the enterable dot; clamped to half the cell width. */
+export const SHUTTLE_DOT_RATIO = 0.4
+export const SHUTTLE_BUTTON_BOX_RATIO = 0.5
+export const SHUTTLE_BUTTON_RADIUS_RATIO = 0.1
+export const SHUTTLE_DEFAULT_CELLS = 4
 
 // Number marker (dot → leader line → diamond badge with a number)
 export const MARKER_COLOR = '#aaaaaa'
