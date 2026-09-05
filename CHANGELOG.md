@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.0](https://github.com/OutlastTrialsStats/maps/compare/v0.4.1...v1.0.0) (2026-09-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* Add sleep-room ([#37](https://github.com/OutlastTrialsStats/maps/issues/37))
+
+### Features
+
+* Add sleep-room ([#37](https://github.com/OutlastTrialsStats/maps/issues/37)) ([f9dff91](https://github.com/OutlastTrialsStats/maps/commit/f9dff9174ca7a6895399c9234c72aff67984ce5a))
+* **seo:** add sitemap, robots.txt, and SEO plugin for enhanced indexing ([#47](https://github.com/OutlastTrialsStats/maps/issues/47)) ([fd3c304](https://github.com/OutlastTrialsStats/maps/commit/fd3c3041ebf5325f407750da040886b4a2cda256))
+
+
+### Dependencies
+
+* **deps:** bump the pnpm-patches group across 1 directory with 4 updates ([#45](https://github.com/OutlastTrialsStats/maps/issues/45)) ([ac9b4b7](https://github.com/OutlastTrialsStats/maps/commit/ac9b4b7846ca48888d703441f1ebd6418b88615f))
+* **deps:** bump vue-router from 5.2.0 to 5.3.0 ([#48](https://github.com/OutlastTrialsStats/maps/issues/48)) ([59962b7](https://github.com/OutlastTrialsStats/maps/commit/59962b7168c4bb595752d40098b495b08661cf53))
+
 ## [0.4.1](https://github.com/OutlastTrialsStats/maps/compare/v0.4.0...v0.4.1) (2026-08-14)
 
 
