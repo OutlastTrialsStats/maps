@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/OutlastTrialsStats/maps/compare/v1.0.0...v1.0.1) (2026-09-05)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump eslint from 10.8.1 to 10.9.1 ([#49](https://github.com/OutlastTrialsStats/maps/issues/49)) ([010ea6c](https://github.com/OutlastTrialsStats/maps/commit/010ea6c382b355684bf5d316ea8ed10b4599477c))
+* **deps:** update dependencies and lockfile to latest versions ([#50](https://github.com/OutlastTrialsStats/maps/issues/50)) ([ae16c5b](https://github.com/OutlastTrialsStats/maps/commit/ae16c5b7fe200c9fd43f9aa3f644311e8b5724a3))
+
 ## [1.0.0](https://github.com/OutlastTrialsStats/maps/compare/v0.4.1...v1.0.0) (2026-09-05)
 
 
