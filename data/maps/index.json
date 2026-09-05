@@ -105,7 +105,7 @@
       "name": "Sleep Room",
       "card": "https://outlasttrialsstats.com/game-assets/Poster_Program_Weekly.webp",
       "progress": 0,
-      "enabled": false
+      "enabled": true
     }
   ]
 }
