@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.2](https://github.com/OutlastTrialsStats/maps/compare/v1.0.1...v1.0.2) (2026-09-12)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump eslint-plugin-vue from 10.10.0 to 10.11.0 ([#53](https://github.com/OutlastTrialsStats/maps/issues/53)) ([e448fe0](https://github.com/OutlastTrialsStats/maps/commit/e448fe085e164d7e10803af41df6078d217b8b8f))
+
+
+### Continuous Integration
+
+* bump pnpm/action-setup in the actions-minor-patch group ([#52](https://github.com/OutlastTrialsStats/maps/issues/52)) ([a0cdb8b](https://github.com/OutlastTrialsStats/maps/commit/a0cdb8b2729e4e507d5338c95fe5f400aef411f5))
+
 ## [1.0.1](https://github.com/OutlastTrialsStats/maps/compare/v1.0.0...v1.0.1) (2026-09-05)
 
 
