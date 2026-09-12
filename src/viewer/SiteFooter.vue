@@ -34,7 +34,7 @@ const appVersion = __APP_VERSION__
       by outlasttrialsstats.com
     </a>
     <div class="footer-zone footer-zone--right">
-      <span class="footer-version">v{{ appVersion }}</span>
+      <span class="footer-version">v{{ appVersion }} · Beta</span>
       <CursorToggle />
     </div>
   </footer>
