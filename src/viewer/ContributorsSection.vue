@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import { GITHUB_REPO_URL } from '../core/constants'
 import { loadContributors } from '../core/model/dataSource'
 import type { Contributor, MapRegistryEntry } from '../core/model/types'
@@ -31,10 +32,17 @@ onMounted(async () => {
         :maps="maps"
       />
     </ul>
-    <a :href="GITHUB_REPO_URL" target="_blank" rel="noopener" class="join-link">
-      <i class="pi pi-github" aria-hidden="true" />
-      Become a contributor
-    </a>
+    <p class="invite">
+      Maps here are made by players. Draw yours in the editor, then send it in as a pull request. You
+      get a spot on this page and the <strong>Map Contributor</strong> badge on outlasttrialsstats.com.
+    </p>
+    <div class="actions">
+      <RouterLink to="/editor" class="action action-primary">Open the map editor</RouterLink>
+      <a :href="GITHUB_REPO_URL" target="_blank" rel="noopener" class="action">
+        <i class="pi pi-github" aria-hidden="true" />
+        How to contribute
+      </a>
+    </div>
   </section>
 </template>
 
@@ -68,12 +76,34 @@ h2 {
   flex: 0 1 260px;
 }
 
-.join-link {
+.invite {
+  max-width: 64ch;
+  margin: 24px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-body);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.invite strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 16px;
-  padding: 8px 16px;
+  padding: 9px 18px;
   font-size: 0.85rem;
   color: var(--text-muted);
   text-decoration: none;
@@ -86,9 +116,21 @@ h2 {
     color 0.2s ease;
 }
 
-.join-link:hover {
+.action:hover {
   color: var(--text-primary);
   background: var(--surface-active);
   border-color: var(--border-hover);
+}
+
+.action-primary {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--accent) 22%, var(--glass-bg));
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.action-primary:hover {
+  background: color-mix(in srgb, var(--accent) 34%, var(--glass-bg));
+  border-color: var(--accent-hover);
 }
 </style>

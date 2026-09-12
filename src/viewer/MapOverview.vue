@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHorizontalWheelScroll } from '../core/interaction/useHorizontalWheelScroll'
 import { gameAssetUrl, loadMapsIndex } from '../core/model/dataSource'
 import type { MapRegistryEntry } from '../core/model/types'
+import BetaStatusLine from './BetaStatusLine.vue'
 import ContributorsSection from './ContributorsSection.vue'
 import HeroBanner from './HeroBanner.vue'
 import MapCard from './MapCard.vue'
@@ -17,6 +18,10 @@ const maps = ref<MapRegistryEntry[]>([])
 const loadError = ref('')
 const cardsEl = ref<HTMLElement | null>(null)
 const { onWheel } = useHorizontalWheelScroll(cardsEl)
+
+const orderedMaps = computed(() =>
+  [...maps.value].sort((a, b) => Number(b.enabled) - Number(a.enabled)),
+)
 
 onMounted(async () => {
   try {
@@ -41,9 +46,10 @@ onMounted(async () => {
           subtitle="Interactive Outlast Trials Maps"
         />
       </section>
+      <BetaStatusLine :maps="maps" />
       <p v-if="loadError" class="error" role="alert">{{ loadError }}</p>
       <div ref="cardsEl" class="cards" @wheel="onWheel">
-        <MapCard v-for="map in maps" :key="map.id" :map="map" />
+        <MapCard v-for="map in orderedMaps" :key="map.id" :map="map" />
       </div>
       <ContributorsSection :maps="maps" />
     </main>
@@ -103,7 +109,7 @@ onMounted(async () => {
 }
 
 .hero {
-  padding: clamp(1.25rem, 5vw, 3rem) 0 clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(1.25rem, 5vw, 3rem) 0 clamp(1.25rem, 4vw, 1.5rem);
 }
 
 .cards {
