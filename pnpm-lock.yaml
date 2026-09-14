@@ -33,8 +33,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.42(typescript@6.0.3))
       primeicons:
-        specifier: ^8.0.0
-        version: 8.0.0
+        specifier: ^8.0.1
+        version: 8.0.1
       primevue:
         specifier: ^4.5.5
         version: 4.5.5(vue@3.5.42(typescript@6.0.3))
@@ -1027,8 +1027,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  primeicons@8.0.0:
-    resolution: {integrity: sha512-eZGk+Mgb4fE+LkJi9LvllbnB4RVUF9kzmnLVnT3ZMY6stqKVh7TUJ0mFoMNIEgTnJSvhaGcJotDiSvtVvkHd7g==}
+  primeicons@8.0.1:
+    resolution: {integrity: sha512-5O1zIpEKUk0pKfEQSdNVJRxPivo0271zAe7vnZGl+fughxixv4PnVou2J6pPy2wy83nrDn58BqeBwWnpCZmjkw==}
 
   primevue@4.5.5:
     resolution: {integrity: sha512-Kv5REIewCdP806QaoU+4nBXfmpzOGFKkZ9qH4KsL6MjiAQVc4PUzypt8erl4r3Vzh3nr3aWZIxkxYRRsLGiX2A==}
@@ -2197,7 +2197,7 @@ snapshots:
 
   prettier@3.9.6: {}
 
-  primeicons@8.0.0: {}
+  primeicons@8.0.1: {}
 
   primevue@4.5.5(vue@3.5.42(typescript@6.0.3)):
     dependencies:
