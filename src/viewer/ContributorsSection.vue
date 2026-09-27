@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import { GITHUB_REPO_URL } from '../core/constants'
 import { loadContributors } from '../core/model/dataSource'
 import type { Contributor, MapRegistryEntry } from '../core/model/types'
@@ -20,59 +21,87 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="contributors">
-    <h2>Contributors</h2>
-    <p v-if="loadError" class="error" role="alert">{{ loadError }}</p>
-    <ul v-else class="grid">
-      <ContributorCard
-        v-for="contributor in contributors"
-        :key="contributor.name"
-        :contributor="contributor"
-        :maps="maps"
-      />
-    </ul>
-    <a :href="GITHUB_REPO_URL" target="_blank" rel="noopener" class="join-link">
-      <i class="pi pi-github" aria-hidden="true" />
-      Become a contributor
-    </a>
+  <section class="community">
+    <div class="block">
+      <h2 class="panel-heading">Contributors</h2>
+      <p v-if="loadError" class="error" role="alert">{{ loadError }}</p>
+      <ul v-else class="contributor-row">
+        <ContributorCard
+          v-for="contributor in contributors"
+          :key="contributor.name"
+          :contributor="contributor"
+          :maps="maps"
+        />
+      </ul>
+    </div>
+    <div class="block block-invite">
+      <h2 class="panel-heading">Add a map</h2>
+      <p class="invite">
+        Draw a map in the editor and send it in as a pull request. Every contributor gets the
+        <strong>Map Contributor</strong> badge on outlasttrialsstats.com.
+      </p>
+      <div class="actions">
+        <RouterLink to="/editor" class="action action-primary">Open the map editor</RouterLink>
+        <a :href="GITHUB_REPO_URL" target="_blank" rel="noopener" class="action">
+          <i class="pi pi-github" aria-hidden="true" />
+          How to contribute
+        </a>
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
-.contributors {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 32px;
+.community {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  gap: 20px 40px;
+  margin-top: 16px;
 }
 
-h2 {
-  margin: 0 0 16px;
-  font-family: var(--font-brand);
-  font-size: 1.5rem;
+.block {
+  min-width: 0;
+}
+
+.block-invite {
+  padding-left: 40px;
+  border-left: 1px solid var(--border-default);
+}
+
+.contributor-row {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0 0 8px;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-active) transparent;
+}
+
+.invite {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+.invite strong {
+  font-weight: 600;
   color: var(--text-primary);
 }
 
-.grid {
+.actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 10px;
+  margin-top: 12px;
 }
 
-.grid > * {
-  flex: 0 1 260px;
-}
-
-.join-link {
+.action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 16px;
   padding: 8px 16px;
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -86,9 +115,32 @@ h2 {
     color 0.2s ease;
 }
 
-.join-link:hover {
+.action:hover {
   color: var(--text-primary);
   background: var(--surface-active);
   border-color: var(--border-hover);
+}
+
+.action-primary {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--accent) 22%, var(--glass-bg));
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.action-primary:hover {
+  background: color-mix(in srgb, var(--accent) 34%, var(--glass-bg));
+  border-color: var(--accent-hover);
+}
+
+@media (max-width: 720px) {
+  .community {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .block-invite {
+    padding-left: 0;
+    border-left: none;
+  }
 }
 </style>

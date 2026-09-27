@@ -30,6 +30,7 @@ export interface MapRegistryEntry {
   progress: number
   /** `false` → "Coming in the future" banner, not clickable. */
   enabled: boolean
+  hasManifest?: boolean
 }
 
 // ---------------------------------------------------------------------------

@@ -19,7 +19,7 @@ defineProps<{ map: MapRegistryEntry }>()
       <span v-if="map.enabled" class="card-progress tabular-nums">{{ map.progress }}% mapped</span>
       <span v-else class="card-progress locked-label">
         <i class="pi pi-lock" />
-        Coming in the future
+        Not mapped yet
       </span>
       <span v-if="map.enabled" class="progress-track">
         <span class="progress-fill" :style="{ width: `${map.progress}%` }" />
@@ -39,6 +39,7 @@ defineProps<{ map: MapRegistryEntry }>()
   background: var(--surface-card);
   border-radius: var(--radius-xl);
   text-decoration: none;
+  container-type: inline-size;
   transition: transform 0.3s ease;
 }
 
@@ -75,7 +76,7 @@ defineProps<{ map: MapRegistryEntry }>()
 
 .card-name {
   font-family: var(--font-brand);
-  font-size: 1.3rem;
+  font-size: clamp(0.95rem, 9.5cqi, 1.3rem);
   color: var(--text-primary);
   text-shadow: 0 2px 8px var(--text-shadow-color);
 }

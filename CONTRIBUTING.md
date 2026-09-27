@@ -61,8 +61,11 @@ For a brand-new map:
   `<mapId>/map.json` as the filename, then paste and commit. That creates your copy, same as above.
 - Add the rest in your copy on that branch, via **Add file → Create new file**: each trial file as
   `<mapId>/trials/<trialId>.json`, exactly as listed in the export dialog.
-- Set `"enabled": true` for your map in `public/data/maps/index.json`. All planned maps are already listed
-  there and stay hidden on the start page until that flag is flipped.
+- Set `"enabled": true` and `"hasManifest": true` for your map in `public/data/maps/index.json`. All planned
+  maps are already listed there; until `enabled` is flipped they show on the start page as a locked
+  "Coming in the future" tile. A map that already has a `map.json` in the repository carries
+  `"hasManifest": true` and can be opened in the editor even while it is still locked — Police Station,
+  for example, comes with its six trials prepared and is waiting for someone to map it.
 - Screenshots go to `public/data/maps/<mapId>/img/`. Those are images, so pasting doesn't work: use
   **Add file → Upload files** on that folder and drop them in.
 

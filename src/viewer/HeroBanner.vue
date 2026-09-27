@@ -2,6 +2,7 @@
 defineProps<{
   title: string
   subtitle?: string
+  stamp?: string
 }>()
 </script>
 
@@ -20,6 +21,7 @@ defineProps<{
         <h1 class="banner-title">{{ title }}</h1>
         <p v-if="subtitle" class="banner-subtitle">{{ subtitle }}</p>
       </div>
+      <span v-if="stamp" class="banner-stamp">{{ stamp }}</span>
     </div>
   </div>
 </template>
@@ -32,7 +34,7 @@ defineProps<{
 
 .banner {
   position: relative;
-  width: clamp(280px, 60vw, 600px);
+  width: clamp(280px, min(60vw, 64vh), 600px);
   max-width: 100%;
 }
 
@@ -71,5 +73,24 @@ defineProps<{
   color: var(--text-body);
   text-wrap: balance;
   text-shadow: 1px 1px 4px var(--text-shadow-color);
+}
+
+.banner-stamp {
+  position: absolute;
+  top: 4%;
+  right: 1%;
+  padding: 0.1em 0.5em;
+  font-family: var(--font-brand);
+  font-size: clamp(0.8rem, 1.8vw, 1.05rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 35%, transparent);
+  background: color-mix(in srgb, var(--bg-page) 55%, transparent);
+  transform: rotate(8deg);
+  opacity: 0.9;
+  pointer-events: none;
 }
 </style>

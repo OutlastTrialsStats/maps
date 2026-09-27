@@ -29,7 +29,8 @@
             ]
           },
           "progress": { "type": "number", "minimum": 0, "maximum": 100 },
-          "enabled": { "type": "boolean" }
+          "enabled": { "type": "boolean" },
+          "hasManifest": { "type": "boolean" }
         }
       }
     }

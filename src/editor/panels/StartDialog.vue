@@ -27,7 +27,9 @@ const idValid = computed(() => KEBAB_ID_PATTERN.test(newMapId.value))
 /** Manifest of the map picked in step 1; the TrialStep picks or creates the trial. */
 const selectedManifest = ref<MapManifest | null>(null)
 
-const loadableMaps = computed(() => registry.value.filter((entry) => entry.enabled))
+const loadableMaps = computed(() =>
+  registry.value.filter((entry) => entry.enabled || entry.hasManifest),
+)
 const autosaveLabel = computed(() => {
   if (!autosave.value) {
     return ''

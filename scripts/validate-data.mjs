@@ -108,10 +108,13 @@ const checkedScreenshots = new Set()
 for (const entry of mapsIndex.maps) {
   const relPath = `public/data/${mapManifestPath(entry.id)}`
   if (!existsSync(join(root, relPath))) {
-    if (entry.enabled) {
-      errors.push(`${relPath}: missing map.json for enabled map "${entry.id}"`)
+    if (entry.enabled || entry.hasManifest) {
+      errors.push(`${relPath}: missing map.json for map "${entry.id}"`)
     }
     continue
+  }
+  if (!entry.hasManifest) {
+    errors.push(`${mapsIndexPath}: map "${entry.id}" has a map.json but no "hasManifest": true`)
   }
   const manifest = readJson(relPath)
   if (!validateSchema(relPath, validators.map, manifest)) {

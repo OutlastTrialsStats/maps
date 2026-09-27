@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { computed, onMounted, ref } from 'vue'
 import { useHorizontalWheelScroll } from '../core/interaction/useHorizontalWheelScroll'
-import { gameAssetUrl, loadMapsIndex } from '../core/model/dataSource'
+import { loadMapsIndex } from '../core/model/dataSource'
 import type { MapRegistryEntry } from '../core/model/types'
 import ContributorsSection from './ContributorsSection.vue'
 import HeroBanner from './HeroBanner.vue'
 import MapCard from './MapCard.vue'
+import MapsHeading from './MapsHeading.vue'
 import PageBackdrop from './PageBackdrop.vue'
 import SiteFooter from './SiteFooter.vue'
 
@@ -17,6 +17,10 @@ const maps = ref<MapRegistryEntry[]>([])
 const loadError = ref('')
 const cardsEl = ref<HTMLElement | null>(null)
 const { onWheel } = useHorizontalWheelScroll(cardsEl)
+
+const orderedMaps = computed(() =>
+  [...maps.value].sort((a, b) => Number(b.enabled) - Number(a.enabled)),
+)
 
 onMounted(async () => {
   try {
@@ -30,22 +34,20 @@ onMounted(async () => {
 <template>
   <div class="page">
     <PageBackdrop :src="backdropSrc" overlay="gradient" />
-    <RouterLink to="/editor" class="editor-link">
-      <img :src="gameAssetUrl('tag_rename.webp')" alt="" class="editor-link-icon" />
-      Map editor
-    </RouterLink>
     <main class="overview">
       <section class="hero">
         <HeroBanner
           title="Outlast Trials Maps"
           subtitle="Interactive Outlast Trials Maps"
+          stamp="Beta"
         />
       </section>
+      <MapsHeading :maps="maps" />
       <p v-if="loadError" class="error" role="alert">{{ loadError }}</p>
-      <div ref="cardsEl" class="cards" @wheel="onWheel">
-        <MapCard v-for="map in maps" :key="map.id" :map="map" />
+      <div ref="cardsEl" class="cards wide-row" @wheel="onWheel">
+        <MapCard v-for="map in orderedMaps" :key="map.id" :map="map" />
       </div>
-      <ContributorsSection :maps="maps" />
+      <ContributorsSection class="wide-row" :maps="maps" />
     </main>
     <SiteFooter />
   </div>
@@ -59,60 +61,31 @@ onMounted(async () => {
   flex-direction: column;
 }
 
-.editor-link {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 18px 8px 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-decoration: none;
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.editor-link:hover {
-  background: var(--surface-active);
-  border-color: var(--border-hover);
-  transform: translateY(-1px);
-}
-
-.editor-link-icon {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-}
-
 .overview {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 16px 24px 24px;
 }
 
 .hero {
-  padding: clamp(1.25rem, 5vw, 3rem) 0 clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(0.5rem, 3vh, 2rem) 0 clamp(0.75rem, 2.5vh, 1.5rem);
+}
+
+.wide-row {
+  /* Wider than the content column so a cropped poster on the right invites scrolling. */
+  --wide-row-width: max(100%, min(1280px, 100vw - 48px));
+  width: var(--wide-row-width);
+  margin-inline: calc((100% - var(--wide-row-width)) / 2);
 }
 
 .cards {
-  /* Wider than the content column so a cropped poster on the right invites scrolling. */
-  --slider-width: max(100%, min(1280px, 100vw - 48px));
   display: flex;
   gap: 16px;
-  width: var(--slider-width);
-  margin-inline: calc((100% - var(--slider-width)) / 2);
   overflow-x: auto;
   /* Room for the hover lift of the cards, otherwise the scroll container clips the effect. */
   padding-block: 12px;
@@ -121,6 +94,6 @@ onMounted(async () => {
 }
 
 .cards > * {
-  flex: 0 0 220px;
+  flex: 0 0 clamp(130px, (100vh - 510px) * 548 / 728, 260px);
 }
 </style>
