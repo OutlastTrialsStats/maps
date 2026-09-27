@@ -46,7 +46,7 @@ const appVersion = __APP_VERSION__
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 8px 16px;
-  padding: 16px 24px;
+  padding: 10px 24px;
   border-top: 1px solid var(--border-subtle);
 }
 
