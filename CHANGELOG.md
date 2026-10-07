@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.1.0](https://github.com/OutlastTrialsStats/maps/compare/v1.0.1...v1.1.0) (2026-10-07)
+
+
+### Features
+
+* **viewer:** restyle contributor card with badge and map icons ([#67](https://github.com/OutlastTrialsStats/maps/issues/67)) ([1e6d1e8](https://github.com/OutlastTrialsStats/maps/commit/1e6d1e8e5bb1fc65fad616a9fe5a6aa2da3b8ba0))
+* **viewer:** show beta status and lock unstarted maps ([#55](https://github.com/OutlastTrialsStats/maps/issues/55)) ([455c134](https://github.com/OutlastTrialsStats/maps/commit/455c13461266bc64177275655a68d9b69cc96b19))
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump eslint from 10.10.0 to 10.12.0 ([#63](https://github.com/OutlastTrialsStats/maps/issues/63)) ([7d6154b](https://github.com/OutlastTrialsStats/maps/commit/7d6154b290cbd60dda7ef0761e47d80694f39d2b))
+* **deps-dev:** bump eslint-plugin-vue from 10.10.0 to 10.11.0 ([#53](https://github.com/OutlastTrialsStats/maps/issues/53)) ([e448fe0](https://github.com/OutlastTrialsStats/maps/commit/e448fe085e164d7e10803af41df6078d217b8b8f))
+* **deps-dev:** bump the pnpm-patches group with 2 updates ([#65](https://github.com/OutlastTrialsStats/maps/issues/65)) ([2b42b94](https://github.com/OutlastTrialsStats/maps/commit/2b42b9469e48d9350b33cb8c81627edeb8ebb4e0))
+* **deps-dev:** bump vite from 8.2.2 to 8.3.1 ([#61](https://github.com/OutlastTrialsStats/maps/issues/61)) ([dec2842](https://github.com/OutlastTrialsStats/maps/commit/dec2842a5c6ab7fd98596e5067c5490e41a39711))
+
+
+### Dependencies
+
+* **deps:** bump the pnpm-patches group across 1 directory with 4 updates ([#64](https://github.com/OutlastTrialsStats/maps/issues/64)) ([9d38e41](https://github.com/OutlastTrialsStats/maps/commit/9d38e41caaa7cda73f2a0f569f92da6a9d2e6117))
+* **deps:** bump the pnpm-patches group across 1 directory with 5 updates ([#59](https://github.com/OutlastTrialsStats/maps/issues/59)) ([319105d](https://github.com/OutlastTrialsStats/maps/commit/319105d2efec08ad9e67370645fd29c7165ecfee))
+
+
+### Continuous Integration
+
+* bump pnpm/action-setup in the actions-minor-patch group ([#52](https://github.com/OutlastTrialsStats/maps/issues/52)) ([a0cdb8b](https://github.com/OutlastTrialsStats/maps/commit/a0cdb8b2729e4e507d5338c95fe5f400aef411f5))
+
 ## [1.0.1](https://github.com/OutlastTrialsStats/maps/compare/v1.0.0...v1.0.1) (2026-09-05)
 
 
