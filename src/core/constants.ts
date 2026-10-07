@@ -18,7 +18,9 @@ export const GITHUB_REPO_URL = 'https://github.com/OutlastTrialsStats/maps#contr
 /** Embed script of outlasttrialsstats.com defining `<totstats-profile>`. */
 export const PROFILE_WIDGET_SRC = 'https://outlasttrialsstats.com/widget/totstats-profile.js'
 /** Avatar edge length of the embedded profile card, in px. */
-export const PROFILE_WIDGET_SIZE = 48
+export const PROFILE_WIDGET_SIZE = 52
+/** Icon of the Map Contributor badge on outlasttrialsstats.com. */
+export const MAP_CONTRIBUTOR_BADGE_ICON = 'item_schematics'
 
 /** Grid snapping in the editor, in map units (1 unit ≈ 10 cm of game world). */
 export const GRID_SNAP_FINE = 2.5
