@@ -7,7 +7,8 @@
       "background": "https://outlasttrialsstats.com/game-assets/photo_PS_Trial.webp",
       "card": "https://outlasttrialsstats.com/game-assets/Poster_Program_01.webp",
       "progress": 0,
-      "enabled": true
+      "enabled": false,
+      "hasManifest": true
     },
     {
       "id": "fun-park",
@@ -104,8 +105,9 @@
       "id": "sleep-room",
       "name": "Sleep Room",
       "card": "https://outlasttrialsstats.com/game-assets/Poster_Program_Weekly.webp",
-      "progress": 0,
-      "enabled": true
+      "progress": 30,
+      "enabled": true,
+      "hasManifest": true
     }
   ]
 }
