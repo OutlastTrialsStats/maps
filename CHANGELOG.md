@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/OutlastTrialsStats/maps/compare/v1.1.0...v1.1.1) (2026-10-08)
+
+
+### Miscellaneous Chores
+
+* replace `.mcp.json` with `.gitattributes` for line endings configuration ([d7af2ac](https://github.com/OutlastTrialsStats/maps/commit/d7af2ac6e9f0173ee3d4bddf6999143c6782b765))
+
 ## [1.1.0](https://github.com/OutlastTrialsStats/maps/compare/v1.0.1...v1.1.0) (2026-10-07)
 
 
