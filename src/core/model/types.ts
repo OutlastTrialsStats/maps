@@ -96,6 +96,8 @@ export interface Trial {
 export interface Floor {
   index: number
   name: string
+  /** Floor shown first when the trial opens; without one, index 0 (else the first floor). */
+  default?: boolean
 }
 
 export interface FilterDefinition {

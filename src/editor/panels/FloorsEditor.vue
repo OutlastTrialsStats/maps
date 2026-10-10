@@ -43,6 +43,18 @@ function rename(index: number, raw: string): void {
   })
 }
 
+function toggleDefault(index: number): void {
+  store.commit((doc) => {
+    for (const floor of doc.floors) {
+      if (floor.index === index && !floor.default) {
+        floor.default = true
+      } else {
+        delete floor.default
+      }
+    }
+  })
+}
+
 function canRemove(index: number): boolean {
   return store.floors.length > 1 && !referencedIndexes.value.has(index)
 }
@@ -81,6 +93,15 @@ function add(): void {
         size="small"
         class="name-input"
         @change="rename(floor.index, ($event.target as HTMLInputElement).value)"
+      />
+      <Button
+        v-tooltip.left="floor.default ? 'Start floor (click to unset)' : 'Set as start floor'"
+        :icon="floor.default ? 'pi pi-flag-fill' : 'pi pi-flag'"
+        aria-label="Toggle start floor"
+        size="small"
+        severity="secondary"
+        text
+        @click="toggleDefault(floor.index)"
       />
       <span v-tooltip.left="canRemove(floor.index) ? 'Remove floor' : 'In use or last floor'">
         <Button

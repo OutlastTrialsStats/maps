@@ -98,6 +98,7 @@ const title = computed(() => viewer.manifest?.meta.name ?? String(route.params.m
       <p v-else-if="viewer.loadError" class="status error" role="alert">
         Failed to load this map: {{ viewer.loadError }}
       </p>
+      <p v-else-if="viewer.trialIsEmpty" class="status">This trial has not been mapped yet.</p>
       <div class="top-controls">
         <Button
           :icon="viewer.panelOpen ? 'pi pi-angle-double-right' : 'pi pi-angle-double-left'"

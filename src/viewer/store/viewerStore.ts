@@ -40,6 +40,16 @@ export const useViewerStore = defineStore('viewer', () => {
 
   const trials = computed(() => manifest.value?.trials ?? [])
   const filters = computed(() => trial.value?.filters ?? [])
+  const trialIsEmpty = computed(() => {
+    const doc = trial.value
+    return (
+      !!doc &&
+      !doc.rooms.length &&
+      !doc.placements.length &&
+      !doc.shapes.length &&
+      !doc.routes.length
+    )
+  })
   const floorsTopDown = computed(() =>
     [...(trial.value?.floors ?? [])].sort((a, b) => b.index - a.index),
   )
@@ -224,6 +234,7 @@ export const useViewerStore = defineStore('viewer', () => {
     backgroundUrl,
     trials,
     filters,
+    trialIsEmpty,
     floorsTopDown,
     activeFloorName,
     canFloorUp,
