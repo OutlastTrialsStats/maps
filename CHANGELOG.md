@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/OutlastTrialsStats/maps/compare/v1.1.1...v1.2.0) (2026-10-10)
+
+
+### Features
+
+* **data:** add Eliminate the Past trial for Police Station ([#69](https://github.com/OutlastTrialsStats/maps/issues/69)) ([4e09aeb](https://github.com/OutlastTrialsStats/maps/commit/4e09aeb241b64f47f1151a3e0db0c55b10e62f13))
+
 ## [1.1.1](https://github.com/OutlastTrialsStats/maps/compare/v1.1.0...v1.1.1) (2026-10-08)
 
 
