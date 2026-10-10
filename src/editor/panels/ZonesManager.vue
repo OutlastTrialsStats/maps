@@ -10,6 +10,7 @@ import { uniqueSlug } from '../store/ids'
 import { useUsageLookup } from '../store/useUsageLookup'
 import { useZonesStore } from '../store/zonesStore'
 import UsageDeleteDialog from './UsageDeleteDialog.vue'
+import { fromPickerHex, toPickerHex } from './colorPickerValue'
 import { useUsageDelete } from './useUsageDelete'
 
 const store = useEditorStore()
@@ -37,7 +38,6 @@ function rename(zoneId: string, raw: string): void {
   })
 }
 
-/** The PrimeVue ColorPicker returns hex without "#" — normalize it for the schema. */
 function setColor(zoneId: string, key: 'fill' | 'walls', value: unknown): void {
   if (typeof value !== 'string' || !value) {
     return
@@ -46,7 +46,7 @@ function setColor(zoneId: string, key: 'fill' | 'walls', value: unknown): void {
     (zones) => {
       const zone = zones.zones.find((entry) => entry.id === zoneId)
       if (zone) {
-        zone[key] = `#${value.toLowerCase()}`
+        zone[key] = fromPickerHex(value.toLowerCase(), zone[key])
       }
     },
     { coalesce: `${zoneId}:${key}` },
@@ -80,11 +80,11 @@ function confirmDelete(): void {
     <p class="hint">Zones are global — changes affect every map. Colors: fill / walls.</p>
     <div v-for="zone in zonesStore.zones" :key="zone.id" class="row">
       <ColorPicker
-        :model-value="zone.fill.slice(1)"
+        :model-value="toPickerHex(zone.fill)"
         @update:model-value="setColor(zone.id, 'fill', $event)"
       />
       <ColorPicker
-        :model-value="zone.walls.slice(1)"
+        :model-value="toPickerHex(zone.walls)"
         @update:model-value="setColor(zone.id, 'walls', $event)"
       />
       <InputText

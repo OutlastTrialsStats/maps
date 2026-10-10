@@ -48,12 +48,7 @@ const paintAttrs = computed(() => ({
 
 <template>
   <g data-entity-kind="shape" :data-entity-id="shape.id">
-    <component
-      :is="geometry.is"
-      v-if="hitArea"
-      v-bind="geometry.attrs"
-      :class="['shape-hit', { 'shape-hit-filled': shape.fill }]"
-    />
+    <component :is="geometry.is" v-if="hitArea" v-bind="geometry.attrs" class="shape-hit" />
     <component
       :is="geometry.is"
       v-bind="{ ...geometry.attrs, ...paintAttrs }"
@@ -75,9 +70,5 @@ const paintAttrs = computed(() => ({
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-}
-
-.shape-hit-filled {
-  fill: transparent;
 }
 </style>
