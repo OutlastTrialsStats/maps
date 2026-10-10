@@ -8,8 +8,7 @@
   "trials": [
     {
       "id": "kill-the-snitch",
-      "name": "Kill the Snitch",
-      "default": true
+      "name": "Kill the Snitch"
     },
     {
       "id": "cancel-the-autopsy",
@@ -29,7 +28,8 @@
     },
     {
       "id": "eliminate-the-past",
-      "name": "Eliminate the Past"
+      "name": "Eliminate the Past",
+      "default": true
     }
   ]
 }

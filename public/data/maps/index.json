@@ -6,8 +6,8 @@
       "name": "Police Station",
       "background": "https://outlasttrialsstats.com/game-assets/photo_PS_Trial.webp",
       "card": "https://outlasttrialsstats.com/game-assets/Poster_Program_01.webp",
-      "progress": 0,
-      "enabled": false,
+      "progress": 17,
+      "enabled": true,
       "hasManifest": true
     },
     {

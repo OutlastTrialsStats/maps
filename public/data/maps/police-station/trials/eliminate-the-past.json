@@ -5,7 +5,8 @@
   "floors": [
     {
       "index": -1,
-      "name": "Underground"
+      "name": "Underground",
+      "default": true
     },
     {
       "index": 0,

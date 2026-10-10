@@ -507,7 +507,7 @@
       "id": "record-box",
       "name": "Record Box",
       "category": "record-box",
-      "icon": "item_evidence",
+      "icon": "objective_generic_boxes_tab_icon",
       "color": "#8a5e4f",
       "size": 10,
       "anchor": "center",
