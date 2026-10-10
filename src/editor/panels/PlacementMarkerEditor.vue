@@ -233,10 +233,7 @@ function setDashed(dashed: boolean): void {
       <div class="field-row">
         <label class="field color-field">
           <span class="field-label">Marker color</span>
-          <ColorPicker
-            :model-value="markerColor.slice(1)"
-            @update:model-value="setColor($event)"
-          />
+          <ColorPicker :model-value="markerColor.slice(1)" @update:model-value="setColor($event)" />
         </label>
         <label class="field color-field">
           <span class="field-label">Line color</span>
@@ -245,7 +242,7 @@ function setDashed(dashed: boolean): void {
             @update:model-value="setLineColor($event)"
           />
         </label>
-        <label class="toggle-row dashed-toggle">
+        <label class="toggle-row">
           <Checkbox
             :model-value="Boolean(marker.lineDashed)"
             binary
@@ -265,13 +262,6 @@ function setDashed(dashed: boolean): void {
   gap: 6px;
 }
 
-.toggle-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
-
 .field {
   flex: 1 1 0;
   min-width: 0;
@@ -279,10 +269,5 @@ function setDashed(dashed: boolean): void {
 
 .color-field {
   flex: 0 0 auto;
-}
-
-.dashed-toggle {
-  align-self: flex-end;
-  padding-bottom: 4px;
 }
 </style>

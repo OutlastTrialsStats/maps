@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import {
+  DARK_FLOOR_FILL,
   DEFAULT_LABEL_FONT_SIZE,
-  DISABLED_ROOM_OPACITY,
   FALLBACK_ZONE_FILL,
   FALLBACK_ZONE_WALLS,
   ROOM_WALL_WIDTH,
@@ -30,11 +30,13 @@ const pathD = computed(() => {
   return `M0,0 ${shape.path}`
 })
 
-const fill = computed(() =>
-  flags.value.has('secret') ? SECRET_ROOM_FILL : (props.zone?.fill ?? FALLBACK_ZONE_FILL),
-)
+const fill = computed(() => {
+  if (flags.value.has('disabled')) {
+    return DARK_FLOOR_FILL
+  }
+  return flags.value.has('secret') ? SECRET_ROOM_FILL : (props.zone?.fill ?? FALLBACK_ZONE_FILL)
+})
 const wallColor = computed(() => props.zone?.walls ?? FALLBACK_ZONE_WALLS)
-const opacity = computed(() => (flags.value.has('disabled') ? DISABLED_ROOM_OPACITY : 1))
 
 /**
  * Walls are stroked separately from the fill so that gaps can interrupt them.
@@ -56,7 +58,6 @@ const wallPathD = computed(() => {
 <template>
   <g
     :transform="`translate(${room.shape.origin[0]},${room.shape.origin[1]})`"
-    :opacity="opacity"
     :style="{ color: wallColor }"
     data-entity-kind="room"
     :data-entity-id="room.id"

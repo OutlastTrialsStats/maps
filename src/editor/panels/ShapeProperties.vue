@@ -12,6 +12,7 @@ import {
 import { isCircleShape, isLineShape, isRectShape } from '../../core/model/shapes'
 import type { MapShape, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
+import ShapeFillField from './ShapeFillField.vue'
 
 const props = defineProps<{ shape: MapShape }>()
 const store = useEditorStore()
@@ -227,6 +228,7 @@ function setRotation(value: number | null): void {
         <span>Dashed</span>
       </label>
     </div>
+    <ShapeFillField :shape="shape" />
     <label class="field">
       <span class="field-label">Floor</span>
       <Select
@@ -260,14 +262,5 @@ function setRotation(value: number | null): void {
 
 .color-field {
   flex: 0 0 auto;
-}
-
-.toggle-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  align-self: flex-end;
-  padding-bottom: 4px;
-  font-size: 13px;
 }
 </style>

@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import {
   ICON_DEFAULT_SIZE,
+  INACTIVE_ICON_FILTER,
   PLACEHOLDER_FONT_RATIO,
   SELECTION_COLOR,
   SELECTION_RING_OFFSET,
@@ -33,6 +34,10 @@ const center = computed<Vec2>(() =>
 const initials = computed(() => initialsOf(props.element?.name))
 
 const groupTransform = computed(() => placementTransform(props.placement))
+
+const dimStyle = computed(() =>
+  props.placement.inactive ? { filter: INACTIVE_ICON_FILTER } : undefined,
+)
 </script>
 
 <template>
@@ -49,6 +54,7 @@ const groupTransform = computed(() => placementTransform(props.placement))
       :y="center[1] - size / 2"
       :width="size"
       :height="size"
+      :style="dimStyle"
       @error="onIconError"
     />
     <template v-else>
@@ -57,6 +63,7 @@ const groupTransform = computed(() => placementTransform(props.placement))
         :cy="center[1]"
         :r="size / 2"
         :fill="element?.color ?? UNKNOWN_ELEMENT_COLOR"
+        :style="dimStyle"
         class="placeholder"
       />
       <text

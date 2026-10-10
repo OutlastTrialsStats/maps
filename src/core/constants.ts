@@ -138,7 +138,8 @@ export const FIT_VIEW_PADDING_RATIO = 0.9
 // Render style (values needed in component logic — pure CSS colors live in the CSS)
 export const ROOM_WALL_WIDTH = 2.5
 export const SECRET_ROOM_FILL = '#6e6432'
-export const DISABLED_ROOM_OPACITY = 0.45
+/** Dark floor of disabled rooms, spawn rooms and inactive shuttle parts (hsl(130, 1%, 16%)). */
+export const DARK_FLOOR_FILL = '#282929'
 export const FALLBACK_ZONE_FILL = '#4a4a4a'
 export const FALLBACK_ZONE_WALLS = '#111111'
 export const DEFAULT_LABEL_FONT_SIZE = 8
@@ -153,6 +154,9 @@ export const SELECTION_COLOR = '#4da3ff'
 /** Gap of the selection ring around icons, in map units. */
 export const SELECTION_RING_OFFSET = 2
 export const CAMERA_MARKER_SIZE = 8
+/** Body color of placements in inactive areas (hsl(130, 1%, 9%)). */
+export const INACTIVE_PLACEMENT_FILL = '#171818'
+export const INACTIVE_ICON_FILTER = 'brightness(0.3)'
 
 // Structural shapes (all in map units, see src/core/render/structuralShapes.ts)
 /** How far the barricade plank sticks out beyond both ends of the door. */
@@ -165,6 +169,9 @@ export const BARRICADE_HATCH_SPACING = 2
 export const CRAWL_BAR_SPACING = 1.6
 /** Spacing of the step rungs on stairs. */
 export const STAIRS_RUNG_SPACING = 3
+/** Spacing of the ladder rungs and the gap before the first one. */
+export const LADDER_RUNG_SPACING = 2
+export const LADDER_RUNG_INSET = 1
 /** Spacing of the teeth on obstacles. */
 export const OBSTACLE_TOOTH_SPACING = 2.5
 // Shuttle gate: ratios relative to the cell height (thickness = cell + 2 rails).
@@ -176,6 +183,35 @@ export const SHUTTLE_DOT_RATIO = 0.4
 export const SHUTTLE_BUTTON_BOX_RATIO = 0.5
 export const SHUTTLE_BUTTON_RADIUS_RATIO = 0.1
 export const SHUTTLE_DEFAULT_CELLS = 4
+/** Door of a spawn room, centered on the anchor edge (y=0) facing the room. */
+export const SPAWN_DOOR_FILL = '#aaaaaa'
+export const SPAWN_DOOR_LENGTH = 10
+export const SPAWN_DOOR_THICKNESS = 4
+/**
+ * Rolling door end brackets in cap-local [across, along] coordinates; "along"
+ * points into the door and the local origin sits ROLLING_DOOR_CAP_ORIGIN from the end.
+ */
+export const ROLLING_DOOR_CAP_ORIGIN = 3
+export const ROLLING_DOOR_CAP_OUTLINE = [
+  [-2, 1],
+  [-2, 0],
+  [-3.5, 0],
+  [-3.5, -2],
+  [-2, -2],
+  [-2, -3],
+  [2, -3],
+  [2, -2],
+  [3.5, -2],
+  [3.5, 0],
+  [2, 0],
+  [2, 1],
+] as const
+export const ROLLING_DOOR_BAR_OUTLINE = [
+  [-3.5, -0.25],
+  [-3.5, -1.75],
+  [3.5, -1.75],
+  [3.5, -0.25],
+] as const
 
 // Number marker (dot → leader line → diamond badge with a number)
 export const MARKER_COLOR = '#aaaaaa'
