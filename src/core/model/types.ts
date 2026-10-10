@@ -96,6 +96,8 @@ export interface Trial {
 export interface Floor {
   index: number
   name: string
+  /** Floor shown first when the trial opens; without one, index 0 (else the first floor). */
+  default?: boolean
 }
 
 export interface FilterDefinition {
@@ -208,6 +210,8 @@ export interface Placement {
   roomId?: string
   marker?: CalloutMarker
   props?: PlacementProps
+  /** Placement inside an inactive (greyed-out) area; rendered dark instead of in its color. */
+  inactive?: boolean
 }
 
 // ---------------------------------------------------------------------------
@@ -230,7 +234,7 @@ export interface RouteLine {
 
 /**
  * Free-standing decorative outline (tables, scaffolding …) — neither a room
- * nor a library element, never filled. Variants: circle (`pos` = center),
+ * nor a library element. Variants: circle (`pos` = center),
  * rectangle (`pos` = center, rotation in 45° steps in sync with the schema
  * `multipleOf`) or an open absolute path.
  */
@@ -246,6 +250,8 @@ export type MapShape = {
   color?: string
   strokeWidth?: number
   dashed?: boolean
+  /** Fill of a closed outline; absent = unfilled. */
+  fill?: string
 } & MapShapeGeometry
 
 // ---------------------------------------------------------------------------
@@ -301,6 +307,7 @@ export type StructuralKind =
   | 'spawn-room'
   | 'stairs'
   | 'shuttle'
+  | 'ladder'
 
 export interface StructuralRender {
   kind: StructuralKind

@@ -18,7 +18,8 @@
         "additionalProperties": false,
         "properties": {
           "index": { "type": "integer" },
-          "name": { "type": "string", "minLength": 1 }
+          "name": { "type": "string", "minLength": 1 },
+          "default": { "type": "boolean" }
         }
       }
     },
@@ -207,11 +208,12 @@
         "size": { "$ref": "#/definitions/vec2" },
         "roomId": { "$ref": "#/definitions/kebabId" },
         "marker": { "$ref": "#/definitions/calloutMarker" },
-        "props": { "type": "object" }
+        "props": { "type": "object" },
+        "inactive": { "type": "boolean" }
       }
     },
     "shape": {
-      "description": "Free-standing decorative outline (circle, rectangle or open polyline); color/strokeWidth/dashed override the render defaults.",
+      "description": "Free-standing decorative outline (circle, rectangle or open polyline); color/strokeWidth/dashed override the render defaults, fill is optional.",
       "type": "object",
       "required": ["id", "floor"],
       "additionalProperties": false,
@@ -226,6 +228,7 @@
         "color": { "$ref": "#/definitions/color" },
         "strokeWidth": { "type": "number", "exclusiveMinimum": 0 },
         "dashed": { "type": "boolean" },
+        "fill": { "$ref": "#/definitions/color" },
         "pos": { "$ref": "#/definitions/vec2" },
         "radius": { "type": "number", "exclusiveMinimum": 0 },
         "size": {

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import {
-  DEFAULT_LABEL_FONT_SIZE,
-  DISABLED_ROOM_OPACITY,
+  DARK_FLOOR_FILL,
   FALLBACK_ZONE_FILL,
   FALLBACK_ZONE_WALLS,
   ROOM_WALL_WIDTH,
@@ -30,11 +29,13 @@ const pathD = computed(() => {
   return `M0,0 ${shape.path}`
 })
 
-const fill = computed(() =>
-  flags.value.has('secret') ? SECRET_ROOM_FILL : (props.zone?.fill ?? FALLBACK_ZONE_FILL),
-)
+const fill = computed(() => {
+  if (flags.value.has('disabled')) {
+    return DARK_FLOOR_FILL
+  }
+  return flags.value.has('secret') ? SECRET_ROOM_FILL : (props.zone?.fill ?? FALLBACK_ZONE_FILL)
+})
 const wallColor = computed(() => props.zone?.walls ?? FALLBACK_ZONE_WALLS)
-const opacity = computed(() => (flags.value.has('disabled') ? DISABLED_ROOM_OPACITY : 1))
 
 /**
  * Walls are stroked separately from the fill so that gaps can interrupt them.
@@ -56,7 +57,6 @@ const wallPathD = computed(() => {
 <template>
   <g
     :transform="`translate(${room.shape.origin[0]},${room.shape.origin[1]})`"
-    :opacity="opacity"
     :style="{ color: wallColor }"
     data-entity-kind="room"
     :data-entity-id="room.id"
@@ -77,15 +77,6 @@ const wallPathD = computed(() => {
       class="inner-line"
       :class="`inner-${line.style}`"
     />
-    <text
-      v-if="room.label"
-      :x="room.label.pos[0]"
-      :y="room.label.pos[1]"
-      :font-size="room.label.fontSize ?? DEFAULT_LABEL_FONT_SIZE"
-      class="room-label"
-    >
-      {{ room.label.text }}
-    </text>
     <path v-if="selected" :d="pathD" class="selection-outline" :stroke="SELECTION_COLOR" />
   </g>
 </template>
@@ -116,13 +107,6 @@ const wallPathD = computed(() => {
   stroke: #85858c;
   stroke-width: 1;
   stroke-dasharray: 3 2;
-}
-
-.room-label {
-  fill: #d8d6d2;
-  text-anchor: middle;
-  pointer-events: none;
-  user-select: none;
 }
 
 .selection-outline {

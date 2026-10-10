@@ -38,7 +38,8 @@ const geometry = computed(() => {
   return { is: 'path', attrs: { d: shape.path } }
 })
 
-const strokeAttrs = computed(() => ({
+const paintAttrs = computed(() => ({
+  fill: props.shape.fill ?? 'none',
   stroke: props.selected ? SELECTION_COLOR : (props.shape.color ?? SHAPE_DEFAULT_COLOR),
   'stroke-width': props.shape.strokeWidth ?? SHAPE_DEFAULT_STROKE_WIDTH,
   'stroke-dasharray': props.shape.dashed ? SHAPE_LINE_DASH : undefined,
@@ -50,7 +51,7 @@ const strokeAttrs = computed(() => ({
     <component :is="geometry.is" v-if="hitArea" v-bind="geometry.attrs" class="shape-hit" />
     <component
       :is="geometry.is"
-      v-bind="{ ...geometry.attrs, ...strokeAttrs }"
+      v-bind="{ ...geometry.attrs, ...paintAttrs }"
       class="shape-outline"
     />
   </g>
@@ -58,7 +59,6 @@ const strokeAttrs = computed(() => ({
 
 <style scoped>
 .shape-outline {
-  fill: none;
   stroke-linecap: square;
   pointer-events: none;
 }

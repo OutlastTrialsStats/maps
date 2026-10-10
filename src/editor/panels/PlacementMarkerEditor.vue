@@ -9,6 +9,7 @@ import { MARKER_COLOR, MARKER_DEFAULT_OFFSET } from '../../core/constants'
 import { toIconFileName } from '../../core/model/dataSource'
 import type { CalloutMarker, Placement, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
+import { fromPickerHex, toPickerHex } from './colorPickerValue'
 import { ICON_FILE_ERROR, useIconField } from './useIconField'
 
 const props = defineProps<{ placementId: string }>()
@@ -124,12 +125,11 @@ function setOffset(axis: 0 | 1, value: number | null): void {
   }, `marker-offset${axis}`)
 }
 
-/** The PrimeVue ColorPicker returns hex without "#". */
 function setColor(value: unknown): void {
   if (typeof value !== 'string' || !value) {
     return
   }
-  const color = `#${value}`
+  const color = fromPickerHex(value, markerColor.value)
   mutateMarker((entry) => {
     if (color === MARKER_COLOR) {
       delete entry.color
@@ -143,7 +143,7 @@ function setLineColor(value: unknown): void {
   if (typeof value !== 'string' || !value) {
     return
   }
-  const color = `#${value}`
+  const color = fromPickerHex(value, lineColor.value)
   mutateMarker((entry) => {
     if (color === (entry.color ?? MARKER_COLOR)) {
       delete entry.lineColor
@@ -234,18 +234,18 @@ function setDashed(dashed: boolean): void {
         <label class="field color-field">
           <span class="field-label">Marker color</span>
           <ColorPicker
-            :model-value="markerColor.slice(1)"
+            :model-value="toPickerHex(markerColor)"
             @update:model-value="setColor($event)"
           />
         </label>
         <label class="field color-field">
           <span class="field-label">Line color</span>
           <ColorPicker
-            :model-value="lineColor.slice(1)"
+            :model-value="toPickerHex(lineColor)"
             @update:model-value="setLineColor($event)"
           />
         </label>
-        <label class="toggle-row dashed-toggle">
+        <label class="toggle-row">
           <Checkbox
             :model-value="Boolean(marker.lineDashed)"
             binary
@@ -265,13 +265,6 @@ function setDashed(dashed: boolean): void {
   gap: 6px;
 }
 
-.toggle-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
-
 .field {
   flex: 1 1 0;
   min-width: 0;
@@ -279,10 +272,5 @@ function setDashed(dashed: boolean): void {
 
 .color-field {
   flex: 0 0 auto;
-}
-
-.dashed-toggle {
-  align-self: flex-end;
-  padding-bottom: 4px;
 }
 </style>

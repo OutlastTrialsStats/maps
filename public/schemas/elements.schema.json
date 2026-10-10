@@ -70,7 +70,8 @@
             "obstacle",
             "spawn-room",
             "stairs",
-            "shuttle"
+            "shuttle",
+            "ladder"
           ]
         },
         "length": { "type": "number", "exclusiveMinimum": 0 },

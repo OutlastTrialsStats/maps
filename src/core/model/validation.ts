@@ -273,6 +273,13 @@ export function collectTrialLogicIssues(
   for (const [path, label, ids] of uniqueIdChecks) {
     checkUniqueIds(issues, path, label, ids)
   }
+  const defaultFloors = trial.floors.filter((floor) => floor.default).length
+  if (defaultFloors > 1) {
+    issues.push({
+      path: 'floors',
+      message: `at most one floor may have "default": true (found ${defaultFloors})`,
+    })
+  }
 
   trial.rooms.forEach((room, index) => issues.push(...collectRoomIssues(room, index, context)))
   trial.placements.forEach((placement, index) =>

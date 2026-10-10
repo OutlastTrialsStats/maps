@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Checkbox from 'primevue/checkbox'
 import InputNumber from 'primevue/inputnumber'
 import Select from 'primevue/select'
 import { computed } from 'vue'
@@ -46,12 +47,15 @@ function setPos(axis: 0 | 1, value: number | null): void {
   }, `pos${axis}`)
 }
 
-function setRotation(value: number | null): void {
+type OptionalField = 'rotation' | 'roomId' | 'inactive' | 'props'
+
+/** Falsy values (0°, no room, unchecked, empty props) drop the key so trial files stay clean. */
+function setOptional<K extends OptionalField>(key: K, value: Placement[K] | null): void {
   mutatePlacement((placement) => {
-    if (!value) {
-      delete placement.rotation
+    if (value) {
+      placement[key] = value
     } else {
-      placement.rotation = value
+      delete placement[key]
     }
   })
 }
@@ -92,26 +96,6 @@ function setFloor(floor: number): void {
   })
   store.activeFloor = floor
 }
-
-function setRoomId(roomId: string | null): void {
-  mutatePlacement((placement) => {
-    if (roomId) {
-      placement.roomId = roomId
-    } else {
-      delete placement.roomId
-    }
-  })
-}
-
-function setProps(value: Placement['props']): void {
-  mutatePlacement((placement) => {
-    if (value) {
-      placement.props = value
-    } else {
-      delete placement.props
-    }
-  })
-}
 </script>
 
 <template>
@@ -150,7 +134,7 @@ function setProps(value: Placement['props']): void {
           option-value="value"
           size="small"
           fluid
-          @update:model-value="setRotation($event)"
+          @update:model-value="setOptional('rotation', $event)"
         />
       </label>
     </div>
@@ -199,8 +183,16 @@ function setProps(value: Placement['props']): void {
         option-label="label"
         option-value="value"
         size="small"
-        @update:model-value="setRoomId($event)"
+        @update:model-value="setOptional('roomId', $event)"
       />
+    </label>
+    <label class="toggle-row">
+      <Checkbox
+        :model-value="Boolean(placement.inactive)"
+        binary
+        @update:model-value="setOptional('inactive', $event as boolean)"
+      />
+      <span>Inactive area</span>
     </label>
     <PlacementMarkerEditor :placement-id="placement.id" />
     <template v-if="element?.propsSchema">
@@ -208,7 +200,7 @@ function setProps(value: Placement['props']): void {
       <PropsSchemaForm
         :schema="element.propsSchema"
         :model-value="placement.props"
-        @update:model-value="setProps"
+        @update:model-value="setOptional('props', $event)"
       />
     </template>
   </div>

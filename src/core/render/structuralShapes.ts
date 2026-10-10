@@ -4,7 +4,12 @@ import {
   BARRICADE_PLANK_GAP,
   BARRICADE_PLANK_THICKNESS,
   CRAWL_BAR_SPACING,
+  LADDER_RUNG_INSET,
+  LADDER_RUNG_SPACING,
   OBSTACLE_TOOTH_SPACING,
+  ROLLING_DOOR_BAR_OUTLINE,
+  ROLLING_DOOR_CAP_ORIGIN,
+  ROLLING_DOOR_CAP_OUTLINE,
   SHUTTLE_BUTTON_BOX_RATIO,
   SHUTTLE_BUTTON_RADIUS_RATIO,
   SHUTTLE_CONSOLE_RATIO,
@@ -23,25 +28,22 @@ import type { Placement, StructuralKind } from '../model/types'
 
 /**
  * Properties per structural kind: `resizable` allows `placement.size`;
- * `anchor: 'edge'` anchors the shape at the anchor edge (y=0) instead of centered;
- * `fill: 'element'` fills the body with `ElementDefinition.color`, so door/window
- * variants differ by data alone. `spawn-room` keeps a neutral floor because its
- * color is the enemy category accent; `shuttle` renders in a fixed palette and
- * uses its color only as accent.
+ * `anchor: 'edge'` anchors the shape at the anchor edge (y=0) instead of centered.
  */
 export const STRUCTURAL_META: Record<
   StructuralKind,
-  { resizable: boolean; anchor: 'center' | 'edge'; fill: 'element' | 'neutral' }
+  { resizable: boolean; anchor: 'center' | 'edge' }
 > = {
-  door: { resizable: true, anchor: 'center', fill: 'element' },
-  'double-door': { resizable: true, anchor: 'center', fill: 'element' },
-  'barricaded-door': { resizable: true, anchor: 'center', fill: 'element' },
-  window: { resizable: true, anchor: 'center', fill: 'element' },
-  'crawl-passage': { resizable: true, anchor: 'center', fill: 'element' },
-  obstacle: { resizable: true, anchor: 'center', fill: 'element' },
-  stairs: { resizable: true, anchor: 'center', fill: 'element' },
-  'spawn-room': { resizable: false, anchor: 'edge', fill: 'neutral' },
-  shuttle: { resizable: true, anchor: 'center', fill: 'neutral' },
+  door: { resizable: true, anchor: 'center' },
+  'double-door': { resizable: true, anchor: 'center' },
+  'barricaded-door': { resizable: true, anchor: 'center' },
+  window: { resizable: true, anchor: 'center' },
+  'crawl-passage': { resizable: true, anchor: 'center' },
+  obstacle: { resizable: true, anchor: 'center' },
+  stairs: { resizable: true, anchor: 'center' },
+  'spawn-room': { resizable: false, anchor: 'edge' },
+  shuttle: { resizable: true, anchor: 'center' },
+  ladder: { resizable: true, anchor: 'center' },
 }
 
 export function placementTransform(placement: Placement): string {
@@ -54,9 +56,32 @@ export function centeredRectPath(length: number, thickness: number): string {
   return `M${-length / 2},${-thickness / 2} h${length} v${thickness} h${-length} z`
 }
 
-/** Center seam of a double door, across the main axis. */
-export function doorSeamPath(thickness: number): string {
-  return `M0,${-thickness / 2} v${thickness}`
+/**
+ * Mirrors a cap-local outline onto both door ends: cap-local [across, along]
+ * maps to x = ∓(length/2 - origin - along), y = across.
+ */
+function rollingDoorEndsPath(
+  outline: readonly (readonly [number, number])[],
+  length: number,
+  closed: boolean,
+): string {
+  return [-1, 1]
+    .map((side) => {
+      const points = outline.map(
+        ([across, along]) => `${side * (length / 2 - ROLLING_DOOR_CAP_ORIGIN - along)},${across}`,
+      )
+      return `M${points.join(' L')}${closed ? ' z' : ''}`
+    })
+    .join(' ')
+}
+
+/** End brackets of a rolling door; open towards the door center like the source map. */
+export function rollingDoorCapsPath(length: number): string {
+  return rollingDoorEndsPath(ROLLING_DOOR_CAP_OUTLINE, length, false)
+}
+
+export function rollingDoorBarsPath(length: number): string {
+  return rollingDoorEndsPath(ROLLING_DOOR_BAR_OUTLINE, length, true)
 }
 
 /** Center mullion of a window, along the main axis. */
@@ -101,7 +126,11 @@ export function obstacleTeethPath(length: number, thickness: number): string {
   const toothDepth = thickness * 0.3
   const toothWidth = OBSTACLE_TOOTH_SPACING * 0.45
   const segments: string[] = []
-  for (let x = -length / 2 + toothWidth; x + toothWidth <= length / 2; x += OBSTACLE_TOOTH_SPACING) {
+  for (
+    let x = -length / 2 + toothWidth;
+    x + toothWidth <= length / 2;
+    x += OBSTACLE_TOOTH_SPACING
+  ) {
     segments.push(`M${x},${-thickness / 2} h${toothWidth} v${toothDepth} h${-toothWidth} z`)
   }
   return segments.join(' ')
@@ -127,6 +156,15 @@ export function stairsRungsPath(length: number, thickness: number): string {
   return segments.join(' ')
 }
 
+/** Rungs across the full thickness of a ladder. */
+export function ladderRungsPath(length: number, thickness: number): string {
+  const segments: string[] = []
+  for (let x = -length / 2 + LADDER_RUNG_INSET; x < length / 2; x += LADDER_RUNG_SPACING) {
+    segments.push(`M${x},${-thickness / 2} v${thickness}`)
+  }
+  return segments.join(' ')
+}
+
 /** Direction chevron of a staircase along the main axis (`ascending: false` → opposite direction). */
 export function stairsArrowPath(length: number, thickness: number, ascending: boolean): string {
   const sign = ascending ? 1 : -1
@@ -136,17 +174,9 @@ export function stairsArrowPath(length: number, thickness: number, ascending: bo
   return `M${base},${-halfSpan} L${tip},0 L${base},${halfSpan}`
 }
 
-/**
- * Floor of a spawn room: rectangle above the anchor, the open side at y=0
- * faces the room on whose wall the stub sits.
- */
-export function spawnRoomFloorPath(width: number, depth: number): string {
+/** Closed spawn room box above the anchor; its y=0 side faces the room it opens into. */
+export function spawnRoomPath(width: number, depth: number): string {
   return `M${-width / 2},0 v${-depth} h${width} v${depth} z`
-}
-
-/** U-shaped wall run of the spawn room (open side at y=0). */
-export function spawnRoomWallPath(width: number, depth: number): string {
-  return `M${-width / 2},0 v${-depth} h${width} v${depth}`
 }
 
 interface ShuttleGeometry {
@@ -237,7 +267,12 @@ export function shuttleDotsPath(length: number, thickness: number, cells: number
 export function shuttleButtonBoxPath(length: number, thickness: number, cells: number): string {
   const geometry = shuttleGeometry(length, thickness, cells)
   const boxHeight = geometry.cellHeight * SHUTTLE_BUTTON_BOX_RATIO
-  return rectSubpath(geometry.consoleLeft, -thickness / 2 - boxHeight, geometry.consoleWidth, boxHeight)
+  return rectSubpath(
+    geometry.consoleLeft,
+    -thickness / 2 - boxHeight,
+    geometry.consoleWidth,
+    boxHeight,
+  )
 }
 
 /** Red button in the center of the control box. */

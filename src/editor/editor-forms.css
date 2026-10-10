@@ -19,6 +19,18 @@
   min-width: 0;
 }
 
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.field-row .toggle-row {
+  align-self: flex-end;
+  padding-bottom: 4px;
+}
+
 .field-error {
   font-size: 11px;
   color: var(--danger);

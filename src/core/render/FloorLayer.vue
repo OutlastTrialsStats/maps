@@ -4,6 +4,7 @@ import type { ElementIndex } from '../model/elementIndex'
 import type { TrialDocument, Zone } from '../model/types'
 import CalloutMarker from './CalloutMarker.vue'
 import PlacementMarker from './PlacementMarker.vue'
+import RoomLabel from './RoomLabel.vue'
 import RoomShape from './RoomShape.vue'
 import RoutePath from './RoutePath.vue'
 import ShapeOutline from './ShapeOutline.vue'
@@ -24,6 +25,8 @@ function visible<T extends { floor: number }>(items: T[]): T[] {
 }
 
 const rooms = computed(() => visible(props.trial.rooms))
+/** Labels sit above shapes so decoration inside a room never covers its name. */
+const labelledRooms = computed(() => rooms.value.filter((room) => room.label))
 const placements = computed(() =>
   visible(props.trial.placements).filter((placement) => {
     const category = props.elementIndex.get(placement.element)?.category
@@ -51,6 +54,12 @@ const markedPlacements = computed(() => placements.value.filter((placement) => p
       :shape="shape"
       :selected="selectedIds?.has(shape.id)"
       :hit-area="interactive"
+    />
+    <RoomLabel
+      v-for="room in labelledRooms"
+      :key="`label-${room.id}`"
+      :room="room"
+      :label="room.label!"
     />
     <RoutePath
       v-for="route in routes"

@@ -12,6 +12,8 @@ import {
 import { isCircleShape, isLineShape, isRectShape } from '../../core/model/shapes'
 import type { MapShape, Vec2 } from '../../core/model/types'
 import { useEditorStore } from '../store/editorStore'
+import ShapeFillField from './ShapeFillField.vue'
+import { fromPickerHex, toPickerHex } from './colorPickerValue'
 
 const props = defineProps<{ shape: MapShape }>()
 const store = useEditorStore()
@@ -32,12 +34,11 @@ function mutateShape(mutate: (shape: MapShape) => void, coalesce?: string): void
   store.commitOn('shape', props.shape.id, mutate, coalesce ? { coalesce } : undefined)
 }
 
-/** The PrimeVue ColorPicker returns hex without "#". */
 function setColor(value: unknown): void {
   if (typeof value !== 'string' || !value) {
     return
   }
-  const color = `#${value}`
+  const color = fromPickerHex(value, props.shape.color)
   mutateShape((shape) => {
     if (color === SHAPE_DEFAULT_COLOR) {
       delete shape.color
@@ -204,7 +205,10 @@ function setRotation(value: number | null): void {
     <div class="field-row">
       <label class="field color-field">
         <span class="field-label">Color</span>
-        <ColorPicker :model-value="effectiveColor.slice(1)" @update:model-value="setColor($event)" />
+        <ColorPicker
+          :model-value="toPickerHex(effectiveColor)"
+          @update:model-value="setColor($event)"
+        />
       </label>
       <label class="field">
         <span class="field-label">Thickness</span>
@@ -227,6 +231,7 @@ function setRotation(value: number | null): void {
         <span>Dashed</span>
       </label>
     </div>
+    <ShapeFillField :shape="shape" />
     <label class="field">
       <span class="field-label">Floor</span>
       <Select
@@ -260,14 +265,5 @@ function setRotation(value: number | null): void {
 
 .color-field {
   flex: 0 0 auto;
-}
-
-.toggle-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  align-self: flex-end;
-  padding-bottom: 4px;
-  font-size: 13px;
 }
 </style>
