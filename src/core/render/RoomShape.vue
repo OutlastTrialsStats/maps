@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import {
   DARK_FLOOR_FILL,
-  DEFAULT_LABEL_FONT_SIZE,
   FALLBACK_ZONE_FILL,
   FALLBACK_ZONE_WALLS,
   ROOM_WALL_WIDTH,
@@ -78,15 +77,6 @@ const wallPathD = computed(() => {
       class="inner-line"
       :class="`inner-${line.style}`"
     />
-    <text
-      v-if="room.label"
-      :x="room.label.pos[0]"
-      :y="room.label.pos[1]"
-      :font-size="room.label.fontSize ?? DEFAULT_LABEL_FONT_SIZE"
-      class="room-label"
-    >
-      {{ room.label.text }}
-    </text>
     <path v-if="selected" :d="pathD" class="selection-outline" :stroke="SELECTION_COLOR" />
   </g>
 </template>
@@ -117,13 +107,6 @@ const wallPathD = computed(() => {
   stroke: #85858c;
   stroke-width: 1;
   stroke-dasharray: 3 2;
-}
-
-.room-label {
-  fill: #d8d6d2;
-  text-anchor: middle;
-  pointer-events: none;
-  user-select: none;
 }
 
 .selection-outline {
