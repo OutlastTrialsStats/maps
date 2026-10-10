@@ -57,7 +57,7 @@
       "render": {
         "kind": "spawn-room",
         "length": 15,
-        "thickness": 10
+        "thickness": 20
       },
       "description": "Small room stub attached to a wall where enemies can spawn.",
       "propsSchema": {
@@ -75,7 +75,7 @@
       "id": "door",
       "name": "Door",
       "category": "door",
-      "color": "#722c27",
+      "color": "#465b92",
       "render": {
         "kind": "door",
         "length": 10,
@@ -98,16 +98,68 @@
       }
     },
     {
-      "id": "double-door",
-      "name": "Double Door",
+      "id": "door-locked",
+      "name": "Locked Door",
       "category": "door",
       "color": "#722c27",
+      "render": {
+        "kind": "door",
+        "length": 10,
+        "thickness": 4
+      },
+      "description": "Door that stays locked until an objective is completed.",
+      "propsSchema": {
+        "locked": {
+          "type": "boolean",
+          "label": "Locked"
+        },
+        "rngBased": {
+          "type": "boolean",
+          "label": "RNG-based"
+        },
+        "linkTo": {
+          "type": "string",
+          "label": "Linked key placement"
+        }
+      }
+    },
+    {
+      "id": "door-yellow",
+      "name": "Yellow Door",
+      "category": "door",
+      "color": "#727127",
+      "render": {
+        "kind": "door",
+        "length": 10,
+        "thickness": 4
+      },
+      "description": "Door marked yellow on the source map (special passage).",
+      "propsSchema": {
+        "locked": {
+          "type": "boolean",
+          "label": "Locked"
+        },
+        "rngBased": {
+          "type": "boolean",
+          "label": "RNG-based"
+        },
+        "linkTo": {
+          "type": "string",
+          "label": "Linked key placement"
+        }
+      }
+    },
+    {
+      "id": "double-door",
+      "name": "Rolling Door",
+      "category": "door",
+      "color": "#465b92",
       "render": {
         "kind": "double-door",
         "length": 20,
         "thickness": 4
       },
-      "description": "Wide double door, e.g. main entrances and coop kick-doors.",
+      "description": "Rolling door / wide gate with end brackets.",
       "propsSchema": {
         "locked": {
           "type": "boolean",
@@ -210,6 +262,18 @@
       }
     },
     {
+      "id": "ladder",
+      "name": "Ladder",
+      "category": "door",
+      "color": "#465b92",
+      "render": {
+        "kind": "ladder",
+        "length": 10,
+        "thickness": 3
+      },
+      "description": "Climbable ladder or rungs on a wall."
+    },
+    {
       "id": "key",
       "name": "Key",
       "category": "key",
@@ -266,6 +330,32 @@
         "thickness": 7
       },
       "description": "Shuttle gate: a row of cells split by a control console.",
+      "propsSchema": {
+        "cells": {
+          "type": "number",
+          "label": "Cells"
+        },
+        "enterable": {
+          "type": "boolean",
+          "label": "Enterable"
+        },
+        "redButton": {
+          "type": "boolean",
+          "label": "Red button"
+        }
+      }
+    },
+    {
+      "id": "shuttle-exit",
+      "name": "Exit Shuttle",
+      "category": "door",
+      "color": "#722c27",
+      "render": {
+        "kind": "shuttle",
+        "length": 28,
+        "thickness": 7
+      },
+      "description": "Shuttle gate whose cells are marked red (exit shuttle).",
       "propsSchema": {
         "cells": {
           "type": "number",
@@ -414,6 +504,16 @@
       "icon": "variator_electricfloor"
     },
     {
+      "id": "record-box",
+      "name": "Record Box",
+      "category": "record-box",
+      "icon": "objective_generic_boxes_tab_icon",
+      "color": "#8a5e4f",
+      "size": 10,
+      "anchor": "center",
+      "description": "Box of records that has to be found and destroyed."
+    },
+    {
       "id": "start-point",
       "name": "Start Point",
       "category": "misc",
@@ -428,6 +528,16 @@
           "label": "Note"
         }
       }
+    },
+    {
+      "id": "exit-point",
+      "name": "Exit",
+      "category": "misc",
+      "icon": "objectif_exit",
+      "color": "#ff4bd8",
+      "size": 10,
+      "anchor": "center",
+      "description": "Exit point of the trial."
     }
   ]
 }
