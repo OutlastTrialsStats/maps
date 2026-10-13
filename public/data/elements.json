@@ -307,10 +307,7 @@
       "propsSchema": {
         "direction": {
           "type": "enum",
-          "values": [
-            "up",
-            "down"
-          ],
+          "values": ["up", "down"],
           "label": "Direction"
         },
         "targetFloor": {
@@ -538,6 +535,102 @@
       "size": 10,
       "anchor": "center",
       "description": "Exit point of the trial."
+    },
+    {
+      "id": "explosive-wall",
+      "name": "Explosive Wall",
+      "category": "door",
+      "color": "#7f8c8d",
+      "description": "Needs Detonator to open",
+      "icon": "item_explosive_wall",
+      "anchor": "center"
+    },
+    {
+      "id": "workbench",
+      "name": "Workbench",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "item_workbench",
+      "anchor": "center"
+    },
+    {
+      "id": "eye-key",
+      "name": "Eye Key",
+      "category": "key",
+      "color": "#7f8c8d",
+      "icon": "key_eye",
+      "anchor": "center"
+    },
+    {
+      "id": "pig-heads",
+      "name": "Pig Heads",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "item_pighead",
+      "anchor": "center"
+    },
+    {
+      "id": "rig-deactivator",
+      "name": "Rig Deactivator",
+      "category": "misc",
+      "color": "#7f8c8d",
+      "icon": "variator_norig",
+      "anchor": "center"
+    },
+    {
+      "id": "valves",
+      "name": "Valves",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "item_valve",
+      "anchor": "center"
+    },
+    {
+      "id": "numbered-gates",
+      "name": "Numbered Gates",
+      "category": "door",
+      "color": "#7f8c8d",
+      "icon": "variator_rollinggates_control",
+      "anchor": "center"
+    },
+    {
+      "id": "biter",
+      "name": "Biter",
+      "category": "enemy",
+      "color": "#7f8c8d",
+      "icon": "tag_biter",
+      "anchor": "center"
+    },
+    {
+      "id": "grinder",
+      "name": "Grinder",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "item_rigpartdropbox",
+      "anchor": "center"
+    },
+    {
+      "id": "secret-coyle-file",
+      "name": "Secret Coyle File",
+      "category": "misc",
+      "color": "#7f8c8d",
+      "icon": "radio_evidence",
+      "anchor": "center"
+    },
+    {
+      "id": "secret-door",
+      "name": "Secret Door",
+      "category": "door",
+      "color": "#7f8c8d",
+      "icon": "item_door_secretroom"
+    },
+    {
+      "id": "detonator",
+      "name": "Detonator",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_clock_detonator",
+      "anchor": "center"
     }
   ]
 }
