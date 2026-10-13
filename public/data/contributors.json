@@ -6,6 +6,12 @@
       "profileId": "215af72b-24c5-63ab-f480-eec12ba2f4e5",
       "profileUrl": "https://outlasttrialsstats.com/profile/215af72b-24c5-63ab-f480-eec12ba2f4e5",
       "maps": ["police-station", "sleep-room"]
+    },
+    {
+      "name": "Mateuxss",
+      "profileId": "3a5e7b94-6161-3796-1f8e-0425bdff9457",
+      "profileUrl": "https://outlasttrialsstats.com/@mateuxss",
+      "maps": ["prison-farm"]
     }
   ]
 }
