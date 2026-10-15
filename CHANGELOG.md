@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.1](https://github.com/OutlastTrialsStats/maps/compare/v1.2.0...v1.2.1) (2026-10-15)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump the pnpm-patches group with 3 updates ([#77](https://github.com/OutlastTrialsStats/maps/issues/77)) ([dc5ebc2](https://github.com/OutlastTrialsStats/maps/commit/dc5ebc232ba2210856e54ea9fe605b0e5fc0c4f0))
+* **deps-dev:** bump vite from 8.3.2 to 8.3.4 in the pnpm-patches group ([#72](https://github.com/OutlastTrialsStats/maps/issues/72)) ([19a1580](https://github.com/OutlastTrialsStats/maps/commit/19a1580c40b9d991b881311270fc4500e61c0b0c))
+
+
+### Dependencies
+
+* **deps:** bump vue-router from 5.3.1 to 5.4.0 ([#73](https://github.com/OutlastTrialsStats/maps/issues/73)) ([8f3e73e](https://github.com/OutlastTrialsStats/maps/commit/8f3e73efb172b9007c87c0726858c5abf35e4982))
+
+
+### Continuous Integration
+
+* allow fork checkout in labeled preview builds ([cebca4f](https://github.com/OutlastTrialsStats/maps/commit/cebca4f1791d580235da47ff83a9644e122be91a))
+
 ## [1.2.0](https://github.com/OutlastTrialsStats/maps/compare/v1.1.1...v1.2.0) (2026-10-10)
 
 
