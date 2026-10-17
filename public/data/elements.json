@@ -538,6 +538,111 @@
       "size": 10,
       "anchor": "center",
       "description": "Exit point of the trial."
+    },
+    {
+      "id": "sleep-room-pharmacy",
+      "name": "Spawn / Pharmacy",
+      "category": "misc",
+      "color": "#e9dcae",
+      "size": 8,
+      "anchor": "center",
+      "description": "Spawn and Pharmacy area in the Sleep Room.",
+      "propsSchema": {
+        "note": {
+          "type": "string",
+          "label": "Note"
+        }
+      }
+    },
+    {
+      "id": "sleep-room-engineer",
+      "name": "Engineer",
+      "category": "misc",
+      "color": "#e9dcae",
+      "size": 8,
+      "anchor": "center",
+      "description": "Engineer in the Sleep Room.",
+      "propsSchema": {
+        "note": {
+          "type": "string",
+          "label": "Note"
+        }
+      }
+    },
+    {
+      "id": "sleep-room-terminal",
+      "name": "Terminal & trial shuttles",
+      "category": "misc",
+      "color": "#e9dcae",
+      "size": 8,
+      "anchor": "center",
+      "description": "Terminal & trial shuttles in the Sleep Room.",
+      "propsSchema": {
+        "note": {
+          "type": "string",
+          "label": "Note"
+        }
+      }
+    },
+    {
+      "id": "sleep-room-rebirth",
+      "name": "Rebirth chamber",
+      "category": "misc",
+      "color": "#e9dcae",
+      "size": 8,
+      "anchor": "center",
+      "description": "Rebirth chamber in the Sleep Room.",
+      "propsSchema": {
+        "note": {
+          "type": "string",
+          "label": "Note"
+        }
+      }
+    },
+    {
+      "id": "sleep-room-tennis",
+      "name": "Tennis minigame",
+      "category": "misc",
+      "color": "#e9dcae",
+      "size": 8,
+      "anchor": "center",
+      "description": "Tennis minigame in the Sleep Room.",
+      "propsSchema": {
+        "note": {
+          "type": "string",
+          "label": "Note"
+        }
+      }
+    },
+    {
+      "id": "sleep-room-arm-wrestling",
+      "name": "Arm wrestling",
+      "category": "misc",
+      "color": "#e9dcae",
+      "size": 8,
+      "anchor": "center",
+      "description": "Arm wrestling in the Sleep Room.",
+      "propsSchema": {
+        "note": {
+          "type": "string",
+          "label": "Note"
+        }
+      }
+    },
+    {
+      "id": "sleep-room-chess",
+      "name": "Chess",
+      "category": "misc",
+      "color": "#e9dcae",
+      "size": 8,
+      "anchor": "center",
+      "description": "Chess in the Sleep Room.",
+      "propsSchema": {
+        "note": {
+          "type": "string",
+          "label": "Note"
+        }
+      }
     }
   ]
 }

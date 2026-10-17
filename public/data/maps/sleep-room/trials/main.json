@@ -8,12 +8,29 @@
       "name": "Base Floor"
     }
   ],
-  "filters": [],
+  "filters": [
+    {
+      "id": "landmarks",
+      "name": "Landmarks & minigames",
+      "categories": [
+        "misc"
+      ],
+      "default": true
+    },
+    {
+      "id": "stairs",
+      "name": "Stairs",
+      "categories": [
+        "stairs"
+      ],
+      "default": true
+    }
+  ],
   "rooms": [
     {
       "id": "room-0001",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-gated",
       "shape": {
         "origin": [
           385,
@@ -23,12 +40,19 @@
           40,
           55
         ]
+      },
+      "flags": [
+        "unreachable"
+      ],
+      "info": {
+        "title": "Gated area",
+        "description": "Inaccessible beyond the gate after the last player sleep room in corridor A-1. Visible through the gate; the outline follows the existing map."
       }
     },
     {
       "id": "room-0002",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-gated",
       "shape": {
         "origin": [
           145,
@@ -38,12 +62,19 @@
           65,
           55
         ]
+      },
+      "flags": [
+        "unreachable"
+      ],
+      "info": {
+        "title": "Gated area",
+        "description": "Inaccessible behind the gate beside the Engineer. The interior is pitch black and cannot be seen."
       }
     },
     {
       "id": "room-0003",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-public",
       "shape": {
         "origin": [
           210,
@@ -53,12 +84,16 @@
           45,
           40
         ]
+      },
+      "info": {
+        "title": "Engineer",
+        "description": "Engineer service area. The gated area to the left is pitch black."
       }
     },
     {
       "id": "room-0004",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-player",
       "shape": {
         "origin": [
           180,
@@ -68,12 +103,24 @@
           35,
           35
         ]
+      },
+      "label": {
+        "text": "Sleep room",
+        "pos": [
+          17.5,
+          19
+        ],
+        "fontSize": 4.5
+      },
+      "info": {
+        "title": "Player sleep room",
+        "description": "Player sleep room. Interior dimensions have not been measured."
       }
     },
     {
       "id": "room-0005",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-player",
       "shape": {
         "origin": [
           180,
@@ -83,12 +130,24 @@
           35,
           35
         ]
+      },
+      "label": {
+        "text": "Sleep room",
+        "pos": [
+          17.5,
+          19
+        ],
+        "fontSize": 4.5
+      },
+      "info": {
+        "title": "Player sleep room",
+        "description": "Player sleep room. Interior dimensions have not been measured."
       }
     },
     {
       "id": "room-0006",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-player",
       "shape": {
         "origin": [
           180,
@@ -98,12 +157,24 @@
           35,
           35
         ]
+      },
+      "label": {
+        "text": "Sleep room",
+        "pos": [
+          17.5,
+          19
+        ],
+        "fontSize": 4.5
+      },
+      "info": {
+        "title": "Player sleep room",
+        "description": "Player sleep room. Interior dimensions have not been measured."
       }
     },
     {
       "id": "room-0007",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-public",
       "shape": {
         "origin": [
           220,
@@ -113,12 +184,24 @@
           30,
           115
         ]
+      },
+      "label": {
+        "text": "B-1",
+        "pos": [
+          15,
+          58
+        ],
+        "fontSize": 6
+      },
+      "info": {
+        "title": "B-1 corridor",
+        "description": "Left-side corridor with three player sleep rooms. Engineer at the upper end; gated area at the lower end."
       }
     },
     {
       "id": "room-0008",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-gated",
       "shape": {
         "origin": [
           205,
@@ -128,12 +211,19 @@
           55,
           55
         ]
+      },
+      "flags": [
+        "unreachable"
+      ],
+      "info": {
+        "title": "Gated area",
+        "description": "Inaccessible behind the gate at the end of the left corridor. Part of the area beyond the gate is visible."
       }
     },
     {
       "id": "room-0009",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-public",
       "shape": {
         "origin": [
           385,
@@ -143,12 +233,24 @@
           35,
           145
         ]
+      },
+      "label": {
+        "text": "A-1",
+        "pos": [
+          17.5,
+          60
+        ],
+        "fontSize": 6
+      },
+      "info": {
+        "title": "A-1 corridor",
+        "description": "Right-side corridor with four player sleep rooms. Spawn and Pharmacy at the lower end. A gate blocks the two areas beyond the last player room."
       }
     },
     {
       "id": "room-0010",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-player",
       "shape": {
         "origin": [
           420,
@@ -158,12 +260,24 @@
           35,
           35
         ]
+      },
+      "label": {
+        "text": "Sleep room",
+        "pos": [
+          17.5,
+          19
+        ],
+        "fontSize": 4.5
+      },
+      "info": {
+        "title": "Player sleep room",
+        "description": "Player sleep room. Interior dimensions have not been measured."
       }
     },
     {
       "id": "room-0011",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-player",
       "shape": {
         "origin": [
           420,
@@ -173,12 +287,24 @@
           35,
           35
         ]
+      },
+      "label": {
+        "text": "Sleep room",
+        "pos": [
+          17.5,
+          19
+        ],
+        "fontSize": 4.5
+      },
+      "info": {
+        "title": "Player sleep room",
+        "description": "Player sleep room. Interior dimensions have not been measured."
       }
     },
     {
       "id": "room-0012",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-player",
       "shape": {
         "origin": [
           420,
@@ -188,12 +314,24 @@
           35,
           35
         ]
+      },
+      "label": {
+        "text": "Sleep room",
+        "pos": [
+          17.5,
+          19
+        ],
+        "fontSize": 4.5
+      },
+      "info": {
+        "title": "Player sleep room",
+        "description": "Player sleep room. Interior dimensions have not been measured."
       }
     },
     {
       "id": "room-0013",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-player",
       "shape": {
         "origin": [
           420,
@@ -203,12 +341,24 @@
           35,
           35
         ]
+      },
+      "label": {
+        "text": "Sleep room",
+        "pos": [
+          17.5,
+          19
+        ],
+        "fontSize": 4.5
+      },
+      "info": {
+        "title": "Player sleep room",
+        "description": "Player sleep room. Interior dimensions have not been measured."
       }
     },
     {
       "id": "room-0014",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-public",
       "shape": {
         "origin": [
           305,
@@ -218,58 +368,318 @@
           25,
           45
         ]
+      },
+      "info": {
+        "title": "Rebirth approach",
+        "description": "Passage from the main hall toward the Rebirth chamber."
       }
     },
     {
       "id": "room-0015",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-public",
       "shape": {
         "origin": [
           280,
           110
         ],
         "path": "h65 v40 l5,15 l10,5 l25,5 v85 h-40 l-15,20 h-25 l-15,-20 h-40 v-115 h30 z"
+      },
+      "label": {
+        "text": "Main Hall",
+        "pos": [
+          35,
+          60
+        ],
+        "fontSize": 8
+      },
+      "info": {
+        "title": "Main Hall",
+        "description": "Ground-floor landmarks (numbers match the contributed reference): 1 Spawn / Pharmacy; 2 Engineer; 3 Terminal & trial shuttles; 4 Rebirth chamber; 5 Tennis; 6 Arm wrestling; 7 Chess. Tennis sits snugly against the wall at the right-side entrance. Arm wrestling and chess are centered in the room, on the right and left respectively. Stairs are at the top-left and bottom-right. Positions and stair footprints are approximate; the upper floor is not mapped in this contribution."
       }
     },
     {
       "id": "room-0016",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-gated",
       "shape": {
         "origin": [
           390,
           60
         ],
         "path": "h30 v55 h-35 v-20 h5 z"
+      },
+      "flags": [
+        "unreachable"
+      ],
+      "info": {
+        "title": "Gated area",
+        "description": "Inaccessible beyond the gate after the last player sleep room in corridor A-1. Visible through the gate; the outline follows the existing map."
       }
     },
     {
       "id": "room-0017",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-public",
       "shape": {
         "origin": [
           390,
           260
         ],
         "path": "h55 v5 h5 v35 h-5 v10 h-25 z"
+      },
+      "info": {
+        "title": "Spawn / Pharmacy",
+        "description": "Arrival and Pharmacy area at the bottom-right of the map."
       }
     },
     {
       "id": "room-0018",
       "floor": 0,
-      "zone": "standard",
+      "zone": "sleep-room-public",
       "shape": {
         "origin": [
           290,
           325
         ],
         "path": "h55 v25 h-5 v5 h-40 v-5 h-10 z"
+      },
+      "info": {
+        "title": "Rebirth chamber",
+        "description": "Rebirth chamber area at the bottom-middle of the map."
       }
     }
   ],
-  "placements": [],
+  "placements": [
+    {
+      "id": "sleep-room-landmark-pharmacy",
+      "element": "sleep-room-pharmacy",
+      "floor": 0,
+      "pos": [
+        424,
+        281
+      ],
+      "roomId": "room-0017",
+      "marker": {
+        "label": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "color": "#e9dcae"
+      },
+      "props": {
+        "note": "Arrival and Pharmacy area at the bottom-right. Position is approximate."
+      }
+    },
+    {
+      "id": "sleep-room-landmark-engineer",
+      "element": "sleep-room-engineer",
+      "floor": 0,
+      "pos": [
+        231,
+        123
+      ],
+      "roomId": "room-0003",
+      "marker": {
+        "label": 2,
+        "offset": [
+          0,
+          0
+        ],
+        "color": "#e9dcae"
+      },
+      "props": {
+        "note": "Engineer service area. The gated area to its left is pitch black. Position is approximate."
+      }
+    },
+    {
+      "id": "sleep-room-landmark-terminal",
+      "element": "sleep-room-terminal",
+      "floor": 0,
+      "pos": [
+        312,
+        126
+      ],
+      "roomId": "room-0015",
+      "marker": {
+        "label": 3,
+        "offset": [
+          0,
+          0
+        ],
+        "color": "#e9dcae"
+      },
+      "props": {
+        "note": "Terminal and trial shuttle area at the top-middle. Position is approximate."
+      }
+    },
+    {
+      "id": "sleep-room-landmark-rebirth",
+      "element": "sleep-room-rebirth",
+      "floor": 0,
+      "pos": [
+        316,
+        335
+      ],
+      "roomId": "room-0018",
+      "marker": {
+        "label": 4,
+        "offset": [
+          0,
+          0
+        ],
+        "color": "#e9dcae"
+      },
+      "props": {
+        "note": "Rebirth chamber area at the bottom-middle. Position is approximate."
+      }
+    },
+    {
+      "id": "sleep-room-landmark-tennis",
+      "element": "sleep-room-tennis",
+      "floor": 0,
+      "pos": [
+        370.5,
+        180.5
+      ],
+      "roomId": "room-0015",
+      "marker": {
+        "label": 5,
+        "offset": [
+          0,
+          0
+        ],
+        "color": "#e9dcae"
+      },
+      "props": {
+        "note": "Tennis minigame, snugly against the wall above it at the right-side hall entrance. Position is approximate."
+      }
+    },
+    {
+      "id": "sleep-room-landmark-arm-wrestling",
+      "element": "sleep-room-arm-wrestling",
+      "floor": 0,
+      "pos": [
+        331.5,
+        201
+      ],
+      "roomId": "room-0015",
+      "marker": {
+        "label": 6,
+        "offset": [
+          0,
+          0
+        ],
+        "color": "#e9dcae"
+      },
+      "props": {
+        "note": "Arm wrestling table, centered in the hall on the right. Position is approximate."
+      }
+    },
+    {
+      "id": "sleep-room-landmark-chess",
+      "element": "sleep-room-chess",
+      "floor": 0,
+      "pos": [
+        300,
+        201
+      ],
+      "roomId": "room-0015",
+      "marker": {
+        "label": 7,
+        "offset": [
+          0,
+          0
+        ],
+        "color": "#e9dcae"
+      },
+      "props": {
+        "note": "Chess table, centered in the hall on the left. Position is approximate."
+      }
+    },
+    {
+      "id": "sleep-room-stairs-top-left",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        265,
+        164
+      ],
+      "rotation": 90,
+      "size": [
+        28,
+        19
+      ],
+      "roomId": "room-0015",
+      "props": {
+        "direction": "up",
+        "note": "Approximate stair footprint in the top left of the Main Hall. Upper-floor geometry is not included."
+      }
+    },
+    {
+      "id": "sleep-room-stairs-bottom-right",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        367,
+        239
+      ],
+      "rotation": 90,
+      "size": [
+        28,
+        19
+      ],
+      "roomId": "room-0015",
+      "props": {
+        "direction": "up",
+        "note": "Approximate stair footprint in the bottom right of the Main Hall. Upper-floor geometry is not included."
+      }
+    }
+  ],
   "routes": [],
-  "shapes": []
+  "shapes": [
+    {
+      "id": "sleep-room-gate-a1",
+      "floor": 0,
+      "path": "M385,115 L420,115",
+      "color": "#eeb57a",
+      "strokeWidth": 2.2
+    },
+    {
+      "id": "sleep-room-gate-hatch-a1",
+      "floor": 0,
+      "path": "M388.25,112.0 l4,6 M396.3,112.0 l4,6 M404.7,112.0 l4,6 M412.75,112.0 l4,6",
+      "color": "#f8d9ad",
+      "strokeWidth": 0.8
+    },
+    {
+      "id": "sleep-room-gate-b1",
+      "floor": 0,
+      "path": "M220,260 L250,260",
+      "color": "#eeb57a",
+      "strokeWidth": 2.2
+    },
+    {
+      "id": "sleep-room-gate-hatch-b1",
+      "floor": 0,
+      "path": "M222.5,257.0 l4,6 M229.4,257.0 l4,6 M236.6,257.0 l4,6 M243.5,257.0 l4,6",
+      "color": "#f8d9ad",
+      "strokeWidth": 0.8
+    },
+    {
+      "id": "sleep-room-gate-engineer",
+      "floor": 0,
+      "path": "M210,105 L210,145",
+      "color": "#eeb57a",
+      "strokeWidth": 2.2
+    },
+    {
+      "id": "sleep-room-gate-hatch-engineer",
+      "floor": 0,
+      "path": "M208.0,108.0 l4,6 M208.0,117.2 l4,6 M208.0,126.80000000000001 l4,6 M208.0,136.0 l4,6",
+      "color": "#f8d9ad",
+      "strokeWidth": 0.8
+    }
+  ]
 }

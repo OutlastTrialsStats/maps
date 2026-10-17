@@ -42,6 +42,24 @@
       "name": "Projector Room",
       "fill": "#7d3b78",
       "walls": "#d24bd2"
+    },
+    {
+      "id": "sleep-room-public",
+      "name": "Sleep Room / Public areas",
+      "fill": "#30434f",
+      "walls": "#75909e"
+    },
+    {
+      "id": "sleep-room-player",
+      "name": "Sleep Room / Player room",
+      "fill": "#24564f",
+      "walls": "#7fc7b3"
+    },
+    {
+      "id": "sleep-room-gated",
+      "name": "Sleep Room / Gated area",
+      "fill": "#403d35",
+      "walls": "#b8a47f"
     }
   ]
 }
