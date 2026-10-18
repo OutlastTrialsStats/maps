@@ -1,7 +1,7 @@
 {
   "$schema": "../../../../schemas/trial.schema.json",
-  "mapId": "sabotage-the-lockdown",
-  "trialId": "main",
+  "mapId": "police-station",
+  "trialId": "sabotage-the-lockdown",
   "floors": [
     {
       "index": 0,
