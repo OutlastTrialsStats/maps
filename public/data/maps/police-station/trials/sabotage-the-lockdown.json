@@ -4,21 +4,20 @@
   "trialId": "sabotage-the-lockdown",
   "floors": [
     {
-      "index": 0,
-      "name": "Basement"
+      "index": -1,
+      "name": "Underground",
+      "default": true
     },
     {
-      "index": 1,
-      "name": "Street Level"
+      "index": 0,
+      "name": "First Floor"
     }
   ],
   "filters": [
     {
       "id": "filter-0001",
       "name": "Posters",
-      "categories": [
-        "poster"
-      ],
+      "categories": ["poster"],
       "default": true
     },
     {
@@ -43,42 +42,31 @@
   "rooms": [
     {
       "id": "room-0002",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          560,
-          685
-        ],
+        "origin": [560, 685],
         "path": "h60 v185 h-60 z"
       }
     },
     {
       "id": "room-0003",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          620,
-          745
-        ],
+        "origin": [620, 745],
         "path": "h75 v60 h-35 v65 h-40 z"
       }
     },
     {
       "id": "room-0004",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          695,
-          745
-        ],
+        "origin": [695, 745],
         "path": "h50 v15 v-15 v-40 h50 v90 h10 v97.5 h-55 v-22.5 h-55 v-125"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M95,119 h-25 M55,90 h40 M55,125 v-7.5 M55,95 v-5 M0,0 h50 v15 h5 v25 M50,0 v-40 h50 v90 h10 v97.5 h-55 v-22.5 h-55 v-125",
@@ -87,22 +75,16 @@
       ],
       "label": {
         "text": "Locker Rooms",
-        "pos": [
-          83,
-          70
-        ],
+        "pos": [83, 70],
         "fontSize": 7
       }
     },
     {
       "id": "bathroom-stalls",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          750,
-          835
-        ],
+        "origin": [750, 835],
         "path": "h-22.5 v-50 h22.5 z"
       },
       "innerLines": [
@@ -125,13 +107,10 @@
     },
     {
       "id": "room-0007",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          490,
-          915
-        ],
+        "origin": [490, 915],
         "path": "h70 v-45 h135 h30 v230 h-35 v-50 h-70 v-90 h50 v65 h-50 v25 v45 h-60 v-52.5 h-70 z"
       },
       "innerLines": [
@@ -142,58 +121,41 @@
       ],
       "label": {
         "text": "Parking Lot",
-        "pos": [
-          90,
-          70
-        ],
+        "pos": [90, 70],
         "fontSize": 10
       }
     },
     {
       "id": "room-0008",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          490,
-          1042.5
-        ],
+        "origin": [490, 1042.5],
         "path": "h70 v52.5 h-70 z"
       }
     },
     {
       "id": "room-0009",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          825,
-          765
-        ],
+        "origin": [825, 765],
         "path": "v-22.5 h48 v55 h52 v72.5 h-120 v-75 h20"
       },
       "label": {
         "text": "Boiler Room",
-        "pos": [
-          40,
-          60
-        ]
+        "pos": [40, 60]
       }
     },
     {
       "id": "room-0010",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          795,
-          765
-        ],
+        "origin": [795, 765],
         "path": "h30 v30 h-30 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M30,0 h-30 v30 h30 v-1.5",
@@ -202,94 +164,67 @@
       ],
       "label": {
         "text": "Dogs",
-        "pos": [
-          15,
-          15
-        ],
+        "pos": [15, 15],
         "fontSize": 10
       }
     },
     {
       "id": "room-0011",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          725,
-          870
-        ],
+        "origin": [725, 870],
         "path": "h25 v22.5 h40 v25 h15 v-47.5 h20 v47.5 h-7 h7 h7.5 v-25 h-7.5 v-22.55 h48 v53 h-18 v22 h-130 z"
       },
       "label": {
         "text": "Laundry Room",
-        "pos": [
-          128,
-          35
-        ],
+        "pos": [128, 35],
         "fontSize": 5
       }
     },
     {
       "id": "room-0012",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          873,
-          870
-        ],
+        "origin": [873, 870],
         "path": "h52 v70 h-30 v-23 h-22 z"
       }
     },
     {
       "id": "room-0013",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          725,
-          945
-        ],
+        "origin": [725, 945],
         "path": "h170 v105 h-170 z"
       },
-      "flags": [
-        "disabled",
-        "unreachable"
-      ]
+      "flags": ["disabled", "unreachable"]
     },
     {
       "id": "room-0014",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          450,
-          825
-        ],
+        "origin": [450, 825],
         "path": "h110 v90 h-110 z"
       }
     },
     {
       "id": "room-0015",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          490,
-          1042.5
-        ],
+        "origin": [490, 1042.5],
         "path": "h-40 v77.5 h40 z"
       }
     },
     {
       "id": "entry-hallway",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          490,
-          915
-        ],
+        "origin": [490, 915],
         "path": "h-40 v127.5 h40 z"
       },
       "info": {
@@ -304,18 +239,13 @@
     },
     {
       "id": "backrooms-01",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          450,
-          825
-        ],
+        "origin": [450, 825],
         "path": "v-85 h85 v-55 h25 v80 h-65 v60 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 v-85 h85 v-55 M110,-140 v80 h-65 v60 h-45 v-1",
@@ -324,40 +254,28 @@
       ],
       "label": {
         "text": "Backrooms",
-        "pos": [
-          55,
-          -70
-        ]
+        "pos": [55, -70]
       }
     },
     {
       "id": "room-0018",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          655,
-          615
-        ],
+        "origin": [655, 615],
         "path": "h90 v52.5 h-90"
       },
       "label": {
         "text": "West Stairs",
-        "pos": [
-          30,
-          26.25
-        ]
+        "pos": [30, 26.25]
       }
     },
     {
       "id": "room-0019",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          873,
-          570
-        ],
+        "origin": [873, 570],
         "path": "h52 v45 h35 v35 h85 v55 h-85 v15 h-87 z"
       },
       "innerLines": [
@@ -366,24 +284,17 @@
           "style": "wall"
         }
       ],
-      "flags": [
-        "noWalls"
-      ]
+      "flags": ["noWalls"]
     },
     {
       "id": "backroom-03",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          873,
-          550
-        ],
+        "origin": [873, 550],
         "path": "h-9 v-40 h-126 v75 h27 v-50 h74 v35 h34 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 v1 v-1 h-9 v-40 h-126 v75 M-108,35 v-50 h74 v35 h34",
@@ -393,18 +304,13 @@
     },
     {
       "id": "backroom-02",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          540,
-          685
-        ],
+        "origin": [540, 685],
         "path": "v-7 l63,-63 v-30 h167 v30 h-125 v70 h-80"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 v1 v-1 v-7 l63,-63 v-30 h140 v-1 v1 M230,-100 v30 h-125 v70 h-80 v1",
@@ -418,60 +324,42 @@
     },
     {
       "id": "room-0022",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          839,
-          560
-        ],
+        "origin": [839, 560],
         "path": "v-25 h-36.5 v25 z"
       },
-      "flags": [
-        "disabled"
-      ]
+      "flags": ["disabled"]
     },
     {
       "id": "room-0023",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          802.5,
-          535
-        ],
+        "origin": [802.5, 535],
         "path": "h-37.5 v55 h27.5 v-30 h10 z"
       }
     },
     {
       "id": "room-0024",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          765,
-          590
-        ],
+        "origin": [765, 590],
         "path": "h27.5 v25 h-27.5 z"
       },
-      "flags": [
-        "disabled"
-      ]
+      "flags": ["disabled"]
     },
     {
       "id": "room-0025",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          925,
-          587.5
-        ],
+        "origin": [925, 587.5],
         "path": "h30 v12.5 h5 v15 h-35 z"
       },
-      "flags": [
-        "disabled"
-      ],
+      "flags": ["disabled"],
       "innerLines": [
         {
           "path": "M0,27.5 v10",
@@ -481,18 +369,13 @@
     },
     {
       "id": "backroom-04",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          995,
-          600
-        ],
+        "origin": [995, 600],
         "path": "v-50 h-50 v-30 h-57 v30 h-15 v20 h52 v17.5 h30 v12.5 h40"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 v-50 h-50 v-30 h-57 v30 h-15 v1.5 v-1.5 M-122,-30 v-1.5 v1.5 h52 v17.5 h30 v12.5 h40",
@@ -502,13 +385,10 @@
     },
     {
       "id": "room-0027",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          873,
-          742.5
-        ],
+        "origin": [873, 742.5],
         "path": "h-48 v-17.5 h-30 v-57.5 h78"
       },
       "innerLines": [
@@ -520,30 +400,22 @@
     },
     {
       "id": "room-0029",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          660,
-          745
-        ],
+        "origin": [660, 745],
         "path": "v-77.5 h135 v37.5 h-50 v40 z"
       }
     },
     {
       "id": "room-0030",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          895,
-          940
-        ],
+        "origin": [895, 940],
         "path": "v50 h185 v-30 h-65 v-20 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 v50 h185 M0,0 h30",
@@ -553,73 +425,53 @@
     },
     {
       "id": "room-0031",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          840,
-          1050
-        ],
+        "origin": [840, 1050],
         "path": "v35 h55 v40 h25 v-85 h-25 v10 z"
       }
     },
     {
       "id": "room-0032",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          920,
-          1040
-        ],
+        "origin": [920, 1040],
         "path": "v85 h70 v-85 z"
       },
       "label": {
         "text": "Town Hall Room",
-        "pos": [
-          35,
-          42.5
-        ]
+        "pos": [35, 42.5]
       }
     },
     {
       "id": "room-0033",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          895,
-          1040
-        ],
+        "origin": [895, 1040],
         "path": "v-50 h95 v50 z"
       }
     },
     {
       "id": "room-0034",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1030,
-          1100
-        ],
+        "origin": [1030, 1100],
         "path": "v-45 h60 v45 z"
       }
     },
     {
       "id": "room-0035",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          990,
-          990
-        ],
+        "origin": [990, 990],
         "path": "h90 v65 h-50 v70 h-40 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 h90 v65 h-50 v70 h-40 z",
@@ -629,18 +481,13 @@
     },
     {
       "id": "room-0036",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1080,
-          1055
-        ],
+        "origin": [1080, 1055],
         "path": "h10 v10 h65 v-65 h-40 v-40 h-35 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 v-1 v1 h10 v10 h65 v-65 h-40 v-40 h-35 M0,0 v-65 h-1",
@@ -650,30 +497,22 @@
     },
     {
       "id": "room-0037",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1115,
-          960
-        ],
+        "origin": [1115, 960],
         "path": "h-50 v-20 h20 v-25 h-70 h-5 h5 v45 h27.5"
       }
     },
     {
       "id": "room-0038",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1125,
-          810
-        ],
+        "origin": [1125, 810],
         "path": "h15 v-55 h-40 v-15 h-30 v15 v55 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 h15 v-55 h-40 v-15 h-30 v15 v55 z",
@@ -683,13 +522,10 @@
     },
     {
       "id": "room-0039",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1015,
-          810
-        ],
+        "origin": [1015, 810],
         "path": "v-70 h55 v70 z"
       },
       "wallGaps": [
@@ -702,13 +538,10 @@
     },
     {
       "id": "room-0040",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1015,
-          740
-        ],
+        "origin": [1015, 740],
         "path": "h-25 v35 h25 z"
       },
       "wallGaps": [
@@ -721,45 +554,32 @@
     },
     {
       "id": "room-0041",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1015,
-          810
-        ],
+        "origin": [1015, 810],
         "path": "v-35 h-25 v20 l25,25 z"
       },
-      "flags": [
-        "disabled"
-      ]
+      "flags": ["disabled"]
     },
     {
       "id": "backroom-06",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          1045,
-          740
-        ],
+        "origin": [1045, 740],
         "path": "h55 v-25 h-30 v-65 h-25 v55 h-1"
       }
     },
     {
       "id": "backroom-05",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          1070,
-          650
-        ],
+        "origin": [1070, 650],
         "path": "v-80 v-20 h-5 v20 h-45 v-20 h-25 v50 h45 v50 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M-30,-50 h5 M0,0 v-80 v-20 h-5 v20 h-45 v-20 M-65,-100 h-10 v50 h45 v50 h30 v-1",
@@ -773,33 +593,23 @@
     },
     {
       "id": "room-0044",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1060,
-          550
-        ],
+        "origin": [1060, 550],
         "path": "h5 v20 h-5 z"
       },
-      "flags": [
-        "disabled"
-      ]
+      "flags": ["disabled"]
     },
     {
       "id": "room-0045",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          1020,
-          550
-        ],
+        "origin": [1020, 550],
         "path": "h40 v20 h-40 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 v20 h40 v-20 h-25",
@@ -808,26 +618,18 @@
       ],
       "label": {
         "text": "Bathroom",
-        "pos": [
-          20,
-          12.5
-        ]
+        "pos": [20, 12.5]
       }
     },
     {
       "id": "backroom-passage",
-      "floor": 0,
+      "floor": -1,
       "zone": "ward-red",
       "shape": {
-        "origin": [
-          1005,
-          540
-        ],
+        "origin": [1005, 540],
         "path": "h30 v10 h-30 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,10 h-1 h1 v-10 h30 v10 h1 h-1 M20,10 h-10",
@@ -837,18 +639,13 @@
     },
     {
       "id": "room-0047",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          990,
-          705
-        ],
+        "origin": [990, 705],
         "path": "h-30 v125 h25 l20,-20 l-15,-15 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 h-30 v40 h-1 h1 M-30,125 h25 l20,-20 l-15,-15 v-90",
@@ -858,18 +655,13 @@
     },
     {
       "id": "room-0048",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          990,
-          740
-        ],
+        "origin": [990, 740],
         "path": "v-35 h55 v35 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 h55 v-25 M55,-35 v-1 v1 h-55 v35 h1",
@@ -879,45 +671,32 @@
     },
     {
       "id": "room-0049",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          960,
-          785
-        ],
+        "origin": [960, 785],
         "path": "h-1.5 h1.5 v-25 h-35 v180 h60 v-15 l-25,-25 v-70 h1 h-1"
       }
     },
     {
       "id": "room-0050",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1015,
-          960
-        ],
+        "origin": [1015, 960],
         "path": "h-30 v-25 h30 z"
       },
-      "flags": [
-        "disabled"
-      ]
+      "flags": ["disabled"]
     },
     {
       "id": "room-0051",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          985,
-          830
-        ],
+        "origin": [985, 830],
         "path": "l20,-20 l10,10 v-10 h110 v105 h-110 v20 h-30 v-10 l-25,-25 v-70 h25 l1,-1"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M0,0 h5.95 v-0.05 l-2.95,-2.95 l-3,3 l20,-20 l10,10 v-10 h110 v105 h-110 v20 h-30 v-10 l-25,-25 v-70 h25 l1,-1",
@@ -934,104 +713,71 @@
       ],
       "label": {
         "text": "Shooting Range",
-        "pos": [
-          70,
-          42.5
-        ]
+        "pos": [70, 42.5]
       }
     },
     {
       "id": "room-0052",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          925,
-          720
-        ],
+        "origin": [925, 720],
         "path": "h35 v40 h-35 z"
       },
-      "flags": [
-        "disabled"
-      ]
+      "flags": ["disabled"]
     },
     {
       "id": "room-0053",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          795,
-          725
-        ],
+        "origin": [795, 725],
         "path": "h30 v40 h-30 z"
       },
-      "flags": [
-        "disabled"
-      ]
+      "flags": ["disabled"]
     },
     {
       "id": "room-0054",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          873,
-          742.5
-        ],
+        "origin": [873, 742.5],
         "path": "v-22.5 h51.5 v22.5 z"
       },
-      "flags": [
-        "noWalls",
-        "disabled"
-      ]
+      "flags": ["noWalls", "disabled"]
     },
     {
       "id": "room-0055",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          450,
-          955
-        ],
+        "origin": [450, 955],
         "path": "h-50 v100 h25 v-70 h25 z"
       }
     },
     {
       "id": "room-0056",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          1115,
-          960
-        ],
+        "origin": [1115, 960],
         "path": "h50 v30 h-50 z"
       },
       "label": {
         "text": "Emergency Exit",
-        "pos": [
-          25,
-          15
-        ],
+        "pos": [25, 15],
         "fontSize": 5.5
       }
     },
     {
       "id": "room-0057",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          990,
-          650
-        ],
+        "origin": [990, 650],
         "path": "h55 v55 h-55 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "innerLines": [
         {
           "path": "M50,0 v-1 v1 h5 v55 h-55 v1 v-1",
@@ -1040,45 +786,31 @@
       ],
       "label": {
         "text": "East Stairs",
-        "pos": [
-          30,
-          26
-        ],
+        "pos": [30, 26],
         "fontSize": 7
       }
     },
     {
       "id": "room-0058",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          960,
-          600
-        ],
+        "origin": [960, 600],
         "path": "h80 v50 h-80 z"
       },
-      "flags": [
-        "noWalls"
-      ],
+      "flags": ["noWalls"],
       "label": {
         "text": "Electrical Room",
-        "pos": [
-          40,
-          25
-        ],
+        "pos": [40, 25],
         "fontSize": 10
       }
     },
     {
       "id": "start",
-      "floor": 1,
+      "floor": 0,
       "zone": "outdoor",
       "shape": {
-        "origin": [
-          360,
-          1185
-        ],
+        "origin": [360, 1185],
         "path": "h-10 v-55 h45 v55 h-10 z"
       },
       "info": {
@@ -1087,13 +819,10 @@
     },
     {
       "id": "street-01",
-      "floor": 1,
+      "floor": 0,
       "zone": "outdoor",
       "shape": {
-        "origin": [
-          395,
-          1130
-        ],
+        "origin": [395, 1130],
         "path": "l102.5,-10 v-27.5 h-192.5 v32.5 h45 v5 z"
       },
       "wallGaps": [
@@ -1110,13 +839,10 @@
     },
     {
       "id": "casino",
-      "floor": 1,
+      "floor": 0,
       "zone": "standard",
       "shape": {
-        "origin": [
-          385,
-          1092.5
-        ],
+        "origin": [385, 1092.5],
         "path": "h-40 h-5 v-55 h57.5 v55 z"
       },
       "info": {
@@ -1124,21 +850,15 @@
       },
       "label": {
         "text": "Casino",
-        "pos": [
-          -16.25,
-          -27.5
-        ]
+        "pos": [-16.25, -27.5]
       }
     },
     {
       "id": "room-0063",
-      "floor": 1,
+      "floor": 0,
       "zone": "outdoor",
       "shape": {
-        "origin": [
-          397.5,
-          1092.5
-        ],
+        "origin": [397.5, 1092.5],
         "path": "h50 v-72.5 h-22.5 v35 h-27.5 z"
       },
       "wallGaps": [
@@ -1151,13 +871,10 @@
     },
     {
       "id": "main-street-1",
-      "floor": 1,
+      "floor": 0,
       "zone": "outdoor",
       "shape": {
-        "origin": [
-          1170,
-          1022.5
-        ],
+        "origin": [1170, 1022.5],
         "path": "h50 v-75 h-50 z"
       },
       "innerLines": [
@@ -1169,19 +886,14 @@
       "info": {
         "title": "Main Street 1"
       },
-      "flags": [
-        "noWalls"
-      ]
+      "flags": ["noWalls"]
     },
     {
       "id": "main-street-2",
-      "floor": 1,
+      "floor": 0,
       "zone": "outdoor",
       "shape": {
-        "origin": [
-          1170,
-          947.5
-        ],
+        "origin": [1170, 947.5],
         "path": "h-55 v-170 h-25 v-70 h25 v-10 h20 v10 h10 v-45 h25 v-25 h55 v25 h-5 v50 h37.5 v12.5 h12.5 v50 h-12.5 v12.5 h-37.5 v160"
       },
       "innerLines": [
@@ -1198,38 +910,24 @@
         "title": "Main Street 2",
         "description": "Has a lot of mannequins and cars"
       },
-      "flags": [
-        "noWalls"
-      ]
+      "flags": ["noWalls"]
     },
     {
       "id": "room-0064",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          620,
-          960
-        ],
-        "rect": [
-          50,
-          65
-        ]
+        "origin": [620, 960],
+        "rect": [50, 65]
       },
-      "flags": [
-        "disabled",
-        "unreachable"
-      ]
+      "flags": ["disabled", "unreachable"]
     },
     {
       "id": "room-0066",
-      "floor": 0,
+      "floor": -1,
       "zone": "standard",
       "shape": {
-        "origin": [
-          792.5,
-          560
-        ],
+        "origin": [792.5, 560],
         "path": "v55 h-47.5 v52.5 h127.5 v-97.5 h-32.5 v-10 z"
       },
       "innerLines": [
@@ -1244,10 +942,7 @@
       ],
       "label": {
         "text": "Autopsy Room",
-        "pos": [
-          24,
-          80
-        ]
+        "pos": [24, 80]
       }
     }
   ],
@@ -1255,933 +950,588 @@
     {
       "id": "pl-0001",
       "element": "start-point",
-      "floor": 1,
-      "pos": [
-        372.5,
-        1195
-      ]
+      "floor": 0,
+      "pos": [372.5, 1195]
     },
     {
       "id": "pl-0002",
       "element": "shuttle",
-      "floor": 1,
-      "pos": [
-        372.5,
-        1185
-      ],
-      "size": [
-        24,
-        7
-      ]
+      "floor": 0,
+      "pos": [372.5, 1185],
+      "size": [24, 7]
     },
     {
       "id": "pl-0003",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        640,
-        870
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [640, 870],
+      "size": [20, 4]
     },
     {
       "id": "pl-0004",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        780,
-        945
-      ],
-      "size": [
-        20,
-        4
-      ],
+      "floor": -1,
+      "pos": [780, 945],
+      "size": [20, 4],
       "inactive": true
     },
     {
       "id": "pl-0005",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        725,
-        1025
-      ],
+      "floor": -1,
+      "pos": [725, 1025],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ],
+      "size": [20, 4],
       "inactive": true
     },
     {
       "id": "pl-0006",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        895,
-        970
-      ],
+      "floor": -1,
+      "pos": [895, 970],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ],
+      "size": [20, 4],
       "inactive": true
     },
     {
       "id": "pl-0007",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        715,
-        667.5
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [715, 667.5],
+      "size": [20, 4]
     },
     {
       "id": "pl-0008",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        710,
-        615
-      ]
+      "floor": -1,
+      "pos": [710, 615]
     },
     {
       "id": "pl-0009",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        745,
-        640
-      ],
+      "floor": -1,
+      "pos": [745, 640],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ]
+      "size": [20, 4]
     },
     {
       "id": "pl-0010",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        765,
-        577.5
-      ],
+      "floor": -1,
+      "pos": [765, 577.5],
       "rotation": 90
     },
     {
       "id": "pl-0011",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        785,
-        535
-      ]
+      "floor": -1,
+      "pos": [785, 535]
     },
     {
       "id": "pl-0012",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        817.5,
-        667.5
-      ]
+      "floor": -1,
+      "pos": [817.5, 667.5]
     },
     {
       "id": "pl-0013",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        873,
-        590
-      ],
+      "floor": -1,
+      "pos": [873, 590],
       "rotation": 90
     },
     {
       "id": "pl-0014",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        898,
-        570
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [898, 570],
+      "size": [20, 4]
     },
     {
       "id": "pl-0015",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        977.5,
-        600
-      ]
+      "floor": -1,
+      "pos": [977.5, 600]
     },
     {
       "id": "pl-0016",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        960,
-        640
-      ],
+      "floor": -1,
+      "pos": [960, 640],
       "rotation": 90
     },
     {
       "id": "pl-0017",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1040,
-        635
-      ],
+      "floor": -1,
+      "pos": [1040, 635],
       "rotation": 90
     },
     {
       "id": "pl-0018",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1057.5,
-        650
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [1057.5, 650],
+      "size": [20, 4]
     },
     {
       "id": "pl-0019",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1045,
-        570
-      ]
+      "floor": -1,
+      "pos": [1045, 570]
     },
     {
       "id": "pl-0020",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1032.5,
-        740
-      ]
+      "floor": -1,
+      "pos": [1032.5, 740]
     },
     {
       "id": "pl-0022",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        990,
-        755
-      ],
+      "floor": -1,
+      "pos": [990, 755],
       "rotation": 90
     },
     {
       "id": "pl-0023",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1070,
-        782.5
-      ],
+      "floor": -1,
+      "pos": [1070, 782.5],
       "rotation": 90
     },
     {
       "id": "pl-0024",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1090,
-        810
-      ]
+      "floor": -1,
+      "pos": [1090, 810]
     },
     {
       "id": "pl-0025",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1030,
-        1090
-      ],
+      "floor": -1,
+      "pos": [1030, 1090],
       "rotation": 90
     },
     {
       "id": "pl-0026",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        680,
-        600
-      ],
+      "floor": -1,
+      "pos": [680, 600],
       "rotation": 90,
-      "size": [
-        28,
-        4
-      ]
+      "size": [28, 4]
     },
     {
       "id": "pl-0027",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        812.5,
-        1050
-      ],
-      "size": [
-        30,
-        4
-      ],
+      "floor": -1,
+      "pos": [812.5, 1050],
+      "size": [30, 4],
       "inactive": true
     },
     {
       "id": "pl-0028",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        782,
-        864
-      ],
+      "floor": -1,
+      "pos": [782, 864],
       "roomId": "bathroom-stalls"
     },
     {
       "id": "pl-0029",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        510,
-        915
-      ]
+      "floor": -1,
+      "pos": [510, 915]
     },
     {
       "id": "pl-0030",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        830.5
-      ],
+      "floor": -1,
+      "pos": [1015, 830.5],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ],
+      "size": [8.5, 4],
       "inactive": true
     },
     {
       "id": "pl-0031",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        849.5
-      ],
+      "floor": -1,
+      "pos": [1015, 849.5],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ],
+      "size": [8.5, 4],
       "inactive": true
     },
     {
       "id": "pl-0032",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        858
-      ],
+      "floor": -1,
+      "pos": [1015, 858],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ],
+      "size": [8.5, 4],
       "inactive": true
     },
     {
       "id": "pl-0033",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        866.5
-      ],
+      "floor": -1,
+      "pos": [1015, 866.5],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ]
+      "size": [8.5, 4]
     },
     {
       "id": "pl-0034",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        875
-      ],
+      "floor": -1,
+      "pos": [1015, 875],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ]
+      "size": [8.5, 4]
     },
     {
       "id": "pl-0035",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        883.5
-      ],
+      "floor": -1,
+      "pos": [1015, 883.5],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ],
+      "size": [8.5, 4],
       "inactive": true
     },
     {
       "id": "pl-0036",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        892
-      ],
+      "floor": -1,
+      "pos": [1015, 892],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ],
+      "size": [8.5, 4],
       "inactive": true
     },
     {
       "id": "pl-0037",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1015,
-        900.5
-      ],
+      "floor": -1,
+      "pos": [1015, 900.5],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ],
+      "size": [8.5, 4],
       "inactive": true
     },
     {
       "id": "pl-0038",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1080,
-        1022.5
-      ],
+      "floor": -1,
+      "pos": [1080, 1022.5],
       "rotation": 90
     },
     {
       "id": "pl-0039",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        960,
-        767
-      ],
+      "floor": -1,
+      "pos": [960, 767],
       "rotation": 90
     },
     {
       "id": "pl-0041",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        500,
-        1042.5
-      ]
+      "floor": -1,
+      "pos": [500, 1042.5]
     },
     {
       "id": "pl-0042",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        792.5,
-        585
-      ],
+      "floor": -1,
+      "pos": [792.5, 585],
       "rotation": 90
     },
     {
       "id": "pl-0043",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        995,
-        557.5
-      ],
+      "floor": -1,
+      "pos": [995, 557.5],
       "rotation": 90
     },
     {
       "id": "pl-0044",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        490,
-        935
-      ],
+      "floor": -1,
+      "pos": [490, 935],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ]
+      "size": [20, 4]
     },
     {
       "id": "pl-0045",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        490,
-        1022.5
-      ],
+      "floor": -1,
+      "pos": [490, 1022.5],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ]
+      "size": [20, 4]
     },
     {
       "id": "pl-0046",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        450,
-        970
-      ],
+      "floor": -1,
+      "pos": [450, 970],
       "rotation": 90,
       "roomId": "entry-hallway"
     },
     {
       "id": "pl-0047",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        490,
-        1077.5
-      ],
+      "floor": -1,
+      "pos": [490, 1077.5],
       "rotation": 90
     },
     {
       "id": "pl-0048",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        470,
-        1042.5
-      ]
+      "floor": -1,
+      "pos": [470, 1042.5]
     },
     {
       "id": "pl-0049",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        560,
-        700
-      ],
+      "floor": -1,
+      "pos": [560, 700],
       "rotation": 90
     },
     {
       "id": "pl-0050",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        560,
-        845
-      ],
+      "floor": -1,
+      "pos": [560, 845],
       "rotation": 90
     },
     {
       "id": "pl-0051",
       "element": "door-yellow",
-      "floor": 0,
-      "pos": [
-        560,
-        895
-      ],
+      "floor": -1,
+      "pos": [560, 895],
       "rotation": 90
     },
     {
       "id": "pl-0052",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        470,
-        915
-      ]
+      "floor": -1,
+      "pos": [470, 915]
     },
     {
       "id": "pl-0053",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        855,
-        742.5
-      ]
+      "floor": -1,
+      "pos": [855, 742.5]
     },
     {
       "id": "pl-0054",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        620,
-        775
-      ],
+      "floor": -1,
+      "pos": [620, 775],
       "rotation": 90
     },
     {
       "id": "pl-0055",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        695,
-        792
-      ],
+      "floor": -1,
+      "pos": [695, 792],
       "rotation": 90
     },
     {
       "id": "pl-0056",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        727.5,
-        792.5
-      ],
+      "floor": -1,
+      "pos": [727.5, 792.5],
       "rotation": 90
     },
     {
       "id": "pl-0057",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        727.5,
-        807.5
-      ],
+      "floor": -1,
+      "pos": [727.5, 807.5],
       "rotation": 90
     },
     {
       "id": "pl-0058",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        727.5,
-        822.5
-      ],
+      "floor": -1,
+      "pos": [727.5, 822.5],
       "rotation": 90
     },
     {
       "id": "pl-0059",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        805,
-        810
-      ],
+      "floor": -1,
+      "pos": [805, 810],
       "rotation": 90
     },
     {
       "id": "pl-0060",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        750,
-        772.5
-      ],
+      "floor": -1,
+      "pos": [750, 772.5],
       "rotation": 90
     },
     {
       "id": "pl-0061",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        772.5,
-        705
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [772.5, 705],
+      "size": [20, 4]
     },
     {
       "id": "pl-0062",
       "element": "obstacle",
-      "floor": 0,
-      "pos": [
-        677.5,
-        740
-      ]
+      "floor": -1,
+      "pos": [677.5, 740]
     },
     {
       "id": "pl-0063",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        677.5,
-        745
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [677.5, 745],
+      "size": [20, 4]
     },
     {
       "id": "pl-0064",
       "element": "obstacle",
-      "floor": 0,
-      "pos": [
-        677.5,
-        750
-      ],
+      "floor": -1,
+      "pos": [677.5, 750],
       "rotation": 180
     },
     {
       "id": "pl-0065",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        907.5,
-        1040
-      ]
+      "floor": -1,
+      "pos": [907.5, 1040]
     },
     {
       "id": "pl-0066",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        955,
-        1040
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [955, 1040],
+      "size": [20, 4]
     },
     {
       "id": "pl-0067",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        955,
-        990
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [955, 990],
+      "size": [20, 4]
     },
     {
       "id": "pl-0068",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        990,
-        1015
-      ],
+      "floor": -1,
+      "pos": [990, 1015],
       "rotation": 90
     },
     {
       "id": "pl-0069",
       "element": "door-locked",
-      "floor": 0,
-      "pos": [
-        1115,
-        975
-      ],
+      "floor": -1,
+      "pos": [1115, 975],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ],
+      "size": [20, 4],
       "marker": {
-        "offset": [
-          0,
-          0
-        ],
+        "offset": [0, 0],
         "label": 1
       }
     },
     {
       "id": "pl-0070",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        907.5,
-        940
-      ]
+      "floor": -1,
+      "pos": [907.5, 940]
     },
     {
       "id": "pl-0071",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        950,
-        940
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [950, 940],
+      "size": [20, 4]
     },
     {
       "id": "pl-0072",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        925,
-        895
-      ],
+      "floor": -1,
+      "pos": [925, 895],
       "rotation": 90
     },
     {
       "id": "pl-0073",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        996.8,
-        818.2
-      ],
+      "floor": -1,
+      "pos": [996.8, 818.2],
       "rotation": 135,
-      "size": [
-        18,
-        4
-      ]
+      "size": [18, 4]
     },
     {
       "id": "pl-0074",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1015,
-        925
-      ],
+      "floor": -1,
+      "pos": [1015, 925],
       "rotation": 90
     },
     {
       "id": "pl-0075",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1075,
-        915
-      ]
+      "floor": -1,
+      "pos": [1075, 915]
     },
     {
       "id": "pl-0076",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1060,
-        990
-      ]
+      "floor": -1,
+      "pos": [1060, 990]
     },
     {
       "id": "pl-0077",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        1060,
-        1055
-      ]
+      "floor": -1,
+      "pos": [1060, 1055]
     },
     {
       "id": "pl-0078",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        925,
-        835
-      ],
+      "floor": -1,
+      "pos": [925, 835],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ]
+      "size": [20, 4]
     },
     {
       "id": "pl-0079",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        795,
-        687.5
-      ],
+      "floor": -1,
+      "pos": [795, 687.5],
       "rotation": 90,
-      "size": [
-        20,
-        4
-      ]
+      "size": [20, 4]
     },
     {
       "id": "pl-0080",
       "element": "obstacle",
-      "floor": 0,
-      "pos": [
-        975,
-        700
-      ]
+      "floor": -1,
+      "pos": [975, 700]
     },
     {
       "id": "pl-0081",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        975,
-        705
-      ],
-      "size": [
-        20,
-        4
-      ]
+      "floor": -1,
+      "pos": [975, 705],
+      "size": [20, 4]
     },
     {
       "id": "pl-0082",
       "element": "obstacle",
-      "floor": 0,
-      "pos": [
-        975,
-        710
-      ],
+      "floor": -1,
+      "pos": [975, 710],
       "rotation": 180
     },
     {
       "id": "pl-0086",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        737.5,
-        870
-      ]
+      "floor": -1,
+      "pos": [737.5, 870]
     },
     {
       "id": "pl-0087",
       "element": "door-yellow",
-      "floor": 0,
-      "pos": [
-        700,
-        960
-      ],
-      "size": [
-        20,
-        4
-      ],
+      "floor": -1,
+      "pos": [700, 960],
+      "size": [20, 4],
       "roomId": "room-0007",
       "props": {
         "rngBased": true
@@ -2190,66 +1540,42 @@
     {
       "id": "pl-0088",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        620,
-        1037.5
-      ],
+      "floor": -1,
+      "pos": [620, 1037.5],
       "rotation": 90
     },
     {
       "id": "pl-0089",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        560,
-        1052.5
-      ],
+      "floor": -1,
+      "pos": [560, 1052.5],
       "rotation": 90
     },
     {
       "id": "pl-0090",
       "element": "door-yellow",
-      "floor": 0,
-      "pos": [
-        845.5,
-        870
-      ]
+      "floor": -1,
+      "pos": [845.5, 870]
     },
     {
       "id": "pl-0091",
       "element": "double-door",
-      "floor": 0,
-      "pos": [
-        480,
-        825
-      ],
-      "size": [
-        18,
-        4
-      ]
+      "floor": -1,
+      "pos": [480, 825],
+      "size": [18, 4]
     },
     {
       "id": "pl-0092",
       "element": "double-door",
-      "floor": 0,
-      "pos": [
-        1086,
-        740
-      ],
-      "size": [
-        18,
-        4
-      ]
+      "floor": -1,
+      "pos": [1086, 740],
+      "size": [18, 4]
     },
     {
       "id": "pl-0093",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        450,
-        1015
-      ],
+      "floor": -1,
+      "pos": [450, 1015],
       "rotation": 270,
       "props": {
         "note": "Coyle scripted t spawn here afer you enter the basement"
@@ -2258,219 +1584,147 @@
     {
       "id": "pl-0094",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        630,
-        685
-      ],
+      "floor": -1,
+      "pos": [630, 685],
       "rotation": 180
     },
     {
       "id": "pl-0095",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        885,
-        945
-      ],
+      "floor": -1,
+      "pos": [885, 945],
       "inactive": true
     },
     {
       "id": "pl-0096",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        1065,
-        949.5
-      ],
+      "floor": -1,
+      "pos": [1065, 949.5],
       "rotation": 90
     },
     {
       "id": "pl-0097",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        947.5,
-        615
-      ]
+      "floor": -1,
+      "pos": [947.5, 615]
     },
     {
       "id": "pl-0098",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        912.5,
-        795
-      ]
+      "floor": -1,
+      "pos": [912.5, 795]
     },
     {
       "id": "pl-0099",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        660,
-        685
-      ],
+      "floor": -1,
+      "pos": [660, 685],
       "rotation": 270
     },
     {
       "id": "pl-0100",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        816.5,
-        560
-      ]
+      "floor": -1,
+      "pos": [816.5, 560]
     },
     {
       "id": "pl-0101",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        1130,
-        755
-      ]
+      "floor": -1,
+      "pos": [1130, 755]
     },
     {
       "id": "pl-0102",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        1167,
-        975.5
-      ],
+      "floor": -1,
+      "pos": [1167, 975.5],
       "rotation": 90
     },
     {
       "id": "pl-0103",
       "element": "ladder",
-      "floor": 0,
-      "pos": [
-        1163,
-        975.5
-      ],
+      "floor": -1,
+      "pos": [1163, 975.5],
       "rotation": 90
     },
     {
       "id": "pl-0106",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        1015,
-        710
-      ],
+      "floor": -1,
+      "pos": [1015, 710],
       "rotation": 90
     },
     {
       "id": "pl-0107",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        736,
-        785
-      ]
+      "floor": -1,
+      "pos": [736, 785]
     },
     {
       "id": "pl-0108",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        805,
-        885
-      ],
+      "floor": -1,
+      "pos": [805, 885],
       "rotation": 90
     },
     {
       "id": "pl-0109",
       "element": "vault-window",
-      "floor": 0,
-      "pos": [
-        815,
-        795
-      ]
+      "floor": -1,
+      "pos": [815, 795]
     },
     {
       "id": "pl-0155",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        810,
-        765
-      ],
+      "floor": -1,
+      "pos": [810, 765],
       "roomId": "room-0053"
     },
     {
       "id": "pl-0156",
       "element": "door",
-      "floor": 1,
-      "pos": [
-        390,
-        1090
-      ]
+      "floor": 0,
+      "pos": [390, 1090]
     },
     {
       "id": "pl-0157",
       "element": "stairs",
-      "floor": 1,
-      "pos": [
-        372.5,
-        1130
-      ],
+      "floor": 0,
+      "pos": [372.5, 1130],
       "rotation": 270,
-      "size": [
-        12,
-        43
-      ]
+      "size": [12, 43]
     },
     {
       "id": "pl-0158",
       "element": "stairs",
-      "floor": 1,
-      "pos": [
-        412.5,
-        1030
-      ],
+      "floor": 0,
+      "pos": [412.5, 1030],
       "rotation": 270,
-      "size": [
-        50,
-        25
-      ],
+      "size": [50, 25],
       "props": {
         "direction": "down",
-        "targetFloor": 0
+        "targetFloor": -1
       }
     },
     {
       "id": "pl-0159",
       "element": "stairs",
-      "floor": 0,
-      "pos": [
-        412.5,
-        1030
-      ],
+      "floor": -1,
+      "pos": [412.5, 1030],
       "rotation": 270,
-      "size": [
-        50,
-        25
-      ],
+      "size": [50, 25],
       "props": {
         "direction": "up",
-        "targetFloor": 1
+        "targetFloor": 0
       }
     },
     {
       "id": "pl-0160",
       "element": "shuttle-exit",
-      "floor": 1,
-      "pos": [
-        1275,
-        750.25
-      ],
+      "floor": 0,
+      "pos": [1275, 750.25],
       "rotation": 270,
-      "size": [
-        55.5,
-        14
-      ],
+      "size": [55.5, 14],
       "props": {
         "cells": 4,
         "enterable": true,
@@ -2480,30 +1734,21 @@
     {
       "id": "pl-0162",
       "element": "exit-point",
-      "floor": 1,
-      "pos": [
-        1290,
-        747
-      ]
+      "floor": 0,
+      "pos": [1290, 747]
     },
     {
       "id": "pl-0163",
       "element": "vault-window",
-      "floor": 1,
-      "pos": [
-        1167.5,
-        977.5
-      ],
+      "floor": 0,
+      "pos": [1167.5, 977.5],
       "rotation": 90
     },
     {
       "id": "pl-0165",
       "element": "gas-can",
-      "floor": 1,
-      "pos": [
-        435,
-        1080
-      ],
+      "floor": 0,
+      "pos": [435, 1080],
       "roomId": "room-0063",
       "props": {
         "note": "Required"
@@ -2512,33 +1757,24 @@
     {
       "id": "pl-0166",
       "element": "door-barricaded",
-      "floor": 0,
-      "pos": [
-        725,
-        925
-      ],
+      "floor": -1,
+      "pos": [725, 925],
       "roomId": "room-0007",
       "rotation": 90
     },
     {
       "id": "pl-0167",
       "element": "door-barricaded",
-      "floor": 0,
-      "pos": [
-        875,
-        895
-      ],
+      "floor": -1,
+      "pos": [875, 895],
       "rotation": 90,
       "roomId": "room-0011"
     },
     {
       "id": "pl-0168",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        670,
-        995
-      ],
+      "floor": -1,
+      "pos": [670, 995],
       "rotation": 270,
       "props": {
         "note": "Coyle scripted t spawn here afer you enter the basement"
@@ -2547,11 +1783,8 @@
     {
       "id": "pl-0169",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        410,
-        955
-      ],
+      "floor": -1,
+      "pos": [410, 955],
       "props": {
         "note": "Coyle scripted t spawn here afer you enter the basement"
       }
@@ -2559,71 +1792,50 @@
     {
       "id": "pl-0170",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        745,
-        787.5
-      ],
+      "floor": -1,
+      "pos": [745, 787.5],
       "roomId": "bathroom-stalls"
     },
     {
       "id": "pl-0171",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1062.5,
-        570
-      ],
+      "floor": -1,
+      "pos": [1062.5, 570],
       "roomId": "backroom-05"
     },
     {
       "id": "pl-0172",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        855,
-        935
-      ],
+      "floor": -1,
+      "pos": [855, 935],
       "rotation": 90
     },
     {
       "id": "pl-0173",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        860,
-        1050
-      ],
+      "floor": -1,
+      "pos": [860, 1050],
       "inactive": true
     },
     {
       "id": "pl-0174",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        1010,
-        1125
-      ],
+      "floor": -1,
+      "pos": [1010, 1125],
       "rotation": 180
     },
     {
       "id": "pl-0175",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        907.5,
-        1125
-      ],
+      "floor": -1,
+      "pos": [907.5, 1125],
       "rotation": 180
     },
     {
       "id": "pl-0176",
       "element": "enemy-spawn",
-      "floor": 0,
-      "pos": [
-        695,
-        842.5
-      ],
+      "floor": -1,
+      "pos": [695, 842.5],
       "rotation": 270,
       "props": {
         "note": "Coyle scripted t spawn here afer you enter the basement"
@@ -2632,1674 +1844,1167 @@
     {
       "id": "pl-0177",
       "element": "document",
-      "floor": 0,
-      "pos": [
-        505,
-        1052.5
-      ],
+      "floor": -1,
+      "pos": [505, 1052.5],
       "roomId": "room-0008"
     },
     {
       "id": "pl-0178",
       "element": "gas-can",
-      "floor": 0,
-      "pos": [
-        1135,
-        1020
-      ],
+      "floor": -1,
+      "pos": [1135, 1020],
       "roomId": "room-0036",
       "inactive": true
     },
     {
       "id": "pl-0179",
       "element": "document",
-      "floor": 0,
-      "pos": [
-        1040,
-        920
-      ],
+      "floor": -1,
+      "pos": [1040, 920],
       "roomId": "room-0037"
     },
     {
       "id": "pl-0180",
       "element": "document",
-      "floor": 0,
-      "pos": [
-        760,
-        565
-      ],
+      "floor": -1,
+      "pos": [760, 565],
       "roomId": "backroom-03"
     },
     {
       "id": "pl-0181",
       "element": "document",
-      "floor": 0,
-      "pos": [
-        770,
-        550
-      ],
+      "floor": -1,
+      "pos": [770, 550],
       "roomId": "room-0023"
     },
     {
       "id": "pl-0182",
       "element": "document",
-      "floor": 0,
-      "pos": [
-        812.5,
-        875
-      ],
+      "floor": -1,
+      "pos": [812.5, 875],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0183",
       "element": "poster",
-      "floor": 1,
-      "pos": [
-        395,
-        1050
-      ],
+      "floor": 0,
+      "pos": [395, 1050],
       "roomId": "casino"
     },
     {
       "id": "pl-0184",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        400,
-        970
-      ],
+      "floor": -1,
+      "pos": [400, 970],
       "roomId": "room-0055"
     },
     {
       "id": "pl-0185",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        425,
-        955
-      ],
+      "floor": -1,
+      "pos": [425, 955],
       "roomId": "room-0055"
     },
     {
       "id": "pl-0186",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        450,
-        985
-      ],
+      "floor": -1,
+      "pos": [450, 985],
       "roomId": "entry-hallway"
     },
     {
       "id": "pl-0187",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        482.5,
-        1042.5
-      ],
+      "floor": -1,
+      "pos": [482.5, 1042.5],
       "roomId": "entry-hallway"
     },
     {
       "id": "pl-0188",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        450,
-        870
-      ],
+      "floor": -1,
+      "pos": [450, 870],
       "roomId": "room-0014"
     },
     {
       "id": "pl-0189",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        1115,
-        820
-      ],
+      "floor": -1,
+      "pos": [1115, 820],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ]
+      "size": [8.5, 4]
     },
     {
       "id": "pl-0190",
       "element": "window",
-      "floor": 0,
-      "pos": [
-        490,
-        892.5
-      ],
+      "floor": -1,
+      "pos": [490, 892.5],
       "rotation": 90,
-      "size": [
-        8.5,
-        4
-      ]
+      "size": [8.5, 4]
     },
     {
       "id": "pl-0191",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        487.5,
-        902.5
-      ],
+      "floor": -1,
+      "pos": [487.5, 902.5],
       "roomId": "room-0014"
     },
     {
       "id": "pl-0192",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        487.5,
-        855
-      ],
+      "floor": -1,
+      "pos": [487.5, 855],
       "roomId": "room-0014"
     },
     {
       "id": "pl-0193",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        545,
-        915
-      ],
+      "floor": -1,
+      "pos": [545, 915],
       "roomId": "room-0014"
     },
     {
       "id": "pl-0194",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        525,
-        825
-      ],
+      "floor": -1,
+      "pos": [525, 825],
       "roomId": "room-0014"
     },
     {
       "id": "pl-0195",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        550,
-        825
-      ],
+      "floor": -1,
+      "pos": [550, 825],
       "roomId": "room-0014"
     },
     {
       "id": "pl-0196",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        510,
-        1095
-      ],
+      "floor": -1,
+      "pos": [510, 1095],
       "roomId": "room-0008"
     },
     {
       "id": "pl-0197",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        540,
-        1095
-      ],
+      "floor": -1,
+      "pos": [540, 1095],
       "roomId": "room-0008"
     },
     {
       "id": "pl-0198",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        620,
-        1087.5
-      ],
+      "floor": -1,
+      "pos": [620, 1087.5],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0199",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        620,
-        1067.5
-      ],
+      "floor": -1,
+      "pos": [620, 1067.5],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0200",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        540,
-        1042.5
-      ],
+      "floor": -1,
+      "pos": [540, 1042.5],
       "roomId": "room-0008"
     },
     {
       "id": "pl-0201",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        620,
-        992.5
-      ],
+      "floor": -1,
+      "pos": [620, 992.5],
       "roomId": "room-0064"
     },
     {
       "id": "pl-0202",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        662.5,
-        870
-      ],
+      "floor": -1,
+      "pos": [662.5, 870],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0203",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        697.5,
-        880
-      ],
+      "floor": -1,
+      "pos": [697.5, 880],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0204",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        700,
-        917.5
-      ],
+      "floor": -1,
+      "pos": [700, 917.5],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0205",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        722.5,
-        915
-      ],
+      "floor": -1,
+      "pos": [722.5, 915],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0206",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        722.5,
-        880
-      ],
+      "floor": -1,
+      "pos": [722.5, 880],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0207",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        717.5,
-        872.5
-      ],
+      "floor": -1,
+      "pos": [717.5, 872.5],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0208",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        495,
-        815
-      ]
+      "floor": -1,
+      "pos": [495, 815]
     },
     {
       "id": "pl-0209",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        450,
-        815
-      ],
+      "floor": -1,
+      "pos": [450, 815],
       "roomId": "backrooms-01"
     },
     {
       "id": "pl-0210",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        450,
-        760
-      ],
+      "floor": -1,
+      "pos": [450, 760],
       "roomId": "backrooms-01"
     },
     {
       "id": "pl-0211",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        495,
-        772.5
-      ],
+      "floor": -1,
+      "pos": [495, 772.5],
       "roomId": "backrooms-01"
     },
     {
       "id": "pl-0212",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        510,
-        765
-      ]
+      "floor": -1,
+      "pos": [510, 765]
     },
     {
       "id": "pl-0213",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        572.5,
-        682.5
-      ],
+      "floor": -1,
+      "pos": [572.5, 682.5],
       "roomId": "backroom-02"
     },
     {
       "id": "pl-0214",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        622.5,
-        685
-      ]
+      "floor": -1,
+      "pos": [622.5, 685]
     },
     {
       "id": "pl-0215",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        640,
-        630
-      ],
+      "floor": -1,
+      "pos": [640, 630],
       "roomId": "backroom-02"
     },
     {
       "id": "pl-0216",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        645,
-        615
-      ],
+      "floor": -1,
+      "pos": [645, 615],
       "roomId": "backroom-02"
     },
     {
       "id": "pl-0217",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        697.5,
-        612.5
-      ],
+      "floor": -1,
+      "pos": [697.5, 612.5],
       "roomId": "backroom-02"
     },
     {
       "id": "pl-0218",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        765,
-        605
-      ],
+      "floor": -1,
+      "pos": [765, 605],
       "roomId": "room-0024"
     },
     {
       "id": "pl-0219",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        762.5,
-        540
-      ],
+      "floor": -1,
+      "pos": [762.5, 540],
       "roomId": "backroom-03"
     },
     {
       "id": "pl-0220",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        770,
-        532.5
-      ],
+      "floor": -1,
+      "pos": [770, 532.5],
       "roomId": "backroom-03"
     },
     {
       "id": "pl-0221",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        800,
-        532.5
-      ],
+      "floor": -1,
+      "pos": [800, 532.5],
       "roomId": "backroom-03"
     },
     {
       "id": "pl-0222",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        830,
-        535
-      ],
+      "floor": -1,
+      "pos": [830, 535],
       "roomId": "room-0022"
     },
     {
       "id": "pl-0223",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        840,
-        547.5
-      ],
+      "floor": -1,
+      "pos": [840, 547.5],
       "roomId": "backroom-03"
     },
     {
       "id": "pl-0224",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        867.5,
-        567.5
-      ],
+      "floor": -1,
+      "pos": [867.5, 567.5],
       "roomId": "backroom-03"
     },
     {
       "id": "pl-0225",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        950,
-        585
-      ],
+      "floor": -1,
+      "pos": [950, 585],
       "roomId": "backroom-04"
     },
     {
       "id": "pl-0226",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        995,
-        575
-      ],
+      "floor": -1,
+      "pos": [995, 575],
       "roomId": "backroom-04"
     },
     {
       "id": "pl-0227",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1017.5,
-        562.5
-      ],
+      "floor": -1,
+      "pos": [1017.5, 562.5],
       "roomId": "backroom-05"
     },
     {
       "id": "pl-0228",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1025,
-        567.5
-      ],
+      "floor": -1,
+      "pos": [1025, 567.5],
       "roomId": "room-0045"
     },
     {
       "id": "pl-0229",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1042.5,
-        552.5
-      ],
+      "floor": -1,
+      "pos": [1042.5, 552.5],
       "roomId": "room-0045"
     },
     {
       "id": "pl-0230",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1042.5,
-        612.5
-      ],
+      "floor": -1,
+      "pos": [1042.5, 612.5],
       "roomId": "backroom-05"
     },
     {
       "id": "pl-0231",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1047.5,
-        695
-      ],
+      "floor": -1,
+      "pos": [1047.5, 695],
       "roomId": "backroom-06"
     },
     {
       "id": "pl-0232",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1055,
-        737.5
-      ],
+      "floor": -1,
+      "pos": [1055, 737.5],
       "roomId": "backroom-06"
     },
     {
       "id": "pl-0233",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        562.5,
-        715
-      ],
+      "floor": -1,
+      "pos": [562.5, 715],
       "roomId": "room-0002"
     },
     {
       "id": "pl-0234",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        562.5,
-        742.5
-      ],
+      "floor": -1,
+      "pos": [562.5, 742.5],
       "roomId": "room-0002"
     },
     {
       "id": "pl-0235",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        617.5,
-        742.5
-      ],
+      "floor": -1,
+      "pos": [617.5, 742.5],
       "roomId": "room-0002"
     },
     {
       "id": "pl-0236",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        562.5,
-        857.5
-      ],
+      "floor": -1,
+      "pos": [562.5, 857.5],
       "roomId": "room-0002"
     },
     {
       "id": "pl-0237",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        617.5,
-        857.5
-      ],
+      "floor": -1,
+      "pos": [617.5, 857.5],
       "roomId": "room-0002"
     },
     {
       "id": "pl-0238",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        667.5,
-        617.5
-      ],
+      "floor": -1,
+      "pos": [667.5, 617.5],
       "roomId": "room-0018"
     },
     {
       "id": "pl-0239",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        655,
-        630
-      ],
+      "floor": -1,
+      "pos": [655, 630],
       "roomId": "room-0018"
     },
     {
       "id": "pl-0240",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        655,
-        657.5
-      ]
+      "floor": -1,
+      "pos": [655, 657.5]
     },
     {
       "id": "pl-0241",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        732.5,
-        665
-      ],
+      "floor": -1,
+      "pos": [732.5, 665],
       "roomId": "room-0018"
     },
     {
       "id": "pl-0242",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        732.5,
-        617.5
-      ],
+      "floor": -1,
+      "pos": [732.5, 617.5],
       "roomId": "room-0018"
     },
     {
       "id": "pl-0243",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        790,
-        560
-      ],
+      "floor": -1,
+      "pos": [790, 560],
       "roomId": "room-0023"
     },
     {
       "id": "pl-0244",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        875,
-        602.5
-      ],
+      "floor": -1,
+      "pos": [875, 602.5],
       "roomId": "room-0019"
     },
     {
       "id": "pl-0245",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        957.5,
-        647.5
-      ],
+      "floor": -1,
+      "pos": [957.5, 647.5],
       "roomId": "room-0019"
     },
     {
       "id": "pl-0246",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1042.5,
-        675
-      ],
+      "floor": -1,
+      "pos": [1042.5, 675],
       "roomId": "room-0057"
     },
     {
       "id": "pl-0247",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1027.5,
-        702.5
-      ],
+      "floor": -1,
+      "pos": [1027.5, 702.5],
       "roomId": "room-0057"
     },
     {
       "id": "pl-0248",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        845,
-        670
-      ],
+      "floor": -1,
+      "pos": [845, 670],
       "roomId": "room-0027"
     },
     {
       "id": "pl-0249",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        837.5,
-        740
-      ],
+      "floor": -1,
+      "pos": [837.5, 740],
       "roomId": "room-0027"
     },
     {
       "id": "pl-0250",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1015,
-        602.5
-      ],
+      "floor": -1,
+      "pos": [1015, 602.5],
       "roomId": "room-0058"
     },
     {
       "id": "pl-0251",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1035,
-        602.5
-      ],
+      "floor": -1,
+      "pos": [1035, 602.5],
       "roomId": "room-0058"
     },
     {
       "id": "pl-0252",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1035,
-        707.5
-      ],
+      "floor": -1,
+      "pos": [1035, 707.5],
       "roomId": "room-0048"
     },
     {
       "id": "pl-0253",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1002.5,
-        707.5
-      ],
+      "floor": -1,
+      "pos": [1002.5, 707.5],
       "roomId": "room-0048"
     },
     {
       "id": "pl-0254",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1042.5,
-        732.5
-      ],
+      "floor": -1,
+      "pos": [1042.5, 732.5],
       "roomId": "room-0048"
     },
     {
       "id": "pl-0255",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1097.5,
-        752.5
-      ],
+      "floor": -1,
+      "pos": [1097.5, 752.5],
       "roomId": "room-0038"
     },
     {
       "id": "pl-0256",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1137.5,
-        765
-      ],
+      "floor": -1,
+      "pos": [1137.5, 765],
       "roomId": "room-0038"
     },
     {
       "id": "pl-0257",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        660,
-        832.5
-      ],
+      "floor": -1,
+      "pos": [660, 832.5],
       "roomId": "room-0003"
     },
     {
       "id": "pl-0258",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        660,
-        810
-      ],
+      "floor": -1,
+      "pos": [660, 810],
       "roomId": "room-0003"
     },
     {
       "id": "pl-0259",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        622.5,
-        825
-      ],
+      "floor": -1,
+      "pos": [622.5, 825],
       "roomId": "room-0003"
     },
     {
       "id": "pl-0260",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        622.5,
-        757.5
-      ],
+      "floor": -1,
+      "pos": [622.5, 757.5],
       "roomId": "room-0003"
     },
     {
       "id": "pl-0261",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        692.5,
-        777.5
-      ],
+      "floor": -1,
+      "pos": [692.5, 777.5],
       "roomId": "room-0003"
     },
     {
       "id": "pl-0262",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        732.5,
-        742.5
-      ],
+      "floor": -1,
+      "pos": [732.5, 742.5],
       "roomId": "room-0029"
     },
     {
       "id": "pl-0263",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        662.5,
-        697.5
-      ],
+      "floor": -1,
+      "pos": [662.5, 697.5],
       "roomId": "room-0029"
     },
     {
       "id": "pl-0264",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        700,
-        670
-      ],
+      "floor": -1,
+      "pos": [700, 670],
       "roomId": "room-0029"
     },
     {
       "id": "pl-0265",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        757.5,
-        670
-      ],
+      "floor": -1,
+      "pos": [757.5, 670],
       "roomId": "room-0029"
     },
     {
       "id": "pl-0266",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        737.5,
-        797.5
-      ],
+      "floor": -1,
+      "pos": [737.5, 797.5],
       "roomId": "bathroom-stalls"
     },
     {
       "id": "pl-0267",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        740,
-        802.5
-      ]
+      "floor": -1,
+      "pos": [740, 802.5]
     },
     {
       "id": "pl-0268",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        737.5,
-        832.5
-      ],
+      "floor": -1,
+      "pos": [737.5, 832.5],
       "roomId": "bathroom-stalls"
     },
     {
       "id": "pl-0269",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        730,
-        837.5
-      ],
+      "floor": -1,
+      "pos": [730, 837.5],
       "roomId": "room-0004"
     },
     {
       "id": "pl-0270",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        745,
-        837.5
-      ],
+      "floor": -1,
+      "pos": [745, 837.5],
       "roomId": "room-0004"
     },
     {
       "id": "pl-0271",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        707.5,
-        867.5
-      ],
+      "floor": -1,
+      "pos": [707.5, 867.5],
       "roomId": "room-0004"
     },
     {
       "id": "pl-0272",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        752.5,
-        707.5
-      ],
+      "floor": -1,
+      "pos": [752.5, 707.5],
       "roomId": "room-0004"
     },
     {
       "id": "pl-0273",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        792.5,
-        732.5
-      ],
+      "floor": -1,
+      "pos": [792.5, 732.5],
       "roomId": "room-0004"
     },
     {
       "id": "pl-0274",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        795,
-        755
-      ],
+      "floor": -1,
+      "pos": [795, 755],
       "roomId": "room-0053"
     },
     {
       "id": "pl-0275",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        752.5,
-        762.5
-      ],
+      "floor": -1,
+      "pos": [752.5, 762.5],
       "roomId": "room-0004"
     },
     {
       "id": "pl-0276",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        727.5,
-        885
-      ],
+      "floor": -1,
+      "pos": [727.5, 885],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0277",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        727.5,
-        910
-      ],
+      "floor": -1,
+      "pos": [727.5, 910],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0278",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        817.5,
-        942.5
-      ],
+      "floor": -1,
+      "pos": [817.5, 942.5],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0279",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        822.5,
-        900
-      ],
+      "floor": -1,
+      "pos": [822.5, 900],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0280",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        822.5,
-        880
-      ],
+      "floor": -1,
+      "pos": [822.5, 880],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0281",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        852.5,
-        925
-      ],
+      "floor": -1,
+      "pos": [852.5, 925],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0282",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        860,
-        920
-      ],
+      "floor": -1,
+      "pos": [860, 920],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0283",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        857.5,
-        872.5
-      ],
+      "floor": -1,
+      "pos": [857.5, 872.5],
       "roomId": "room-0011"
     },
     {
       "id": "pl-0284",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        807.5,
-        800
-      ],
+      "floor": -1,
+      "pos": [807.5, 800],
       "roomId": "room-0009"
     },
     {
       "id": "pl-0285",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        807.5,
-        835
-      ],
+      "floor": -1,
+      "pos": [807.5, 835],
       "roomId": "room-0009"
     },
     {
       "id": "pl-0286",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        867.5,
-        867.5
-      ],
+      "floor": -1,
+      "pos": [867.5, 867.5],
       "roomId": "room-0009"
     },
     {
       "id": "pl-0287",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        900,
-        867.5
-      ],
+      "floor": -1,
+      "pos": [900, 867.5],
       "roomId": "room-0009"
     },
     {
       "id": "pl-0288",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        827.5,
-        757.5
-      ],
+      "floor": -1,
+      "pos": [827.5, 757.5],
       "roomId": "room-0009"
     },
     {
       "id": "pl-0289",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        875,
-        880
-      ],
+      "floor": -1,
+      "pos": [875, 880],
       "roomId": "room-0012"
     },
     {
       "id": "pl-0290",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        897.5,
-        955
-      ],
+      "floor": -1,
+      "pos": [897.5, 955],
       "roomId": "room-0030"
     },
     {
       "id": "pl-0291",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        935,
-        942.5
-      ],
+      "floor": -1,
+      "pos": [935, 942.5],
       "roomId": "room-0030"
     },
     {
       "id": "pl-0292",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        932.5,
-        937.5
-      ],
+      "floor": -1,
+      "pos": [932.5, 937.5],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0293",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        927.5,
-        920
-      ],
+      "floor": -1,
+      "pos": [927.5, 920],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0294",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        927.5,
-        882.5
-      ],
+      "floor": -1,
+      "pos": [927.5, 882.5],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0295",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        965,
-        907.5
-      ],
+      "floor": -1,
+      "pos": [965, 907.5],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0296",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        972.5,
-        915
-      ],
+      "floor": -1,
+      "pos": [972.5, 915],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0297",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        957.5,
-        855
-      ],
+      "floor": -1,
+      "pos": [957.5, 855],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0298",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        995,
-        802.5
-      ],
+      "floor": -1,
+      "pos": [995, 802.5],
       "roomId": "room-0047"
     },
     {
       "id": "pl-0299",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        927.5,
-        780
-      ],
+      "floor": -1,
+      "pos": [927.5, 780],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0300",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        962.5,
-        735
-      ],
+      "floor": -1,
+      "pos": [962.5, 735],
       "roomId": "room-0047"
     },
     {
       "id": "pl-0301",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        987.5,
-        745
-      ],
+      "floor": -1,
+      "pos": [987.5, 745],
       "roomId": "room-0047"
     },
     {
       "id": "pl-0302",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        987.5,
-        960
-      ],
+      "floor": -1,
+      "pos": [987.5, 960],
       "roomId": "room-0030"
     },
     {
       "id": "pl-0303",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1017.5,
-        987.5
-      ],
+      "floor": -1,
+      "pos": [1017.5, 987.5],
       "roomId": "room-0030"
     },
     {
       "id": "pl-0304",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1030,
-        957.5
-      ],
+      "floor": -1,
+      "pos": [1030, 957.5],
       "roomId": "room-0037"
     },
     {
       "id": "pl-0305",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1027.5,
-        917.5
-      ],
+      "floor": -1,
+      "pos": [1027.5, 917.5],
       "roomId": "room-0037"
     },
     {
       "id": "pl-0306",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1075,
-        962.5
-      ],
+      "floor": -1,
+      "pos": [1075, 962.5],
       "roomId": "room-0036"
     },
     {
       "id": "pl-0307",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1082.5,
-        1000
-      ],
+      "floor": -1,
+      "pos": [1082.5, 1000],
       "roomId": "room-0036"
     },
     {
       "id": "pl-0308",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1082.5,
-        1042.5
-      ],
+      "floor": -1,
+      "pos": [1082.5, 1042.5],
       "roomId": "room-0036"
     },
     {
       "id": "pl-0309",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1037.5,
-        992.5
-      ],
+      "floor": -1,
+      "pos": [1037.5, 992.5],
       "roomId": "room-0035"
     },
     {
       "id": "pl-0310",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        992.5,
-        1030
-      ],
+      "floor": -1,
+      "pos": [992.5, 1030],
       "roomId": "room-0035"
     },
     {
       "id": "pl-0311",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        992.5,
-        1067.5
-      ],
+      "floor": -1,
+      "pos": [992.5, 1067.5],
       "roomId": "room-0035"
     },
     {
       "id": "pl-0312",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        990,
-        1102.5
-      ],
+      "floor": -1,
+      "pos": [990, 1102.5],
       "rotation": 90
     },
     {
       "id": "pl-0313",
       "element": "door",
-      "floor": 0,
-      "pos": [
-        920,
-        1102.5
-      ],
+      "floor": -1,
+      "pos": [920, 1102.5],
       "rotation": 90
     },
     {
       "id": "pl-0314",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        992.5,
-        1117.5
-      ],
+      "floor": -1,
+      "pos": [992.5, 1117.5],
       "roomId": "room-0035"
     },
     {
       "id": "pl-0315",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1022.5,
-        1122.5
-      ],
+      "floor": -1,
+      "pos": [1022.5, 1122.5],
       "roomId": "room-0035"
     },
     {
       "id": "pl-0316",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1027.5,
-        1100
-      ],
+      "floor": -1,
+      "pos": [1027.5, 1100],
       "roomId": "room-0035"
     },
     {
       "id": "pl-0317",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1075,
-        1097.5
-      ],
+      "floor": -1,
+      "pos": [1075, 1097.5],
       "roomId": "room-0034"
     },
     {
       "id": "pl-0318",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        965,
-        1122.5
-      ],
+      "floor": -1,
+      "pos": [965, 1122.5],
       "roomId": "room-0032"
     },
     {
       "id": "pl-0319",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        940,
-        1122.5
-      ],
+      "floor": -1,
+      "pos": [940, 1122.5],
       "roomId": "room-0032"
     },
     {
       "id": "pl-0320",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        922.5,
-        1120
-      ],
+      "floor": -1,
+      "pos": [922.5, 1120],
       "roomId": "room-0032"
     },
     {
       "id": "pl-0321",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        917.5,
-        1050
-      ],
+      "floor": -1,
+      "pos": [917.5, 1050],
       "roomId": "room-0031"
     },
     {
       "id": "pl-0322",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        897.5,
-        1047.5
-      ],
+      "floor": -1,
+      "pos": [897.5, 1047.5],
       "roomId": "room-0031"
     },
     {
       "id": "pl-0323",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        897.5,
-        1117.5
-      ],
+      "floor": -1,
+      "pos": [897.5, 1117.5],
       "roomId": "room-0031"
     },
     {
       "id": "pl-0324",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        872.5,
-        1082.5
-      ],
+      "floor": -1,
+      "pos": [872.5, 1082.5],
       "roomId": "room-0031"
     },
     {
       "id": "pl-0325",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1032.5,
-        912.5
-      ],
+      "floor": -1,
+      "pos": [1032.5, 912.5],
       "roomId": "room-0051"
     },
     {
       "id": "pl-0326",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1097.5,
-        912.5
-      ],
+      "floor": -1,
+      "pos": [1097.5, 912.5],
       "roomId": "room-0051"
     },
     {
       "id": "pl-0327",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1120,
-        812.5
-      ],
+      "floor": -1,
+      "pos": [1120, 812.5],
       "roomId": "room-0051"
     },
     {
       "id": "pl-0328",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1077.5,
-        812.5
-      ],
+      "floor": -1,
+      "pos": [1077.5, 812.5],
       "roomId": "room-0051"
     },
     {
       "id": "pl-0329",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        975,
-        832.5
-      ],
+      "floor": -1,
+      "pos": [975, 832.5],
       "roomId": "room-0051"
     },
     {
       "id": "pl-0330",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        982.5,
-        917.5
-      ],
+      "floor": -1,
+      "pos": [982.5, 917.5],
       "roomId": "room-0051"
     },
     {
       "id": "pl-0331",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1112.5,
-        872.5
-      ],
+      "floor": -1,
+      "pos": [1112.5, 872.5],
       "roomId": "room-0051"
     },
     {
       "id": "pl-0332",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        997.5,
-        742.5
-      ],
+      "floor": -1,
+      "pos": [997.5, 742.5],
       "roomId": "room-0040"
     },
     {
       "id": "pl-0333",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        785,
-        665
-      ],
+      "floor": -1,
+      "pos": [785, 665],
       "roomId": "room-0066"
     },
     {
       "id": "pl-0334",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        670,
-        1017.5
-      ],
+      "floor": -1,
+      "pos": [670, 1017.5],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0335",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        642.5,
-        1025
-      ],
+      "floor": -1,
+      "pos": [642.5, 1025],
       "roomId": "room-0064"
     },
     {
       "id": "pl-0336",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        722.5,
-        947.5
-      ],
+      "floor": -1,
+      "pos": [722.5, 947.5],
       "roomId": "room-0007"
     },
     {
       "id": "pl-0337",
       "element": "syringe-container",
-      "floor": 0,
-      "pos": [
-        440,
-        955
-      ],
+      "floor": -1,
+      "pos": [440, 955],
       "roomId": "room-0055"
     },
     {
       "id": "pl-0338",
       "element": "syringe-container",
-      "floor": 0,
-      "pos": [
-        692.5,
-        762.5
-      ],
+      "floor": -1,
+      "pos": [692.5, 762.5],
       "roomId": "room-0003"
     },
     {
       "id": "pl-0339",
       "element": "syringe-container",
-      "floor": 0,
-      "pos": [
-        947.5,
-        762.5
-      ],
+      "floor": -1,
+      "pos": [947.5, 762.5],
       "roomId": "room-0049"
     },
     {
       "id": "pl-0340",
       "element": "poster",
-      "floor": 0,
-      "pos": [
-        1062.5,
-        957.5
-      ],
+      "floor": -1,
+      "pos": [1062.5, 957.5],
       "roomId": "room-0037"
     },
     {
       "id": "pl-0341",
       "element": "enemy-spawn",
-      "floor": 1,
-      "pos": [
-        1102.5,
-        707.5
-      ]
+      "floor": 0,
+      "pos": [1102.5, 707.5]
     },
     {
       "id": "pl-0342",
       "element": "poster",
-      "floor": 1,
-      "pos": [
-        1102.5,
-        775
-      ],
+      "floor": 0,
+      "pos": [1102.5, 775],
       "roomId": "main-street-2"
     },
     {
       "id": "pl-0343",
       "element": "poster",
-      "floor": 1,
-      "pos": [
-        1117.5,
-        785
-      ],
+      "floor": 0,
+      "pos": [1117.5, 785],
       "roomId": "main-street-2"
     }
   ],
@@ -4307,80 +3012,59 @@
   "shapes": [
     {
       "id": "shape-0017",
-      "floor": 0,
-      "pos": [
-        1067.5,
-        560
-      ],
-      "size": [
-        5,
-        20
-      ],
+      "floor": -1,
+      "pos": [1067.5, 560],
+      "size": [5, 20],
       "color": "#000000",
       "fill": "#000000"
     },
     {
       "id": "shape-0018",
-      "floor": 0,
-      "pos": [
-        828.75,
-        905
-      ],
-      "size": [
-        7.5,
-        25
-      ],
+      "floor": -1,
+      "pos": [828.75, 905],
+      "size": [7.5, 25],
       "fill": "#000000",
       "color": "#000000"
     },
     {
       "id": "shape-0019",
-      "floor": 0,
-      "pos": [
-        827.5,
-        881.25
-      ],
-      "size": [
-        5,
-        22.5
-      ],
+      "floor": -1,
+      "pos": [827.5, 881.25],
+      "size": [5, 22.5],
       "fill": "#000000",
       "color": "#000000"
     },
     {
       "id": "shape-0021",
-      "floor": 0,
+      "floor": -1,
       "path": "M1152.5,1015 h-2.5 v10 h2.5 v-10",
       "color": "#941818",
       "fill": "#941818"
     },
     {
       "id": "shape-0022",
-      "floor": 0,
+      "floor": -1,
       "path": "M1115,1015 v10 h2.5 v-10 h-2.5",
       "color": "#125e23",
       "fill": "#125e23"
     },
     {
       "id": "shape-0023",
-      "floor": 0,
+      "floor": -1,
       "path": "M1117.5,1012.5 v40 h32.5 v-40 h-32.5 v17.5 h7.5 h7.5 v-5 h-2.5 v-12.5 h7.5 v12.5 h-5 v5 h17.5 v22.5 h-17.5 v-22.5",
       "color": "#2e2e42",
       "fill": "#2e2e42"
     },
     {
       "id": "shape-0024",
-      "floor": 0,
+      "floor": -1,
       "path": "M1117.5,1015 h12.5 v10 h-12.5 v-10",
       "color": "#282838"
     },
     {
       "id": "shape-0025",
-      "floor": 0,
-      "pos": [
-        1122.5,
-        1022.5
-      ],
+      "floor": -1,
+      "pos": [1122.5, 1022.5],
       "radius": 2.5,
       "strokeWidth": 0.5,
       "color": "#27272e",
@@ -4388,71 +3072,53 @@
     },
     {
       "id": "shape-0026",
-      "floor": 0,
+      "floor": -1,
       "path": "M1122.5,1022.5 h-2.5",
       "strokeWidth": 0.5,
       "color": "#540707"
     },
     {
       "id": "shape-0027",
-      "floor": 0,
-      "pos": [
-        1145,
-        1028.75
-      ],
-      "size": [
-        10,
-        2.5
-      ],
+      "floor": -1,
+      "pos": [1145, 1028.75],
+      "size": [10, 2.5],
       "color": "#c75050",
       "fill": "#c75050"
     },
     {
       "id": "shape-0029",
-      "floor": 0,
+      "floor": -1,
       "path": "M1122.5,1015 v2.5",
       "color": "#cccc42",
       "strokeWidth": 0.5
     },
     {
       "id": "shape-0030",
-      "floor": 0,
+      "floor": -1,
       "path": "M1125,1015 v2.5",
       "color": "#2cc739",
       "strokeWidth": 0.5
     },
     {
       "id": "shape-0031",
-      "floor": 0,
+      "floor": -1,
       "path": "M1127.5,1015 v2.5",
       "color": "#cccc42",
       "strokeWidth": 0.5
     },
     {
       "id": "shape-0032",
-      "floor": 0,
-      "pos": [
-        596.25,
-        656.25
-      ],
-      "size": [
-        12.5,
-        12.5
-      ],
+      "floor": -1,
+      "pos": [596.25, 656.25],
+      "size": [12.5, 12.5],
       "color": "#1c1a1a",
       "fill": "#171717"
     },
     {
       "id": "shape-0033",
-      "floor": 0,
-      "pos": [
-        457.5,
-        832.5
-      ],
-      "size": [
-        15,
-        15
-      ],
+      "floor": -1,
+      "pos": [457.5, 832.5],
+      "size": [15, 15],
       "color": "#1d1d21",
       "fill": "#1d1d21"
     }
