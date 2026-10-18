@@ -91,8 +91,9 @@
       "id": "prison-farm",
       "name": "The Prison Farm",
       "card": "https://outlasttrialsstats.com/game-assets/Poster_Program_13.webp",
-      "progress": 0,
-      "enabled": false
+      "progress": 100,
+      "enabled": true,
+      "hasManifest": true
     },
     {
       "id": "mansion",
