@@ -12,6 +12,12 @@
       "profileId": "3a5e7b94-6161-3796-1f8e-0425bdff9457",
       "profileUrl": "https://outlasttrialsstats.com/@mateuxss",
       "maps": ["prison-farm"]
+    },
+    {
+      "name": "Fwenn",
+      "profileId": "31e121a4-2fcc-770b-0c57-314b57e416e0",
+      "profileUrl": "https://outlasttrialsstats.com/@fwenn",
+      "maps": ["police-station"]
     }
   ]
 }
