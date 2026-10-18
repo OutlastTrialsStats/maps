@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../schemas/map.schema.json",
+  "id": "prison-farm",
+  "meta": {
+    "name": "The Prison Farm",
+    "authors": ["Mateuxss"]
+  },
+  "trials": [
+    {
+      "id": "locksock-the-warden",
+      "name": "Locksock the Warden",
+      "default": true
+    }
+  ]
+}
