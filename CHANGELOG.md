@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.4.0](https://github.com/OutlastTrialsStats/maps/compare/v1.3.0...v1.4.0) (2026-10-20)
+
+
+### Features
+
+* **editor:** give the editor a clearer structure for new contributors ([9610e50](https://github.com/OutlastTrialsStats/maps/commit/9610e5074f68bcc1a86bea72171f527cece90c66))
+* **editor:** let users hide the editor hints ([c5e67de](https://github.com/OutlastTrialsStats/maps/commit/c5e67def31587629441fbc35916a0470abc35629))
+* **viewer:** show five random contributors on the home page ([81a7b2e](https://github.com/OutlastTrialsStats/maps/commit/81a7b2ed978791654c2eda657a91206b53868a2d))
+
+
+### Bug Fixes
+
+* **viewer:** hide the native cursor on contributor profile cards ([ddae2ba](https://github.com/OutlastTrialsStats/maps/commit/ddae2ba456f74e4bf47e758cfefd7635b05d9a17))
+
+
+### Dependencies
+
+* **deps:** bump vue ([#81](https://github.com/OutlastTrialsStats/maps/issues/81)) ([9ea8953](https://github.com/OutlastTrialsStats/maps/commit/9ea895313c19861ac7acc7ca37f9c949da46f86f))
+
 ## [1.3.0](https://github.com/OutlastTrialsStats/maps/compare/v1.2.0...v1.3.0) (2026-10-20)
 
 
