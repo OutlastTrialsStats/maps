@@ -631,6 +631,30 @@
       "color": "#7f8c8d",
       "icon": "item_clock_detonator",
       "anchor": "center"
+    },
+    {
+      "id": "poster",
+      "name": "Poster",
+      "category": "poster",
+      "color": "#3fcad4",
+      "anchor": "center",
+      "icon": "variator_collectposters"
+    },
+    {
+      "id": "document",
+      "name": "Document",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "description": "Possible spawns for Evidence Documents (and technically schematics too)",
+      "icon": "item_Mk_folder"
+    },
+    {
+      "id": "syringe-container",
+      "name": "Syringe Container",
+      "category": "item",
+      "color": "#7f8c8d",
+      "description": "Will hold pills if solo, or possibly nothing if on a high enough difficulty",
+      "icon": "state_syringe"
     }
   ]
 }
