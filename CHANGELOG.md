@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.3.0](https://github.com/OutlastTrialsStats/maps/compare/v1.2.0...v1.3.0) (2026-10-20)
+
+
+### Features
+
+* **data:** add Kill the Snitch trial for Police Station ([#79](https://github.com/OutlastTrialsStats/maps/issues/79)) ([617049d](https://github.com/OutlastTrialsStats/maps/commit/617049d3e6734da9271ca71c732cf74f86c12e1f))
+* **data:** add Locksock the Warden trial for The Prison Farm ([#74](https://github.com/OutlastTrialsStats/maps/issues/74)) ([d7a6c11](https://github.com/OutlastTrialsStats/maps/commit/d7a6c1181abc0207acc0d9d23851cfaf0fa61e3a))
+* **data:** add Sabotage the Lockdown trial for Police Station ([#80](https://github.com/OutlastTrialsStats/maps/issues/80)) ([b528d32](https://github.com/OutlastTrialsStats/maps/commit/b528d32d7b50a1e5d6ecb83d554cbf739f398dd5))
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump the pnpm-patches group with 3 updates ([#77](https://github.com/OutlastTrialsStats/maps/issues/77)) ([dc5ebc2](https://github.com/OutlastTrialsStats/maps/commit/dc5ebc232ba2210856e54ea9fe605b0e5fc0c4f0))
+* **deps-dev:** bump vite from 8.3.2 to 8.3.4 in the pnpm-patches group ([#72](https://github.com/OutlastTrialsStats/maps/issues/72)) ([19a1580](https://github.com/OutlastTrialsStats/maps/commit/19a1580c40b9d991b881311270fc4500e61c0b0c))
+
+
+### Dependencies
+
+* **deps:** bump pinia from 4.0.3 to 4.1.0 ([#82](https://github.com/OutlastTrialsStats/maps/issues/82)) ([ac8c119](https://github.com/OutlastTrialsStats/maps/commit/ac8c119abf7f62d9bd291907b279ae2d7eadc691))
+* **deps:** bump vue-router from 5.3.1 to 5.4.0 ([#73](https://github.com/OutlastTrialsStats/maps/issues/73)) ([8f3e73e](https://github.com/OutlastTrialsStats/maps/commit/8f3e73efb172b9007c87c0726858c5abf35e4982))
+
+
+### Continuous Integration
+
+* allow fork checkout in labeled preview builds ([cebca4f](https://github.com/OutlastTrialsStats/maps/commit/cebca4f1791d580235da47ff83a9644e122be91a))
+* enforce Prettier for code and the editor export format for map data ([10c2749](https://github.com/OutlastTrialsStats/maps/commit/10c27492a390dc30f486124269d01637f07b52d0))
+
 ## [1.2.0](https://github.com/OutlastTrialsStats/maps/compare/v1.1.1...v1.2.0) (2026-10-10)
 
 
