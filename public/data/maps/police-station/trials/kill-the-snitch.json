@@ -28,60 +28,4223 @@
     {
       "id": "enemies",
       "name": "Enemies",
-      "categories": ["enemy"],
+      "categories": [
+        "enemy"
+      ],
       "default": true
     },
     {
       "id": "keys",
       "name": "Keys & Locks",
-      "categories": ["key"],
+      "categories": [
+        "key"
+      ],
       "default": true
     },
     {
       "id": "doors",
       "name": "Doors & Stairs",
-      "categories": ["door", "stairs"],
+      "categories": [
+        "door",
+        "stairs"
+      ],
       "default": true
     },
     {
       "id": "objectives",
       "name": "Objectives",
-      "categories": ["objective"],
+      "categories": [
+        "objective"
+      ],
       "default": true
     },
     {
       "id": "items",
       "name": "Items",
-      "categories": ["item"],
+      "categories": [
+        "item"
+      ],
       "default": true
     },
     {
       "id": "gas-cans",
       "name": "Gas Cans",
-      "categories": ["gas-can"],
+      "categories": [
+        "gas-can"
+      ],
       "default": true
     },
     {
       "id": "generators",
       "name": "Generators",
-      "categories": ["generator"],
+      "categories": [
+        "generator"
+      ],
       "default": true
     },
     {
       "id": "record-boxes",
       "name": "Record Boxes",
-      "categories": ["record-box"],
+      "categories": [
+        "record-box"
+      ],
       "default": true
     },
     {
       "id": "posters",
       "name": "Posters",
-      "categories": ["poster"],
+      "categories": [
+        "poster"
+      ],
       "default": true
     }
   ],
-  "rooms": [],
-  "placements": [],
-  "routes": [],
+  "rooms": [
+    {
+      "id": "room-0001",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          100,
+          650
+        ],
+        "path": "h50 v-30 h-50 v30 z"
+      }
+    },
+    {
+      "id": "room-0002",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          110,
+          650
+        ],
+        "path": "v45 h30 v-45 h-30 z"
+      }
+    },
+    {
+      "id": "room-0003",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          96.875,
+          620
+        ],
+        "path": "h-10.625 h-31.875 h-37.187 v30 h-37.187 v-50 v-50 h74.375 v-10 h31.875 v10 h10.625 v-5 h5.313 l47.813,40 v35 z"
+      }
+    },
+    {
+      "id": "room-0004",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          90,
+          620
+        ],
+        "path": "v-20 h-30 v20 h30 z"
+      }
+    },
+    {
+      "id": "room-0005",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          60,
+          600
+        ],
+        "path": "v-5 h-10 v5 h-10 v-5 h-10 v25 h30 z"
+      }
+    },
+    {
+      "id": "room-0006",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          115,
+          555
+        ],
+        "path": "l-10,10 l10,10 l10,-10 z"
+      }
+    },
+    {
+      "id": "room-0007",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -20,
+          550
+        ],
+        "path": "h-35 v50 h35 v-50 z"
+      }
+    },
+    {
+      "id": "room-0008",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -35,
+          600
+        ],
+        "path": "v-10 h15 v10 h-10 z"
+      }
+    },
+    {
+      "id": "room-0009",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          90,
+          550
+        ],
+        "path": "v-20 h10 v20 h-10 z"
+      },
+      "info": {
+        "title": "The track"
+      }
+    },
+    {
+      "id": "room-0010",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          103.33333333333333,
+          530
+        ],
+        "path": "h6.667 v-15 h-20 v15 z"
+      },
+      "info": {
+        "title": "Broom Closet"
+      }
+    },
+    {
+      "id": "room-0011",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          60,
+          540
+        ],
+        "path": "v-30 h30 v30 h-30 z"
+      }
+    },
+    {
+      "id": "room-0012",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          20,
+          550
+        ],
+        "path": "h40 v-80 h-40 v80 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 1,
+          "start": 51,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 41,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 46,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 71,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 66,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 61,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 61,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 61,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 61,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 61,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 61,
+          "length": 8
+        }
+      ],
+      "info": {
+        "title": "Lobby"
+      }
+    },
+    {
+      "id": "room-0013",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -20,
+          550
+        ],
+        "path": "v-20 h13.333 v5 h26.667 v15 z"
+      }
+    },
+    {
+      "id": "room-0014",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          18,
+          535
+        ],
+        "path": "l7,-5 v-40 l-7,-5 h-28 v50 z"
+      },
+      "info": {
+        "title": "Security Room"
+      }
+    },
+    {
+      "id": "room-0016",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          120,
+          470
+        ],
+        "path": "h-30 v40 h30 z"
+      },
+      "info": {
+        "title": "WC 2"
+      }
+    },
+    {
+      "id": "room-0017",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          90,
+          450
+        ],
+        "path": "v-35 h30 v35 z"
+      },
+      "info": {
+        "title": "WC 1"
+      }
+    },
+    {
+      "id": "room-0018",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          110,
+          470
+        ],
+        "path": "v10 h10 v-10 z"
+      }
+    },
+    {
+      "id": "room-0019",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          110,
+          480
+        ],
+        "path": "v10 h10 v-10 z"
+      }
+    },
+    {
+      "id": "room-0020",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          110,
+          440
+        ],
+        "path": "v30 h10 v-30 z"
+      }
+    },
+    {
+      "id": "room-0021",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          110,
+          440
+        ],
+        "path": "v-10 h10 v10 z"
+      }
+    },
+    {
+      "id": "room-0023",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          60,
+          470
+        ],
+        "path": "v-25 h-40 v25 h40 v-5 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 2,
+          "start": 1,
+          "length": 14
+        },
+        {
+          "edge": 2,
+          "start": 11,
+          "length": 8
+        },
+        {
+          "edge": 2,
+          "start": 16,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0024",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          20,
+          445
+        ],
+        "path": "v-30 h35 h5 v30 z"
+      },
+      "info": {
+        "title": "Conference Room"
+      }
+    },
+    {
+      "id": "room-0025",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -10,
+          485
+        ],
+        "path": "v-5 h-5 v-95 h105 v125 h-30 v-95 h-40 v70 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 6,
+          "start": 31,
+          "length": 8
+        },
+        {
+          "edge": 6,
+          "start": 26,
+          "length": 8
+        },
+        {
+          "edge": 6,
+          "start": 6,
+          "length": 8
+        },
+        {
+          "edge": 6,
+          "start": 1,
+          "length": 8
+        },
+        {
+          "edge": 6,
+          "start": 6,
+          "length": 8
+        },
+        {
+          "edge": 8,
+          "start": 46,
+          "length": 8
+        },
+        {
+          "edge": 8,
+          "start": 41,
+          "length": 8
+        },
+        {
+          "edge": 8,
+          "start": 31,
+          "length": 9
+        },
+        {
+          "edge": 8,
+          "start": 36,
+          "length": 8
+        },
+        {
+          "edge": 8,
+          "start": 36,
+          "length": 8
+        },
+        {
+          "edge": 8,
+          "start": 36,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0026",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -15,
+          390
+        ],
+        "path": "h-20 v91.2 v4.8 h5 v24 h20 v-28.8 h-5 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 5,
+          "start": 5,
+          "length": 14
+        },
+        {
+          "edge": 5,
+          "start": 11,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0027",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -25,
+          530
+        ],
+        "path": "h5 v20 h-20 v-20 z"
+      },
+      "info": {
+        "title": "The Snitch"
+      },
+      "wallGaps": [
+        {
+          "edge": 4,
+          "start": 1,
+          "length": 8
+        },
+        {
+          "edge": 4,
+          "start": 6,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0028",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -40,
+          530
+        ],
+        "path": "h-20 v20 h20 v-20 v20 z"
+      },
+      "info": {
+        "title": "jail 4"
+      }
+    },
+    {
+      "id": "room-0029",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          530
+        ],
+        "path": "h-20 v20 h20 v-20 z"
+      },
+      "info": {
+        "title": "jail 3"
+      }
+    },
+    {
+      "id": "room-0030",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -80,
+          560
+        ],
+        "path": "v-30 h-20 v30 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 1,
+          "start": 11,
+          "length": 8
+        },
+        {
+          "edge": 1,
+          "start": 6,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0031",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          510
+        ],
+        "path": "h-70 v20 h85 h5 v-20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 2,
+          "start": 66,
+          "length": 8
+        },
+        {
+          "edge": 2,
+          "start": 66,
+          "length": 8
+        },
+        {
+          "edge": 2,
+          "start": 6,
+          "length": 8
+        },
+        {
+          "edge": 5,
+          "start": 1,
+          "length": 8
+        },
+        {
+          "edge": 5,
+          "start": 6,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0032",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          510
+        ],
+        "path": "v-20 h20 v20 h-20 z"
+      },
+      "info": {
+        "title": "jail 2"
+      }
+    },
+    {
+      "id": "room-0033",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          510
+        ],
+        "path": "h-20 v-15 h20 v15 z"
+      },
+      "info": {
+        "title": "jail 1"
+      }
+    },
+    {
+      "id": "room-0034",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -35,
+          390
+        ],
+        "path": "h-20 v10 h5.714 h14.286 z"
+      },
+      "info": {
+        "title": "Heart Key"
+      }
+    },
+    {
+      "id": "room-0035",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -100,
+          555
+        ],
+        "path": "h-16 v-25 h-28 v5 h-16 v-40 h60 z"
+      },
+      "info": {
+        "title": "Execution Chamber"
+      }
+    },
+    {
+      "id": "room-0037",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -55,
+          560
+        ],
+        "path": "h-92.812 v-25 h-15.469 v-10 h-15.469 h-30.937 h-10.312 v20 h10.313 v15 l5.156,15 l10.313,10 l10.313,5 h128.906 z"
+      },
+      "info": {
+        "title": "Underground Parking"
+      }
+    },
+    {
+      "id": "room-0038",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -180,
+          525
+        ],
+        "path": "v35 h40 v-25 h-20 v-10 z"
+      }
+    },
+    {
+      "id": "room-0039",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -160,
+          525
+        ],
+        "path": "h-20 v-5 h-40 v25 h-20 v-25 h-30 v-35 h110 z"
+      }
+    },
+    {
+      "id": "room-0040",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -270,
+          520
+        ],
+        "path": "h-5 v25 h35 v-25 h-30 h-5 z"
+      },
+      "info": {
+        "title": "Secret Room 1"
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0041",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -175,
+          485
+        ],
+        "path": "v-20 h-80 v20 z"
+      }
+    },
+    {
+      "id": "room-0042",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -175,
+          465
+        ],
+        "path": "v20 h15 v10 h60 v15 h20 v-30 h-35 v-140 h-20 v125 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 9,
+          "start": 12,
+          "length": 8
+        },
+        {
+          "edge": 9,
+          "start": 6,
+          "length": 8
+        },
+        {
+          "edge": 9,
+          "start": 1,
+          "length": 8
+        },
+        {
+          "edge": 8,
+          "start": 100,
+          "length": 19
+        }
+      ]
+    },
+    {
+      "id": "room-0043",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -135,
+          390
+        ],
+        "path": "h-40 v75 h40 z"
+      },
+      "info": {
+        "title": "Labortory"
+      }
+    },
+    {
+      "id": "room-0044",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -155,
+          465
+        ],
+        "path": "v-25 h20 v25 z"
+      },
+      "info": {
+        "title": "Secret Room 2"
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0045",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          20,
+          470
+        ],
+        "path": "v-10 h5 v10 h-5 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 1,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0046",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -55,
+          390
+        ],
+        "path": "h-20 v10 h20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 6,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0047",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -250,
+          465
+        ],
+        "path": "v-75 h75 v75 z"
+      },
+      "info": {
+        "title": "Evidence"
+      }
+    },
+    {
+      "id": "room-0048",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          35,
+          385
+        ],
+        "path": "v-20 h15 h-15 v-25 v-5 v-5 h55 v35 h-15 h15 v20 h-55 z"
+      },
+      "info": {
+        "title": "Dispatch"
+      }
+    },
+    {
+      "id": "room-0049",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          35,
+          345
+        ],
+        "path": "h-15 v40 h15 z"
+      }
+    },
+    {
+      "id": "room-0050",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          35,
+          330
+        ],
+        "path": "h-15 v-15 v-5 h50 v-30 h-25 h-5 v-40 h25 v15 h20 v25 v20 h5 v30 z"
+      }
+    },
+    {
+      "id": "room-0051",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          65,
+          255
+        ],
+        "path": "h40 v-15 v-5 h-10 l-5,-5 h-10 l-5,5 h-10 v20 z"
+      },
+      "info": {
+        "title": "Office 1"
+      }
+    },
+    {
+      "id": "room-0052",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          85,
+          255
+        ],
+        "path": "v25 h20 v-25 h-20 z"
+      },
+      "info": {
+        "title": "Secret Room 3"
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0053",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          85,
+          280
+        ],
+        "path": "v20 h20 v-20 h-20 z"
+      },
+      "info": {
+        "title": "WC 3"
+      }
+    },
+    {
+      "id": "room-0054",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          40,
+          240
+        ],
+        "path": "h-30 v15 h10 h-10 v10 h10 h-10 v15 h30 v-15 h-5 h5 v-10 h-5 h5 v-15 z"
+      }
+    },
+    {
+      "id": "room-0055",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          10,
+          240
+        ],
+        "path": "v70 h10 v75 h-35 v5 h-60 h-40 v-10 v-15 v-10 h15 v5 h30 v5 v-10 h15 h30 h-10 v-25 h25 h-25 v-20 h15 v-45 h-20 v-20 h15 v-5 h35 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 8,
+          "start": 7,
+          "length": 8
+        },
+        {
+          "edge": 8,
+          "start": 0,
+          "length": 14
+        }
+      ]
+    },
+    {
+      "id": "room-0056",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          355
+        ],
+        "path": "v-25 h25 v25 z"
+      },
+      "info": {
+        "title": "Dinner Room"
+      }
+    },
+    {
+      "id": "room-0057",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -20,
+          310
+        ],
+        "path": "h-40 h40 v-10 h-15 v-10 h15 v10 h-15 v-10 v-10 h15 v10 h-15 v-10 h15 v-10 v-5 h-40 v15 h10 v10 h15 h-15 v10 h-10 v10 z"
+      },
+      "info": {
+        "title": "WC 4"
+      }
+    },
+    {
+      "id": "room-0058",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          245
+        ],
+        "path": "v20 h20 v-20 z"
+      }
+    },
+    {
+      "id": "room-0059",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -70,
+          360
+        ],
+        "path": "h-30 v-5 h-15 h15 v-5 v5 h-15 v-30 h15 v10 h30 v25 z"
+      },
+      "info": {
+        "title": "Infirmary"
+      }
+    },
+    {
+      "id": "room-0060",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          330
+        ],
+        "path": "v-10 h10 h-10 v10 h25 v-20 h-25 v-10 h-20 h-20 v-5 h-55 h-5 v30 h60 v-5 h40 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 9,
+          "start": 11,
+          "length": 8
+        },
+        {
+          "edge": 9,
+          "start": 6,
+          "length": 8
+        },
+        {
+          "edge": 9,
+          "start": 1,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0061",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -135,
+          340
+        ],
+        "path": "v-15 h20 v15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 3,
+          "start": 1,
+          "length": 9
+        },
+        {
+          "edge": 3,
+          "start": 6,
+          "length": 8
+        },
+        {
+          "edge": 3,
+          "start": 11,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0062",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          245
+        ],
+        "path": "h-60 v50 h20 v5 h50 v-20 h-10 v-35 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 4,
+          "start": 6,
+          "length": 14
+        }
+      ],
+      "info": {
+        "title": "Reception Hall"
+      }
+    },
+    {
+      "id": "room-0064",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -185,
+          365
+        ],
+        "path": "v-5 h20 v5 v-5 h5 v-5 h25 v35 h-30 v-5 v5 h-20 v-25 z"
+      }
+    },
+    {
+      "id": "room-0065",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -185,
+          360
+        ],
+        "path": "h-10 h10 v30 h-50 v-30 h15 h-15 v-30 h10 v-30 h45 v-30 h20 v30 v10 v5 h-35 v15 v5 h5 v25 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 16,
+          "start": 11,
+          "length": 14
+        }
+      ]
+    },
+    {
+      "id": "room-0066",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -195,
+          315
+        ],
+        "path": "v20 h35 v-20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 3,
+          "start": 16,
+          "length": 8
+        },
+        {
+          "edge": 3,
+          "start": 11,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0067",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -190,
+          335
+        ],
+        "path": "v25 h15 v-5 h15 v-15 h-15 v-5 z"
+      }
+    },
+    {
+      "id": "room-0068",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -160,
+          355
+        ],
+        "path": "v-30 h25 v30 z"
+      }
+    },
+    {
+      "id": "room-0069",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -250,
+          390
+        ],
+        "path": "h-20 v-60 h35 v60 z"
+      },
+      "info": {
+        "title": "Office 2"
+      }
+    },
+    {
+      "id": "room-0070",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -270,
+          330
+        ],
+        "path": "v-30 h45 v30 h-10 z"
+      },
+      "info": {
+        "title": "Office 3"
+      }
+    },
+    {
+      "id": "room-0071",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -270,
+          300
+        ],
+        "path": "v-30 h45 v30 z"
+      },
+      "info": {
+        "title": "interrogation room 2"
+      }
+    },
+    {
+      "id": "room-0072",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -225,
+          300
+        ],
+        "path": "h40 v-30 h-40 z"
+      },
+      "info": {
+        "title": "interrogation room 1"
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0073",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -180,
+          270
+        ],
+        "path": "v-10 h50 v-15 h10 v25 h-60 z"
+      }
+    },
+    {
+      "id": "room-0074",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -180,
+          260
+        ],
+        "path": "v-20 l5,-10 l5,-5 l10,-5 h70 h40 v25 h-80 v15 h-50 z"
+      },
+      "info": {
+        "title": "Outside"
+      }
+    },
+    {
+      "id": "room-0075",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -50,
+          220
+        ],
+        "path": "h60 v20 h-35 v5 h-25 v-15 z"
+      }
+    },
+    {
+      "id": "room-0076",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -200.0003004126506,
+          425
+        ],
+        "path": "h25 v-27.059 h35 v27.059 h20.001 v-27.059 v-13.529 v-27.059 v-47.353 h-80 v27.059 h-65 v60.882 h65 z"
+      }
+    },
+    {
+      "id": "room-0077",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -245,
+          400
+        ],
+        "path": "v25 h50 v-25 z"
+      }
+    },
+    {
+      "id": "room-0078",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -265,
+          400
+        ],
+        "path": "v40 h20 v-40 z"
+      }
+    },
+    {
+      "id": "room-0079",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -195,
+          313.33347654222223
+        ],
+        "path": "v-33.333 h-70 v60 h70 z"
+      }
+    },
+    {
+      "id": "room-0080",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -170,
+          385
+        ],
+        "path": "h25 v-25 h-25 v25 z"
+      },
+      "flags": [
+        "disabled"
+      ]
+    },
+    {
+      "id": "room-0081",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -170,
+          385
+        ],
+        "path": "v15 v-5 z"
+      }
+    },
+    {
+      "id": "room-0082",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -195,
+          310
+        ],
+        "path": "v-93.947 v-11.053 h30 v105 z"
+      }
+    },
+    {
+      "id": "room-0084",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -140,
+          310
+        ],
+        "path": "v5 v5 z"
+      }
+    },
+    {
+      "id": "room-0085",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -140,
+          330
+        ],
+        "path": "v5 v5 z"
+      }
+    },
+    {
+      "id": "room-0086",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -140,
+          340
+        ],
+        "path": "h5 h5 z"
+      }
+    },
+    {
+      "id": "room-0087",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -120,
+          310
+        ],
+        "path": "h15.882 v15 h31.765 v-15 v15 v15 v-15 v-15 h15.882 v30 h-5.294 h5.294 v-30 h26.471 v30 v20 h-90 z"
+      }
+    },
+    {
+      "id": "room-0088",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          310
+        ],
+        "path": "h30 v45 h-30 z"
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0090",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -165,
+          310
+        ],
+        "path": "v-65 h25 v25 h-5 v40 z"
+      }
+    },
+    {
+      "id": "room-0093",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -140,
+          310
+        ],
+        "path": "h35 v-5 v5 v15 h30 v-55 h-5 v-55 h-25 v40 v-10 h-35 z"
+      }
+    },
+    {
+      "id": "room-0094",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -115,
+          265
+        ],
+        "path": "h10 v10 h-10 h10 v10 h-10 h10 v10 h-10 z"
+      }
+    },
+    {
+      "id": "room-0095",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -85,
+          310
+        ],
+        "path": "h-5 h-5 z"
+      }
+    },
+    {
+      "id": "room-0096",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -105,
+          295
+        ],
+        "path": "h5 h10 h5 z"
+      }
+    },
+    {
+      "id": "room-0097",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -75,
+          310
+        ],
+        "path": "h75 v-40 h-25 v-35 h-25 h-5 v35 h-25 h5 v40 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 6,
+          "start": 21,
+          "length": 9
+        }
+      ]
+    },
+    {
+      "id": "room-0098",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -55,
+          255
+        ],
+        "path": "h-15 v15 h15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 3,
+          "start": 5,
+          "length": 5
+        }
+      ]
+    }
+  ],
+  "placements": [
+    {
+      "id": "pl-0001",
+      "element": "start-point",
+      "floor": 0,
+      "pos": [
+        125,
+        675
+      ]
+    },
+    {
+      "id": "pl-0002",
+      "element": "shuttle",
+      "floor": 0,
+      "pos": [
+        125,
+        650
+      ]
+    },
+    {
+      "id": "pl-0003",
+      "element": "shuttle",
+      "floor": 0,
+      "pos": [
+        125,
+        695
+      ]
+    },
+    {
+      "id": "pl-0004",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        110,
+        550
+      ],
+      "rotation": 45
+    },
+    {
+      "id": "pl-0005",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        120,
+        570
+      ],
+      "roomId": "room-0006",
+      "rotation": 135
+    },
+    {
+      "id": "pl-0006",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        90,
+        615
+      ],
+      "roomId": "room-0004",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0007",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        45,
+        600
+      ],
+      "roomId": "room-0005"
+    },
+    {
+      "id": "pl-0008",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        30,
+        610
+      ],
+      "roomId": "room-0005",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0009",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        110,
+        560
+      ],
+      "roomId": "room-0006",
+      "rotation": 135
+    },
+    {
+      "id": "pl-0010",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -20,
+        610
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0011",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        90,
+        545
+      ],
+      "roomId": "room-0003",
+      "size": [
+        5,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0012",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -45,
+        600
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0013",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -35,
+        595
+      ],
+      "roomId": "room-0007",
+      "size": [
+        6,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0014",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -20,
+        595
+      ],
+      "roomId": "room-0007",
+      "size": [
+        6,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0015",
+      "element": "double-door",
+      "floor": 0,
+      "pos": [
+        -55,
+        575
+      ],
+      "roomId": "room-0007",
+      "rotation": 90,
+      "size": [
+        30,
+        4
+      ]
+    },
+    {
+      "id": "pl-0016",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        95,
+        530
+      ],
+      "roomId": "room-0003",
+      "size": [
+        5,
+        3
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0018",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        90,
+        520
+      ],
+      "roomId": "room-0010",
+      "size": [
+        6,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0019",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        40,
+        550
+      ],
+      "roomId": "room-0003",
+      "size": [
+        20,
+        4
+      ]
+    },
+    {
+      "id": "pl-0022",
+      "element": "shuttle",
+      "floor": 0,
+      "pos": [
+        5,
+        485
+      ],
+      "roomId": "room-0014",
+      "size": [
+        20,
+        6
+      ]
+    },
+    {
+      "id": "pl-0023",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        90,
+        460
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0024",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        90,
+        500
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0025",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        90,
+        480
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0026",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        90,
+        425
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0027",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        115,
+        470
+      ],
+      "roomId": "room-0020"
+    },
+    {
+      "id": "pl-0030",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        110,
+        475
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0031",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        110,
+        485
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0032",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        110,
+        445
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0033",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        110,
+        435
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0034",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        45,
+        445
+      ],
+      "roomId": "room-0024"
+    },
+    {
+      "id": "pl-0035",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        60,
+        455
+      ],
+      "roomId": "room-0023",
+      "size": [
+        6,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0036",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        45,
+        415
+      ],
+      "roomId": "room-0024"
+    },
+    {
+      "id": "pl-0037",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        20,
+        430
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        15,
+        3
+      ]
+    },
+    {
+      "id": "pl-0038",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -15,
+        530
+      ],
+      "roomId": "room-0016",
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0039",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        20,
+        540
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0040",
+      "element": "obstacle",
+      "floor": 0,
+      "pos": [
+        40,
+        470
+      ],
+      "roomId": "room-0023",
+      "size": [
+        15,
+        3
+      ]
+    },
+    {
+      "id": "pl-0042",
+      "element": "objective",
+      "floor": 0,
+      "pos": [
+        5,
+        515
+      ],
+      "roomId": "room-0014"
+    },
+    {
+      "id": "pl-0043",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        60,
+        520
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0044",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -15,
+        400
+      ],
+      "roomId": "room-0025",
+      "size": [
+        15,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0045",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -70,
+        510
+      ],
+      "roomId": "room-0033",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0046",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -50,
+        510
+      ],
+      "roomId": "room-0033",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0047",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -50,
+        530
+      ],
+      "roomId": "room-0033",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0048",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -70,
+        530
+      ],
+      "roomId": "room-0033",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0049",
+      "element": "objective",
+      "floor": 0,
+      "pos": [
+        -30,
+        540
+      ],
+      "roomId": "room-0014"
+    },
+    {
+      "id": "pl-0051",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -90,
+        510
+      ],
+      "roomId": "room-0033",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0052",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -15,
+        550
+      ],
+      "roomId": "room-0016",
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0053",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -90,
+        560
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0054",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -50,
+        395
+      ],
+      "roomId": "room-0034"
+    },
+    {
+      "id": "pl-0055",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -25,
+        390
+      ],
+      "roomId": "room-0031",
+      "size": [
+        15,
+        3
+      ]
+    },
+    {
+      "id": "pl-0057",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -35,
+        395
+      ],
+      "roomId": "room-0016",
+      "rotation": 90,
+      "size": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "pl-0058",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -100,
+        545
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0059",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -80,
+        485
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0060",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -25,
+        500
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0061",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -170,
+        525
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0062",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -150,
+        535
+      ],
+      "roomId": "room-0003",
+      "size": [
+        7,
+        3
+      ]
+    },
+    {
+      "id": "pl-0063",
+      "element": "double-door",
+      "floor": 0,
+      "pos": [
+        -195,
+        525
+      ],
+      "roomId": "room-0037",
+      "size": [
+        25,
+        3
+      ]
+    },
+    {
+      "id": "pl-0064",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -240,
+        530
+      ],
+      "roomId": "room-0040",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0065",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -260,
+        485
+      ],
+      "roomId": "room-0039"
+    },
+    {
+      "id": "pl-0066",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -220,
+        485
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0067",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -220,
+        465
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0068",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        20,
+        355
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0069",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -175,
+        475
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0070",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -175,
+        400
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0071",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -135,
+        410
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0072",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -250,
+        420
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0073",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -210,
+        390
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0074",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -145,
+        455
+      ],
+      "roomId": "room-0044"
+    },
+    {
+      "id": "pl-0075",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -265,
+        535
+      ],
+      "roomId": "room-0040"
+    },
+    {
+      "id": "pl-0076",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        45,
+        385
+      ],
+      "roomId": "room-0031",
+      "size": [
+        15,
+        3
+      ]
+    },
+    {
+      "id": "pl-0077",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        35,
+        375
+      ],
+      "roomId": "room-0049",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0078",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        20,
+        375
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0079",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        45,
+        330
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0080",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        75,
+        255
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0081",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        85,
+        265
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0082",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        85,
+        290
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0083",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -180,
+        250
+      ],
+      "roomId": "room-0049",
+      "rotation": 270
+    },
+    {
+      "id": "pl-0084",
+      "element": "obstacle",
+      "floor": 0,
+      "pos": [
+        20,
+        320
+      ],
+      "roomId": "room-0050",
+      "rotation": 90,
+      "size": [
+        15,
+        3
+      ]
+    },
+    {
+      "id": "pl-0085",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        40,
+        275
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0086",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        10,
+        250
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0087",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        40,
+        250
+      ],
+      "roomId": "room-0054",
+      "rotation": 90,
+      "size": [
+        7,
+        3
+      ]
+    },
+    {
+      "id": "pl-0088",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -25,
+        325
+      ],
+      "roomId": "room-0049",
+      "rotation": 180
+    },
+    {
+      "id": "pl-0089",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -35,
+        345
+      ],
+      "roomId": "room-0056",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0090",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -35,
+        315
+      ],
+      "rotation": 90,
+      "size": [
+        13,
+        3
+      ]
+    },
+    {
+      "id": "pl-0091",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        95,
+        270
+      ],
+      "roomId": "room-0053"
+    },
+    {
+      "id": "pl-0092",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        15,
+        275
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0093",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        35,
+        260
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0094",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -5,
+        245
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0095",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        95,
+        275
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0096",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        85,
+        240
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0097",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        85,
+        325
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0098",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -35,
+        295
+      ],
+      "roomId": "room-0056",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0099",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -35,
+        285
+      ],
+      "roomId": "room-0056",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0100",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        -45,
+        290
+      ],
+      "roomId": "room-0057"
+    },
+    {
+      "id": "pl-0101",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -25,
+        310
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0102",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -30,
+        265
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0103",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -40,
+        250
+      ],
+      "roomId": "room-0056",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0104",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -60,
+        260
+      ],
+      "roomId": "room-0056",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0105",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -55,
+        335
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0106",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -65,
+        360
+      ]
+    },
+    {
+      "id": "pl-0107",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -110,
+        325
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0108",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -115,
+        350
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0109",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -130,
+        495
+      ],
+      "size": [
+        13,
+        3
+      ]
+    },
+    {
+      "id": "pl-0110",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -125,
+        325
+      ],
+      "size": [
+        13,
+        3
+      ]
+    },
+    {
+      "id": "pl-0111",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -120,
+        255
+      ],
+      "roomId": "room-0056",
+      "rotation": 90,
+      "size": [
+        10,
+        3
+      ]
+    },
+    {
+      "id": "pl-0112",
+      "element": "objective",
+      "floor": 0,
+      "pos": [
+        -130,
+        515
+      ],
+      "roomId": "room-0014"
+    },
+    {
+      "id": "pl-0113",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -135,
+        380
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0114",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -185,
+        375
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0115",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -145,
+        355
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0116",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -135,
+        335
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0117",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -190,
+        350
+      ],
+      "roomId": "room-0056",
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0118",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -170,
+        325
+      ],
+      "roomId": "room-0067",
+      "rotation": 180
+    },
+    {
+      "id": "pl-0119",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -195,
+        325
+      ],
+      "roomId": "room-0066",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0120",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -225,
+        320
+      ],
+      "roomId": "room-0065",
+      "rotation": 90,
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0121",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -245,
+        300
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0122",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -205,
+        300
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0123",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -260,
+        390
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0124",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -235,
+        375
+      ],
+      "roomId": "room-0056",
+      "size": [
+        12,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0125",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -255,
+        330
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0126",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -235,
+        340
+      ],
+      "roomId": "room-0069",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0127",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -205,
+        285
+      ],
+      "roomId": "room-0072"
+    },
+    {
+      "id": "pl-0128",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -170,
+        270
+      ],
+      "roomId": "room-0003",
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0129",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -170,
+        260
+      ],
+      "roomId": "room-0074",
+      "size": [
+        10,
+        3
+      ]
+    },
+    {
+      "id": "pl-0130",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -130,
+        250
+      ],
+      "roomId": "room-0074",
+      "size": [
+        10,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0131",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -50,
+        225
+      ],
+      "roomId": "room-0074",
+      "size": [
+        10,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0132",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -5,
+        240
+      ],
+      "roomId": "room-0056",
+      "size": [
+        15,
+        3
+      ]
+    },
+    {
+      "id": "pl-0133",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        85,
+        345
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0134",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        40,
+        360
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0135",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -30,
+        350
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0136",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -40,
+        335
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0137",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -55,
+        350
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0138",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -40,
+        350
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0139",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -105,
+        350
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0140",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -95,
+        355
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0141",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -175,
+        385
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0142",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -170,
+        415
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0143",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -155,
+        430
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0144",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -210,
+        445
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0145",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -215,
+        415
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0146",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -250,
+        350
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0147",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -265,
+        380
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0148",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -230,
+        355
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0149",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -220,
+        365
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0150",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -195,
+        340
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0151",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -185,
+        330
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0152",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -235,
+        325
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0153",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -230,
+        310
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0154",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -265,
+        310
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0155",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -265,
+        280
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0156",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -230,
+        295
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0157",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -220,
+        295
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0158",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -195,
+        275
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0159",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -145,
+        265
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0160",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -115,
+        265
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0161",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -105,
+        250
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0162",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -80,
+        250
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0163",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -90,
+        240
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0164",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -155,
+        235
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0165",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -120,
+        230
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0166",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -45,
+        240
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0167",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        -5,
+        225
+      ],
+      "roomId": "room-0054",
+      "props": {
+        "note": "Corpse Location"
+      }
+    },
+    {
+      "id": "pl-0168",
+      "element": "double-door",
+      "floor": -1,
+      "pos": [
+        -185,
+        425
+      ],
+      "size": [
+        25,
+        3
+      ]
+    },
+    {
+      "id": "pl-0169",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -255,
+        340
+      ],
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0170",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -255,
+        400
+      ],
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0171",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        -265,
+        390
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0172",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -245,
+        410
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0173",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -195,
+        410
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0174",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -170,
+        390
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0175",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -195,
+        325
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0176",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -230,
+        315
+      ],
+      "roomId": "room-0079"
+    },
+    {
+      "id": "pl-0177",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -260,
+        300
+      ],
+      "roomId": "room-0079"
+    },
+    {
+      "id": "pl-0178",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -260,
+        365
+      ],
+      "roomId": "room-0076"
+    },
+    {
+      "id": "pl-0179",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -195,
+        295
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0180",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        -145,
+        375
+      ],
+      "roomId": "room-0080",
+      "rotation": 270
+    },
+    {
+      "id": "pl-0181",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -125,
+        420
+      ],
+      "roomId": "room-0079"
+    },
+    {
+      "id": "pl-0182",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -135,
+        420
+      ],
+      "roomId": "room-0076"
+    },
+    {
+      "id": "pl-0183",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -120,
+        405
+      ],
+      "roomId": "room-0076"
+    },
+    {
+      "id": "pl-0184",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -165,
+        260
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0185",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -180,
+        270
+      ],
+      "roomId": "room-0079"
+    },
+    {
+      "id": "pl-0186",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -180,
+        300
+      ],
+      "roomId": "room-0079"
+    },
+    {
+      "id": "pl-0187",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        -195,
+        260
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0188",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -180,
+        210
+      ],
+      "roomId": "room-0082"
+    },
+    {
+      "id": "pl-0189",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -190,
+        225
+      ],
+      "roomId": "room-0082"
+    },
+    {
+      "id": "pl-0190",
+      "element": "obstacle",
+      "floor": -1,
+      "pos": [
+        -155,
+        310
+      ]
+    },
+    {
+      "id": "pl-0191",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -140,
+        340
+      ],
+      "roomId": "room-0076"
+    },
+    {
+      "id": "pl-0192",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -125,
+        325
+      ],
+      "roomId": "room-0079"
+    },
+    {
+      "id": "pl-0193",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -120,
+        350
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0194",
+      "element": "item-spawn",
+      "floor": -1,
+      "pos": [
+        -20,
+        330
+      ],
+      "roomId": "room-0088"
+    },
+    {
+      "id": "pl-0195",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -115,
+        310
+      ],
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0196",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -30,
+        330
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0197",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        -35,
+        355
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0198",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -45,
+        310
+      ],
+      "size": [
+        8,
+        3
+      ]
+    },
+    {
+      "id": "pl-0199",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -140,
+        260
+      ],
+      "size": [
+        8,
+        3
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0200",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        -130,
+        295
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0201",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -115,
+        270
+      ],
+      "size": [
+        5,
+        2
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0202",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -115,
+        280
+      ],
+      "size": [
+        5,
+        2
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0203",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        -115,
+        290
+      ],
+      "size": [
+        5,
+        2
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0204",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -115,
+        260
+      ],
+      "roomId": "room-0082"
+    },
+    {
+      "id": "pl-0205",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -100,
+        285
+      ],
+      "roomId": "room-0082"
+    },
+    {
+      "id": "pl-0206",
+      "element": "vault-window",
+      "floor": -1,
+      "pos": [
+        -75,
+        320
+      ],
+      "roomId": "room-0087",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0207",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -90,
+        250
+      ],
+      "roomId": "room-0082"
+    },
+    {
+      "id": "pl-0208",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -90,
+        220
+      ],
+      "roomId": "room-0093"
+    },
+    {
+      "id": "pl-0209",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        -10,
+        270
+      ],
+      "roomId": "room-0097"
+    },
+    {
+      "id": "pl-0210",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -40,
+        240
+      ],
+      "roomId": "room-0093"
+    },
+    {
+      "id": "pl-0211",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        -40,
+        290
+      ],
+      "roomId": "room-0093"
+    },
+    {
+      "id": "pl-0212",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        -5,
+        300
+      ],
+      "roomId": "room-0082"
+    },
+    {
+      "id": "pl-0213",
+      "element": "vault-window",
+      "floor": -1,
+      "pos": [
+        -65,
+        270
+      ],
+      "roomId": "room-0098",
+      "size": [
+        7,
+        3
+      ]
+    },
+    {
+      "id": "pl-0214",
+      "element": "door-barricaded",
+      "floor": -1,
+      "pos": [
+        -120,
+        390
+      ],
+      "roomId": "room-0076",
+      "rotation": 270
+    }
+  ],
+  "routes": [
+    {
+      "id": "route-0001",
+      "name": "To security room",
+      "floor": 0,
+      "path": "M125,640 v-45 l-55,-25 v-25 h25 v-25 h-20 h-25 v-30 h30 v-90 h-80 l5,110",
+      "style": "route"
+    },
+    {
+      "id": "route-0002",
+      "name": "The Rail",
+      "floor": 0,
+      "path": "M-30,540 v-20 h10 v-35 h-5 v-90 v-25 h25 v-55 h-65 v-5 h-60 v90 v75 h-5 v40",
+      "style": "route"
+    }
+  ],
   "shapes": []
 }
