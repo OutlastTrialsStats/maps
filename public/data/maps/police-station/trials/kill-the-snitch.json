@@ -4860,7 +4860,7 @@
       "floor": 0,
       "pos": [
         645,
-        545
+        540
       ],
       "rotation": 90
     },
@@ -5200,15 +5200,6 @@
         292.5
       ],
       "inactive": true
-    },
-    {
-      "id": "f1-ladder-15",
-      "element": "ladder",
-      "floor": 0,
-      "pos": [
-        662.5,
-        710
-      ]
     },
     {
       "id": "f1-door-84",
@@ -6444,6 +6435,226 @@
       "props": {
         "note": "Body"
       }
+    },
+    {
+      "id": "pl-0087",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        480,
+        520
+      ],
+      "roomId": "ug-room-08"
+    },
+    {
+      "id": "pl-0088",
+      "element": "generator",
+      "floor": -1,
+      "pos": [
+        390,
+        390
+      ],
+      "roomId": "room-0002"
+    },
+    {
+      "id": "pl-0089",
+      "element": "secret-door",
+      "floor": -1,
+      "pos": [
+        490,
+        575
+      ]
+    },
+    {
+      "id": "pl-0090",
+      "element": "secret-door",
+      "floor": 0,
+      "pos": [
+        210,
+        350
+      ],
+      "roomId": "f1-interrogation-room-2"
+    },
+    {
+      "id": "pl-0091",
+      "element": "secret-door",
+      "floor": 0,
+      "pos": [
+        290,
+        650
+      ],
+      "roomId": "f1-laboratory"
+    },
+    {
+      "id": "pl-0092",
+      "element": "syringe-container",
+      "floor": 0,
+      "pos": [
+        415,
+        840
+      ],
+      "roomId": "f1-room-01"
+    },
+    {
+      "id": "pl-0093",
+      "element": "secret-door",
+      "floor": 0,
+      "pos": [
+        695,
+        275
+      ],
+      "roomId": "f1-room-22"
+    },
+    {
+      "id": "pl-0094",
+      "element": "syringe-container",
+      "floor": 0,
+      "pos": [
+        835,
+        1060
+      ],
+      "roomId": "f1-room-69"
+    },
+    {
+      "id": "pl-0095",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        750,
+        840
+      ],
+      "roomId": "f1-trailer"
+    },
+    {
+      "id": "pl-0096",
+      "element": "obstacle",
+      "floor": 0,
+      "pos": [
+        660,
+        710
+      ],
+      "roomId": "f1-room-20",
+      "rotation": 180
+    },
+    {
+      "id": "pl-0097",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        775,
+        710
+      ],
+      "roomId": "f1-room-66"
+    },
+    {
+      "id": "pl-0098",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        465,
+        925
+      ],
+      "roomId": "f1-parking-entrance"
+    },
+    {
+      "id": "pl-0099",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        340,
+        755
+      ],
+      "roomId": "ug-room-06"
+    },
+    {
+      "id": "pl-0100",
+      "element": "poster",
+      "floor": -1,
+      "pos": [
+        185,
+        445
+      ],
+      "roomId": "ug-room-01"
+    },
+    {
+      "id": "pl-0101",
+      "element": "poster",
+      "floor": -1,
+      "pos": [
+        115,
+        710
+      ],
+      "roomId": "ug-room-06"
+    },
+    {
+      "id": "pl-0102",
+      "element": "syringe-container",
+      "floor": -1,
+      "pos": [
+        310,
+        450
+      ],
+      "roomId": "ug-room-02"
+    },
+    {
+      "id": "pl-0103",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        510,
+        505
+      ],
+      "roomId": "f1-cafeteria-2"
+    },
+    {
+      "id": "pl-0104",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        650,
+        550
+      ],
+      "roomId": "f1-dispatch"
+    },
+    {
+      "id": "pl-0105",
+      "element": "syringe-container",
+      "floor": 0,
+      "pos": [
+        520,
+        600
+      ],
+      "roomId": "f1-room-13"
+    },
+    {
+      "id": "pl-0106",
+      "element": "syringe-container",
+      "floor": 0,
+      "pos": [
+        425,
+        590
+      ],
+      "roomId": "f1-room-56"
+    },
+    {
+      "id": "pl-0107",
+      "element": "syringe-container",
+      "floor": 0,
+      "pos": [
+        330,
+        355
+      ],
+      "roomId": "f1-room-16"
+    },
+    {
+      "id": "pl-0108",
+      "element": "syringe-container",
+      "floor": 0,
+      "pos": [
+        370,
+        820
+      ],
+      "roomId": "f1-electric-chair-room"
     }
   ],
   "routes": [],
