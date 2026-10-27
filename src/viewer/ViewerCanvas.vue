@@ -4,7 +4,7 @@ import { LONG_PRESS_MOVE_TOLERANCE_PX, LONG_PRESS_MS, TOOLTIP_OFFSET_PX } from '
 import { hitFromEventTarget, type HitTarget } from '../core/interaction/hitTest'
 import { usePanZoom } from '../core/interaction/usePanZoom'
 import { roomCameras } from '../core/model/roomCameras'
-import { roomsBounds } from '../core/model/roomPath'
+import { mirrorBoundsX, roomsBounds } from '../core/model/roomPath'
 import type { Placement } from '../core/model/types'
 import { withinRadius } from '../core/model/vec2'
 import CameraMarker from '../core/render/CameraMarker.vue'
@@ -20,12 +20,12 @@ const svgEl = computed(() => canvas.value?.svgEl ?? null)
 const { transform, resetView, fitBounds } = usePanZoom(svgEl, { dragPan: true })
 
 watch(
-  () => viewer.trial,
-  (trial) => {
+  [() => viewer.trial, () => viewer.mirrored],
+  ([trial, mirrored]) => {
     if (trial) {
       const bounds = roomsBounds(trial.rooms)
       if (bounds) {
-        fitBounds(bounds)
+        fitBounds(mirrored ? mirrorBoundsX(bounds) : bounds)
       } else {
         resetView()
       }
@@ -100,6 +100,7 @@ function cancelLongPress(): void {
     <MapCanvas
       ref="canvas"
       :transform="transform"
+      :mirrored="viewer.mirrored"
       @pointermove="onPointerMove"
       @pointerdown="onPointerDown"
       @pointerup="cancelLongPress"

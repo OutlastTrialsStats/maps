@@ -34,6 +34,7 @@ export const useViewerStore = defineStore('viewer', () => {
   const disabledFilterIds = ref<ReadonlySet<string>>(new Set())
   const selectedRoomId = ref<string | null>(null)
   const panelOpen = ref(true)
+  const mirrored = ref(false)
   const backgroundUrl = ref('')
   /** Trial documents already fetched for the open map (cleared on map change). */
   const trialCache = new Map<string, TrialDocument>()
@@ -232,6 +233,7 @@ export const useViewerStore = defineStore('viewer', () => {
     disabledFilterIds,
     selectedRoomId,
     panelOpen,
+    mirrored,
     backgroundUrl,
     trials,
     filters,

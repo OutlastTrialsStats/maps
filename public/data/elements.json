@@ -658,6 +658,55 @@
       "color": "#7f8c8d",
       "description": "Will hold pills if solo, or possibly nothing if on a high enough difficulty",
       "icon": "state_syringe"
+    },
+    {
+      "id": "crank",
+      "name": "Crank",
+      "category": "generator",
+      "color": "#7f8c8d",
+      "icon": "item_crankwheel"
+    },
+    {
+      "id": "compactor",
+      "name": "Compactor",
+      "category": "generator",
+      "color": "#7f8c8d",
+      "icon": "item_components"
+    },
+    {
+      "id": "trash-boxes",
+      "name": "Trash Boxes",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_object"
+    },
+    {
+      "id": "alarm-door",
+      "name": "Alarm Door",
+      "category": "door",
+      "color": "#7f8c8d",
+      "icon": "item_door_alarm"
+    },
+    {
+      "id": "input-machines-boxes",
+      "name": "Toy Boxes",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_object"
+    },
+    {
+      "id": "electronic-lock",
+      "name": "Electronic Lock",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "lock"
+    },
+    {
+      "id": "heavy-items-blocker-door",
+      "name": "Heavy Object Gate",
+      "category": "door",
+      "color": "#7f8c8d",
+      "icon": "prescription_heavytraining"
     }
   ]
 }

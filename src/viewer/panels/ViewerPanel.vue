@@ -71,6 +71,13 @@ function imageUrl(src: string): string {
       </ul>
     </section>
 
+    <section>
+      <label class="filter-row">
+        <Checkbox v-model="viewer.mirrored" binary size="small" />
+        <span>Mirror Map</span>
+      </label>
+    </section>
+
     <section v-if="viewer.filters.length > 0">
       <h2 class="panel-heading">Filters</h2>
       <label v-for="filter in viewer.filters" :key="filter.id" class="filter-row">

@@ -240,6 +240,10 @@ export function roomWorldPoints(room: Room): Vec2[] {
   return points.map(([x, y]): Vec2 => [x + room.shape.origin[0], y + room.shape.origin[1]])
 }
 
+export function mirrorBoundsX(bounds: Bounds): Bounds {
+  return { min: [-bounds.max[0], bounds.min[1]], max: [-bounds.min[0], bounds.max[1]] }
+}
+
 export function roomsBounds(rooms: Room[]): Bounds | null {
   const worldPoints = rooms.flatMap(roomWorldPoints)
   return worldPoints.length > 0 ? pointsBounds(worldPoints) : null
