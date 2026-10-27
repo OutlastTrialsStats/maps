@@ -1,0 +1,53 @@
+{
+  "$schema": "../schemas/contributors.schema.json",
+  "contributors": [
+    {
+      "name": "SuprexDE",
+      "profileId": "215af72b-24c5-63ab-f480-eec12ba2f4e5",
+      "profileUrl": "https://outlasttrialsstats.com/profile/215af72b-24c5-63ab-f480-eec12ba2f4e5",
+      "maps": [
+        "sleep-room"
+      ]
+    },
+    {
+      "name": "Mateuxss",
+      "profileId": "3a5e7b94-6161-3796-1f8e-0425bdff9457",
+      "profileUrl": "https://outlasttrialsstats.com/@mateuxss",
+      "maps": [
+        "prison-farm"
+      ]
+    },
+    {
+      "name": "joeyblack183",
+      "profileId": "6739b42c-c208-181f-b84d-ef86d6b2c14b",
+      "profileUrl": "https://outlasttrialsstats.com/@joeyblack183",
+      "maps": [
+        "police-station"
+      ]
+    },
+    {
+      "name": "BustEdits",
+      "profileId": "e2671762-834a-2863-8584-f8ad1c27e337",
+      "profileUrl": "https://outlasttrialsstats.com/@bustedits",
+      "maps": [
+        "police-station"
+      ]
+    },
+    {
+      "name": "KingOfMiners",
+      "profileId": "041dd966-9a54-1512-2e71-31b18d289404",
+      "profileUrl": "https://outlasttrialsstats.com/@kingofminers",
+      "maps": [
+        "police-station"
+      ]
+    },
+    {
+      "name": "Fwenn",
+      "profileId": "31e121a4-2fcc-770b-0c57-314b57e416e0",
+      "profileUrl": "https://outlasttrialsstats.com/@fwenn",
+      "maps": [
+        "police-station"
+      ]
+    }
+  ]
+}
