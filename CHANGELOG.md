@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.0](https://github.com/OutlastTrialsStats/maps/compare/v1.4.0...v1.5.0) (2026-10-27)
+
+
+### Features
+
+* add Toy Factory map and mirror toggle for the Rebirth Program ([#90](https://github.com/OutlastTrialsStats/maps/issues/90)) ([9ff4ab3](https://github.com/OutlastTrialsStats/maps/commit/9ff4ab31298be79a15a0d9fdb610a54fcbcc6799))
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump eslint from 10.12.0 to 10.13.0 ([#85](https://github.com/OutlastTrialsStats/maps/issues/85)) ([56c6b99](https://github.com/OutlastTrialsStats/maps/commit/56c6b998a71787ffb491f659ba9522561ea7d0b5))
+* **deps-dev:** bump vite from 8.3.4 to 8.3.5 in the pnpm-patches group ([#87](https://github.com/OutlastTrialsStats/maps/issues/87)) ([24e0c57](https://github.com/OutlastTrialsStats/maps/commit/24e0c57ffd53f008ac8aadcd32c7e5cc2eeb5925))
+
 ## [1.4.0](https://github.com/OutlastTrialsStats/maps/compare/v1.3.0...v1.4.0) (2026-10-20)
 
 
