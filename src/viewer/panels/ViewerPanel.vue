@@ -72,10 +72,9 @@ function imageUrl(src: string): string {
     </section>
 
     <section>
-      <h2 class="panel-heading">View</h2>
       <label class="filter-row">
         <Checkbox v-model="viewer.mirrored" binary size="small" />
-        <span>Mirror map (Rebirth Program)</span>
+        <span>Mirror Map</span>
       </label>
     </section>
 
