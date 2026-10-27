@@ -1,0 +1,5350 @@
+{
+  "$schema": "../../../../schemas/trial.schema.json",
+  "mapId": "prison-farm",
+  "trialId": "locksock-the-warden",
+  "floors": [
+    {
+      "index": -1,
+      "name": "Basement"
+    },
+    {
+      "index": 0,
+      "name": "First Floor",
+      "default": true
+    },
+    {
+      "index": 1,
+      "name": "Second Floor"
+    }
+  ],
+  "filters": [],
+  "rooms": [
+    {
+      "id": "room-0001",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          290,
+          0
+        ],
+        "path": "v15 h40 v-15 z"
+      },
+      "info": {
+        "title": "Detonator Room"
+      }
+    },
+    {
+      "id": "room-0002",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          155,
+          70
+        ],
+        "path": "v35 h55 v-35 h-55 z"
+      },
+      "info": {
+        "title": "Workbench Tutorial"
+      }
+    },
+    {
+      "id": "room-0003",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          150,
+          125
+        ],
+        "path": "v25 h30 l5,-5 v-15 l-5,-5 z"
+      },
+      "info": {
+        "title": "Showers"
+      },
+      "label": {
+        "text": "Showers",
+        "pos": [
+          17.5,
+          12.5
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0004",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          20,
+          15
+        ],
+        "path": "l-20,15 v25 l20,15 h70 v-55 h-70 z"
+      },
+      "info": {
+        "title": "Panopticon"
+      },
+      "label": {
+        "text": "Panopticon",
+        "pos": [
+          20,
+          27.5
+        ],
+        "fontSize": 4
+      }
+    },
+    {
+      "id": "room-0005",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          105,
+          70
+        ],
+        "path": "v20 h35 v-20 h-35 z"
+      },
+      "info": {
+        "title": "Material Room"
+      },
+      "label": {
+        "text": "Materials",
+        "pos": [
+          17.5,
+          10
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0006",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -10,
+          -240
+        ],
+        "path": "v30 h20 v-30 z"
+      },
+      "info": {
+        "title": "Pantry"
+      },
+      "flags": [
+        "secret"
+      ],
+      "label": {
+        "text": "Pantry",
+        "pos": [
+          10,
+          15
+        ],
+        "fontSize": 4
+      }
+    },
+    {
+      "id": "room-0007",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          -210
+        ],
+        "path": "v80 h35 v-15 h25 v-65 z"
+      },
+      "info": {
+        "title": "Cafeteria"
+      },
+      "label": {
+        "text": "Cafeteria",
+        "pos": [
+          30,
+          25
+        ]
+      }
+    },
+    {
+      "id": "room-0008",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          115,
+          -45
+        ],
+        "path": "v20 h25 v-20 h-25 z"
+      },
+      "info": {
+        "title": "Freezer"
+      },
+      "flags": [
+        "secret"
+      ],
+      "label": {
+        "text": "Freezer",
+        "pos": [
+          12.5,
+          10
+        ],
+        "fontSize": 5
+      }
+    },
+    {
+      "id": "room-0009",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -170,
+          5
+        ],
+        "path": "v25 h25 v-25 z"
+      },
+      "info": {
+        "title": "Shower Surveillance Room"
+      },
+      "label": {
+        "text": "Shower Surveillance",
+        "pos": [
+          12.5,
+          12.5
+        ],
+        "fontSize": 2
+      }
+    },
+    {
+      "id": "room-0010",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          35,
+          -65
+        ],
+        "path": "v30 h25 v-30 h-25 z"
+      },
+      "label": {
+        "text": "B101",
+        "pos": [
+          12.5,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0011",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          10,
+          -65
+        ],
+        "path": "v30 h25 v-30 z"
+      },
+      "label": {
+        "text": "B102",
+        "pos": [
+          12.5,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0012",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -10,
+          -65
+        ],
+        "path": "v30 h20 v-30 h-20 z"
+      },
+      "label": {
+        "text": "B103",
+        "pos": [
+          10,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0013",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          -65
+        ],
+        "path": "v30 h20 v-30 h-20 z"
+      },
+      "label": {
+        "text": "B104",
+        "pos": [
+          10,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0014",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          -125
+        ],
+        "path": "v30 h20 v-30 h-20 z"
+      },
+      "label": {
+        "text": "B105",
+        "pos": [
+          10,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0015",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -10,
+          -125
+        ],
+        "path": "v30 h20 v-30 z"
+      },
+      "label": {
+        "text": "B106",
+        "pos": [
+          10,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0016",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          10,
+          -125
+        ],
+        "path": "v25 v5 h25 v-30 h-25 z"
+      },
+      "label": {
+        "text": "B107",
+        "pos": [
+          12.5,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0017",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          35,
+          -125
+        ],
+        "path": "v30 h25 v-30 h-25 z"
+      },
+      "label": {
+        "text": "B108",
+        "pos": [
+          12.5,
+          15
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0018",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          60,
+          -140
+        ],
+        "path": "v15 h20 v-15 z"
+      },
+      "label": {
+        "text": "B109",
+        "pos": [
+          10,
+          7.5
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0019",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          60,
+          -155
+        ],
+        "path": "v15 h20 v-15 h-20 z"
+      },
+      "label": {
+        "text": "B110",
+        "pos": [
+          10,
+          7.5
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0020",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          135
+        ],
+        "path": "v15 h20 v-15 h-20 z"
+      },
+      "label": {
+        "text": "A102",
+        "pos": [
+          10,
+          7.5
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0021",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          150
+        ],
+        "path": "v15 h20 v-15 z"
+      },
+      "label": {
+        "text": "A103",
+        "pos": [
+          10,
+          7.5
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0022",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          15,
+          175
+        ],
+        "path": "v20 h15 v-20 z"
+      },
+      "label": {
+        "text": "A104",
+        "pos": [
+          7.5,
+          10
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0023",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          30,
+          175
+        ],
+        "path": "v20 h15 v-20 h-15 z"
+      },
+      "label": {
+        "text": "A105",
+        "pos": [
+          7.5,
+          10
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0024",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          70,
+          135
+        ],
+        "path": "v20 h15 v-20 h-15 z"
+      },
+      "label": {
+        "text": "A106",
+        "pos": [
+          7.5,
+          10
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0025",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          85,
+          135
+        ],
+        "path": "v20 h15 v-20 h-15 z"
+      },
+      "label": {
+        "text": "A107",
+        "pos": [
+          7.5,
+          10
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0026",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          55,
+          90
+        ],
+        "path": "v40 v5 h45 h20 v-15 h-10 v-30 h-55 z"
+      },
+      "label": {
+        "text": "Laundry",
+        "pos": [
+          24,
+          22
+        ],
+        "fontSize": 5
+      }
+    },
+    {
+      "id": "room-0027",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -10,
+          50
+        ],
+        "path": "v30 h20 v-30 z"
+      },
+      "label": {
+        "text": "Shower",
+        "pos": [
+          10,
+          15
+        ],
+        "fontSize": 3
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0028",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          220,
+          -5
+        ],
+        "path": "v30 h25 v-30 z"
+      },
+      "label": {
+        "text": "Workshop",
+        "pos": [
+          12.5,
+          15
+        ],
+        "fontSize": 3
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0029",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          80,
+          125
+        ],
+        "path": "v30 h65 v-30 z"
+      },
+      "label": {
+        "text": "Guard Post",
+        "pos": [
+          32.5,
+          15
+        ],
+        "fontSize": 4
+      },
+      "flags": [
+        "secret"
+      ]
+    },
+    {
+      "id": "room-0030",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          155,
+          150
+        ],
+        "path": "v10 h55 v-15 h-25 v5 z"
+      },
+      "label": {
+        "text": "Sewers",
+        "pos": [
+          27.5,
+          4
+        ],
+        "fontSize": 3
+      }
+    },
+    {
+      "id": "room-0031",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -50,
+          20
+        ],
+        "path": "v15 h5 v20 h-5 v15 h30 h5 v-50 h-35 z"
+      },
+      "label": {
+        "text": "Warden's Office",
+        "pos": [
+          20,
+          25
+        ],
+        "fontSize": 3
+      }
+    }
+  ],
+  "placements": [
+    {
+      "id": "pl-0001",
+      "element": "shuttle",
+      "floor": 0,
+      "pos": [
+        380,
+        203
+      ],
+      "props": {
+        "enterable": true,
+        "redButton": true
+      }
+    },
+    {
+      "id": "pl-0002",
+      "element": "shuttle-exit",
+      "floor": 0,
+      "pos": [
+        380,
+        251
+      ]
+    },
+    {
+      "id": "pl-0003",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        410,
+        40
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0004",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        380,
+        75
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0005",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        360,
+        70
+      ]
+    },
+    {
+      "id": "pl-0006",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        360,
+        85
+      ],
+      "rotation": 270,
+      "size": [
+        10,
+        9
+      ]
+    },
+    {
+      "id": "pl-0007",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        405,
+        75
+      ],
+      "size": [
+        10,
+        10
+      ]
+    },
+    {
+      "id": "pl-0008",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        355,
+        135
+      ],
+      "rotation": 270,
+      "props": {
+        "variants": [
+          "Coyle"
+        ],
+        "note": "Only at the end"
+      }
+    },
+    {
+      "id": "pl-0010",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        300,
+        75
+      ]
+    },
+    {
+      "id": "pl-0011",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        250,
+        110
+      ]
+    },
+    {
+      "id": "pl-0012",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        280,
+        0
+      ]
+    },
+    {
+      "id": "pl-0013",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        245,
+        120
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0015",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        330,
+        10
+      ],
+      "rotation": 90,
+      "props": {
+        "locked": true
+      }
+    },
+    {
+      "id": "pl-0016",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        295,
+        110
+      ]
+    },
+    {
+      "id": "pl-0017",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        275,
+        35
+      ]
+    },
+    {
+      "id": "pl-0018",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        255,
+        35
+      ]
+    },
+    {
+      "id": "pl-0019",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        265,
+        25
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0020",
+      "element": "explosive-wall",
+      "floor": 0,
+      "pos": [
+        245,
+        135
+      ]
+    },
+    {
+      "id": "pl-0021",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        245,
+        45
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0022",
+      "element": "explosive-wall",
+      "floor": 0,
+      "pos": [
+        175,
+        70
+      ]
+    },
+    {
+      "id": "pl-0023",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        182.5,
+        170
+      ],
+      "rotation": 90,
+      "props": {
+        "direction": "up"
+      }
+    },
+    {
+      "id": "pl-0024",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        165,
+        163
+      ],
+      "props": {
+        "direction": "down"
+      }
+    },
+    {
+      "id": "pl-0025",
+      "element": "shuttle",
+      "floor": 0,
+      "pos": [
+        170,
+        105
+      ],
+      "props": {
+        "enterable": true
+      }
+    },
+    {
+      "id": "pl-0026",
+      "element": "workbench",
+      "floor": 0,
+      "pos": [
+        205,
+        85
+      ]
+    },
+    {
+      "id": "pl-0027",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        155,
+        95
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0028",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        150,
+        115
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0029",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        177.5,
+        150
+      ]
+    },
+    {
+      "id": "pl-0030",
+      "element": "door-yellow",
+      "floor": 0,
+      "pos": [
+        195,
+        25
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0031",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        220,
+        60
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0032",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        205,
+        75
+      ],
+      "props": {
+        "variants": [
+          "Wires"
+        ],
+        "note": "Always here"
+      }
+    },
+    {
+      "id": "pl-0033",
+      "element": "lever",
+      "floor": 0,
+      "pos": [
+        190,
+        70
+      ],
+      "props": {
+        "note": "Turns on Workbench"
+      }
+    },
+    {
+      "id": "pl-0034",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        205,
+        100
+      ],
+      "props": {
+        "variants": [
+          "Scrap Metal"
+        ]
+      }
+    },
+    {
+      "id": "pl-0035",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        160,
+        25
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0036",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        337,
+        23.5
+      ],
+      "rotation": 270,
+      "size": [
+        7,
+        16
+      ]
+    },
+    {
+      "id": "pl-0037",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        115,
+        70
+      ]
+    },
+    {
+      "id": "pl-0038",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        105,
+        50
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0039",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        145,
+        25
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0040",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        152,
+        15
+      ]
+    },
+    {
+      "id": "pl-0041",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        140,
+        60
+      ]
+    },
+    {
+      "id": "pl-0042",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        152,
+        45
+      ]
+    },
+    {
+      "id": "pl-0043",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        95,
+        70
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0044",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        90,
+        25
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0045",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        135,
+        75
+      ],
+      "props": {
+        "variants": [
+          "3 Scrap Metal"
+        ]
+      }
+    },
+    {
+      "id": "pl-0046",
+      "element": "lockdown-button",
+      "floor": 0,
+      "pos": [
+        130,
+        30
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0047",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        115,
+        85
+      ],
+      "props": {
+        "variants": [
+          "3 Wires"
+        ]
+      }
+    },
+    {
+      "id": "pl-0048",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        130,
+        85
+      ],
+      "props": {
+        "variants": [
+          "3 Cloth"
+        ]
+      }
+    },
+    {
+      "id": "pl-0049",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        122.5,
+        85
+      ],
+      "props": {
+        "variants": [
+          "Alcohol"
+        ]
+      }
+    },
+    {
+      "id": "pl-0050",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        40,
+        70
+      ],
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0051",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        40,
+        15
+      ],
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0052",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        275,
+        60
+      ],
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0053",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        275,
+        125
+      ],
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0054",
+      "element": "eye-key",
+      "floor": 0,
+      "pos": [
+        305,
+        135
+      ]
+    },
+    {
+      "id": "pl-0055",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        65,
+        15
+      ]
+    },
+    {
+      "id": "pl-0056",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        80,
+        35
+      ]
+    },
+    {
+      "id": "pl-0057",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        80,
+        50
+      ]
+    },
+    {
+      "id": "pl-0058",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        55,
+        20
+      ],
+      "rotation": 90,
+      "roomId": "room-0004"
+    },
+    {
+      "id": "pl-0059",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        55,
+        65
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0060",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        0,
+        42
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0061",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        -20,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0062",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        20,
+        -25
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0063",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -15,
+        30
+      ]
+    },
+    {
+      "id": "pl-0064",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -15,
+        55
+      ]
+    },
+    {
+      "id": "pl-0065",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        60,
+        -45
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0066",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        35,
+        -45
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0067",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        10,
+        -45
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0068",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        22,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0069",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        47,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0070",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -20,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0071",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        90,
+        -45
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0072",
+      "element": "workbench",
+      "floor": 0,
+      "pos": [
+        110,
+        -55
+      ]
+    },
+    {
+      "id": "pl-0073",
+      "element": "lockdown-button",
+      "floor": 0,
+      "pos": [
+        95,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0074",
+      "element": "explosive-wall",
+      "floor": 0,
+      "pos": [
+        70,
+        -105
+      ],
+      "rotation": 315
+    },
+    {
+      "id": "pl-0075",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        55,
+        -90
+      ]
+    },
+    {
+      "id": "pl-0076",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -20,
+        -95
+      ]
+    },
+    {
+      "id": "pl-0077",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        0,
+        -95
+      ]
+    },
+    {
+      "id": "pl-0078",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        22,
+        -125
+      ]
+    },
+    {
+      "id": "pl-0079",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        47,
+        -125
+      ]
+    },
+    {
+      "id": "pl-0080",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        -10,
+        -110
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0083",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -20,
+        -5
+      ]
+    },
+    {
+      "id": "pl-0085",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -40,
+        10
+      ],
+      "rotation": 270,
+      "size": [
+        12,
+        20
+      ]
+    },
+    {
+      "id": "pl-0086",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        -70,
+        15
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0087",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -60,
+        30
+      ]
+    },
+    {
+      "id": "pl-0088",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -70,
+        70
+      ]
+    },
+    {
+      "id": "pl-0090",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -70,
+        90
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0091",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -15,
+        100
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0092",
+      "element": "lockdown-button",
+      "floor": 0,
+      "pos": [
+        15,
+        95
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0093",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        30,
+        95
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0094",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        45,
+        120
+      ]
+    },
+    {
+      "id": "pl-0095",
+      "element": "rig-deactivator",
+      "floor": 0,
+      "pos": [
+        45,
+        120
+      ]
+    },
+    {
+      "id": "pl-0096",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        50,
+        135
+      ],
+      "props": {
+        "direction": "down"
+      },
+      "rotation": 270,
+      "size": [
+        10,
+        11
+      ]
+    },
+    {
+      "id": "pl-0097",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -30,
+        170
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0098",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -10,
+        142
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0099",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        -30,
+        127
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0100",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        37.5,
+        195
+      ]
+    },
+    {
+      "id": "pl-0101",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        70,
+        195
+      ]
+    },
+    {
+      "id": "pl-0102",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        115,
+        195
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0103",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        110,
+        110
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0104",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        22,
+        175
+      ]
+    },
+    {
+      "id": "pl-0105",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        37,
+        175
+      ]
+    },
+    {
+      "id": "pl-0106",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        30,
+        185
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0107",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        55,
+        175
+      ]
+    },
+    {
+      "id": "pl-0108",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        110,
+        185
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0109",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        77.5,
+        155
+      ]
+    },
+    {
+      "id": "pl-0110",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        92.5,
+        155
+      ]
+    },
+    {
+      "id": "pl-0111",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        100,
+        145
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0112",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        70,
+        140
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0113",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        110,
+        135
+      ]
+    },
+    {
+      "id": "pl-0114",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        100,
+        127.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0115",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        105,
+        120
+      ]
+    },
+    {
+      "id": "pl-0116",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        -25,
+        150
+      ]
+    },
+    {
+      "id": "pl-0117",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        5,
+        120
+      ],
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0118",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        45,
+        162.5
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0119",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        55,
+        108
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0120",
+      "element": "valves",
+      "floor": 0,
+      "pos": [
+        75,
+        94
+      ]
+    },
+    {
+      "id": "pl-0121",
+      "element": "valves",
+      "floor": 0,
+      "pos": [
+        105,
+        100
+      ]
+    },
+    {
+      "id": "pl-0122",
+      "element": "valves",
+      "floor": 0,
+      "pos": [
+        70,
+        130
+      ]
+    },
+    {
+      "id": "pl-0123",
+      "element": "valves",
+      "floor": 0,
+      "pos": [
+        -55,
+        152
+      ]
+    },
+    {
+      "id": "pl-0124",
+      "element": "valves",
+      "floor": 0,
+      "pos": [
+        37.5,
+        210
+      ]
+    },
+    {
+      "id": "pl-0125",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        80,
+        -130
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0126",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        80,
+        -145
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0127",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        80,
+        -165
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0128",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        -15,
+        -175
+      ]
+    },
+    {
+      "id": "pl-0129",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        -15,
+        -170
+      ]
+    },
+    {
+      "id": "pl-0130",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        30,
+        -200
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0131",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        70,
+        -190
+      ]
+    },
+    {
+      "id": "pl-0132",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        30,
+        -180
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0133",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        20,
+        -145
+      ]
+    },
+    {
+      "id": "pl-0134",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        0,
+        -210
+      ]
+    },
+    {
+      "id": "pl-0135",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -45,
+        -132
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0136",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        10,
+        -134
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0138",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -60,
+        -35
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0139",
+      "element": "explosive-wall",
+      "floor": 0,
+      "pos": [
+        -145,
+        -20
+      ]
+    },
+    {
+      "id": "pl-0140",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -30,
+        -80
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0141",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -70,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0142",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        -50,
+        -120
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0143",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -65,
+        -125
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0144",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -80,
+        -117.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0145",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -80,
+        -142
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0146",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -115,
+        -110
+      ]
+    },
+    {
+      "id": "pl-0147",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -110,
+        -30
+      ]
+    },
+    {
+      "id": "pl-0148",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -80,
+        -100
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0149",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -80,
+        -85
+      ],
+      "rotation": 90,
+      "inactive": true
+    },
+    {
+      "id": "pl-0150",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        -80,
+        -70
+      ],
+      "rotation": 90,
+      "inactive": true
+    },
+    {
+      "id": "pl-0151",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -40,
+        -95
+      ],
+      "size": [
+        14,
+        4
+      ]
+    },
+    {
+      "id": "pl-0152",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        60,
+        -110
+      ],
+      "rotation": 270,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0153",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        105,
+        -70
+      ]
+    },
+    {
+      "id": "pl-0154",
+      "element": "door-yellow",
+      "floor": 0,
+      "pos": [
+        -125,
+        -75
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0155",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        -30,
+        85
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0156",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        80,
+        -15
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0157",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        40,
+        -225
+      ]
+    },
+    {
+      "id": "pl-0158",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        97,
+        -175
+      ]
+    },
+    {
+      "id": "pl-0159",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -157.5,
+        5
+      ]
+    },
+    {
+      "id": "pl-0160",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        5,
+        120
+      ]
+    },
+    {
+      "id": "pl-0161",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        55,
+        108
+      ]
+    },
+    {
+      "id": "pl-0163",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        90,
+        43
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0164",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -125,
+        -17.5
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0165",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        -125,
+        -17.5
+      ]
+    },
+    {
+      "id": "pl-0166",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        90,
+        42.5
+      ]
+    },
+    {
+      "id": "pl-0167",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        140,
+        -50
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0168",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        200,
+        -75
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0169",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        208.5,
+        -85
+      ]
+    },
+    {
+      "id": "pl-0170",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        210,
+        -112.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0171",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        200,
+        -105
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0172",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        215,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0173",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        230,
+        -75
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0174",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        205,
+        -155
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0175",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        130,
+        -168.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0176",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        140,
+        -140
+      ]
+    },
+    {
+      "id": "pl-0177",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        185,
+        -125
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0178",
+      "element": "explosive-wall",
+      "floor": 0,
+      "pos": [
+        150,
+        -110
+      ]
+    },
+    {
+      "id": "pl-0179",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        205,
+        -172
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0180",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        165,
+        -160
+      ]
+    },
+    {
+      "id": "pl-0181",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        170,
+        -40
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0182",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        180,
+        -135
+      ]
+    },
+    {
+      "id": "pl-0183",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        135,
+        -120
+      ]
+    },
+    {
+      "id": "pl-0184",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        170,
+        -120
+      ]
+    },
+    {
+      "id": "pl-0185",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        135,
+        -185
+      ]
+    },
+    {
+      "id": "pl-0186",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        175,
+        -185
+      ]
+    },
+    {
+      "id": "pl-0187",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -30,
+        -200
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0188",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -45,
+        -165
+      ]
+    },
+    {
+      "id": "pl-0189",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -30,
+        -150
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0190",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        115,
+        -85
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0191",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        115,
+        -155
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0192",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        115,
+        -155
+      ]
+    },
+    {
+      "id": "pl-0193",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        115,
+        -85
+      ]
+    },
+    {
+      "id": "pl-0194",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        130,
+        -50
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0195",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        155,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0196",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        185,
+        -55
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0197",
+      "element": "biter",
+      "floor": 0,
+      "pos": [
+        155,
+        -75
+      ]
+    },
+    {
+      "id": "pl-0198",
+      "element": "biter",
+      "floor": 0,
+      "pos": [
+        20,
+        -85
+      ]
+    },
+    {
+      "id": "pl-0199",
+      "element": "biter",
+      "floor": 0,
+      "pos": [
+        125,
+        40
+      ]
+    },
+    {
+      "id": "pl-0200",
+      "element": "biter",
+      "floor": 0,
+      "pos": [
+        275,
+        90
+      ]
+    },
+    {
+      "id": "pl-0202",
+      "element": "workbench",
+      "floor": -1,
+      "pos": [
+        115,
+        65
+      ],
+      "rotation": 315
+    },
+    {
+      "id": "pl-0203",
+      "element": "valves",
+      "floor": -1,
+      "pos": [
+        112,
+        -10
+      ]
+    },
+    {
+      "id": "pl-0204",
+      "element": "explosive-wall",
+      "floor": -1,
+      "pos": [
+        140,
+        27
+      ]
+    },
+    {
+      "id": "pl-0205",
+      "element": "explosive-wall",
+      "floor": -1,
+      "pos": [
+        87,
+        -15
+      ]
+    },
+    {
+      "id": "pl-0206",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        10,
+        70
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0207",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        35,
+        40
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0208",
+      "element": "window",
+      "floor": -1,
+      "pos": [
+        35,
+        100
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0209",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        50,
+        130
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0210",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        75,
+        60
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0211",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        40,
+        135
+      ],
+      "props": {
+        "direction": "up"
+      },
+      "size": [
+        10,
+        11
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0212",
+      "element": "window",
+      "floor": -1,
+      "pos": [
+        75,
+        70
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0213",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        90,
+        75
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0214",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        75,
+        100
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0215",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        90,
+        125
+      ]
+    },
+    {
+      "id": "pl-0216",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        130,
+        90
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0217",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        150,
+        115
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0218",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        140,
+        65
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0219",
+      "element": "window",
+      "floor": -1,
+      "pos": [
+        170,
+        80
+      ]
+    },
+    {
+      "id": "pl-0220",
+      "element": "vault-window",
+      "floor": -1,
+      "pos": [
+        150,
+        45
+      ]
+    },
+    {
+      "id": "pl-0221",
+      "element": "window",
+      "floor": -1,
+      "pos": [
+        200,
+        -5
+      ]
+    },
+    {
+      "id": "pl-0222",
+      "element": "window",
+      "floor": -1,
+      "pos": [
+        190,
+        50
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0223",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        210,
+        40
+      ]
+    },
+    {
+      "id": "pl-0224",
+      "element": "valves",
+      "floor": -1,
+      "pos": [
+        195,
+        60
+      ]
+    },
+    {
+      "id": "pl-0225",
+      "element": "valves",
+      "floor": -1,
+      "pos": [
+        215,
+        -25
+      ]
+    },
+    {
+      "id": "pl-0226",
+      "element": "valves",
+      "floor": -1,
+      "pos": [
+        240,
+        20
+      ]
+    },
+    {
+      "id": "pl-0227",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        220,
+        -50
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0228",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        140,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0229",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        135,
+        -15
+      ]
+    },
+    {
+      "id": "pl-0230",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        210,
+        -40
+      ]
+    },
+    {
+      "id": "pl-0231",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        170,
+        -64
+      ],
+      "rotation": 90,
+      "size": [
+        8,
+        20
+      ]
+    },
+    {
+      "id": "pl-0232",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        125,
+        -60
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0233",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        85,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0234",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        75,
+        -70
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0235",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        67,
+        -75
+      ]
+    },
+    {
+      "id": "pl-0237",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        50,
+        -70
+      ],
+      "rotation": 180,
+      "size": [
+        20,
+        10
+      ]
+    },
+    {
+      "id": "pl-0238",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        60,
+        -70
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0239",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        40,
+        -10
+      ],
+      "rotation": 180,
+      "size": [
+        20,
+        10
+      ]
+    },
+    {
+      "id": "pl-0240",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        55,
+        -18
+      ],
+      "rotation": 90,
+      "size": [
+        6,
+        10
+      ]
+    },
+    {
+      "id": "pl-0241",
+      "element": "valves",
+      "floor": -1,
+      "pos": [
+        45,
+        -40
+      ]
+    },
+    {
+      "id": "pl-0242",
+      "element": "valves",
+      "floor": -1,
+      "pos": [
+        55,
+        -55
+      ]
+    },
+    {
+      "id": "pl-0243",
+      "element": "valves",
+      "floor": -1,
+      "pos": [
+        120,
+        -27
+      ]
+    },
+    {
+      "id": "pl-0244",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        95,
+        -28
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0245",
+      "element": "vault-window",
+      "floor": -1,
+      "pos": [
+        105,
+        -40
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0246",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        120,
+        -45
+      ],
+      "size": [
+        20,
+        10
+      ]
+    },
+    {
+      "id": "pl-0247",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        125,
+        -35
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0248",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        25,
+        -45
+      ]
+    },
+    {
+      "id": "pl-0249",
+      "element": "door",
+      "floor": -1,
+      "pos": [
+        220,
+        5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0250",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        80,
+        22
+      ],
+      "rotation": 90,
+      "size": [
+        16,
+        10
+      ]
+    },
+    {
+      "id": "pl-0251",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        100,
+        15
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0252",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        100,
+        5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0253",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        100,
+        -5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0254",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        100,
+        -10
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0255",
+      "element": "vault-window",
+      "floor": -1,
+      "pos": [
+        105,
+        102
+      ]
+    },
+    {
+      "id": "pl-0256",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        75,
+        120
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0257",
+      "element": "biter",
+      "floor": -1,
+      "pos": [
+        105,
+        85
+      ]
+    },
+    {
+      "id": "pl-0258",
+      "element": "biter",
+      "floor": -1,
+      "pos": [
+        175,
+        20
+      ]
+    },
+    {
+      "id": "pl-0259",
+      "element": "vault-window",
+      "floor": -1,
+      "pos": [
+        195,
+        35
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0260",
+      "element": "vault-window",
+      "floor": -1,
+      "pos": [
+        192,
+        145
+      ]
+    },
+    {
+      "id": "pl-0261",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        165,
+        167.5
+      ],
+      "props": {
+        "direction": "up"
+      }
+    },
+    {
+      "id": "pl-0262",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        160,
+        155
+      ]
+    },
+    {
+      "id": "pl-0263",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        155,
+        165
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0264",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        190,
+        130
+      ]
+    },
+    {
+      "id": "pl-0265",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        200,
+        130
+      ]
+    },
+    {
+      "id": "pl-0266",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        205,
+        130
+      ]
+    },
+    {
+      "id": "pl-0267",
+      "element": "ladder",
+      "floor": -1,
+      "pos": [
+        215,
+        135
+      ],
+      "rotation": 45
+    },
+    {
+      "id": "pl-0268",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -30,
+        42
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0269",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        225,
+        -90
+      ]
+    },
+    {
+      "id": "pl-0270",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        210,
+        -125
+      ]
+    },
+    {
+      "id": "pl-0271",
+      "element": "pig-heads",
+      "floor": 0,
+      "pos": [
+        225,
+        -160
+      ]
+    },
+    {
+      "id": "pl-0272",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        140,
+        -35
+      ],
+      "rotation": 90,
+      "roomId": "room-0008"
+    },
+    {
+      "id": "pl-0273",
+      "element": "grinder",
+      "floor": 0,
+      "pos": [
+        -65,
+        -150
+      ]
+    },
+    {
+      "id": "pl-0274",
+      "element": "secret-coyle-file",
+      "floor": 0,
+      "pos": [
+        -155,
+        25
+      ],
+      "roomId": "room-0009"
+    },
+    {
+      "id": "pl-0275",
+      "element": "secret-door",
+      "floor": 0,
+      "pos": [
+        0,
+        -210
+      ]
+    },
+    {
+      "id": "pl-0276",
+      "element": "secret-door",
+      "floor": 0,
+      "pos": [
+        140,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0277",
+      "element": "window",
+      "floor": 0,
+      "pos": [
+        122,
+        -45
+      ]
+    },
+    {
+      "id": "pl-0278",
+      "element": "secret-door",
+      "floor": -1,
+      "pos": [
+        90,
+        125
+      ]
+    },
+    {
+      "id": "pl-0279",
+      "element": "secret-door",
+      "floor": -1,
+      "pos": [
+        10,
+        70
+      ]
+    },
+    {
+      "id": "pl-0280",
+      "element": "secret-door",
+      "floor": -1,
+      "pos": [
+        220,
+        5
+      ]
+    },
+    {
+      "id": "pl-0281",
+      "element": "detonator",
+      "floor": 0,
+      "pos": [
+        295,
+        7
+      ],
+      "roomId": "room-0001"
+    },
+    {
+      "id": "pl-0282",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        255,
+        75
+      ]
+    },
+    {
+      "id": "pl-0283",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        390,
+        50
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        4
+      ]
+    },
+    {
+      "id": "pl-0284",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        370,
+        105
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0285",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        375,
+        80
+      ]
+    },
+    {
+      "id": "pl-0286",
+      "element": "ladder",
+      "floor": 0,
+      "pos": [
+        370,
+        80
+      ]
+    },
+    {
+      "id": "pl-0290",
+      "element": "stairs",
+      "floor": 1,
+      "pos": [
+        -75,
+        90
+      ],
+      "rotation": 90,
+      "props": {
+        "direction": "down"
+      }
+    },
+    {
+      "id": "pl-0291",
+      "element": "door-locked",
+      "floor": 1,
+      "pos": [
+        -65,
+        70
+      ]
+    },
+    {
+      "id": "pl-0292",
+      "element": "door-locked",
+      "floor": 1,
+      "pos": [
+        -65,
+        20
+      ]
+    },
+    {
+      "id": "pl-0293",
+      "element": "door-locked",
+      "floor": 1,
+      "pos": [
+        -65,
+        5
+      ]
+    },
+    {
+      "id": "pl-0294",
+      "element": "enemy-spawn",
+      "floor": 1,
+      "pos": [
+        -80,
+        -2.5
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0295",
+      "element": "enemy-spawn",
+      "floor": 1,
+      "pos": [
+        -80,
+        78
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0296",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -45,
+        45
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0297",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -22,
+        20
+      ]
+    },
+    {
+      "id": "pl-0298",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -22,
+        70
+      ]
+    },
+    {
+      "id": "pl-0299",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -50,
+        10
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0300",
+      "element": "vault-window",
+      "floor": 1,
+      "pos": [
+        -35,
+        10
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0301",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -50,
+        75
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0302",
+      "element": "stairs",
+      "floor": 1,
+      "pos": [
+        -50,
+        -2.5
+      ],
+      "size": [
+        12,
+        15
+      ],
+      "props": {
+        "direction": "down"
+      },
+      "rotation": 180
+    },
+    {
+      "id": "pl-0303",
+      "element": "objective",
+      "floor": 1,
+      "pos": [
+        -20,
+        45
+      ],
+      "roomId": "room-0031"
+    },
+    {
+      "id": "pl-0304",
+      "element": "objective",
+      "floor": 1,
+      "pos": [
+        -55,
+        70
+      ]
+    },
+    {
+      "id": "pl-0305",
+      "element": "stairs",
+      "floor": 1,
+      "pos": [
+        177,
+        171
+      ],
+      "rotation": 270,
+      "props": {
+        "direction": "up"
+      }
+    },
+    {
+      "id": "pl-0306",
+      "element": "ladder",
+      "floor": 1,
+      "pos": [
+        180,
+        155
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0307",
+      "element": "ladder",
+      "floor": 1,
+      "pos": [
+        180,
+        160
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0308",
+      "element": "objective",
+      "floor": 1,
+      "pos": [
+        170,
+        150
+      ]
+    }
+  ],
+  "routes": [],
+  "shapes": [
+    {
+      "id": "shape-0005",
+      "floor": 0,
+      "pos": [
+        367.5,
+        87.5
+      ],
+      "size": [
+        25,
+        35
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0010",
+      "floor": 0,
+      "path": "M390,25 h30 v55 h-10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0011",
+      "floor": 0,
+      "path": "M390,60 v10 h20 v-10",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0012",
+      "floor": 0,
+      "path": "M390,35 h20 v25",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0013",
+      "floor": 0,
+      "path": "M390,35 v10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0014",
+      "floor": 0,
+      "path": "M355,150 l5,35 v15 h40 v-15 l5,-35",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0015",
+      "floor": 0,
+      "path": "M355,105 v45",
+      "color": "#000000",
+      "fill": "#808080"
+    },
+    {
+      "id": "shape-0016",
+      "floor": 0,
+      "path": "M410,80 v70",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0017",
+      "floor": 0,
+      "path": "M405,150 h5",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0018",
+      "floor": 0,
+      "path": "M390,70 v35",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0019",
+      "floor": 0,
+      "pos": [
+        380,
+        227.5
+      ],
+      "size": [
+        30,
+        55
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0020",
+      "floor": 0,
+      "path": "M390,25 h-45 v15",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0021",
+      "floor": 0,
+      "path": "M345,55 v15 h10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0022",
+      "floor": 0,
+      "path": "M355,80 h25",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0023",
+      "floor": 0,
+      "path": "M355,150 v-45 h25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0024",
+      "floor": 0,
+      "path": "M405,150 h5 v-80 h-20 v35",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0025",
+      "floor": 0,
+      "path": "M355,150 h50 l-15,-45 h-10 l-25,45",
+      "fill": "#85858c"
+    },
+    {
+      "id": "shape-0026",
+      "floor": 0,
+      "path": "M375,105 h5",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0028",
+      "floor": 0,
+      "path": "M410,150 h-5",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0029",
+      "floor": 0,
+      "path": "M355,140 v10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0030",
+      "floor": 0,
+      "path": "M410,80 h10 v-55 h-75 v15",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0031",
+      "floor": 0,
+      "path": "M390,70 h20 v-35 h-20 v10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0032",
+      "floor": 0,
+      "path": "M390,70 v-10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0033",
+      "floor": 0,
+      "path": "M345,40 v15"
+    },
+    {
+      "id": "shape-0034",
+      "floor": 0,
+      "path": "M345,55 v15 h35 v35 h10 v-45",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0035",
+      "floor": 0,
+      "path": "M380,105 h10",
+      "strokeWidth": 2
+    },
+    {
+      "id": "shape-0036",
+      "floor": 0,
+      "path": "M380,80 v25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0037",
+      "floor": 0,
+      "path": "M380,105 h-5",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0038",
+      "floor": 0,
+      "path": "M345,40 v15 l30,5 v-5 l-30,-15",
+      "fill": "#85858c"
+    },
+    {
+      "id": "shape-0039",
+      "floor": 0,
+      "path": "M345,25 l-20,10 h-80 v25 h80 l20,10",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0040",
+      "floor": 0,
+      "path": "M245,60 v15 h20 v35 h-20 v-35 v50 h65 v-65 v15 h-20 v35 h20 v35 h-65 v-20",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0041",
+      "floor": 0,
+      "path": "M245,35 v-30 h20 v30 h60 l20,-10 v-25 h-80 v5 v-5 h25 v20 h55 v-20 h-15 v15 h-40",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0042",
+      "floor": 0,
+      "pos": [
+        277.5,
+        92.5
+      ],
+      "size": [
+        65,
+        65
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0043",
+      "floor": 0,
+      "pos": [
+        255,
+        92.5
+      ],
+      "size": [
+        20,
+        35
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0044",
+      "floor": 0,
+      "pos": [
+        297.5,
+        92.5
+      ],
+      "size": [
+        25,
+        35
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0045",
+      "floor": 0,
+      "path": "M270,60 h10",
+      "strokeWidth": 2
+    },
+    {
+      "id": "shape-0046",
+      "floor": 0,
+      "path": "M270,125 h10",
+      "strokeWidth": 2
+    },
+    {
+      "id": "shape-0047",
+      "floor": 0,
+      "path": "M245,125 h-30 v-10 h-30 v30 h60 h-25 l-10,-10 l-5,-5 h-20",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0048",
+      "floor": 0,
+      "pos": [
+        225,
+        135
+      ],
+      "size": [
+        40,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0049",
+      "floor": 0,
+      "path": "M185,130 v15 h40 l-15,-15 h-25",
+      "fill": "#1a1a1a",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0050",
+      "floor": 0,
+      "pos": [
+        200,
+        122.5
+      ],
+      "size": [
+        30,
+        15
+      ],
+      "fill": "#85858c"
+    },
+    {
+      "id": "shape-0051",
+      "floor": 0,
+      "path": "M185,130 v-15 h30 v10 h10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0052",
+      "floor": 0,
+      "path": "M185,130 h25 l5,5",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0053",
+      "floor": 0,
+      "path": "M245,60 h-55 v10 h-30 v-55 h85 v40",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0054",
+      "floor": 0,
+      "path": "M245,55 v5",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0055",
+      "floor": 0,
+      "pos": [
+        185,
+        87.5
+      ],
+      "size": [
+        50,
+        35
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0056",
+      "floor": 0,
+      "pos": [
+        167.5,
+        115
+      ],
+      "size": [
+        35,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0057",
+      "floor": 0,
+      "pos": [
+        167.5,
+        137.5
+      ],
+      "size": [
+        35,
+        25
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0058",
+      "floor": 0,
+      "pos": [
+        177.5,
+        157.5
+      ],
+      "size": [
+        15,
+        15
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0059",
+      "floor": 0,
+      "pos": [
+        182.5,
+        87.5
+      ],
+      "size": [
+        55,
+        35
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0060",
+      "floor": 0,
+      "path": "M180,125 l5,5 v-5 h-5",
+      "fill": "#1f1f1f",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0061",
+      "floor": 0,
+      "path": "M180,150 h5 v-5 l-5,5",
+      "fill": "#141414",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0062",
+      "floor": 0,
+      "pos": [
+        220,
+        25
+      ],
+      "size": [
+        50,
+        20
+      ],
+      "fill": "#1f1f1f",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0063",
+      "floor": 0,
+      "pos": [
+        277.5,
+        12.5
+      ],
+      "size": [
+        25,
+        25
+      ],
+      "fill": "#85858c"
+    },
+    {
+      "id": "shape-0064",
+      "floor": 0,
+      "path": "M265,35 h-20 l20,-10 v10",
+      "fill": "#85858c"
+    },
+    {
+      "id": "shape-0065",
+      "floor": 0,
+      "path": "M265,35 v-35 h25 v20",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0066",
+      "floor": 0,
+      "path": "M245,30 v5 h20 h5",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0067",
+      "floor": 0,
+      "pos": [
+        125,
+        42.5
+      ],
+      "size": [
+        70,
+        55
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0068",
+      "floor": 0,
+      "pos": [
+        125,
+        25
+      ],
+      "size": [
+        40,
+        20
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0069",
+      "floor": 0,
+      "pos": [
+        125,
+        52.5
+      ],
+      "size": [
+        40,
+        15
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0070",
+      "floor": 0,
+      "pos": [
+        122.5,
+        80
+      ],
+      "size": [
+        35,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0071",
+      "floor": 0,
+      "path": "M145,45 h15",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0072",
+      "floor": 0,
+      "path": "M90,35 h-10 l-25,-10 v-10 h35"
+    },
+    {
+      "id": "shape-0073",
+      "floor": 0,
+      "path": "M90,70 h-35 v-10 l25,-10 h10"
+    },
+    {
+      "id": "shape-0074",
+      "floor": 0,
+      "path": "M90,15 h-45 h-15 h-10 l-20,15 v25 l20,15 h10 h15 h10 h35 v-55",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0075",
+      "floor": 0,
+      "path": "M55,70 v-10 l25,-10 h10 v20 h-35",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0076",
+      "floor": 0,
+      "path": "M55,15 v10 l25,10 h10 v-20 h-35",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0077",
+      "floor": 0,
+      "path": "M0,55 v15 h20 l-20,-15",
+      "fill": "#171717",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0078",
+      "floor": 0,
+      "path": "M0,30 v-15 h20 l-20,15",
+      "fill": "#141414",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0079",
+      "floor": 0,
+      "pos": [
+        40,
+        42
+      ],
+      "radius": 11.180339887498949,
+      "fill": "#242424",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0080",
+      "floor": 0,
+      "path": "M0,30 v25 h-30 v-25 h30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0081",
+      "floor": 0,
+      "path": "M-30,55 v15 h30 v-15 h-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0082",
+      "floor": 0,
+      "path": "M-30,30 v-35 h50 v20 h-20 v15 h-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0083",
+      "floor": 0,
+      "path": "M-30,-5 v-30 h50 v30 h-50",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0084",
+      "floor": 0,
+      "path": "M90,-65 v50 h-30 v30 h-40 v-50 h40 v-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0085",
+      "floor": 0,
+      "pos": [
+        15,
+        -50
+      ],
+      "size": [
+        90,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0086",
+      "floor": 0,
+      "pos": [
+        47.5,
+        -50
+      ],
+      "size": [
+        25,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0087",
+      "floor": 0,
+      "pos": [
+        22.5,
+        -50
+      ],
+      "size": [
+        25,
+        30
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0088",
+      "floor": 0,
+      "pos": [
+        0,
+        -50
+      ],
+      "size": [
+        20,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0089",
+      "floor": 0,
+      "pos": [
+        102.5,
+        -52.5
+      ],
+      "size": [
+        25,
+        35
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0090",
+      "floor": 0,
+      "path": "M-30,-65 v-30 h90 l20,-15 v-65 h35 v105 h-25 v5",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0091",
+      "floor": 0,
+      "pos": [
+        -20,
+        -110
+      ],
+      "size": [
+        20,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0092",
+      "floor": 0,
+      "pos": [
+        0,
+        -110
+      ],
+      "size": [
+        20,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0093",
+      "floor": 0,
+      "pos": [
+        22.5,
+        -110
+      ],
+      "size": [
+        25,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0094",
+      "floor": 0,
+      "pos": [
+        47.5,
+        -110
+      ],
+      "size": [
+        25,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0095",
+      "floor": 0,
+      "path": "M60,-125 h5 l15,15 v-15 h-15",
+      "fill": "#171717",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0096",
+      "floor": 0,
+      "path": "M60,-125 v30 l20,-15 l-15,-15 h-5",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0097",
+      "floor": 0,
+      "pos": [
+        -55,
+        50
+      ],
+      "size": [
+        50,
+        70
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0098",
+      "floor": 0,
+      "pos": [
+        -62.5,
+        50
+      ],
+      "size": [
+        35,
+        40
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0099",
+      "floor": 0,
+      "pos": [
+        -40,
+        90
+      ],
+      "size": [
+        20,
+        10
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0100",
+      "floor": 0,
+      "path": "M-50,85 h20",
+      "strokeWidth": 1.3
+    },
+    {
+      "id": "shape-0101",
+      "floor": 0,
+      "path": "M-55,85 h5 v10 h20 v-10",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0102",
+      "floor": 0,
+      "path": "M55,70 h-85 v25 v25 h85 v-50",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0103",
+      "floor": 0,
+      "path": "M-15,85 v20 h45 v-15 l-15,-5 h-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0104",
+      "floor": 0,
+      "pos": [
+        45,
+        125
+      ],
+      "size": [
+        20,
+        10
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0105",
+      "floor": 0,
+      "path": "M35,130 v20 h20 v-20 h-20",
+      "fill": "#141414",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0106",
+      "floor": 0,
+      "path": "M35,140 h20",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0107",
+      "floor": 0,
+      "path": "M-30,120 h65 v30 h10 v25 h-75 v-55",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0108",
+      "floor": 0,
+      "pos": [
+        -20,
+        142.5
+      ],
+      "size": [
+        20,
+        15
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0110",
+      "floor": 0,
+      "path": "M-30,120 h-20 v25 h-10 v15 h10 v15 h20 v-55",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0111",
+      "floor": 0,
+      "pos": [
+        37.5,
+        185
+      ],
+      "size": [
+        15,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0112",
+      "floor": 0,
+      "pos": [
+        22.5,
+        185
+      ],
+      "size": [
+        15,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0113",
+      "floor": 0,
+      "path": "M30,195 v20 h15 v-5 h40 v-15 h-35 h-5 h-15",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0114",
+      "floor": 0,
+      "path": "M-10,150 v15 h-20 v-15 h20",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0115",
+      "floor": 0,
+      "pos": [
+        77.5,
+        185
+      ],
+      "size": [
+        65,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0116",
+      "floor": 0,
+      "path": "M45,175 v-25 h10 v-15 h15 v20 h30 v-20 h20 v10 h5 v25 h-5 v25 h-10 v-20 h-65",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0117",
+      "floor": 0,
+      "pos": [
+        77.5,
+        145
+      ],
+      "size": [
+        15,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0118",
+      "floor": 0,
+      "pos": [
+        92.5,
+        145
+      ],
+      "size": [
+        15,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0119",
+      "floor": 0,
+      "pos": [
+        110,
+        127.5
+      ],
+      "size": [
+        20,
+        15
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0120",
+      "floor": 0,
+      "path": "M110,120 v-30 h-55 v45 h45 v-15 h10",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0121",
+      "floor": 0,
+      "path": "M65,120 h25 v-5 h-25 v5",
+      "fill": "#1a1a1a",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0122",
+      "floor": 0,
+      "path": "M65,100 v5 h15 h10 v-5 h-25",
+      "fill": "#171717",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0123",
+      "floor": 0,
+      "path": "M20,120 v30 h15 v-30 h-15",
+      "fill": "#171717",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0124",
+      "floor": 0,
+      "path": "M60,-125 v-15 h20 v-15 h-20 v15 h20 v15 h-20",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0125",
+      "floor": 0,
+      "path": "M80,-155 v-35 h-50 v45 h-20 v20 h50 v-30 h20",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0126",
+      "floor": 0,
+      "pos": [
+        55,
+        -207.5
+      ],
+      "size": [
+        50,
+        35
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0127",
+      "floor": 0,
+      "path": "M30,-210 h-60 v80 h35 v-15 h5",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0128",
+      "floor": 0,
+      "pos": [
+        -15,
+        -172.5
+      ],
+      "size": [
+        30,
+        5
+      ],
+      "fill": "#1f1f1f",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0129",
+      "floor": 0,
+      "path": "M10,-145 h20 v-65 h-5",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0130",
+      "floor": 0,
+      "pos": [
+        0,
+        -225
+      ],
+      "size": [
+        20,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0131",
+      "floor": 0,
+      "pos": [
+        -42.5,
+        -187.5
+      ],
+      "size": [
+        25,
+        45
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0132",
+      "floor": 0,
+      "path": "M-30,-140 h-15 v15 h-35 v-50 h25 v10 h25 v25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0133",
+      "floor": 0,
+      "path": "M-80,-50 h50 v-45 v-30 h-20 v30 h20 h-20 v-30 h-30 v75",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0134",
+      "floor": 0,
+      "path": "M-80,-110 h-45 v-40 h45 v40",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0135",
+      "floor": 0,
+      "path": "M-125,-110 v80 h45 v-80 h-45",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0137",
+      "floor": 0,
+      "path": "M-125,-30 h-20 v25 h20 v-25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0138",
+      "floor": 0,
+      "path": "M-145,-30 v-10 h-25 v45 h25 v-10",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0139",
+      "floor": 0,
+      "path": "M-170,5 v25 h25 v-25 h-25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0140",
+      "floor": 0,
+      "path": "M-125,-30 v25 h45 v20 h20 v-65 h-20 v20 h-45",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0141",
+      "floor": 0,
+      "path": "M115,-70 v-35 h15 v-5 h55 v-5 h15 v50 h20 v10 h-10 v25 h-25 v-35 h-55 v20 h-15 v-25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0142",
+      "floor": 0,
+      "pos": [
+        127.5,
+        -35
+      ],
+      "size": [
+        25,
+        20
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0143",
+      "floor": 0,
+      "path": "M130,-65 v20 h10 v20 h20 v-15 h25 v-25 h-55",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0144",
+      "floor": 0,
+      "path": "M140,-45 v-10",
+      "fill": "#85858c",
+      "color": "#000000",
+      "strokeWidth": 0.5
+    },
+    {
+      "id": "shape-0145",
+      "floor": 0,
+      "path": "M200,-65 h30 v-100 h-25 v45 h-5 v55",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0146",
+      "floor": 0,
+      "path": "M200,-120 h10 v25 h5 v5 v5 h-15",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0147",
+      "floor": 0,
+      "pos": [
+        157.5,
+        -125
+      ],
+      "size": [
+        55,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0148",
+      "floor": 0,
+      "path": "M130,-135 h-15 v-40 h15 v15 h50 v-10 v-10 h25 v15 v45 h-5 v5 h-15 v-25 h-55 v5",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0149",
+      "floor": 0,
+      "pos": [
+        217.5,
+        -172.5
+      ],
+      "size": [
+        25,
+        15
+      ],
+      "fill": "#1a1a1a",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0150",
+      "floor": 0,
+      "pos": [
+        155,
+        -175
+      ],
+      "size": [
+        50,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0151",
+      "floor": 0,
+      "path": "M130,-105 v10",
+      "strokeWidth": 0.5,
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0153",
+      "floor": -1,
+      "pos": [
+        22.5,
+        70
+      ],
+      "size": [
+        25,
+        80
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0154",
+      "floor": -1,
+      "pos": [
+        0,
+        65
+      ],
+      "size": [
+        20,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0155",
+      "floor": -1,
+      "path": "M75,30 h-40 v100 h20 v-80 h20",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0156",
+      "floor": -1,
+      "path": "M35,140 v10 h20 v-10 h-20",
+      "fill": "#242424",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0157",
+      "floor": -1,
+      "path": "M75,30 v-45 h25 v35 h-15 v10 h25 v-10 h-10 v-35 h25 v30 h15 v25 h-15 v20 l-15,15 h-35 v-25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0158",
+      "floor": -1,
+      "path": "M85,40 v10 h25 v-10 h-25",
+      "fill": "#1a1a1a",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0159",
+      "floor": -1,
+      "path": "M75,30 v-45 h25 v35 h-15 v10",
+      "fill": "#65656b",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0160",
+      "floor": -1,
+      "path": "M85,20 v10 h25 v-10 h-25",
+      "fill": "#1c1c1c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0161",
+      "floor": -1,
+      "pos": [
+        65,
+        87.5
+      ],
+      "size": [
+        20,
+        45
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0162",
+      "floor": -1,
+      "path": "M75,75 v50 h75 v-20 h-20 v-30 h-20 h-35",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0163",
+      "floor": -1,
+      "path": "M150,125 h30 v-45 h-30 v25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0164",
+      "floor": -1,
+      "path": "M130,75 v-10 h45 h5 v10 v5 h-30 v25 h-20 v-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0165",
+      "floor": -1,
+      "path": "M130,65 v-20 h35 v-60 h-40 v-20 h35 v-25 h60 v20 h-30 v35 h30 v-35 v35 v45 h-30 v25 h30 v-25 v25 h-30 h-60",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0166",
+      "floor": -1,
+      "path": "M190,40 v25 h30 v-25 h-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0167",
+      "floor": -1,
+      "path": "M190,-40 v35 h30 v-35 h-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0168",
+      "floor": -1,
+      "path": "M140,40 v5 v-30 h-15 v-30 h40 v60 h-25",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0169",
+      "floor": -1,
+      "path": "M150,105 v20",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0170",
+      "floor": -1,
+      "pos": [
+        232.5,
+        10
+      ],
+      "size": [
+        25,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0171",
+      "floor": -1,
+      "pos": [
+        112.5,
+        140
+      ],
+      "size": [
+        65,
+        30
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0172",
+      "floor": -1,
+      "path": "M125,-15 h-65 v10 h-40 v-40 h40 v5 v-5 v-30 h15 v25 h85 v-10 h20 v-15 h-105 h50 v25 h35 v15 h-35 v20",
+      "fill": "#66666b",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0173",
+      "floor": -1,
+      "path": "M20,-45 h40 v-30 h-40 v30 v40 h10 v-40 h-10",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0174",
+      "floor": -1,
+      "path": "M75,-75 v25 h50 v-25 h-50",
+      "fill": "#636369",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0175",
+      "floor": -1,
+      "pos": [
+        137.5,
+        -42.5
+      ],
+      "size": [
+        25,
+        15
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0176",
+      "floor": -1,
+      "pos": [
+        155,
+        -42.5
+      ],
+      "size": [
+        10,
+        15
+      ],
+      "fill": "#2e2e2e",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0177",
+      "floor": -1,
+      "pos": [
+        110,
+        -27.5
+      ],
+      "size": [
+        30,
+        25
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0178",
+      "floor": -1,
+      "pos": [
+        55,
+        -10
+      ],
+      "size": [
+        10,
+        10
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0179",
+      "floor": -1,
+      "pos": [
+        95,
+        102.5
+      ],
+      "size": [
+        10,
+        15
+      ],
+      "fill": "#2e2e2e",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0180",
+      "floor": -1,
+      "pos": [
+        115,
+        102.5
+      ],
+      "size": [
+        10,
+        15
+      ],
+      "fill": "#292929",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0181",
+      "floor": -1,
+      "pos": [
+        200,
+        25
+      ],
+      "size": [
+        20,
+        10
+      ],
+      "fill": "#2b2b2b",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0184",
+      "floor": -1,
+      "path": "M185,150 v-5 h25 v15 h-50 h-5 v-10 h30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0185",
+      "floor": -1,
+      "path": "M155,160 v10 h15 v-10",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0186",
+      "floor": -1,
+      "path": "M155,155 v-5 h50 v5 h-50",
+      "fill": "#424242",
+      "color": "#000000",
+      "strokeWidth": 0.5
+    },
+    {
+      "id": "shape-0187",
+      "floor": -1,
+      "path": "M225,145 h-40 v-15 h25 l15,15",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0188",
+      "floor": -1,
+      "path": "M185,135 h25 l10,5 l-10,-10 h-25 v5",
+      "fill": "#96969c",
+      "color": "#000000",
+      "strokeWidth": 0.8
+    },
+    {
+      "id": "shape-0189",
+      "floor": 1,
+      "pos": [
+        -65,
+        77.5
+      ],
+      "size": [
+        30,
+        15
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0190",
+      "floor": 1,
+      "path": "M-80,70 v-50 h30 v15 h5 v20 h-5 v15 h-30",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0191",
+      "floor": 1,
+      "path": "M-50,20 h35 v50 h-35 v-15 h5 v-20 h-5 v-15",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0192",
+      "floor": 1,
+      "path": "M-50,85 h35 v-15 h-35 v15",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0193",
+      "floor": 1,
+      "path": "M-50,20 v-15 h30 h5 v15 h-20 v-15 v15 h-15",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0194",
+      "floor": 1,
+      "path": "M-80,20 v-15 h30 v15 h-30 v-15 v-15 h30 h20 v15 h-50",
+      "fill": "#85858c",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0195",
+      "floor": 1,
+      "pos": [
+        -37.5,
+        -2.5
+      ],
+      "size": [
+        15,
+        15
+      ],
+      "fill": "#565659",
+      "color": "#000000"
+    },
+    {
+      "id": "shape-0196",
+      "floor": 1,
+      "pos": [
+        165,
+        157.5
+      ],
+      "size": [
+        30,
+        15
+      ],
+      "fill": "#85858c",
+      "color": "#000000"
+    }
+  ]
+}
