@@ -3682,6 +3682,44 @@
         170,
         150
       ]
+    },
+    {
+      "id": "pl-0311",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        105,
+        25
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0312",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        105,
+        25
+      ]
+    },
+    {
+      "id": "pl-0313",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        105,
+        40
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0314",
+      "element": "numbered-gates",
+      "floor": 0,
+      "pos": [
+        105,
+        40
+      ]
     }
   ],
   "routes": [],
