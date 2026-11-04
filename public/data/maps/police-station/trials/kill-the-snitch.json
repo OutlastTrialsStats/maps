@@ -6461,7 +6461,7 @@
       "element": "secret-door",
       "floor": -1,
       "pos": [
-        490,
+        493,
         575
       ]
     },
@@ -6470,8 +6470,8 @@
       "element": "secret-door",
       "floor": 0,
       "pos": [
-        210,
-        350
+        212.5,
+        355
       ],
       "roomId": "f1-interrogation-room-2"
     },
@@ -6480,8 +6480,8 @@
       "element": "secret-door",
       "floor": 0,
       "pos": [
-        290,
-        650
+        292.5,
+        655
       ],
       "roomId": "f1-laboratory"
     },
@@ -6500,7 +6500,7 @@
       "element": "secret-door",
       "floor": 0,
       "pos": [
-        695,
+        700,
         275
       ],
       "roomId": "f1-room-22"
