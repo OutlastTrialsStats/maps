@@ -16,6 +16,14 @@
     {
       "id": "crush-the-sex-toys",
       "name": "Crush the Sex Toys"
+    },
+    {
+      "id": "incinerate-the-sex-toys",
+      "name": "Incinerate the Sex Toys"
+    },
+    {
+      "id": "shutdown-the-factory",
+      "name": "Shutdown the Factory"
     }
   ]
 }

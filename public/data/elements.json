@@ -707,6 +707,13 @@
       "category": "door",
       "color": "#7f8c8d",
       "icon": "prescription_heavytraining"
+    },
+    {
+      "id": "electrical-panel",
+      "name": "Electrical Panel",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "rigupgrade_electricboost"
     }
   ]
 }
