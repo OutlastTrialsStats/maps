@@ -57,6 +57,14 @@
       "maps": [
         "police-station"
       ]
+    },
+    {
+      "name": "Neemo",
+      "profileId": "9539ac7e-3d8e-5357-d1bf-fbbd30173b54",
+      "profileUrl": "https://outlasttrialsstats.com/@neemo",
+      "maps": [
+        "prison-farm"
+      ]
     }
   ]
 }
