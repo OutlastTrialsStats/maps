@@ -65,6 +65,14 @@
       "maps": [
         "prison-farm"
       ]
+    },
+    {
+      "name": "Creacken",
+      "profileId": "38e23084-d904-15f7-d4ec-4227d8f7a410",
+      "profileUrl": "https://outlasttrialsstats.com/@creacken",
+      "maps": [
+        "police-station"
+      ]
     }
   ]
 }
