@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.5.0](https://github.com/OutlastTrialsStats/maps/compare/v1.4.0...v1.5.0) (2026-11-06)
+
+
+### Features
+
+* add Toy Factory map and mirror toggle for the Rebirth Program ([#90](https://github.com/OutlastTrialsStats/maps/issues/90)) ([9ff4ab3](https://github.com/OutlastTrialsStats/maps/commit/9ff4ab31298be79a15a0d9fdb610a54fcbcc6799))
+* **data:** add Incinerate the Sex Toys and Shutdown the Factory trials for Toy Factory ([#101](https://github.com/OutlastTrialsStats/maps/issues/101)) ([54c124c](https://github.com/OutlastTrialsStats/maps/commit/54c124cbe9518743ffdc456d558df525d7ca4f04))
+* **data:** add numbered gates around the second biter in Locksock the Warden ([#99](https://github.com/OutlastTrialsStats/maps/issues/99)) ([07aa13e](https://github.com/OutlastTrialsStats/maps/commit/07aa13e6883b618ec1efccf9d4edcc8ba622d18d))
+* **data:** add syringe containers, secret doors, generators and posters to Kill the Snitch ([#102](https://github.com/OutlastTrialsStats/maps/issues/102)) ([54d2303](https://github.com/OutlastTrialsStats/maps/commit/54d2303dbbf3c68c2aea531765b044e8c8702f3b))
+* **data:** update Cancel the Autopsy with key positions and disabled areas ([#100](https://github.com/OutlastTrialsStats/maps/issues/100)) ([4d5ec8d](https://github.com/OutlastTrialsStats/maps/commit/4d5ec8d3a4be3a473a6d730a9b125ff9e5d34e8e))
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump eslint from 10.12.0 to 10.13.0 ([#85](https://github.com/OutlastTrialsStats/maps/issues/85)) ([56c6b99](https://github.com/OutlastTrialsStats/maps/commit/56c6b998a71787ffb491f659ba9522561ea7d0b5))
+* **deps-dev:** bump eslint from 10.13.0 to 10.14.0 ([#103](https://github.com/OutlastTrialsStats/maps/issues/103)) ([a181ef1](https://github.com/OutlastTrialsStats/maps/commit/a181ef1a7fdbc46bc00deccf1b17865584d02b82))
+* **deps-dev:** bump eslint-plugin-vue from 10.11.1 to 10.12.0 ([#96](https://github.com/OutlastTrialsStats/maps/issues/96)) ([c296d72](https://github.com/OutlastTrialsStats/maps/commit/c296d72aef2ec29181c8e9180a2000ff8ebf644e))
+* **deps-dev:** bump vite from 8.3.4 to 8.3.5 in the pnpm-patches group ([#87](https://github.com/OutlastTrialsStats/maps/issues/87)) ([24e0c57](https://github.com/OutlastTrialsStats/maps/commit/24e0c57ffd53f008ac8aadcd32c7e5cc2eeb5925))
+* **deps-dev:** bump vue-tsc ([#97](https://github.com/OutlastTrialsStats/maps/issues/97)) ([73e8091](https://github.com/OutlastTrialsStats/maps/commit/73e809143b78a2bcbabe6a2f5194453bf2232232))
+
+
+### Continuous Integration
+
+* bump pnpm/action-setup ([#104](https://github.com/OutlastTrialsStats/maps/issues/104)) ([6bac916](https://github.com/OutlastTrialsStats/maps/commit/6bac91650e61ab004942656393a8e1fe9f197465))
+
 ## [1.4.0](https://github.com/OutlastTrialsStats/maps/compare/v1.3.0...v1.4.0) (2026-10-20)
 
 
