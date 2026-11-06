@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/OutlastTrialsStats/maps/compare/v1.5.0...v1.5.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* **data:** correct spelling of Haxxsmart ([43bb3be](https://github.com/OutlastTrialsStats/maps/commit/43bb3be1ed5de8ea6f323f8601f978e38955a251))
+
 ## [1.5.0](https://github.com/OutlastTrialsStats/maps/compare/v1.4.0...v1.5.0) (2026-11-06)
 
 
