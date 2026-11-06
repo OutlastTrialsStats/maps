@@ -1,0 +1,4715 @@
+{
+  "$schema": "../../../../schemas/trial.schema.json",
+  "mapId": "mansion",
+  "trialId": "main",
+  "floors": [
+    {
+      "index": -1,
+      "name": "Basement"
+    },
+    {
+      "index": 0,
+      "name": "First Floor"
+    },
+    {
+      "index": 1,
+      "name": "Second Floor",
+      "default": true
+    }
+  ],
+  "filters": [
+    {
+      "id": "filter-0001",
+      "name": "Keys & Locks",
+      "categories": [
+        "key"
+      ],
+      "default": true
+    },
+    {
+      "id": "filter-0002",
+      "name": "Doors & Passages",
+      "categories": [
+        "door"
+      ],
+      "default": true
+    },
+    {
+      "id": "filter-0003",
+      "name": "Stairs & Ramps",
+      "categories": [
+        "stairs"
+      ],
+      "default": true
+    },
+    {
+      "id": "filter-0004",
+      "name": "Objectives",
+      "categories": [
+        "objective"
+      ],
+      "default": true
+    },
+    {
+      "id": "filter-0005",
+      "name": "Items & Resources",
+      "categories": [
+        "item"
+      ],
+      "default": true
+    },
+    {
+      "id": "filter-0006",
+      "name": "Miscellaneous",
+      "categories": [
+        "misc"
+      ],
+      "default": true
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room-0253",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -15,
+          -80
+        ],
+        "path": "h-45 v-30 h45 z"
+      }
+    },
+    {
+      "id": "room-0254",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          60,
+          -80
+        ],
+        "path": "h-45 v-30 h45 z"
+      }
+    },
+    {
+      "id": "room-0255",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -15,
+          5
+        ],
+        "path": "h-35 v-60 h35 z"
+      }
+    },
+    {
+      "id": "room-0256",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          15,
+          -80
+        ],
+        "path": "v15 h150 v-15 z"
+      }
+    },
+    {
+      "id": "room-0257",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          60,
+          -110
+        ],
+        "path": "h-120 v-15 h40 v-20 h40 v20 h40 v15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 4,
+          "start": 0,
+          "length": 40
+        }
+      ]
+    },
+    {
+      "id": "room-0258",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -140,
+          -10
+        ],
+        "path": "v15 v15 v15 h-45 v-45 z"
+      }
+    },
+    {
+      "id": "room-0267",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          15,
+          -110
+        ],
+        "path": "v110 h-30 v-55 h-35 v-10 h35 v-45 h30 z"
+      }
+    },
+    {
+      "id": "room-0268",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          55,
+          -65
+        ],
+        "path": "v20.769 l5,5.192 l5,10.385 v15.577 l-5,10.385 l-5,5.192 h-40 v-67.5 z"
+      }
+    },
+    {
+      "id": "room-0273",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -120,
+          -80
+        ],
+        "path": "h35 v25 h-35 z"
+      }
+    },
+    {
+      "id": "room-0274",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -85,
+          -80
+        ],
+        "path": "v25 h35 v-10 h35 v-15 h-70 z"
+      }
+    },
+    {
+      "id": "room-0277",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          25
+        ],
+        "path": "v20 h-20 v-40 h35 v20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 1,
+          "start": 6,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0278",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -185,
+          -95
+        ],
+        "path": "h65 v40 h-65 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 2,
+          "start": 47.5,
+          "length": 15
+        }
+      ]
+    },
+    {
+      "id": "room-0279",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -140,
+          -55
+        ],
+        "path": "h-45 v45 h45 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 27.5,
+          "length": 15
+        }
+      ]
+    },
+    {
+      "id": "room-0289",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -15,
+          -80
+        ],
+        "path": "h-45 v-30 h45 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 2,
+          "start": 25,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0290",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          60,
+          -80
+        ],
+        "path": "h-45 v-30 h45 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 2,
+          "start": 30,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0291",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -15,
+          -15
+        ],
+        "path": "h-35 v-40 h35 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 1,
+          "start": 2.5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0292",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          5,
+          -80
+        ],
+        "path": "v15 h160 v-15 z"
+      }
+    },
+    {
+      "id": "room-0293",
+      "floor": 1,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          60,
+          -110
+        ],
+        "path": "h-120 v-15 h40 v-20 h40 v20 h40 v15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 85,
+          "length": 10
+        },
+        {
+          "edge": 0,
+          "start": 5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0294",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -140,
+          -35
+        ],
+        "path": "v23.333 v23.333 v23.333 h-45 v-69.999 z"
+      }
+    },
+    {
+      "id": "room-0295",
+      "floor": 1,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -120,
+          -95
+        ],
+        "path": "v-20 h-80 v60 h15 v-40 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 5,
+          "start": 45,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0296",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          15,
+          -40
+        ],
+        "path": "h5 v30 h-5 v-30 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0297",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          165,
+          -65
+        ],
+        "path": "v-35 h65 v35 h-65 z"
+      }
+    },
+    {
+      "id": "room-0298",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          230,
+          -65
+        ],
+        "path": "h-65 v100 h65 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 1,
+          "start": 35,
+          "length": 65
+        }
+      ]
+    },
+    {
+      "id": "room-0300",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          230,
+          -80
+        ],
+        "path": "h-10 v-10 h-10 v-10 h20 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0302",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          140,
+          35
+        ],
+        "path": "v22.5 v22.5 h30 v-45 z"
+      }
+    },
+    {
+      "id": "room-0303",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          170,
+          80
+        ],
+        "path": "h-30 v-20 h10 v10 h20 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0304",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          170,
+          80
+        ],
+        "path": "h60 v-5 l5,-10 v-15 l-5,-10 v-5 h-60 v45 z"
+      }
+    },
+    {
+      "id": "room-0306",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          115,
+          -65
+        ],
+        "path": "h10 v20 h-10 v-20 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0307",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -50,
+          -65
+        ],
+        "path": "h30 v-15 h-100 v25 h100 v-10 z"
+      }
+    },
+    {
+      "id": "room-0308",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -15,
+          -110
+        ],
+        "path": "h30 v30 h5 v25 h-5 v40 h5 v15 h-40 v-15 h5 v-40 h-5 v-25 h5 z"
+      }
+    },
+    {
+      "id": "room-0309",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          15,
+          -55
+        ],
+        "path": "h5 v5 h-5 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0310",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          20,
+          -65
+        ],
+        "path": "h35 v10 h-35 v-10 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0311",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          55,
+          -45
+        ],
+        "path": "v-10 h-35 v5 h-5 v15 h5 v35 h35 l5,-5 l5,-10 v-15 l-5,-10 z"
+      }
+    },
+    {
+      "id": "room-0313",
+      "floor": 1,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -50,
+          -15
+        ],
+        "path": "h-25 v-20 h-50 v70 h-15 v-90 h90 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 7,
+          "start": 27.5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0314",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -120,
+          -95
+        ],
+        "path": "v40 h-65 v-40 h65 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 3,
+          "start": 45,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0315",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -165,
+          -55
+        ],
+        "path": "v20 h25 v-20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0316",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -165,
+          -55
+        ],
+        "path": "h-20 v20 h20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 3,
+          "start": 5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0317",
+      "floor": 1,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -60,
+          90
+        ],
+        "path": "v-15 h-65 v15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 3,
+          "start": 5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0318",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          125
+        ],
+        "path": "h-10 v30 h10 v-30 z"
+      }
+    },
+    {
+      "id": "room-0319",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -105,
+          155
+        ],
+        "path": "v-10 h35 v-20 v20 h-35 v10 h-20 v-65 h65 v65 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 8,
+          "start": 5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0322",
+      "floor": -1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          95
+        ],
+        "path": "v50 h-30 h30 v10 h-65 v-40 h15 v-20 h50 z"
+      }
+    },
+    {
+      "id": "room-0323",
+      "floor": 1,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -140,
+          140
+        ],
+        "path": "h15 v15 h-15 v-15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 5,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0332",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -125,
+          -35
+        ],
+        "path": "h75 v125 h5 v90 h-110 v-120 h-30 v-25 h60 v-70 z"
+      }
+    },
+    {
+      "id": "room-0334",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          125
+        ],
+        "path": "h-10 v20 h10 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 0,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0335",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -60,
+          145
+        ],
+        "path": "h-25 v-5 h-25 v15 h50 z"
+      }
+    },
+    {
+      "id": "room-0336",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -85,
+          140
+        ],
+        "path": "v5 h15 v-5 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0337",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -125,
+          90
+        ],
+        "path": "h65 v35 h-10 v15 h-40 v-15 h-15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 2,
+          "start": 0,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0338",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -125,
+          85
+        ],
+        "path": "h-10 v-10 h10 v10 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0339",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -125,
+          125
+        ],
+        "path": "v30 h15 v-30 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0340",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -50,
+          -55
+        ],
+        "path": "v20 h-75 v70 h-15 v-90 h90 z"
+      }
+    },
+    {
+      "id": "room-0342",
+      "floor": 1,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          75,
+          -45
+        ],
+        "path": "l5,5 l5,10 v15 l-5,10 l-10,15 l-15,10 h-30 v-20 h30 l5,-5 l5,-10 v-15 l-5,-10 l-5,-5 v-20 h40 v20 h-20 z"
+      }
+    },
+    {
+      "id": "room-0345",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          65,
+          -30
+        ],
+        "path": "h20 v15 l-5,10 l-10,15 l-15,10 h-30 v-20 h30 l5,-5 l5,-10 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0349",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          165,
+          70
+        ],
+        "path": "v10 h-25 v-25 h10 v15 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0353",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          190,
+          15
+        ],
+        "path": "h20 v20 h-20 v-20 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0357",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          200,
+          -100
+        ],
+        "path": "v10 h30 v-10 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0358",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          200,
+          -90
+        ],
+        "path": "v20 h30 v-20 z"
+      }
+    },
+    {
+      "id": "room-0359",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          165,
+          -100
+        ],
+        "path": "v50 h65 v-20 h-30 v-30 z"
+      }
+    },
+    {
+      "id": "room-0360",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          230,
+          15
+        ],
+        "path": "h-20 v20 h-20 v-20 h-25 v20 h-25 v20 h10 v15 h15 v10 h65 z"
+      }
+    },
+    {
+      "id": "room-0371",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -120,
+          -365
+        ],
+        "path": "h100 v15 h-100 z"
+      }
+    },
+    {
+      "id": "room-0374",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -20,
+          -295
+        ],
+        "path": "h-15 v-15 h-30 v-20 h5 v-35 h40 z"
+      }
+    },
+    {
+      "id": "room-0375",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -20,
+          -310
+        ],
+        "path": "v165 h40 v-165 h-40 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 1,
+          "start": 0,
+          "length": 40
+        }
+      ]
+    },
+    {
+      "id": "room-0376",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -120,
+          -365
+        ],
+        "path": "v15 h40 v-15 z"
+      }
+    },
+    {
+      "id": "room-0378",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          210,
+          15
+        ],
+        "path": "v-15 h-25 v15 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0380",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          165,
+          5
+        ],
+        "path": "h20 v10 h-20 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0385",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -30,
+          45
+        ],
+        "path": "v20 h-20 v-20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 3,
+          "start": 6,
+          "length": 8
+        }
+      ]
+    },
+    {
+      "id": "room-0386",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          25,
+          0
+        ],
+        "path": "v20 h-5 v75 h-35 v-95 h40 z"
+      }
+    },
+    {
+      "id": "room-0387",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          25,
+          0
+        ],
+        "path": "v20 h-5 v80 h-35 v-100 z"
+      }
+    },
+    {
+      "id": "room-0390",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          165,
+          -50
+        ],
+        "path": "v55 h20 v-5 h25 v15 h20 v-65 z"
+      }
+    },
+    {
+      "id": "room-0391",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          85,
+          -30
+        ],
+        "path": "h-20 l-5,-10 l-5,-5 v-20 h110 v100 h-25 v-80 h-65 l5,5 l5,10 z"
+      }
+    },
+    {
+      "id": "room-0392",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          20,
+          20
+        ],
+        "path": "h35 l15,-10 l10,-15 l5,-10 v-15 l-5,-10 l-5,-5 h65 v125 h5 v35 h-125 z"
+      }
+    },
+    {
+      "id": "room-0393",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          55,
+          55
+        ],
+        "path": "v20 l15,15 h20 l15,-15 v-20 l-15,-15 h-20 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 5,
+          "start": 2.5,
+          "length": 15
+        },
+        {
+          "edge": 1,
+          "start": 2.5,
+          "length": 15
+        }
+      ]
+    },
+    {
+      "id": "room-0396",
+      "floor": 1,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          180,
+          15
+        ],
+        "path": "h5 v-5 h25 v5 h5 v-60 h-35 v60 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0397",
+      "floor": 1,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          125,
+          -65
+        ],
+        "path": "v20 h15 v80 h25 v-100 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 4,
+          "start": 55,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "id": "room-0398",
+      "floor": 0,
+      "zone": "outdoor",
+      "shape": {
+        "origin": [
+          -125,
+          75
+        ],
+        "path": "h65 v15 h-65 v-15 z"
+      },
+      "wallGaps": [
+        {
+          "edge": 0,
+          "start": 0,
+          "length": 65
+        },
+        {
+          "edge": 1,
+          "start": 0,
+          "length": 15
+        }
+      ]
+    },
+    {
+      "id": "room-0399",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -80,
+          -330
+        ],
+        "path": "l-20,20 h35 v-20 h-15 z"
+      },
+      "flags": [
+        "disabled",
+        "unreachable"
+      ]
+    },
+    {
+      "id": "room-0400",
+      "floor": 0,
+      "zone": "standard",
+      "shape": {
+        "origin": [
+          -100,
+          -350
+        ],
+        "path": "h-20 v-15 h40 v15 h-10 h10 v20 l-20,20 v35 h-45 v-70 h-75 v-5 h-15 v-10 h15 v-5 h90 v70 h10 v-55 h20 z"
+      }
+    }
+  ],
+  "placements": [
+    {
+      "id": "pl-0591",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        15,
+        -90
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0592",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        15,
+        -15
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0593",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -40,
+        -80
+      ],
+      "roomId": "room-0253"
+    },
+    {
+      "id": "pl-0594",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -50,
+        -45
+      ],
+      "roomId": "room-0255",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0595",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        70,
+        -65
+      ],
+      "roomId": "room-0256"
+    },
+    {
+      "id": "pl-0596",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -30,
+        -60
+      ],
+      "size": [
+        30,
+        8
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0597",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -120,
+        -67.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0598",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -185,
+        20
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0599",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        165,
+        -72
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0600",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        198,
+        -50
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0601",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        165,
+        25
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0603",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0604",
+      "element": "door-barricaded",
+      "floor": 0,
+      "pos": [
+        -15,
+        -45
+      ],
+      "roomId": "room-0255",
+      "rotation": 270
+    },
+    {
+      "id": "pl-0605",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        0,
+        -110
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0606",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        20,
+        -30
+      ]
+    },
+    {
+      "id": "pl-0607",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        25,
+        -5
+      ]
+    },
+    {
+      "id": "pl-0608",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        60,
+        -15
+      ]
+    },
+    {
+      "id": "pl-0609",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        55,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0610",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        35,
+        -60
+      ]
+    },
+    {
+      "id": "pl-0611",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        20,
+        -40
+      ]
+    },
+    {
+      "id": "pl-0612",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        -10,
+        -5
+      ]
+    },
+    {
+      "id": "pl-0613",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -10,
+        -25
+      ]
+    },
+    {
+      "id": "pl-0614",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -10,
+        -15
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0615",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        10,
+        -100
+      ]
+    },
+    {
+      "id": "pl-0616",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        55,
+        -85
+      ]
+    },
+    {
+      "id": "pl-0617",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        20,
+        5
+      ]
+    },
+    {
+      "id": "pl-0618",
+      "element": "double-door",
+      "floor": 0,
+      "pos": [
+        20,
+        85
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0619",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        35,
+        35
+      ]
+    },
+    {
+      "id": "pl-0620",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        70,
+        45
+      ]
+    },
+    {
+      "id": "pl-0621",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        110,
+        65
+      ]
+    },
+    {
+      "id": "pl-0622",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        85,
+        95
+      ]
+    },
+    {
+      "id": "pl-0623",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        95,
+        5
+      ]
+    },
+    {
+      "id": "pl-0624",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        100,
+        90
+      ]
+    },
+    {
+      "id": "pl-0625",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        25,
+        100
+      ]
+    },
+    {
+      "id": "pl-0626",
+      "element": "objective",
+      "floor": 0,
+      "pos": [
+        15,
+        -60
+      ],
+      "roomId": "room-0268",
+      "marker": {
+        "label": 5,
+        "offset": [
+          60,
+          -40
+        ],
+        "lineDashed": true
+      }
+    },
+    {
+      "id": "pl-0627",
+      "element": "objective",
+      "floor": 0,
+      "pos": [
+        -15,
+        -85
+      ],
+      "roomId": "room-0267",
+      "marker": {
+        "label": 6,
+        "offset": [
+          -70,
+          -40
+        ]
+      }
+    },
+    {
+      "id": "pl-0628",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -15,
+        75
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0629",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        80,
+        85
+      ]
+    },
+    {
+      "id": "pl-0630",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        30,
+        50
+      ]
+    },
+    {
+      "id": "pl-0631",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        45,
+        110
+      ]
+    },
+    {
+      "id": "pl-0632",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        80,
+        25
+      ]
+    },
+    {
+      "id": "pl-0633",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        30,
+        110
+      ]
+    },
+    {
+      "id": "pl-0634",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        55,
+        110
+      ]
+    },
+    {
+      "id": "pl-0635",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        70,
+        115
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0636",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        115,
+        105
+      ]
+    },
+    {
+      "id": "pl-0637",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        140,
+        85
+      ]
+    },
+    {
+      "id": "pl-0638",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        70,
+        20
+      ]
+    },
+    {
+      "id": "pl-0639",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        135,
+        15
+      ]
+    },
+    {
+      "id": "pl-0640",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        120,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0641",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        90,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0642",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        100,
+        -20
+      ]
+    },
+    {
+      "id": "pl-0643",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        90,
+        -10
+      ]
+    },
+    {
+      "id": "pl-0644",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -10,
+        50
+      ]
+    },
+    {
+      "id": "pl-0645",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -50,
+        -85
+      ]
+    },
+    {
+      "id": "pl-0646",
+      "element": "vault-window",
+      "floor": 0,
+      "pos": [
+        -85,
+        -67.5
+      ],
+      "rotation": 90,
+      "roomId": "room-0274"
+    },
+    {
+      "id": "pl-0647",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -60,
+        -60
+      ],
+      "roomId": "room-0274"
+    },
+    {
+      "id": "pl-0648",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -90,
+        -60
+      ],
+      "roomId": "room-0273"
+    },
+    {
+      "id": "pl-0649",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -185,
+        -62.5
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0650",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -175,
+        -10
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0651",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -180,
+        10
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0652",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -155,
+        -5
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0653",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -140,
+        0
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0654",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        20,
+        -5
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0655",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        125,
+        85
+      ]
+    },
+    {
+      "id": "pl-0656",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        115,
+        30
+      ]
+    },
+    {
+      "id": "pl-0657",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        85,
+        110
+      ]
+    },
+    {
+      "id": "pl-0658",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -125,
+        -90
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0659",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -150,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0660",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -125,
+        -80
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0661",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -180,
+        -90
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0662",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -175,
+        30
+      ]
+    },
+    {
+      "id": "pl-0663",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -165,
+        0
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0664",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -130,
+        30
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0665",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -135,
+        -50
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0666",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -120,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0667",
+      "element": "double-door",
+      "floor": 0,
+      "pos": [
+        -100,
+        -35
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0668",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -90,
+        -50
+      ],
+      "roomId": "room-0273"
+    },
+    {
+      "id": "pl-0669",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -45,
+        0
+      ]
+    },
+    {
+      "id": "pl-0670",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -30,
+        -25
+      ]
+    },
+    {
+      "id": "pl-0671",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -25,
+        5
+      ],
+      "roomId": "room-0253"
+    },
+    {
+      "id": "pl-0672",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -20,
+        -10
+      ]
+    },
+    {
+      "id": "pl-0673",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -35,
+        55
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0674",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -45,
+        55
+      ]
+    },
+    {
+      "id": "pl-0675",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -40,
+        60
+      ]
+    },
+    {
+      "id": "pl-0676",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -20,
+        15
+      ]
+    },
+    {
+      "id": "pl-0677",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        135,
+        -20
+      ]
+    },
+    {
+      "id": "pl-0678",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -30,
+        -75
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0679",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        -165,
+        -35
+      ],
+      "roomId": "room-0279"
+    },
+    {
+      "id": "pl-0680",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -145,
+        -30
+      ]
+    },
+    {
+      "id": "pl-0681",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -160,
+        -80
+      ]
+    },
+    {
+      "id": "pl-0682",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -155,
+        -15
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0683",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -150,
+        30
+      ]
+    },
+    {
+      "id": "pl-0684",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -110,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0695",
+      "element": "double-door",
+      "floor": 1,
+      "pos": [
+        20,
+        -72.5
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0696",
+      "element": "double-door",
+      "floor": 1,
+      "pos": [
+        -20,
+        -72.5
+      ],
+      "rotation": 90,
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0697",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -15,
+        -42.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0698",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        15,
+        -90
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0699",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -15,
+        -95
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0700",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        15,
+        -42.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0701",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        0,
+        -110
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0702",
+      "element": "record-box",
+      "floor": 1,
+      "pos": [
+        -5,
+        -70
+      ],
+      "marker": {
+        "label": 3,
+        "offset": [
+          -85,
+          -50
+        ],
+        "lineDashed": true
+      }
+    },
+    {
+      "id": "pl-0703",
+      "element": "record-box",
+      "floor": 1,
+      "pos": [
+        5,
+        -70
+      ],
+      "marker": {
+        "label": 1,
+        "offset": [
+          80,
+          -40
+        ],
+        "lineDashed": true
+      }
+    },
+    {
+      "id": "pl-0704",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -40,
+        -80
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0705",
+      "element": "start-point",
+      "floor": 1,
+      "pos": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "pl-0706",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -30,
+        -85
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0707",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -40,
+        -100
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0708",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        -15,
+        -140
+      ]
+    },
+    {
+      "id": "pl-0709",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -55,
+        -120
+      ]
+    },
+    {
+      "id": "pl-0710",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        55,
+        -120
+      ]
+    },
+    {
+      "id": "pl-0711",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        40,
+        -105
+      ],
+      "roomId": "room-0290"
+    },
+    {
+      "id": "pl-0712",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        40,
+        -120
+      ]
+    },
+    {
+      "id": "pl-0713",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -10,
+        -85
+      ]
+    },
+    {
+      "id": "pl-0714",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -15,
+        -60
+      ]
+    },
+    {
+      "id": "pl-0715",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -55,
+        -95
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0716",
+      "element": "enemy-spawn",
+      "floor": 1,
+      "pos": [
+        -35,
+        -15
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0717",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -25,
+        -50
+      ],
+      "roomId": "room-0291"
+    },
+    {
+      "id": "pl-0718",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -45,
+        -35
+      ],
+      "roomId": "room-0291"
+    },
+    {
+      "id": "pl-0719",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        70,
+        -65
+      ],
+      "roomId": "room-0292"
+    },
+    {
+      "id": "pl-0720",
+      "element": "stairs",
+      "floor": 1,
+      "pos": [
+        -37.5,
+        -60
+      ],
+      "size": [
+        24,
+        8
+      ]
+    },
+    {
+      "id": "pl-0722",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -35,
+        -120
+      ],
+      "roomId": "room-0293"
+    },
+    {
+      "id": "pl-0723",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        0,
+        -130
+      ],
+      "roomId": "room-0293"
+    },
+    {
+      "id": "pl-0724",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -10,
+        -30
+      ],
+      "roomId": "room-0293"
+    },
+    {
+      "id": "pl-0725",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -172.5,
+        -55
+      ]
+    },
+    {
+      "id": "pl-0726",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -185,
+        -65
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0727",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -120,
+        -67.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0728",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -135,
+        30
+      ]
+    },
+    {
+      "id": "pl-0729",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -135,
+        -45
+      ]
+    },
+    {
+      "id": "pl-0730",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -180,
+        -30
+      ]
+    },
+    {
+      "id": "pl-0731",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -165,
+        -5
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0732",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -180,
+        30
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0733",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -150,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0734",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -145,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0735",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -155,
+        -50
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0736",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        10,
+        -100
+      ],
+      "roomId": "room-0293"
+    },
+    {
+      "id": "pl-0737",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -20,
+        -105
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0738",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -60,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0739",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -180,
+        -90
+      ]
+    },
+    {
+      "id": "pl-0740",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -125,
+        -90
+      ]
+    },
+    {
+      "id": "pl-0741",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -155,
+        -90
+      ]
+    },
+    {
+      "id": "pl-0742",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -130,
+        -110
+      ]
+    },
+    {
+      "id": "pl-0743",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -195,
+        -60
+      ]
+    },
+    {
+      "id": "pl-0744",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -140,
+        0
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0745",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -60,
+        -55
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0746",
+      "element": "enemy-spawn",
+      "floor": 1,
+      "pos": [
+        -185,
+        0
+      ],
+      "rotation": 270
+    },
+    {
+      "id": "pl-0747",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        152.5,
+        -65
+      ],
+      "roomId": "room-0292"
+    },
+    {
+      "id": "pl-0748",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        165,
+        -72.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0749",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        197.5,
+        -65
+      ],
+      "roomId": "room-0297",
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0750",
+      "element": "enemy-spawn",
+      "floor": 1,
+      "pos": [
+        230,
+        -72.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0751",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        215,
+        -85
+      ],
+      "roomId": "room-0297"
+    },
+    {
+      "id": "pl-0752",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        170,
+        -95
+      ],
+      "roomId": "room-0297"
+    },
+    {
+      "id": "pl-0753",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        170,
+        -60
+      ],
+      "roomId": "room-0297"
+    },
+    {
+      "id": "pl-0754",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        55,
+        -100
+      ],
+      "roomId": "room-0290"
+    },
+    {
+      "id": "pl-0755",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        55,
+        -115
+      ],
+      "roomId": "room-0293"
+    },
+    {
+      "id": "pl-0756",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        30,
+        -85
+      ],
+      "roomId": "room-0290"
+    },
+    {
+      "id": "pl-0757",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        -45,
+        -115
+      ],
+      "roomId": "room-0293"
+    },
+    {
+      "id": "pl-0758",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        -50,
+        -105
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0759",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        190,
+        -95
+      ],
+      "roomId": "room-0297"
+    },
+    {
+      "id": "pl-0760",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        180,
+        -70
+      ],
+      "roomId": "room-0297"
+    },
+    {
+      "id": "pl-0761",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        215,
+        -70
+      ],
+      "roomId": "room-0297"
+    },
+    {
+      "id": "pl-0762",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        200,
+        -50
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0763",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        225,
+        30
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0764",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        170,
+        30
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0765",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        152.5,
+        35
+      ]
+    },
+    {
+      "id": "pl-0766",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        225,
+        40
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0767",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        165,
+        40
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0768",
+      "element": "enemy-spawn",
+      "floor": 1,
+      "pos": [
+        180,
+        80
+      ],
+      "rotation": 180
+    },
+    {
+      "id": "pl-0769",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        175,
+        40
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0770",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        170,
+        60
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0771",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        230,
+        50
+      ]
+    },
+    {
+      "id": "pl-0772",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        197.5,
+        35
+      ]
+    },
+    {
+      "id": "pl-0773",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        200,
+        75
+      ]
+    },
+    {
+      "id": "pl-0774",
+      "element": "objective",
+      "floor": 1,
+      "pos": [
+        200,
+        55
+      ],
+      "roomId": "room-0304",
+      "marker": {
+        "label": 2,
+        "offset": [
+          70,
+          -25
+        ],
+        "lineDashed": true
+      }
+    },
+    {
+      "id": "pl-0775",
+      "element": "objective",
+      "floor": 1,
+      "pos": [
+        -160,
+        15
+      ],
+      "roomId": "room-0294",
+      "marker": {
+        "label": 4,
+        "offset": [
+          -60,
+          40
+        ],
+        "lineDashed": true
+      }
+    },
+    {
+      "id": "pl-0777",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        160,
+        -15
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0778",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        155,
+        65
+      ]
+    },
+    {
+      "id": "pl-0779",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        170,
+        15
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0780",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -130,
+        15
+      ]
+    },
+    {
+      "id": "pl-0781",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        130,
+        -60
+      ]
+    },
+    {
+      "id": "pl-0782",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        130,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0783",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        160,
+        20
+      ]
+    },
+    {
+      "id": "pl-0784",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        225,
+        -30
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0785",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -180,
+        -20
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0786",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -145,
+        -20
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0787",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        -125,
+        -100
+      ]
+    },
+    {
+      "id": "pl-0788",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        -190,
+        -110
+      ]
+    },
+    {
+      "id": "pl-0789",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        -195,
+        -75
+      ],
+      "roomId": "room-0295"
+    },
+    {
+      "id": "pl-0790",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        -125,
+        -80
+      ]
+    },
+    {
+      "id": "pl-0791",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        -155,
+        -65
+      ],
+      "roomId": "room-0295"
+    },
+    {
+      "id": "pl-0792",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -180,
+        -40
+      ]
+    },
+    {
+      "id": "pl-0793",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -145,
+        30
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0794",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        170,
+        -15
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0795",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -115,
+        -50
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0796",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -45,
+        -20
+      ]
+    },
+    {
+      "id": "pl-0797",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        90,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0798",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        30,
+        15
+      ]
+    },
+    {
+      "id": "pl-0799",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        60,
+        -55
+      ]
+    },
+    {
+      "id": "pl-0800",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        90,
+        -60
+      ]
+    },
+    {
+      "id": "pl-0801",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        40,
+        0
+      ],
+      "size": [
+        15,
+        4
+      ]
+    },
+    {
+      "id": "pl-0802",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        25,
+        -5
+      ]
+    },
+    {
+      "id": "pl-0803",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        25,
+        -15
+      ]
+    },
+    {
+      "id": "pl-0804",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        50,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0805",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        60,
+        10
+      ]
+    },
+    {
+      "id": "pl-0806",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        80,
+        -15
+      ]
+    },
+    {
+      "id": "pl-0807",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        80,
+        -25
+      ]
+    },
+    {
+      "id": "pl-0808",
+      "element": "bottle-spawn",
+      "floor": 1,
+      "pos": [
+        175,
+        -70
+      ],
+      "roomId": "room-0297"
+    },
+    {
+      "id": "pl-0809",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        145,
+        -15
+      ]
+    },
+    {
+      "id": "pl-0810",
+      "element": "brick",
+      "floor": 1,
+      "pos": [
+        145,
+        -10
+      ]
+    },
+    {
+      "id": "pl-0811",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        215,
+        40
+      ]
+    },
+    {
+      "id": "pl-0812",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -20,
+        -20
+      ]
+    },
+    {
+      "id": "pl-0813",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -20,
+        -115
+      ],
+      "roomId": "room-0293"
+    },
+    {
+      "id": "pl-0814",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -160,
+        -40
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0815",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -125,
+        -60
+      ],
+      "roomId": "room-0294"
+    },
+    {
+      "id": "pl-0816",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -180,
+        -50
+      ]
+    },
+    {
+      "id": "pl-0817",
+      "element": "stairs",
+      "floor": 1,
+      "pos": [
+        -65,
+        135
+      ],
+      "rotation": 90,
+      "size": [
+        18,
+        8
+      ]
+    },
+    {
+      "id": "pl-0818",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -65,
+        100
+      ],
+      "roomId": "room-0319"
+    },
+    {
+      "id": "pl-0819",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -92.5,
+        90
+      ],
+      "roomId": "room-0319"
+    },
+    {
+      "id": "pl-0820",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -65,
+        80
+      ],
+      "roomId": "room-0319"
+    },
+    {
+      "id": "pl-0821",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -90,
+        140
+      ],
+      "roomId": "room-0319"
+    },
+    {
+      "id": "pl-0822",
+      "element": "hiding-spot",
+      "floor": 1,
+      "pos": [
+        -105,
+        95
+      ],
+      "roomId": "room-0319"
+    },
+    {
+      "id": "pl-0823",
+      "element": "stairs",
+      "floor": 1,
+      "pos": [
+        -130,
+        122.5
+      ],
+      "rotation": 270,
+      "size": [
+        34,
+        8
+      ]
+    },
+    {
+      "id": "pl-0824",
+      "element": "hiding-spot",
+      "floor": -1,
+      "pos": [
+        -105,
+        100
+      ]
+    },
+    {
+      "id": "pl-0825",
+      "element": "enemy-spawn",
+      "floor": -1,
+      "pos": [
+        -60,
+        105
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0827",
+      "element": "hiding-spot",
+      "floor": -1,
+      "pos": [
+        -65,
+        125
+      ]
+    },
+    {
+      "id": "pl-0828",
+      "element": "brick",
+      "floor": -1,
+      "pos": [
+        -70,
+        140
+      ]
+    },
+    {
+      "id": "pl-0829",
+      "element": "hiding-spot",
+      "floor": -1,
+      "pos": [
+        -120,
+        150
+      ]
+    },
+    {
+      "id": "pl-0830",
+      "element": "stairs",
+      "floor": -1,
+      "pos": [
+        -80,
+        150
+      ],
+      "size": [
+        18,
+        8
+      ]
+    },
+    {
+      "id": "pl-0831",
+      "element": "door",
+      "floor": 1,
+      "pos": [
+        -125,
+        147.5
+      ],
+      "roomId": "room-0319",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0841",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        -45,
+        162.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0851",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -70,
+        175
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0852",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -55,
+        90
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0853",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -180,
+        50
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0855",
+      "element": "objective",
+      "floor": -1,
+      "pos": [
+        -85,
+        100
+      ],
+      "roomId": "room-0322",
+      "marker": {
+        "label": 7,
+        "offset": [
+          -15,
+          -25
+        ],
+        "lineDashed": true
+      }
+    },
+    {
+      "id": "pl-0856",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -102.5,
+        140
+      ],
+      "roomId": "room-0253"
+    },
+    {
+      "id": "pl-0857",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -80,
+        150
+      ],
+      "size": [
+        12,
+        8
+      ]
+    },
+    {
+      "id": "pl-0858",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -65,
+        132.5
+      ],
+      "rotation": 90,
+      "size": [
+        14,
+        8
+      ]
+    },
+    {
+      "id": "pl-0859",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -65,
+        95
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0860",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -75,
+        135
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0861",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -120,
+        115
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0862",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        -65,
+        150
+      ],
+      "roomId": "room-0335"
+    },
+    {
+      "id": "pl-0863",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -92.5,
+        90
+      ],
+      "roomId": "room-0337"
+    },
+    {
+      "id": "pl-0864",
+      "element": "stairs",
+      "floor": 0,
+      "pos": [
+        -130,
+        117.5
+      ],
+      "rotation": 90,
+      "size": [
+        34,
+        8
+      ]
+    },
+    {
+      "id": "pl-0865",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -120,
+        85
+      ],
+      "roomId": "room-0258"
+    },
+    {
+      "id": "pl-0866",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -70,
+        -20
+      ],
+      "roomId": "room-0273"
+    },
+    {
+      "id": "pl-0867",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -65,
+        10
+      ]
+    },
+    {
+      "id": "pl-0868",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        -115,
+        -15
+      ],
+      "roomId": "room-0273"
+    },
+    {
+      "id": "pl-0869",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -160,
+        40
+      ]
+    },
+    {
+      "id": "pl-0870",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        70,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0871",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        70,
+        -45
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0872",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        160,
+        -60
+      ]
+    },
+    {
+      "id": "pl-0873",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        145,
+        30
+      ]
+    },
+    {
+      "id": "pl-0874",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        155,
+        65
+      ]
+    },
+    {
+      "id": "pl-0875",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        145,
+        55
+      ]
+    },
+    {
+      "id": "pl-0876",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        215,
+        25
+      ]
+    },
+    {
+      "id": "pl-0877",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        155,
+        55
+      ]
+    },
+    {
+      "id": "pl-0878",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        230,
+        -60
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0879",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        225,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0880",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        185,
+        25
+      ]
+    },
+    {
+      "id": "pl-0881",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        195,
+        -90
+      ]
+    },
+    {
+      "id": "pl-0882",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        170,
+        -95
+      ]
+    },
+    {
+      "id": "pl-0883",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        180,
+        -95
+      ]
+    },
+    {
+      "id": "pl-0884",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        210,
+        -65
+      ]
+    },
+    {
+      "id": "pl-0885",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        225,
+        -55
+      ]
+    },
+    {
+      "id": "pl-0886",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        215,
+        -75
+      ]
+    },
+    {
+      "id": "pl-0887",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        225,
+        -85
+      ]
+    },
+    {
+      "id": "pl-0888",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        200,
+        -80
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0889",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -65,
+        110
+      ]
+    },
+    {
+      "id": "pl-0890",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        -15,
+        -72.5
+      ],
+      "roomId": "room-0267",
+      "size": [
+        15,
+        4
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0891",
+      "element": "door-locked",
+      "floor": 0,
+      "pos": [
+        15,
+        -72.5
+      ],
+      "roomId": "room-0267",
+      "size": [
+        15,
+        4
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0892",
+      "element": "door-locked",
+      "floor": 1,
+      "pos": [
+        -50,
+        -60
+      ],
+      "roomId": "room-0307",
+      "rotation": 90
+    },
+    {
+      "id": "pl-0894",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        -20,
+        -302.5
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0895",
+      "element": "exit-point",
+      "floor": 0,
+      "pos": [
+        -235,
+        -355
+      ]
+    },
+    {
+      "id": "pl-0896",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        95,
+        -35
+      ]
+    },
+    {
+      "id": "pl-0897",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        0,
+        95
+      ]
+    },
+    {
+      "id": "pl-0898",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        95,
+        80
+      ]
+    },
+    {
+      "id": "pl-0899",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -145,
+        15
+      ]
+    },
+    {
+      "id": "pl-0900",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -135,
+        30
+      ]
+    },
+    {
+      "id": "pl-0901",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        160,
+        0
+      ]
+    },
+    {
+      "id": "pl-0902",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        160,
+        -15
+      ]
+    },
+    {
+      "id": "pl-0903",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        225,
+        35
+      ]
+    },
+    {
+      "id": "pl-0904",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        220,
+        60
+      ]
+    },
+    {
+      "id": "pl-0905",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "pl-0906",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        200,
+        50
+      ]
+    },
+    {
+      "id": "pl-0907",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        190,
+        50
+      ]
+    },
+    {
+      "id": "pl-0908",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        225,
+        -45
+      ]
+    },
+    {
+      "id": "pl-0909",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        170,
+        -45
+      ]
+    },
+    {
+      "id": "pl-0910",
+      "element": "hiding-spot",
+      "floor": 0,
+      "pos": [
+        170,
+        0
+      ]
+    },
+    {
+      "id": "pl-0911",
+      "element": "objective",
+      "floor": 0,
+      "pos": [
+        195,
+        -25
+      ],
+      "roomId": "room-0268",
+      "marker": {
+        "label": 8,
+        "offset": [
+          60,
+          40
+        ],
+        "lineDashed": true
+      }
+    },
+    {
+      "id": "pl-0912",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -100,
+        160
+      ]
+    },
+    {
+      "id": "pl-0913",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -55,
+        125
+      ]
+    },
+    {
+      "id": "pl-0914",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -50,
+        175
+      ]
+    },
+    {
+      "id": "pl-0915",
+      "element": "rebirth-frequency",
+      "floor": 1,
+      "pos": [
+        -75,
+        140
+      ]
+    },
+    {
+      "id": "pl-0916",
+      "element": "gas-can",
+      "floor": 1,
+      "pos": [
+        -100,
+        110
+      ]
+    },
+    {
+      "id": "pl-0917",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -85,
+        -75
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0918",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -80,
+        -60
+      ],
+      "roomId": "room-0289"
+    },
+    {
+      "id": "pl-0919",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        60,
+        -25
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0920",
+      "element": "key",
+      "floor": 0,
+      "pos": [
+        100,
+        60
+      ]
+    },
+    {
+      "id": "pl-0921",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -110,
+        -40
+      ]
+    },
+    {
+      "id": "pl-0922",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        -20,
+        -25
+      ],
+      "roomId": "room-0335"
+    },
+    {
+      "id": "pl-0923",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        -35,
+        0
+      ]
+    },
+    {
+      "id": "pl-0924",
+      "element": "brick",
+      "floor": 0,
+      "pos": [
+        -65,
+        160
+      ],
+      "roomId": "room-0335"
+    },
+    {
+      "id": "pl-0925",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        -120,
+        175
+      ]
+    },
+    {
+      "id": "pl-0926",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -50,
+        100
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0927",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        -50,
+        110
+      ]
+    },
+    {
+      "id": "pl-0928",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -80,
+        175
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0929",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        125,
+        -75
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0930",
+      "element": "enemy-spawn",
+      "floor": 0,
+      "pos": [
+        230,
+        -20
+      ],
+      "rotation": 90
+    },
+    {
+      "id": "pl-0931",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        185,
+        55
+      ]
+    },
+    {
+      "id": "pl-0932",
+      "element": "obstacle",
+      "floor": 0,
+      "pos": [
+        -30,
+        -350
+      ],
+      "roomId": "room-0374",
+      "rotation": 180,
+      "size": [
+        15,
+        3.7
+      ]
+    },
+    {
+      "id": "pl-0933",
+      "element": "obstacle",
+      "floor": 0,
+      "pos": [
+        -110,
+        -350
+      ],
+      "roomId": "room-0374",
+      "size": [
+        15,
+        3.7
+      ]
+    },
+    {
+      "id": "pl-0934",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        215,
+        20
+      ]
+    },
+    {
+      "id": "pl-0935",
+      "element": "door",
+      "floor": 0,
+      "pos": [
+        220,
+        15
+      ]
+    },
+    {
+      "id": "pl-0936",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        115,
+        -70
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0937",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        10,
+        -50
+      ],
+      "roomId": "room-0308"
+    },
+    {
+      "id": "pl-0938",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        80,
+        -75
+      ]
+    },
+    {
+      "id": "pl-0940",
+      "element": "obstacle",
+      "floor": 1,
+      "pos": [
+        -30,
+        -350
+      ],
+      "rotation": 180,
+      "size": [
+        15,
+        3.7
+      ]
+    },
+    {
+      "id": "pl-0941",
+      "element": "obstacle",
+      "floor": 1,
+      "pos": [
+        -110,
+        -350
+      ],
+      "size": [
+        15,
+        3.7
+      ]
+    },
+    {
+      "id": "pl-0942",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        -10,
+        -95
+      ]
+    },
+    {
+      "id": "pl-0943",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -155,
+        -85
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0944",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -150,
+        -90
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0945",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -130,
+        10
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0946",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -65,
+        120
+      ]
+    },
+    {
+      "id": "pl-0947",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -160,
+        50
+      ]
+    },
+    {
+      "id": "pl-0948",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        -65,
+        115
+      ]
+    },
+    {
+      "id": "pl-0949",
+      "element": "bottle-spawn",
+      "floor": -1,
+      "pos": [
+        -120,
+        125
+      ],
+      "roomId": "room-0322"
+    },
+    {
+      "id": "pl-0950",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        110,
+        -60
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0951",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        145,
+        40
+      ]
+    },
+    {
+      "id": "pl-0952",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        175,
+        75
+      ]
+    },
+    {
+      "id": "pl-0953",
+      "element": "bottle-spawn",
+      "floor": 0,
+      "pos": [
+        40,
+        -70
+      ]
+    },
+    {
+      "id": "pl-0954",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -55,
+        150
+      ]
+    },
+    {
+      "id": "pl-0955",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -145,
+        150
+      ]
+    },
+    {
+      "id": "pl-0956",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -130,
+        -25
+      ],
+      "roomId": "room-0298"
+    },
+    {
+      "id": "pl-0957",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        145,
+        45
+      ]
+    },
+    {
+      "id": "pl-0958",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        -80,
+        -40
+      ]
+    },
+    {
+      "id": "pl-0959",
+      "element": "item-spawn",
+      "floor": 1,
+      "pos": [
+        145,
+        50
+      ]
+    },
+    {
+      "id": "pl-0960",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -100,
+        -75
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0961",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -35,
+        -10
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0962",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -45,
+        -20
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0963",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        170,
+        -25
+      ]
+    },
+    {
+      "id": "pl-0964",
+      "element": "item-spawn",
+      "floor": 0,
+      "pos": [
+        -85,
+        -40
+      ],
+      "roomId": "room-0267"
+    },
+    {
+      "id": "pl-0965",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -55,
+        145
+      ]
+    },
+    {
+      "id": "pl-0966",
+      "element": "rebirth-frequency",
+      "floor": 0,
+      "pos": [
+        -135,
+        -90
+      ]
+    },
+    {
+      "id": "pl-0967",
+      "element": "gas-can",
+      "floor": 0,
+      "pos": [
+        -75,
+        160
+      ]
+    },
+    {
+      "id": "pl-0968",
+      "element": "film-reel",
+      "floor": 0,
+      "pos": [
+        145,
+        -60
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "route-0001",
+      "name": "Route 1",
+      "floor": 1,
+      "path": "M0,0 v-70 h150 v120 h10 v10 h40 v-35 h-30 v-50 h-15 v-50 h-245 v10 h-80 v20 h20 v30 h-20 v30 h20 v-15 h20 v-45 h70 v-15 h25",
+      "style": "route"
+    },
+    {
+      "id": "route-0007",
+      "name": "Route 7",
+      "floor": 1,
+      "path": "M-30,-350 v-10 h-80 v10",
+      "style": "route"
+    },
+    {
+      "id": "route-0008",
+      "name": "Route 8",
+      "floor": 0,
+      "path": "M-110,-350 v65 h-30 v-70 h-95",
+      "style": "route"
+    },
+    {
+      "id": "route-0010",
+      "name": "Route 4",
+      "floor": 0,
+      "path": "M-65,150 h-35 v-30 h35 v15",
+      "style": "route"
+    },
+    {
+      "id": "route-0011",
+      "name": "Route 3",
+      "floor": 1,
+      "path": "M-130,120 v25 h20 v-30 h45 v20",
+      "style": "route"
+    },
+    {
+      "id": "route-0012",
+      "name": "Route 5",
+      "floor": -1,
+      "path": "M-80,150 h-20 v-45 h30 v30 h-25 v15 h15",
+      "style": "route"
+    },
+    {
+      "id": "route-0015",
+      "name": "Route 2",
+      "floor": 0,
+      "path": "M-30,-60 h25 v150 h60 v15 h70 v-135 h-25 v60 h-60 v55 h-40 v-155 h-175 v70 h45 v-40 h30 v20 h-15 v75 h-25 v40 h10 v25",
+      "style": "route"
+    },
+    {
+      "id": "route-0016",
+      "name": "Route 6",
+      "floor": 0,
+      "path": "M-65,130 v-25 h-25 v-35 h30 v-90 h-35 v-25 h55 v40 h15 v20 h-15 v40 v-40 h15 v-60 h30 v-25 h65 v15 h85 v80 h20 v40 h45 v-85 h-25 v-40 h-10 v-15 h-185 v-230 h-30 v-45",
+      "style": "route"
+    }
+  ],
+  "shapes": []
+}

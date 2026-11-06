@@ -714,6 +714,46 @@
       "category": "objective",
       "color": "#7f8c8d",
       "icon": "rigupgrade_electricboost"
+    },
+    {
+      "id": "brick",
+      "name": "Brick",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_brick",
+      "description": "Possible location for bricks."
+    },
+    {
+      "id": "hiding-spot",
+      "name": "Hiding Spot",
+      "category": "misc",
+      "color": "#7f8c8d",
+      "icon": "hidespot",
+      "description": "Possible location for a hiding spot."
+    },
+    {
+      "id": "bottle-spawn",
+      "name": "Bottle",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_bottle",
+      "description": "Possible location for bottles."
+    },
+    {
+      "id": "rebirth-frequency",
+      "name": "Rebirth Frequency",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "objective_rebirth_tab_icon",
+      "description": "Frequency that needs to be solved to complete the Rebirth."
+    },
+    {
+      "id": "film-reel",
+      "name": "Film Reel",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "item_diapo",
+      "description": "Film reel that needs to be put into a projector."
     }
   ]
 }
