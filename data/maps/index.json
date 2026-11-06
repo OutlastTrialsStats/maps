@@ -35,8 +35,9 @@
       "id": "toy-factory",
       "name": "Toy Factory",
       "card": "https://outlasttrialsstats.com/game-assets/Poster_Program_05.webp",
-      "progress": 0,
-      "enabled": false
+      "progress": 30,
+      "enabled": true,
+      "hasManifest": true
     },
     {
       "id": "the-docks",
@@ -97,10 +98,11 @@
     },
     {
       "id": "mansion",
-      "name": "Mansion",
+      "name": "Rebirth Mansion",
       "card": "https://outlasttrialsstats.com/game-assets/Poster_Program_Core2.webp",
-      "progress": 0,
-      "enabled": false
+      "progress": 100,
+      "enabled": true,
+      "hasManifest": true
     },
     {
       "id": "sleep-room",

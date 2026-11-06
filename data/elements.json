@@ -658,6 +658,102 @@
       "color": "#7f8c8d",
       "description": "Will hold pills if solo, or possibly nothing if on a high enough difficulty",
       "icon": "state_syringe"
+    },
+    {
+      "id": "crank",
+      "name": "Crank",
+      "category": "generator",
+      "color": "#7f8c8d",
+      "icon": "item_crankwheel"
+    },
+    {
+      "id": "compactor",
+      "name": "Compactor",
+      "category": "generator",
+      "color": "#7f8c8d",
+      "icon": "item_components"
+    },
+    {
+      "id": "trash-boxes",
+      "name": "Trash Boxes",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_object"
+    },
+    {
+      "id": "alarm-door",
+      "name": "Alarm Door",
+      "category": "door",
+      "color": "#7f8c8d",
+      "icon": "item_door_alarm"
+    },
+    {
+      "id": "input-machines-boxes",
+      "name": "Toy Boxes",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_object"
+    },
+    {
+      "id": "electronic-lock",
+      "name": "Electronic Lock",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "lock"
+    },
+    {
+      "id": "heavy-items-blocker-door",
+      "name": "Heavy Object Gate",
+      "category": "door",
+      "color": "#7f8c8d",
+      "icon": "prescription_heavytraining"
+    },
+    {
+      "id": "electrical-panel",
+      "name": "Electrical Panel",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "rigupgrade_electricboost"
+    },
+    {
+      "id": "brick",
+      "name": "Brick",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_brick",
+      "description": "Possible location for bricks."
+    },
+    {
+      "id": "hiding-spot",
+      "name": "Hiding Spot",
+      "category": "misc",
+      "color": "#7f8c8d",
+      "icon": "hidespot",
+      "description": "Possible location for a hiding spot."
+    },
+    {
+      "id": "bottle-spawn",
+      "name": "Bottle",
+      "category": "item",
+      "color": "#7f8c8d",
+      "icon": "item_bottle",
+      "description": "Possible location for bottles."
+    },
+    {
+      "id": "rebirth-frequency",
+      "name": "Rebirth Frequency",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "objective_rebirth_tab_icon",
+      "description": "Frequency that needs to be solved to complete the Rebirth."
+    },
+    {
+      "id": "film-reel",
+      "name": "Film Reel",
+      "category": "objective",
+      "color": "#7f8c8d",
+      "icon": "item_diapo",
+      "description": "Film reel that needs to be put into a projector."
     }
   ]
 }

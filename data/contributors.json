@@ -14,7 +14,8 @@
       "profileId": "3a5e7b94-6161-3796-1f8e-0425bdff9457",
       "profileUrl": "https://outlasttrialsstats.com/@mateuxss",
       "maps": [
-        "prison-farm"
+        "prison-farm",
+        "toy-factory"
       ]
     },
     {
@@ -47,6 +48,38 @@
       "profileUrl": "https://outlasttrialsstats.com/@fwenn",
       "maps": [
         "police-station"
+      ]
+    },
+    {
+      "name": "Thrashy",
+      "profileId": "3c777eae-3fdd-6fc9-22d0-a48200cab033",
+      "profileUrl": "https://outlasttrialsstats.com/@thrashy",
+      "maps": [
+        "police-station"
+      ]
+    },
+    {
+      "name": "Neemo",
+      "profileId": "9539ac7e-3d8e-5357-d1bf-fbbd30173b54",
+      "profileUrl": "https://outlasttrialsstats.com/@neemo",
+      "maps": [
+        "prison-farm"
+      ]
+    },
+    {
+      "name": "Creacken",
+      "profileId": "38e23084-d904-15f7-d4ec-4227d8f7a410",
+      "profileUrl": "https://outlasttrialsstats.com/@creacken",
+      "maps": [
+        "police-station"
+      ]
+    },
+    {
+      "name": "HaxxSmart",
+      "profileId": "14c6fd60-6931-753a-f1e0-1b603309d1af",
+      "profileUrl": "https://outlasttrialsstats.com/profile/14c6fd60-6931-753a-f1e0-1b603309d1af",
+      "maps": [
+        "mansion"
       ]
     }
   ]
