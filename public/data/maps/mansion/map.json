@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../schemas/map.schema.json",
+  "id": "mansion",
+  "meta": {
+    "name": "Rebirth Mansion",
+    "authors": [
+      "HaxxSmart"
+    ]
+  },
+  "trials": [
+    {
+      "id": "main",
+      "name": "Main Trial",
+      "default": true
+    }
+  ]
+}
