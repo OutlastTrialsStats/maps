@@ -4,6 +4,7 @@ import Button from 'primevue/button'
 import Menu from 'primevue/menu'
 import Select from 'primevue/select'
 import { computed, ref } from 'vue'
+import { LOGO_MARK_URL } from '../core/constants'
 import { useEditorStore } from './store/editorStore'
 import ToolbarSeparator from './ToolbarSeparator.vue'
 
@@ -45,6 +46,9 @@ const fileItems = computed<MenuItem[]>(() => [
 
 <template>
   <header class="header">
+    <RouterLink v-tooltip.bottom="'Outlast Trials Maps'" :to="{ name: 'overview' }" class="home">
+      <img class="home-logo" :src="LOGO_MARK_URL" alt="Outlast Trials Maps" />
+    </RouterLink>
     <div v-if="store.document" class="context">
       <span class="map-name">{{ store.manifest?.meta.name }}</span>
       <i class="pi pi-angle-right" aria-hidden="true" />
@@ -137,6 +141,17 @@ const fileItems = computed<MenuItem[]>(() => [
   padding: 6px 12px 6px 16px;
   border-bottom: 1px solid var(--border-default);
   background: var(--surface-panel);
+}
+
+.home {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.home-logo {
+  display: block;
+  width: 32px;
+  height: 32px;
 }
 
 .context {

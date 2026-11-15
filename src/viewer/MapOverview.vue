@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { LOGO_LOCKUP_URL } from '../core/constants'
 import { useHorizontalWheelScroll } from '../core/interaction/useHorizontalWheelScroll'
 import { loadMapsIndex } from '../core/model/dataSource'
 import type { MapRegistryEntry } from '../core/model/types'
@@ -38,6 +39,7 @@ onMounted(async () => {
       <section class="hero">
         <HeroBanner
           title="Outlast Trials Maps"
+          :logo-src="LOGO_LOCKUP_URL"
           subtitle="Interactive Outlast Trials Maps"
           stamp="Beta"
         />
