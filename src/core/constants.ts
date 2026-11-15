@@ -12,6 +12,8 @@ export const ELEMENT_LIBRARY_URL = `${DATA_BASE_URL}/${ELEMENT_LIBRARY_PATH}`
 export const ZONE_LIBRARY_URL = `${DATA_BASE_URL}/${ZONE_LIBRARY_PATH}`
 export const CONTRIBUTORS_URL = `${DATA_BASE_URL}/${CONTRIBUTORS_PATH}`
 export const SCHEMA_BASE_URL = `${import.meta.env.BASE_URL}schemas`
+export const LOGO_LOCKUP_URL = `${import.meta.env.BASE_URL}images/logo/maps-lockup.svg`
+export const LOGO_MARK_URL = `${import.meta.env.BASE_URL}images/logo/maps-mark.svg`
 
 export const GITHUB_REPO_URL = 'https://github.com/OutlastTrialsStats/maps#contributing'
 

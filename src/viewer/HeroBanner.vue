@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   title: string
+  logoSrc?: string
   subtitle?: string
   stamp?: string
 }>()
@@ -18,7 +19,10 @@ defineProps<{
         fetchpriority="high"
       />
       <div class="banner-overlay">
-        <h1 class="banner-title">{{ title }}</h1>
+        <h1 class="banner-title">
+          <img v-if="logoSrc" class="banner-logo" :src="logoSrc" :alt="title" />
+          <template v-else>{{ title }}</template>
+        </h1>
         <p v-if="subtitle" class="banner-subtitle">{{ subtitle }}</p>
       </div>
       <span v-if="stamp" class="banner-stamp">{{ stamp }}</span>
@@ -64,6 +68,18 @@ defineProps<{
   text-shadow: 1px 1px 4px var(--text-shadow-color);
 }
 
+.banner-title:has(.banner-logo) {
+  align-self: stretch;
+}
+
+.banner-logo {
+  display: block;
+  width: min(82%, 28rem);
+  margin-inline: auto;
+  height: auto;
+  filter: drop-shadow(1px 1px 4px var(--text-shadow-color));
+}
+
 .banner-subtitle {
   margin: 0.5rem 0 0;
   max-width: 60ch;
@@ -92,5 +108,19 @@ defineProps<{
   transform: rotate(8deg);
   opacity: 0.9;
   pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .banner-logo {
+    width: 80%;
+  }
+
+  .banner-title:has(.banner-logo) + .banner-subtitle {
+    display: none;
+  }
+
+  .banner-stamp {
+    top: -6%;
+  }
 }
 </style>
