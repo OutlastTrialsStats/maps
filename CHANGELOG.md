@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/OutlastTrialsStats/maps/compare/v1.5.1...v1.6.0) (2026-11-15)
+
+
+### Features
+
+* use new Outlast Trials Maps logo ([#110](https://github.com/OutlastTrialsStats/maps/issues/110)) ([9efab91](https://github.com/OutlastTrialsStats/maps/commit/9efab912cb594b20ced9153d4685da57a6debfe8))
+
+
+### Dependencies
+
+* **deps:** bump the pnpm-patches group across 1 directory with 5 updates ([#109](https://github.com/OutlastTrialsStats/maps/issues/109)) ([564d98b](https://github.com/OutlastTrialsStats/maps/commit/564d98bc6af8a81de3f39b7b54307c418b3ee107))
+
 ## [1.5.1](https://github.com/OutlastTrialsStats/maps/compare/v1.5.0...v1.5.1) (2026-11-06)
 
 
