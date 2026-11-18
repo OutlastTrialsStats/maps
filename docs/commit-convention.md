@@ -67,3 +67,9 @@ Every push to `main` runs release-please, which maintains a **release PR** colle
 releasable commits since the last tag. Merging that PR is the release: it bumps `package.json`,
 updates `CHANGELOG.md`, tags `vX.Y.Z`, creates the GitHub release and deploys the build to
 GitHub Pages. Nothing goes live before a maintainer merges the release PR.
+
+## Discord
+
+Every release posts its Features, Bug Fixes and Performance Improvements to Discord via
+[release-announcer](https://github.com/OutlastTrialsStats/release-announcer). To keep a change out of
+that post, give it any other type, e.g. `refactor`, `chore` or `docs`.
