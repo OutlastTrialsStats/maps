@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.1](https://github.com/OutlastTrialsStats/maps/compare/v1.6.0...v1.6.1) (2026-11-18)
+
+
+### Documentation
+
+* describe editing the discord changelog ([6d1c57a](https://github.com/OutlastTrialsStats/maps/commit/6d1c57a15540c451a2f11378da42a6713d2df0b8))
+* note how to keep changes out of the discord post ([006cb1d](https://github.com/OutlastTrialsStats/maps/commit/006cb1d5fefbc372079bcb398e0c11bf04ee6a83))
+
+
+### Continuous Integration
+
+* add announce workflow ([0ed6d20](https://github.com/OutlastTrialsStats/maps/commit/0ed6d204a3d5876413164b77ec62ffbb202fe836))
+* announce releases on discord ([c1ee947](https://github.com/OutlastTrialsStats/maps/commit/c1ee9474b9d3aa5b0b1c13c47990c0858f5734c8))
+
 ## [1.6.0](https://github.com/OutlastTrialsStats/maps/compare/v1.5.1...v1.6.0) (2026-11-15)
 
 
