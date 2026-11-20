@@ -6655,6 +6655,196 @@
         820
       ],
       "roomId": "f1-electric-chair-room"
+    },
+    {
+      "id": "pl-0109",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        630,
+        715
+      ],
+      "roomId": "f1-room-14"
+    },
+    {
+      "id": "pl-0110",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        760,
+        630
+      ],
+      "roomId": "f1-room-62"
+    },
+    {
+      "id": "pl-0111",
+      "element": "document",
+      "floor": 0,
+      "pos": [
+        680,
+        690
+      ],
+      "roomId": "f1-room-20"
+    },
+    {
+      "id": "pl-0112",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        295,
+        845
+      ],
+      "roomId": "f1-room-79"
+    },
+    {
+      "id": "pl-0113",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        210,
+        445
+      ],
+      "roomId": "ug-room-01"
+    },
+    {
+      "id": "pl-0114",
+      "element": "gas-can",
+      "floor": -1,
+      "pos": [
+        210,
+        465
+      ],
+      "roomId": "ug-room-01"
+    },
+    {
+      "id": "pl-0115",
+      "element": "poster",
+      "floor": -1,
+      "pos": [
+        375,
+        470
+      ],
+      "roomId": "room-0002"
+    },
+    {
+      "id": "pl-0116",
+      "element": "document",
+      "floor": 0,
+      "pos": [
+        415,
+        185
+      ],
+      "roomId": "room-0007"
+    },
+    {
+      "id": "pl-0117",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        465,
+        490
+      ],
+      "roomId": "f1-cafeteria-2"
+    },
+    {
+      "id": "pl-0118",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        165,
+        645
+      ],
+      "roomId": "f1-room-41"
+    },
+    {
+      "id": "pl-0119",
+      "element": "document",
+      "floor": 0,
+      "pos": [
+        295,
+        695
+      ],
+      "roomId": "f1-darkroom"
+    },
+    {
+      "id": "pl-0120",
+      "element": "document",
+      "floor": 0,
+      "pos": [
+        645,
+        1015
+      ],
+      "roomId": "f1-room-72"
+    },
+    {
+      "id": "pl-0121",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        600,
+        840
+      ],
+      "roomId": "f1-room-77"
+    },
+    {
+      "id": "pl-0122",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        620,
+        675
+      ],
+      "roomId": "f1-room-20"
+    },
+    {
+      "id": "pl-0123",
+      "element": "poster",
+      "floor": -1,
+      "pos": [
+        420,
+        555
+      ],
+      "roomId": "room-0002"
+    },
+    {
+      "id": "pl-0124",
+      "element": "document",
+      "floor": -1,
+      "pos": [
+        315,
+        750
+      ],
+      "roomId": "ug-room-06"
+    },
+    {
+      "id": "pl-0125",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        540,
+        385
+      ],
+      "roomId": "f1-room-15"
+    },
+    {
+      "id": "pl-0126",
+      "element": "poster",
+      "floor": 0,
+      "pos": [
+        225,
+        590
+      ],
+      "roomId": "f1-room-41"
+    },
+    {
+      "id": "pl-0127",
+      "element": "document",
+      "floor": 0,
+      "pos": [
+        255,
+        430
+      ],
+      "roomId": "room-0008"
     }
   ],
   "routes": [],
